@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\sun\\source\\repos\\DOTNET2\\1.4\\1.4.csproj",
+      "projectUniqueName": "C:\\Users\\sun\\source\\repos\\jxfl27\\DotNetHomeWork\\DOTNET2\\1.4\\1.4.csproj",
       "projectName": "1.4",
-      "projectPath": "C:\\Users\\sun\\source\\repos\\DOTNET2\\1.4\\1.4.csproj",
+      "projectPath": "C:\\Users\\sun\\source\\repos\\jxfl27\\DotNetHomeWork\\DOTNET2\\1.4\\1.4.csproj",
       "packagesPath": "C:\\Users\\sun\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\sun\\source\\repos\\DOTNET2\\1.4\\obj\\",
+      "outputPath": "C:\\Users\\sun\\source\\repos\\jxfl27\\DotNetHomeWork\\DOTNET2\\1.4\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\sun\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -53,16 +53,6 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "downloadDependencies": [
-          {
-            "name": "Microsoft.NETCore.App.Ref",
-            "version": "[3.1.0, 3.1.0]"
-          },
-          {
-            "name": "Microsoft.WindowsDesktop.App.Ref",
-            "version": "[3.1.0, 3.1.0]"
-          }
-        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"

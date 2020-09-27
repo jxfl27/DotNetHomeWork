@@ -1,11 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "nsfSMTIOxSMacTdMC3bfEMiR0PbxWpxl6qbc0bHdP4q1E4cwuYsqTLpkP6eHTdcDGCBYNFoIdYpzEvkwzpuXJg==",
+  "dgSpecHash": "fU0iXveOCdaYwkfAiaFneMlztqKA1Ihfvwgen8R+PHPDDECGUC2/oMTPq7TPPRJHdaYfdjU68pF6hJMj2ahh6g==",
   "success": true,
-  "projectFilePath": "C:\\Users\\sun\\source\\repos\\DOTNET2\\1.4\\1.4.csproj",
-  "expectedPackageFiles": [
-    "C:\\Users\\sun\\.nuget\\packages\\microsoft.netcore.app.ref\\3.1.0\\microsoft.netcore.app.ref.3.1.0.nupkg.sha512",
-    "C:\\Users\\sun\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\3.1.0\\microsoft.windowsdesktop.app.ref.3.1.0.nupkg.sha512"
-  ],
+  "projectFilePath": "C:\\Users\\sun\\source\\repos\\jxfl27\\DotNetHomeWork\\DOTNET2\\1.4\\1.4.csproj",
+  "expectedPackageFiles": [],
   "logs": []
 }
