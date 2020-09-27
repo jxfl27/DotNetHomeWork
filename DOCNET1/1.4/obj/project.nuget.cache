@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "jfq4CFMOmiXE43YuDWHLN8mpXmoZFgVk7JqPK0HIYI9NdoDYyyLgkJKeQKq9G8PPXdJ5oi8mMNHVq/87ooItwg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\sun\\source\\repos\\DOCNET1\\1.4\\1.4.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\sun\\.nuget\\packages\\microsoft.netcore.app.ref\\3.1.0\\microsoft.netcore.app.ref.3.1.0.nupkg.sha512",
+    "C:\\Users\\sun\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\3.1.0\\microsoft.windowsdesktop.app.ref.3.1.0.nupkg.sha512"
+  ],
+  "logs": []
+}

@@ -1,0 +1,13 @@
+C:\Users\sun\source\repos\DOTNET2\1.4\bin\Debug\netcoreapp3.1\1.4.exe
+C:\Users\sun\source\repos\DOTNET2\1.4\bin\Debug\netcoreapp3.1\1.4.deps.json
+C:\Users\sun\source\repos\DOTNET2\1.4\bin\Debug\netcoreapp3.1\1.4.runtimeconfig.json
+C:\Users\sun\source\repos\DOTNET2\1.4\bin\Debug\netcoreapp3.1\1.4.runtimeconfig.dev.json
+C:\Users\sun\source\repos\DOTNET2\1.4\bin\Debug\netcoreapp3.1\1.4.dll
+C:\Users\sun\source\repos\DOTNET2\1.4\bin\Debug\netcoreapp3.1\1.4.pdb
+C:\Users\sun\source\repos\DOTNET2\1.4\obj\Debug\netcoreapp3.1\1.4.csprojAssemblyReference.cache
+C:\Users\sun\source\repos\DOTNET2\1.4\obj\Debug\netcoreapp3.1\1.4.AssemblyInfoInputs.cache
+C:\Users\sun\source\repos\DOTNET2\1.4\obj\Debug\netcoreapp3.1\1.4.AssemblyInfo.cs
+C:\Users\sun\source\repos\DOTNET2\1.4\obj\Debug\netcoreapp3.1\1.4.csproj.CoreCompileInputs.cache
+C:\Users\sun\source\repos\DOTNET2\1.4\obj\Debug\netcoreapp3.1\1.4.dll
+C:\Users\sun\source\repos\DOTNET2\1.4\obj\Debug\netcoreapp3.1\1.4.pdb
+C:\Users\sun\source\repos\DOTNET2\1.4\obj\Debug\netcoreapp3.1\1.4.genruntimeconfig.cache
