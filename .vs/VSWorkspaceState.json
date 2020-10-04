@@ -1,8 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\DOTNET2",
-    "\\DOTNET2\\1.4"
+    "\\1.1",
+    "\\DOTNET4\\Properties"
   ],
+  "SelectedNode": "\\1.1\\1.2",
   "PreviewInSolutionExplorer": false
 }
