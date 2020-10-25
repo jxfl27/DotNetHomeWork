@@ -1,0 +1,10 @@
+C:\Users\sun\source\repos\jxfl27\DotNetHomeWork\DOTNET4\1.1\bin\Debug\1.1.exe.config
+C:\Users\sun\source\repos\jxfl27\DotNetHomeWork\DOTNET4\1.1\bin\Debug\1.1.exe
+C:\Users\sun\source\repos\jxfl27\DotNetHomeWork\DOTNET4\1.1\obj\Debug\4.1.csprojAssemblyReference.cache
+C:\Users\sun\source\repos\jxfl27\DotNetHomeWork\DOTNET4\1.1\obj\Debug\_1._1.Form1.resources
+C:\Users\sun\source\repos\jxfl27\DotNetHomeWork\DOTNET4\1.1\obj\Debug\_1._1.Properties.Resources.resources
+C:\Users\sun\source\repos\jxfl27\DotNetHomeWork\DOTNET4\1.1\obj\Debug\4.1.csproj.GenerateResource.cache
+C:\Users\sun\source\repos\jxfl27\DotNetHomeWork\DOTNET4\1.1\obj\Debug\4.1.csproj.CoreCompileInputs.cache
+C:\Users\sun\source\repos\jxfl27\DotNetHomeWork\DOTNET4\1.1\obj\Debug\1.1.exe
+C:\Users\sun\source\repos\jxfl27\DotNetHomeWork\DOTNET4\1.1\obj\Debug\1.1.pdb
+C:\Users\sun\source\repos\jxfl27\DotNetHomeWork\DOTNET4\1.1\bin\Debug\1.1.pdb

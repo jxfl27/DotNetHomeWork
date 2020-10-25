@@ -4,7 +4,7 @@ using System.Text;
 
 namespace _1._1
 {
-    class OrderService
+    public class OrderService
     {
         public List<Order> OrderList;
         static private OrderService Servicer;
@@ -34,7 +34,7 @@ namespace _1._1
             int index = OrderList.IndexOf(order);
             if (index == -1)
             {
-                throw new Exception("There's no such order");
+                throw new Exception("NULL");
             }
             else
             {
@@ -46,7 +46,7 @@ namespace _1._1
             int index = OrderList.IndexOf(order);
             if (index == -1)
             {
-                throw new Exception("There's no such order");
+                throw new Exception("NULL");
             }
             else
             {

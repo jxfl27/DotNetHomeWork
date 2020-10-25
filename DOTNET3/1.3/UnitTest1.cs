@@ -1,6 +1,12 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using _1._1;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace _1._1
+namespace _1._2
 {
     [TestClass]
     public class UnitTest1
@@ -8,30 +14,30 @@ namespace _1._1
         private Order order1 = new Order()
         {
             ID = 1000001,
-            CustomerName = "Jerome",
-            OrderDetails = new List<OrderDetail>()
+            name = "Jerome",
+            ods = new List<OrderDetails>()
                 {
-                    new OrderDetail("phone",1000),
-                    new OrderDetail("PC",8000)
+                    new OrderDetails("phone",1000),
+                    new OrderDetails("PC",8000)
                 }
         };
         private Order order2 = new Order()
         {
             ID = 1000002,
-            CustomerName = "Peter",
-            OrderDetails = new List<OrderDetail>()
+            name = "Peter",
+            ods = new List<OrderDetails>()
                 {
-                    new OrderDetail("phone",2000),
-                    new OrderDetail("PC",10000)
+                    new OrderDetails("phone",2000),
+                    new OrderDetails("PC",10000)
                 }
         };
         private Order order3 = new Order()
         {
             ID = 1000003,
-            CustomerName = "Kold",
-            OrderDetails = new List<OrderDetail>()
+            name = "Kold",
+            ods = new List<OrderDetails>()
                 {
-                    new OrderDetail("PC",20000)
+                    new OrderDetails("PC",20000)
                 }
         };
         private OrderService service;
@@ -41,8 +47,8 @@ namespace _1._1
         {
             service = OrderService.Instance();
             service.OrderList.Clear();
-            service.AddOrder(order1);
-            service.AddOrder(order2);
+            service.Add(order1);
+            service.Add(order2);
         }
 
         [TestMethod]
@@ -50,10 +56,10 @@ namespace _1._1
         {
             try
             {
-                var order = service.QueryOrder(order1);
+                var order = service.Search(order1);
                 Console.WriteLine(order.ToString());
 
-                order = service.QueryOrder(order3);
+                order = service.Search(order3);
                 Console.WriteLine(order.ToString());
             }
             catch (Exception ex)
@@ -64,7 +70,7 @@ namespace _1._1
         [TestMethod]
         public void SortTest()
         {
-            service.AddOrder(order3);
+            service.Add(order3);
             service.Sort();
             var correct = new List<Order>
             {
@@ -72,7 +78,7 @@ namespace _1._1
             };
             CollectionAssert.Equals(service.OrderList, correct);
 
-            service.Sort((a, b) => string.Compare(a.CustomerName, b.CustomerName));
+            service.Sort((a, b) => string.Compare(a.name, b.name));
             correct = new List<Order>
             {
                 order1,order3,order2
@@ -81,10 +87,6 @@ namespace _1._1
         }
 
         [TestMethod]
-        public void SerializerTest()
-        {
-            service.SerializeOrder("order.xml");
-            service.DeserilizeOrder("order.xml");
-        }
+
     }
 }

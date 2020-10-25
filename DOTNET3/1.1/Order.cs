@@ -5,7 +5,7 @@ using System.Text;
 
 namespace _1._1
 {
-    class Order
+    public class Order
     {
         public int ID { get; set; }
         public string name { get; set; }

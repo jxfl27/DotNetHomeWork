@@ -4,7 +4,7 @@ using System.Text;
 
 namespace _1._1
 {
-    class OrderDetails
+    public class OrderDetails
     {
         public string goodsName { get; set; }
         public double cost { get; set; }
@@ -12,7 +12,7 @@ namespace _1._1
         {
         }
         //重载
-        public OrderDetails(double _cost,string _goodsName)
+        public OrderDetails(string _goodsName, double _cost)
         {
             this.cost = _cost;
             this.goodsName = _goodsName;
