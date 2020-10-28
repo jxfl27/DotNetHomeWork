@@ -1,0 +1,661 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="origin" />
+    
+    
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>老孟Flutter - 博客园</title>
+    <link id="favicon" rel="shortcut icon" href="//common.cnblogs.com/favicon.svg" type="image/svg+xml" />
+    
+    <link rel="stylesheet" href="/css/blog-common.min.css?v=caAedYKpnz341INFIWakIM6r1EP9FIuJg43i9i8zqDQ" />
+    <link id="MainCss" rel="stylesheet" href="/skins/book/bundle-book.min.css?v=5xmc-Qs2EM-9vOc1aCV4382lc8BYx4rY4kBH4_strHE" />
+    
+    <link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="/skins/book/bundle-book-mobile.min.css?v=knKkc4mK64DhMyOGFAt_fp3wlqcr8kE7ZgudDKTL5q8" />
+    
+    <link type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/mengqd/rss" />
+    <link type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/mengqd/rsd.xml" />
+    <link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/mengqd/wlwmanifest.xml" />
+    <script>
+        var currentBlogId = 141280;
+        var currentBlogApp = 'mengqd';
+        var cb_enable_mathjax = false;
+        var isLogined = false;
+        var isBlogOwner = false;
+        var skinName = 'BOOK';
+        var visitorUserId = '';
+    </script>
+    <script src="https://common.cnblogs.com/scripts/jquery-2.2.0.min.js"></script>
+    <script src="/js/blog-common.min.js?v=kKx3DBtpvO8r97BzPmHJseQ10fGHkI-ZwMh4FA0eEd0"></script>
+    
+    
+    
+</head>
+<body class="has-navbar">
+    <a name="top"></a> 
+    <div id="top_nav" class="navbar">
+        <nav id="nav_main" class="navbar-main">
+            <ul id="nav_left" class="navbar-list navbar-left">
+                <li class="navbar-branding">
+                    <a href="https://www.cnblogs.com/" title="开发者的网上家园"><img src="/images/logo.svg?v=R9M0WmLAIPVydmdzE2keuvnjl-bPR7_35oHqtiBzGsM" alt="博客园Logo" /></a>
+                </li>
+                <li><a href="/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-sitehome')">首页</a></li>
+                <li><a href="https://news.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-news')">新闻</a></li>
+                <li><a href="https://q.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-q')">博问</a></li>
+                <li><a id="nav_brandzone" href="https://brands.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-brands')">专区</a></li>
+                <li><a href="https://ing.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-ing')">闪存</a></li>
+                <li><a href="https://edu.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-edu')">班级</a></li>
+            </ul>
+            <ul id="nav_right" class="navbar-list navbar-right">
+                <li>
+                    <form id="zzk_search" class="navbar-search" action="https://zzk.cnblogs.com/s" method="get">
+                        <input name="w" id="zzk_search_input" placeholder="代码改变世界" type="text" tabindex="3" />
+                        <button type="submit" id="zzk_search_button">
+                            <img src="/images/aggsite/search.svg" alt="搜索" />
+                        </button>
+                    </form>
+                </li>
+                <li id="navbar_login_status" class="navbar-list">
+                    <a id="navblog-myblog-icon" class="navbar-user-info navbar-blog" href="https://passport.cnblogs.com/GetBlogApplyStatus.aspx" alt="我的博客" title="我的博客">
+                        <img id="myblog_icon" class="navbar-icon" src="/images/aggsite/myblog.svg" alt="我的博客" />
+                    </a>
+                    <a class="navbar-user-info navbar-message navbar-icon-wrapper" href="https://msg.cnblogs.com/" alt="短消息" title="短消息">
+                        <img id="msg_icon" class="navbar-icon" src="/images/aggsite/message.svg?v=oS4PkibyMjZ9rGD5XAcLt99uW_s76Javy2up4dbnZNY" alt="短消息" />
+                        <span id="msg_count" style="display: none"></span>
+                    </a>
+                    <div id="user_info" class="navbar-user-info dropdown">
+                        <a class="dropdown-button" href="https://home.cnblogs.com/">
+                            <img id="user_icon" class="navbar-avatar" src="/images/aggsite/avatar-default.svg" alt="用户头像" />
+                        </a>
+                        <div class="dropdown-menu">
+                            <a id="navblog-myblog-text" href="https://passport.cnblogs.com/GetBlogApplyStatus.aspx">我的博客</a>
+                            <a href="https://home.cnblogs.com/">我的园子</a>
+                            <a href="https://account.cnblogs.com/settings/account">账号设置</a>
+                            <a href="javascript:void(0)" onclick="logout();">退出登录</a>
+                        </div>
+                    </div>
+                    <a class="navbar-anonymous" href="https://account.cnblogs.com/signup/">注册</a>
+                    <a class="navbar-anonymous" href="https://account.cnblogs.com/signin/?returnUrl=https://www.cnblogs.com/">登录</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    
+    <script type="text/javascript">
+	try {
+		if (screen.availWidth > 1200) {
+			document.getElementById("MainCss").href = '/skins/book/bundle-book-2.min.css';
+		}
+	} catch (e) { }
+</script>
+
+<div id="header">
+<div id="HeaderTitle">
+<div id="Title">
+<a id="Header1_HeaderTitle" class="headermaintitle HeaderMainTitle" href="https://www.cnblogs.com/mengqd/">meng5619</a>
+
+</div>
+<div id="subTitle">
+
+</div>
+</div>
+</div>
+
+
+<div id="main">
+	
+
+
+
+
+
+		
+<p class="date">
+	<a href="https://www.cnblogs.com/mengqd/archive/2020/01/18.html"></a>
+	2020年1月18日		  
+</p>
+
+		<div class="post">
+			<h2>
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/mengqd/p/12209814.html">
+    <span>
+            <span>[置顶]</span>
+        OpenGL ES for Android
+    </span>
+    
+
+
+</a>
+</h2>
+			
+			
+
+    <div class="c_b_p_desc">
+摘要：经过半年的准备OpenGL ES for Android系列文章终于要和大家见面了，在这里定一个小目标-先吸引1000个粉丝，万一实现了呢。写关于OpenGL ES的文章开始是有一些犹豫的，因为OpenGL ES的一些概念非常晦涩难懂，很多需要懂得计算机图形算法学相关的知识，您可能学了很久都找不到门        <a href="https://www.cnblogs.com/mengqd/p/12209814.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+
+			
+			<p class="postfoot">		
+				posted @ 2020-01-18 18:13
+老孟Flutter
+<span class="post-view-count">阅读(288)</span><text> </text>
+<span class="post-comment-count">评论(2)</span><text> </text>
+<span class="post-digg-count">推荐(0)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12209814" rel="nofollow">
+    编辑
+</a>
+
+			</p>
+		</div>
+
+
+		
+<p class="date">
+	<a href="https://www.cnblogs.com/mengqd/archive/2020/10/25.html"></a>
+	2020年10月25日		  
+</p>
+
+		<div class="post">
+			<h2>
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/mengqd/p/13875579.html">
+    <span>
+        【Flutter 面试】main入口函数会被调用几次
+    </span>
+    
+
+
+</a>
+</h2>
+			
+			
+
+    <div class="cnblogs-post-body" id="postlist_postbody_13875579">
+        正文内容加载中...
+    </div>
+    <script type="text/javascript">getBlogPostBody(13875579);</script>
+
+			
+			<p class="postfoot">		
+				posted @ 2020-10-25 22:10
+老孟Flutter
+<span class="post-view-count">阅读(62)</span><text> </text>
+<span class="post-comment-count">评论(0)</span><text> </text>
+<span class="post-digg-count">推荐(0)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13875579" rel="nofollow">
+    编辑
+</a>
+
+			</p>
+		</div>
+
+
+		
+<p class="date">
+	<a href="https://www.cnblogs.com/mengqd/archive/2020/10/22.html"></a>
+	2020年10月22日		  
+</p>
+
+		<div class="post">
+			<h2>
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/mengqd/p/13855813.html">
+    <span>
+        【Flutter 混合开发】与原生通信-BasicMessageChannel
+    </span>
+    
+
+
+</a>
+</h2>
+			
+			
+
+    <div class="c_b_p_desc">
+摘要：Flutter 混合开发系列 包含如下： 嵌入原生View-Android 嵌入原生View-iOS 与原生通信-MethodChannel 与原生通信-BasicMessageChannel 与原生通信-EventChannel 添加 Flutter 到 Android Activity 添加 F        <a href="https://www.cnblogs.com/mengqd/p/13855813.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+
+			
+			<p class="postfoot">		
+				posted @ 2020-10-22 07:00
+老孟Flutter
+<span class="post-view-count">阅读(141)</span><text> </text>
+<span class="post-comment-count">评论(0)</span><text> </text>
+<span class="post-digg-count">推荐(0)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13855813" rel="nofollow">
+    编辑
+</a>
+
+			</p>
+		</div>
+
+
+		
+<p class="date">
+	<a href="https://www.cnblogs.com/mengqd/archive/2020/10/20.html"></a>
+	2020年10月20日		  
+</p>
+
+		<div class="post">
+			<h2>
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/mengqd/p/13844339.html">
+    <span>
+        【Flutter 混合开发】与原生通信-MethodChannel
+    </span>
+    
+
+
+</a>
+</h2>
+			
+			
+
+    <div class="c_b_p_desc">
+摘要：Flutter 混合开发系列 包含如下： 嵌入原生View-Android 嵌入原生View-iOS 与原生通信-MethodChannel 与原生通信-BasicMessageChannel 与原生通信-EventChannel 添加 Flutter 到 Android Activity 添加 F        <a href="https://www.cnblogs.com/mengqd/p/13844339.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+
+			
+			<p class="postfoot">		
+				posted @ 2020-10-20 08:09
+老孟Flutter
+<span class="post-view-count">阅读(185)</span><text> </text>
+<span class="post-comment-count">评论(0)</span><text> </text>
+<span class="post-digg-count">推荐(1)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13844339" rel="nofollow">
+    编辑
+</a>
+
+			</p>
+		</div>
+
+
+		
+<p class="date">
+	<a href="https://www.cnblogs.com/mengqd/archive/2020/10/18.html"></a>
+	2020年10月18日		  
+</p>
+
+		<div class="post">
+			<h2>
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/mengqd/p/13837301.html">
+    <span>
+        【Flutter 混合开发】嵌入原生View-iOS
+    </span>
+    
+
+
+</a>
+</h2>
+			
+			
+
+    <div class="c_b_p_desc">
+摘要：Flutter 混合开发系列 包含如下： 嵌入原生View-Android 嵌入原生View-iOS 与原生通信-MethodChannel 与原生通信-BasicMessageChannel 与原生通信-EventChannel 添加 Flutter 到 Android Activity 添加 F        <a href="https://www.cnblogs.com/mengqd/p/13837301.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+
+			
+			<p class="postfoot">		
+				posted @ 2020-10-18 21:38
+老孟Flutter
+<span class="post-view-count">阅读(154)</span><text> </text>
+<span class="post-comment-count">评论(0)</span><text> </text>
+<span class="post-digg-count">推荐(0)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13837301" rel="nofollow">
+    编辑
+</a>
+
+			</p>
+		</div>
+
+
+		
+<p class="date">
+	<a href="https://www.cnblogs.com/mengqd/archive/2020/10/14.html"></a>
+	2020年10月14日		  
+</p>
+
+		<div class="post">
+			<h2>
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/mengqd/p/13812639.html">
+    <span>
+        【Flutter 混合开发】嵌入原生View-Android
+    </span>
+    
+
+
+</a>
+</h2>
+			
+			
+
+    <div class="c_b_p_desc">
+摘要：Flutter 混合开发系列 包含如下： 嵌入原生View-Android 嵌入原生View-IOS 与原生通信-MethodChannel 与原生通信-BasicMessageChannel 与原生通信-EventChannel 添加 Flutter 到 Android Activity 添加 F        <a href="https://www.cnblogs.com/mengqd/p/13812639.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+
+			
+			<p class="postfoot">		
+				posted @ 2020-10-14 06:45
+老孟Flutter
+<span class="post-view-count">阅读(194)</span><text> </text>
+<span class="post-comment-count">评论(1)</span><text> </text>
+<span class="post-digg-count">推荐(0)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13812639" rel="nofollow">
+    编辑
+</a>
+
+			</p>
+		</div>
+
+
+		
+<p class="date">
+	<a href="https://www.cnblogs.com/mengqd/archive/2020/10/11.html"></a>
+	2020年10月11日		  
+</p>
+
+		<div class="post">
+			<h2>
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/mengqd/p/13799060.html">
+    <span>
+        【Flutter Widgets大全】电子书开源
+    </span>
+    
+
+
+</a>
+</h2>
+			
+			
+
+    <div class="c_b_p_desc">
+摘要：【Flutter Widgets大全】是老孟耗费大量精力整理的，总共有330多个组件的详细用法，开源到Github上，希望可以帮助到大家，开源不易，点个赞可不可以&amp;#128522;。 【Flutter Widgets 大全】 为 Flutter 老孟 网站项目，共收录 330 多个 Widgets，此电子书并不适        <a href="https://www.cnblogs.com/mengqd/p/13799060.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+
+			
+			<p class="postfoot">		
+				posted @ 2020-10-11 20:18
+老孟Flutter
+<span class="post-view-count">阅读(55)</span><text> </text>
+<span class="post-comment-count">评论(0)</span><text> </text>
+<span class="post-digg-count">推荐(0)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13799060" rel="nofollow">
+    编辑
+</a>
+
+			</p>
+		</div>
+
+
+		
+<p class="date">
+	<a href="https://www.cnblogs.com/mengqd/archive/2020/10/09.html"></a>
+	2020年10月9日		  
+</p>
+
+		<div class="post">
+			<h2>
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/mengqd/p/13789036.html">
+    <span>
+        Flutter 1.22 正式发布
+    </span>
+    
+
+
+</a>
+</h2>
+			
+			
+
+    <div class="c_b_p_desc">
+摘要：支持iOS 14和Android 11，新的i18n和l10n支持，可用于生产的Google Maps和WebView插件，新的App Size工具等等！ 作者：Chris Sells 原文：https://medium.com/flutter/announcing-flutter-1-22-44f        <a href="https://www.cnblogs.com/mengqd/p/13789036.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+
+			
+			<p class="postfoot">		
+				posted @ 2020-10-09 21:53
+老孟Flutter
+<span class="post-view-count">阅读(501)</span><text> </text>
+<span class="post-comment-count">评论(0)</span><text> </text>
+<span class="post-digg-count">推荐(1)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13789036" rel="nofollow">
+    编辑
+</a>
+
+			</p>
+		</div>
+
+
+		
+<p class="date">
+	<a href="https://www.cnblogs.com/mengqd/archive/2020/09/27.html"></a>
+	2020年9月27日		  
+</p>
+
+		<div class="post">
+			<h2>
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/mengqd/p/13737582.html">
+    <span>
+        使用Flutter完成10个商业项目后的经验教训
+    </span>
+    
+
+
+</a>
+</h2>
+			
+			
+
+    <div class="c_b_p_desc">
+摘要：作者：Łukasz Kosman 和 Jakub Wojtczak 原文：https://medium.com/swlh/lessons-learned-after-making-the-first-10-commercial-apps-in-flutter-f420808048cd 在过去的24个        <a href="https://www.cnblogs.com/mengqd/p/13737582.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+
+			
+			<p class="postfoot">		
+				posted @ 2020-09-27 07:35
+老孟Flutter
+<span class="post-view-count">阅读(1394)</span><text> </text>
+<span class="post-comment-count">评论(4)</span><text> </text>
+<span class="post-digg-count">推荐(2)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13737582" rel="nofollow">
+    编辑
+</a>
+
+			</p>
+		</div>
+
+
+		
+<p class="date">
+	<a href="https://www.cnblogs.com/mengqd/archive/2020/09/25.html"></a>
+	2020年9月25日		  
+</p>
+
+		<div class="post">
+			<h2>
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/mengqd/p/13727982.html">
+    <span>
+        谷歌发布Flutter Alpha：支持Windows
+    </span>
+    
+
+
+</a>
+</h2>
+			
+			
+
+    <div class="c_b_p_desc">
+摘要：老孟导读：Windows来了，Mac、Linux、Web还远吗？ 本文翻译自https://medium.com/flutter/announcing-flutter-windows-alpha-33982cd0f433 我们的使命是为开发人员提供一个开源，高生产率的框架，以便在任何平台上构建漂亮的        <a href="https://www.cnblogs.com/mengqd/p/13727982.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+
+			
+			<p class="postfoot">		
+				posted @ 2020-09-25 07:30
+老孟Flutter
+<span class="post-view-count">阅读(835)</span><text> </text>
+<span class="post-comment-count">评论(3)</span><text> </text>
+<span class="post-digg-count">推荐(2)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13727982" rel="nofollow">
+    编辑
+</a>
+
+			</p>
+		</div>
+
+
+		
+<p class="date">
+	<a href="https://www.cnblogs.com/mengqd/archive/2020/09/24.html"></a>
+	2020年9月24日		  
+</p>
+
+		<div class="post">
+			<h2>
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/mengqd/p/13726283.html">
+    <span>
+        【Flutter 实战】大量复杂数据持久化
+    </span>
+    
+
+
+</a>
+</h2>
+			
+			
+
+    <div class="c_b_p_desc">
+摘要：老孟导读：上一篇文章讲解了 Android 和 iOS 的文件目录系统，此篇文章讲解如何使用 SQLite 保存数据。 欢迎大家投稿：http://laomengit.com/plan/Contribution.html 保存数据到本地是应用程序非常重要的功能之一，比如如下场景：一个新闻类或者博客类        <a href="https://www.cnblogs.com/mengqd/p/13726283.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+
+			
+			<p class="postfoot">		
+				posted @ 2020-09-24 20:05
+老孟Flutter
+<span class="post-view-count">阅读(336)</span><text> </text>
+<span class="post-comment-count">评论(0)</span><text> </text>
+<span class="post-digg-count">推荐(0)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13726283" rel="nofollow">
+    编辑
+</a>
+
+			</p>
+		</div>
+
+
+
+<div class="topicListFooter">
+    <div id="nav_next_page">
+        
+    <a href="https://www.cnblogs.com/mengqd/default.html?page=2">
+        下一页
+    </a>
+
+    </div>    
+</div>
+
+
+
+
+
+
+
+	<p id="footer">
+	Powered by: 
+	<br />
+	
+	<a href="https://www.cnblogs.com/" id="footer_site_link">博客园</a>
+	<br />
+	Copyright &copy; 2020 老孟Flutter
+<br /><span id="poweredby">Powered by .NET 5.0.0-rc.2.20475.5 on Kubernetes</span>
+
+</p>
+
+
+</div>
+<div id="rightmenu">
+	
+		<div id="blog-calendar" style="display:none"></div><script>loadBlogDefaultCalendar();</script>
+		
+<h3>导航</h3>
+<ul>
+			<li><a id="blog_nav_sitehome" class="menu" href="https://www.cnblogs.com/">
+博客园</a>
+</li>
+			<li>
+<a id="blog_nav_myhome" class="menu" href="https://www.cnblogs.com/mengqd/">
+首页</a>
+</li>
+			<li>
+
+<a id="blog_nav_newpost" class="menu" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">
+新随笔</a>
+</li>
+			<li>
+<a id="blog_nav_contact" class="menu" href="https://msg.cnblogs.com/send/%E8%80%81%E5%AD%9FFlutter">
+联系</a></li>
+			<li>
+<a id="blog_nav_rss" class="menu" href="javascript:void(0)" data-rss="https://www.cnblogs.com/mengqd/rss/">
+订阅</a>
+<a id="blog_nav_rss_image" href="https://www.cnblogs.com/mengqd/rss/">
+    <img src="/skins/book/images/xml.gif" alt="订阅" />
+</a></li>
+			<li>
+<a id="blog_nav_admin" class="menu" href="https://i.cnblogs.com/">
+管理</a>
+</li>
+</ul>
+
+
+		
+<h3>统计</h3>
+<ul>
+    <li>随笔 - 
+98</li>
+    <li>文章 - 
+2</li>
+    <li>评论 - 
+61</li>
+    <li>
+        引用 - 
+0
+    </li>
+</ul>
+
+
+		<div id="sidebar_news" class="newsItem">
+            <script>loadBlogNews();</script>
+</div>
+<div id="sidebar_ad"></div>
+		<div id="blog-sidecolumn"></div>
+                    <script>loadBlogSideColumn();</script>
+	
+</div>
+			
+			
+			
+			
+			 
+
+	
+
+
+    <div id="page_end_html">
+        
+
+    </div>
+</body>
+</html>

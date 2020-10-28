@@ -1,0 +1,638 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="origin" />
+    
+    
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>心悦君兮君不知-睿 - 博客园</title>
+    <link id="favicon" rel="shortcut icon" href="//common.cnblogs.com/favicon.svg" type="image/svg+xml" />
+    
+    <link rel="stylesheet" href="/css/blog-common.min.css?v=caAedYKpnz341INFIWakIM6r1EP9FIuJg43i9i8zqDQ" />
+    <link id="MainCss" rel="stylesheet" href="/skins/chrismas/bundle-chrismas.min.css?v=4zpLNRjTjKakbppb63gY8Sb7GpBjppeaClSoKNwEwDU" />
+    
+    <link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="/skins/chrismas/bundle-chrismas-mobile.min.css?v=arJ4BmwdBcUZrSduKjIvQKPiliQ99OBUW7yasPqJtdY" />
+    
+    <link type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/ruigege0000/rss" />
+    <link type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/ruigege0000/rsd.xml" />
+    <link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/ruigege0000/wlwmanifest.xml" />
+    <script>
+        var currentBlogId = 519726;
+        var currentBlogApp = 'ruigege0000';
+        var cb_enable_mathjax = false;
+        var isLogined = false;
+        var isBlogOwner = false;
+        var skinName = 'Chrismas';
+        var visitorUserId = '';
+    </script>
+    <script src="https://common.cnblogs.com/scripts/jquery-2.2.0.min.js"></script>
+    <script src="/js/blog-common.min.js?v=kKx3DBtpvO8r97BzPmHJseQ10fGHkI-ZwMh4FA0eEd0"></script>
+    
+    
+    
+</head>
+<body class="no-navbar">
+    <a name="top"></a> 
+    <div id="top_nav" class="navbar navbar-custom">
+        <nav id="nav_main" class="navbar-main">
+            <ul id="nav_left" class="navbar-list navbar-left">
+                <li class="navbar-branding">
+                    <a href="https://www.cnblogs.com/" title="开发者的网上家园"><img src="/images/logo.svg?v=R9M0WmLAIPVydmdzE2keuvnjl-bPR7_35oHqtiBzGsM" alt="博客园Logo" /></a>
+                </li>
+                <li><a href="/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-sitehome')">首页</a></li>
+                <li><a href="https://news.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-news')">新闻</a></li>
+                <li><a href="https://q.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-q')">博问</a></li>
+                <li><a id="nav_brandzone" href="https://brands.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-brands')">专区</a></li>
+                <li><a href="https://ing.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-ing')">闪存</a></li>
+                <li><a href="https://edu.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-edu')">班级</a></li>
+            </ul>
+            <ul id="nav_right" class="navbar-list navbar-right">
+                <li>
+                    <form id="zzk_search" class="navbar-search" action="https://zzk.cnblogs.com/s" method="get">
+                        <input name="w" id="zzk_search_input" placeholder="代码改变世界" type="text" tabindex="3" />
+                        <button type="submit" id="zzk_search_button">
+                            <img src="/images/aggsite/search.svg" alt="搜索" />
+                        </button>
+                    </form>
+                </li>
+                <li id="navbar_login_status" class="navbar-list">
+                    <a id="navblog-myblog-icon" class="navbar-user-info navbar-blog" href="https://passport.cnblogs.com/GetBlogApplyStatus.aspx" alt="我的博客" title="我的博客">
+                        <img id="myblog_icon" class="navbar-icon" src="/images/aggsite/myblog.svg" alt="我的博客" />
+                    </a>
+                    <a class="navbar-user-info navbar-message navbar-icon-wrapper" href="https://msg.cnblogs.com/" alt="短消息" title="短消息">
+                        <img id="msg_icon" class="navbar-icon" src="/images/aggsite/message.svg?v=oS4PkibyMjZ9rGD5XAcLt99uW_s76Javy2up4dbnZNY" alt="短消息" />
+                        <span id="msg_count" style="display: none"></span>
+                    </a>
+                    <div id="user_info" class="navbar-user-info dropdown">
+                        <a class="dropdown-button" href="https://home.cnblogs.com/">
+                            <img id="user_icon" class="navbar-avatar" src="/images/aggsite/avatar-default.svg" alt="用户头像" />
+                        </a>
+                        <div class="dropdown-menu">
+                            <a id="navblog-myblog-text" href="https://passport.cnblogs.com/GetBlogApplyStatus.aspx">我的博客</a>
+                            <a href="https://home.cnblogs.com/">我的园子</a>
+                            <a href="https://account.cnblogs.com/settings/account">账号设置</a>
+                            <a href="javascript:void(0)" onclick="logout();">退出登录</a>
+                        </div>
+                    </div>
+                    <a class="navbar-anonymous" href="https://account.cnblogs.com/signup/">注册</a>
+                    <a class="navbar-anonymous" href="https://account.cnblogs.com/signin/?returnUrl=https://www.cnblogs.com/">登录</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    
+    <!--done-->
+<div id="wrap" align="center">
+<div id="banner" align="center">
+<!--done-->
+<div class="header">
+	<div class="headerText">
+		<a id="Header1_HeaderTitle" class="headermaintitle HeaderMainTitle" href="https://www.cnblogs.com/ruigege0000/">心悦君兮君不知-睿</a>
+<br>
+	</div>
+	<div class="headerDis">
+
+</div>
+</div>
+
+</div>
+<div id="main">
+	<!-- left starts -->
+	<div id="left">
+		<DIV id="mystats">
+			
+				<!--done-->
+<div class="blogStats">
+随笔- 
+417&nbsp;
+文章- 
+2&nbsp;
+评论- 
+16&nbsp;
+
+</div>
+
+
+			
+		</DIV>
+		<div id="mylinks">
+
+<a id="blog_nav_sitehome" class="menu" href="https://www.cnblogs.com/">
+博客园</a>
+&nbsp;&nbsp;
+<a id="blog_nav_myhome" class="menu" href="https://www.cnblogs.com/ruigege0000/">
+首页</a>
+&nbsp;&nbsp;
+
+<a id="blog_nav_newpost" class="menu" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">
+新随笔</a>
+&nbsp;&nbsp;<a id="MyLinks1_NewArticleLink" class="menu" href="https://i.cnblogs.com/EditArticles.aspx?opt=1">新文章</a>
+&nbsp;&nbsp;
+<a id="blog_nav_contact" class="menu" href="https://msg.cnblogs.com/send/%E5%BF%83%E6%82%A6%E5%90%9B%E5%85%AE%E5%90%9B%E4%B8%8D%E7%9F%A5-%E7%9D%BF">
+联系</a>&nbsp;&nbsp;
+<a id="blog_nav_admin" class="menu" href="https://i.cnblogs.com/">
+管理</a>
+&nbsp;&nbsp;
+<a id="blog_nav_rss" class="menu" href="javascript:void(0)" data-rss="https://www.cnblogs.com/ruigege0000/rss/">
+订阅</a>&nbsp;
+<a id="blog_nav_rss_image" href="https://www.cnblogs.com/ruigege0000/rss/">
+    <img src="/skins/chrismas/images/xml.gif" alt="订阅" />
+</a>
+
+</div>
+		<div id="topics">
+			
+
+
+
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/ruigege0000/archive/2020/10/25.html"></a>
+        &nbsp;
+        2020年10月25日
+    </div>
+
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/ruigege0000/p/13876044.html">
+    <span>
+        Java高并发1-创建线程的三种方式、虚假唤醒、native关键字
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：一、创建多线程的两种方式 1.继承Thread类，重写run方法 2.实现Runnable接口，重写run方法 3.直接上代码 package com.ruigege.threadFoundation1; public class MyThreadExtendsType extends Thread        <a href="https://www.cnblogs.com/ruigege0000/p/13876044.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="postDesc">posted @ 2020-10-25 23:55
+心悦君兮君不知-睿
+<span class="post-view-count">阅读(8)</span><text> </text>
+<span class="post-comment-count">评论(0)</span><text> </text>
+<span class="post-digg-count">推荐(0)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13876044" rel="nofollow">
+    编辑
+</a>
+</div>
+
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/ruigege0000/archive/2020/10/15.html"></a>
+        &nbsp;
+        2020年10月15日
+    </div>
+
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/ruigege0000/p/13818258.html">
+    <span>
+        Android连载38-访问联系人
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：一、读取手机中的联系人 由于使用模拟器，我们首先创建几个联系人再进行读取 然后创建一个项目ContactsTest,修改activity_main.xml &amp;lt;LinearLayout xmlns:android=&amp;quot;http://schemas.android.com/apk/res/android&amp;quot;        <a href="https://www.cnblogs.com/ruigege0000/p/13818258.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="postDesc">posted @ 2020-10-15 00:30
+心悦君兮君不知-睿
+<span class="post-view-count">阅读(13)</span><text> </text>
+<span class="post-comment-count">评论(0)</span><text> </text>
+<span class="post-digg-count">推荐(0)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13818258" rel="nofollow">
+    编辑
+</a>
+</div>
+
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/ruigege0000/archive/2020/10/13.html"></a>
+        &nbsp;
+        2020年10月13日
+    </div>
+
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/ruigege0000/p/13812405.html">
+    <span>
+        JavaScript连载37-切换选项卡样式以及搭建一个评论系统
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：一、选项卡 使用函数来动态的显示标签的样式，也可以使用html自带的动画效果来实现下面的操作 &amp;lt;!DOCTYPE&amp;#160;html&amp;gt;&amp;lt;html&amp;#160;lang=&amp;quot;en&amp;quot;&amp;gt;&amp;lt;head&amp;gt; &amp;lt;meta&amp;#160;charset=&amp;quot;UTF-8&amp;quot;&amp;gt; &amp;lt;title&amp;gt;D37_1_OptionCard&amp;lt;/title&amp;gt; &amp;lt;style&amp;gt; *{        <a href="https://www.cnblogs.com/ruigege0000/p/13812405.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="postDesc">posted @ 2020-10-13 23:49
+心悦君兮君不知-睿
+<span class="post-view-count">阅读(17)</span><text> </text>
+<span class="post-comment-count">评论(0)</span><text> </text>
+<span class="post-digg-count">推荐(0)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13812405" rel="nofollow">
+    编辑
+</a>
+</div>
+
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/ruigege0000/archive/2020/10/12.html"></a>
+        &nbsp;
+        2020年10月12日
+    </div>
+
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/ruigege0000/p/13800493.html">
+    <span>
+        Java连载144-反射和自定义注解
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：一、定义注解 使用前提：使用@interface来进行声明，会自动继承java.lang.annotation.Annotation接口注解中的每一个方法实际上是声明了一个配置参数，方法的名称就是参数的名称，返回值的类型就是参数的类型，返回值只能是基本类型、Class、String、Enum，可以通        <a href="https://www.cnblogs.com/ruigege0000/p/13800493.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="postDesc">posted @ 2020-10-12 00:14
+心悦君兮君不知-睿
+<span class="post-view-count">阅读(20)</span><text> </text>
+<span class="post-comment-count">评论(0)</span><text> </text>
+<span class="post-digg-count">推荐(0)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13800493" rel="nofollow">
+    编辑
+</a>
+</div>
+
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/ruigege0000/archive/2020/10/11.html"></a>
+        &nbsp;
+        2020年10月11日
+    </div>
+
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/ruigege0000/p/13796000.html">
+    <span>
+        Java连载143-三种系统注解
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：一、注解功能 用处：类、构造方法、成员方法、方法、参数等声明中特性：不影响程序的正常执行，但是会对编译器等辅助工具产生影响定义：添加到Java程序代码上，用来做一些说明和解释 1.元数据 定义：用于描述数据的一种数据可使用注解来描述元数据。 2.注解 又称为标注，属于程序的元数据，也是程序代码的标记        <a href="https://www.cnblogs.com/ruigege0000/p/13796000.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="postDesc">posted @ 2020-10-11 00:28
+心悦君兮君不知-睿
+<span class="post-view-count">阅读(21)</span><text> </text>
+<span class="post-comment-count">评论(0)</span><text> </text>
+<span class="post-digg-count">推荐(0)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13796000" rel="nofollow">
+    编辑
+</a>
+</div>
+
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/ruigege0000/archive/2020/10/10.html"></a>
+        &nbsp;
+        2020年10月10日
+    </div>
+
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/ruigege0000/p/13789709.html">
+    <span>
+        C连载27-练习计算和数据类型
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：一、练习计算和数据类型 #include&amp;lt;stdio.h&amp;gt; #pragma warning(disable:4996) const int S_PER_M = 60; //1分钟的秒数 const int S_PER_H = 3600; //1小时的秒数 const double M_PER_K =        <a href="https://www.cnblogs.com/ruigege0000/p/13789709.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="postDesc">posted @ 2020-10-10 00:25
+心悦君兮君不知-睿
+<span class="post-view-count">阅读(18)</span><text> </text>
+<span class="post-comment-count">评论(0)</span><text> </text>
+<span class="post-digg-count">推荐(0)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13789709" rel="nofollow">
+    编辑
+</a>
+</div>
+
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/ruigege0000/archive/2020/10/09.html"></a>
+        &nbsp;
+        2020年10月9日
+    </div>
+
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/ruigege0000/p/13783426.html">
+    <span>
+        Android连载37-跨程序共享数据
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：一、内容提供器 使用内容提供器来共享数据可以精确的进行控制，哪些数据可以共享，哪些数据不可以共享内容提供器有两种用法：（1）使用现有的内容提供器来读取和操作相应程序中的数据；（2）创建自己的内容提供器给我们的程序的数据提供外部访问接口 二、ContentResolver的基本用法 获取Content        <a href="https://www.cnblogs.com/ruigege0000/p/13783426.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="postDesc">posted @ 2020-10-09 00:32
+心悦君兮君不知-睿
+<span class="post-view-count">阅读(25)</span><text> </text>
+<span class="post-comment-count">评论(0)</span><text> </text>
+<span class="post-digg-count">推荐(0)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13783426" rel="nofollow">
+    编辑
+</a>
+</div>
+
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/ruigege0000/archive/2020/10/04.html"></a>
+        &nbsp;
+        2020年10月4日
+    </div>
+
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/ruigege0000/p/13768122.html">
+    <span>
+        JavaScript连载36-上传文件以及获取input表单焦点
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：一、表单标签焦点 &amp;lt;input type=&amp;quot;text&amp;quot; placeholder=&amp;quot;请输入姓名&amp;quot;&amp;gt; &amp;lt;script&amp;gt; window.onload = function (ev) { var input = document.getElementsByTagName(&amp;quot;input&amp;quot;)[0]; //1.获        <a href="https://www.cnblogs.com/ruigege0000/p/13768122.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="postDesc">posted @ 2020-10-04 19:36
+心悦君兮君不知-睿
+<span class="post-view-count">阅读(30)</span><text> </text>
+<span class="post-comment-count">评论(0)</span><text> </text>
+<span class="post-digg-count">推荐(0)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13768122" rel="nofollow">
+    编辑
+</a>
+</div>
+
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/ruigege0000/archive/2020/10/03.html"></a>
+        &nbsp;
+        2020年10月3日
+    </div>
+
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/ruigege0000/p/13765484.html">
+    <span>
+        Java连载142-使用数据库连接池批量查询数据
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：一、创建一个数据库连接池 首先建立工程chaper03,然后在src目录下创建xml文件 该文件中定义了数据的密码的属性，用于连接数据库 &amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt; &amp;lt;c3p0-config&amp;gt; &amp;lt;named-config name=&amp;quot;qfedu&amp;quot;&amp;gt;         <a href="https://www.cnblogs.com/ruigege0000/p/13765484.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="postDesc">posted @ 2020-10-03 20:58
+心悦君兮君不知-睿
+<span class="post-view-count">阅读(34)</span><text> </text>
+<span class="post-comment-count">评论(0)</span><text> </text>
+<span class="post-digg-count">推荐(0)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13765484" rel="nofollow">
+    编辑
+</a>
+</div>
+
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/ruigege0000/archive/2020/09/30.html"></a>
+        &nbsp;
+        2020年9月30日
+    </div>
+
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/ruigege0000/p/13752558.html">
+    <span>
+        C连载26-强转、原型、待转与目标不匹配
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：一、待转换的值和目标类型不匹配 （1）目标类型是无符号类型，且待赋的值是整数时，额外的位将被忽略。例如：目标类型时8位unsigned char，待赋的值时原始值求模256 （2）如果目标类型是一个有符号的整数，且待赋的值是整数，结果因实现而异 （3）如果目标类型是一个整数，且待赋的值是浮点数，该行        <a href="https://www.cnblogs.com/ruigege0000/p/13752558.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="postDesc">posted @ 2020-09-30 00:20
+心悦君兮君不知-睿
+<span class="post-view-count">阅读(32)</span><text> </text>
+<span class="post-comment-count">评论(0)</span><text> </text>
+<span class="post-digg-count">推荐(0)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13752558" rel="nofollow">
+    编辑
+</a>
+</div>
+
+</div>
+
+
+
+<div class="topicListFooter">
+    <div id="nav_next_page">
+        
+    <a href="https://www.cnblogs.com/ruigege0000/default.html?page=2">
+        下一页
+    </a>
+
+    </div>    
+</div>
+
+
+
+
+
+
+
+		</div>
+		<br/><br/><br/>
+	</div>
+	<!-- left ends -->
+	<!-- right starts -->
+	<div id="right">
+		<!-- 右侧工具部分 -->
+		<div id="right_content">
+			<div id="sidebar_news" class="newsItem">
+            <script>loadBlogNews();</script>
+</div>
+<div id="sidebar_ad"></div>
+			<div id="calendar"><div id="blog-calendar" style="display:none"></div><script>loadBlogDefaultCalendar();</script></div>
+			
+				<DIV id="leftcontentcontainer">
+					<div id="blog-sidecolumn"></div>
+                    <script>loadBlogSideColumn();</script>
+				</DIV>
+			
+		</div>
+		<!-- //右侧工具部分 -->
+		<div id="footer">
+			Copyright &copy; 2020 心悦君兮君不知-睿
+<br /><span id="poweredby">Powered by .NET 5.0.0-rc.2.20475.5 on Kubernetes</span>
+
+
+
+		</div>
+	</div>
+	<!-- right ends -->	
+</div>
+</div>
+
+
+    
+</body>
+</html>

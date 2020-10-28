@@ -1,0 +1,819 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="origin" />
+    
+    
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>一线码农 - 博客园</title>
+    <link id="favicon" rel="shortcut icon" href="//common.cnblogs.com/favicon.svg" type="image/svg+xml" />
+    
+    <link rel="stylesheet" href="/css/blog-common.min.css?v=caAedYKpnz341INFIWakIM6r1EP9FIuJg43i9i8zqDQ" />
+    <link id="MainCss" rel="stylesheet" href="/skins/imetro_hd/bundle-imetro_hd.min.css?v=FftQhR2MvKTGGXxV0VXlcGGt4XBM0_1XGJmu6kYD9bg" />
+    <link type="text/css" rel="stylesheet" href="https://www.cnblogs.com/huangxincheng/custom.css?v=CT8h1hGewd/DHNBepVvh5DI0L4I=" />
+    <link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="/skins/imetro_hd/bundle-imetro_hd-mobile.min.css?v=tjryWP8yFVrIjjXnBnURjyILGfJTw-8Bk4gcB-_0Rp4" />
+    
+    <link type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/huangxincheng/rss" />
+    <link type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/huangxincheng/rsd.xml" />
+    <link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/huangxincheng/wlwmanifest.xml" />
+    <script>
+        var currentBlogId = 85195;
+        var currentBlogApp = 'huangxincheng';
+        var cb_enable_mathjax = false;
+        var isLogined = false;
+        var isBlogOwner = false;
+        var skinName = 'iMetro_HD';
+        var visitorUserId = '';
+    </script>
+    <script src="https://common.cnblogs.com/scripts/jquery-2.2.0.min.js"></script>
+    <script src="/js/blog-common.min.js?v=kKx3DBtpvO8r97BzPmHJseQ10fGHkI-ZwMh4FA0eEd0"></script>
+    
+    
+    
+</head>
+<body class="has-navbar">
+    <a name="top"></a> 
+    <div id="top_nav" class="navbar">
+        <nav id="nav_main" class="navbar-main">
+            <ul id="nav_left" class="navbar-list navbar-left">
+                <li class="navbar-branding">
+                    <a href="https://www.cnblogs.com/" title="开发者的网上家园"><img src="/images/logo.svg?v=R9M0WmLAIPVydmdzE2keuvnjl-bPR7_35oHqtiBzGsM" alt="博客园Logo" /></a>
+                </li>
+                <li><a href="/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-sitehome')">首页</a></li>
+                <li><a href="https://news.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-news')">新闻</a></li>
+                <li><a href="https://q.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-q')">博问</a></li>
+                <li><a id="nav_brandzone" href="https://brands.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-brands')">专区</a></li>
+                <li><a href="https://ing.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-ing')">闪存</a></li>
+                <li><a href="https://edu.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-edu')">班级</a></li>
+            </ul>
+            <ul id="nav_right" class="navbar-list navbar-right">
+                <li>
+                    <form id="zzk_search" class="navbar-search" action="https://zzk.cnblogs.com/s" method="get">
+                        <input name="w" id="zzk_search_input" placeholder="代码改变世界" type="text" tabindex="3" />
+                        <button type="submit" id="zzk_search_button">
+                            <img src="/images/aggsite/search.svg" alt="搜索" />
+                        </button>
+                    </form>
+                </li>
+                <li id="navbar_login_status" class="navbar-list">
+                    <a id="navblog-myblog-icon" class="navbar-user-info navbar-blog" href="https://passport.cnblogs.com/GetBlogApplyStatus.aspx" alt="我的博客" title="我的博客">
+                        <img id="myblog_icon" class="navbar-icon" src="/images/aggsite/myblog.svg" alt="我的博客" />
+                    </a>
+                    <a class="navbar-user-info navbar-message navbar-icon-wrapper" href="https://msg.cnblogs.com/" alt="短消息" title="短消息">
+                        <img id="msg_icon" class="navbar-icon" src="/images/aggsite/message.svg?v=oS4PkibyMjZ9rGD5XAcLt99uW_s76Javy2up4dbnZNY" alt="短消息" />
+                        <span id="msg_count" style="display: none"></span>
+                    </a>
+                    <div id="user_info" class="navbar-user-info dropdown">
+                        <a class="dropdown-button" href="https://home.cnblogs.com/">
+                            <img id="user_icon" class="navbar-avatar" src="/images/aggsite/avatar-default.svg" alt="用户头像" />
+                        </a>
+                        <div class="dropdown-menu">
+                            <a id="navblog-myblog-text" href="https://passport.cnblogs.com/GetBlogApplyStatus.aspx">我的博客</a>
+                            <a href="https://home.cnblogs.com/">我的园子</a>
+                            <a href="https://account.cnblogs.com/settings/account">账号设置</a>
+                            <a href="javascript:void(0)" onclick="logout();">退出登录</a>
+                        </div>
+                    </div>
+                    <a class="navbar-anonymous" href="https://account.cnblogs.com/signup/">注册</a>
+                    <a class="navbar-anonymous" href="https://account.cnblogs.com/signin/?returnUrl=https://www.cnblogs.com/">登录</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    
+    <!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+        <a id="lnkBlogLogo" href="https://www.cnblogs.com/huangxincheng/"><img id="blogLogo" src="/skins/custom/images/logo.gif" alt="返回主页" /></a>		
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle HeaderMainTitle" href="https://www.cnblogs.com/huangxincheng/"></a>
+</h1>
+<h2>
+
+</h2>
+
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li><a id="blog_nav_sitehome" class="menu" href="https://www.cnblogs.com/">
+博客园</a>
+</li>
+<li>
+<a id="blog_nav_myhome" class="menu" href="https://www.cnblogs.com/huangxincheng/">
+首页</a>
+</li>
+<li>
+
+<a id="blog_nav_newpost" class="menu" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">
+新随笔</a>
+</li>
+<li>
+<a id="blog_nav_contact" class="menu" href="https://msg.cnblogs.com/send/%E4%B8%80%E7%BA%BF%E7%A0%81%E5%86%9C">
+联系</a></li>
+<li>
+<a id="blog_nav_rss" class="menu" href="javascript:void(0)" data-rss="https://www.cnblogs.com/huangxincheng/rss/">
+订阅</a>
+<!--<partial name="./Shared/_XmlLink.cshtml" model="Model" /></li>--></li>
+<li>
+<a id="blog_nav_admin" class="menu" href="https://i.cnblogs.com/">
+管理</a>
+</li>
+</ul>
+
+
+		<div class="blogStats">
+			<span id="stats_post_count">随笔 - 
+338&nbsp; </span>
+<span id="stats_article_count">文章 - 
+1&nbsp; </span>
+<span id="stats-comment_count">评论 - 
+5929</span>
+
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		
+
+
+
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/huangxincheng/archive/2020/10/24.html">2020年10月24日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/huangxincheng/p/13867475.html">
+    <span>
+         C#8.0之后接口已经不再单纯了，我懵逼了！
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：一：背景 1. 讲故事 大家在经过面向对象洗礼的时候，都了解过接口，而且知道它是一种自上而下的设计思路，举个例子，我们电脑上都有 USB 2.0 接口，蓝牙耳机实现了它可以进行充电，移动硬盘实现了它可以在电脑端显示硬盘内容，蓝牙鼠标实现了它可以进行鼠标操控，可以看出USB插口做出来后，谁来实现谁也搞        <a href="https://www.cnblogs.com/huangxincheng/p/13867475.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-10-24 17:03
+一线码农
+<span class="post-view-count">阅读(1441)</span><text> </text>
+<span class="post-comment-count">评论(18)</span><text> </text>
+<span class="post-digg-count">推荐(8)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13867475" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/huangxincheng/archive/2020/10/21.html">2020年10月21日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/huangxincheng/p/13850587.html">
+    <span>
+        技术债！ 怎样简洁高效的实现多个 Enum 自由转换
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：一：背景 1. 讲故事 前段时间和同事负责一个项目的两个业务模块，可能大家缺少沟通，导致本该定义一个 Enum 的地方结果我俩各自定义了一个，导致后面这两个 Enum 进行对接就烦了，为了方便理解，也不想让大家看这崴脚的英文拼写，我就拿 银行 举例吧。 A同事 定义的枚举 public enum B        <a href="https://www.cnblogs.com/huangxincheng/p/13850587.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-10-21 17:30
+一线码农
+<span class="post-view-count">阅读(2387)</span><text> </text>
+<span class="post-comment-count">评论(11)</span><text> </text>
+<span class="post-digg-count">推荐(21)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13850587" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/huangxincheng/archive/2020/10/20.html">2020年10月20日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/huangxincheng/p/13844539.html">
+    <span>
+        为啥 Response.Write 后，View就不渲染了？
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：一：背景 1. 讲故事 前几天群里有一位朋友聊到，为什么我在 Action 中执行一句 Response.Write 之后，后续的 View 就不呈现了，如果脑子中没有画面，那就上测试代码： public class HomeController : Controller { public IAct        <a href="https://www.cnblogs.com/huangxincheng/p/13844539.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-10-20 16:57
+一线码农
+<span class="post-view-count">阅读(740)</span><text> </text>
+<span class="post-comment-count">评论(2)</span><text> </text>
+<span class="post-digg-count">推荐(14)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13844539" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/huangxincheng/archive/2020/09/30.html">2020年9月30日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/huangxincheng/p/13753658.html">
+    <span>
+        C# 中的 is 真的是越来越强大，越来越语义化
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：一：背景 1. 讲故事 最近发现 C#7 之后的 is 是越来越看不懂了，乍一看花里胡哨的，不过当我静下心来仔细研读，发现这 is 是越来越短小精悍，而且还特别语义化，那怎是一个爽字了得&amp;#128516;，这一篇就和大家简单聊一聊。 二：C#7 之前的 is 如何使用 1. 类型兼容性检测 相信学过 C# 的朋友        <a href="https://www.cnblogs.com/huangxincheng/p/13753658.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-09-30 19:26
+一线码农
+<span class="post-view-count">阅读(4268)</span><text> </text>
+<span class="post-comment-count">评论(30)</span><text> </text>
+<span class="post-digg-count">推荐(37)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13753658" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/huangxincheng/archive/2020/09/28.html">2020年9月28日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/huangxincheng/p/13743180.html">
+    <span>
+        遍历 Dictionary，你会几种方式？
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：一：背景 1. 讲故事 昨天在 StackOverflow 上看到一个很有趣的问题，说: 你会几种遍历字典的方式，然后跟帖就是各种奇葩的回答，挺有意思，马上就要国庆了，娱乐娱乐吧，说说这种挺无聊的问题&amp;#128516;&amp;#128516;&amp;#128516;。 二： 使用 foreach 遍历 为了方便演示，先上一段测试代码： var dict        <a href="https://www.cnblogs.com/huangxincheng/p/13743180.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-09-28 17:35
+一线码农
+<span class="post-view-count">阅读(991)</span><text> </text>
+<span class="post-comment-count">评论(6)</span><text> </text>
+<span class="post-digg-count">推荐(8)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13743180" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/huangxincheng/archive/2020/09/23.html">2020年9月23日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/huangxincheng/p/13716726.html">
+    <span>
+        C# 中居然也有切片语法糖，太厉害了
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：一：背景 1. 讲故事 昨天在 github 上准备找找 C# 9 又有哪些新语法糖可以试用，不觉在一个文档上看到一个很奇怪的写法: foreach (var item in myArray[0..5]) 哈哈，熟悉又陌生，玩过python的朋友对这个 [0..5] 太熟悉不过了，居然在 C# 中也        <a href="https://www.cnblogs.com/huangxincheng/p/13716726.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-09-23 18:27
+一线码农
+<span class="post-view-count">阅读(4223)</span><text> </text>
+<span class="post-comment-count">评论(36)</span><text> </text>
+<span class="post-digg-count">推荐(35)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13716726" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/huangxincheng/archive/2020/09/22.html">2020年9月22日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/huangxincheng/p/13710314.html">
+    <span>
+        你没有看错，爬网页数据，C# 也可以像 Jquery 那样
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：一：背景 1. 讲故事 前段时间搞了一个地方性民生资讯号，资讯嘛，都是我抄你的，你抄官媒的，小市民都喜欢奇闻异事，所以就存在一个需求，如何去定向抓取奇闻异事的地方号上的新闻，其实做起来很简单，用逻辑回归即可，这篇主要讨论如何去抓取，在 C# 中大家都知道抓取通用的库是 HtmlAgilityPack        <a href="https://www.cnblogs.com/huangxincheng/p/13710314.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-09-22 17:46
+一线码农
+<span class="post-view-count">阅读(4188)</span><text> </text>
+<span class="post-comment-count">评论(27)</span><text> </text>
+<span class="post-digg-count">推荐(42)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13710314" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/huangxincheng/archive/2020/09/17.html">2020年9月17日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/huangxincheng/p/13683600.html">
+    <span>
+        虚虚实实，亦假亦真的 ValueTuple，绝对能眩晕你
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：一：背景 1. 讲故事 前几天在写一个api接口，需要对衣物表进行分页查询，查询的output需要返回两个信息，一个是 totalCount,一个是 clothesList,在以前我可能需要封装一个 PagedClothes 类，如下代码: public class PagedClothes { p        <a href="https://www.cnblogs.com/huangxincheng/p/13683600.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-09-17 18:07
+一线码农
+<span class="post-view-count">阅读(513)</span><text> </text>
+<span class="post-comment-count">评论(5)</span><text> </text>
+<span class="post-digg-count">推荐(6)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13683600" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/huangxincheng/archive/2020/09/07.html">2020年9月7日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/huangxincheng/p/13625238.html">
+    <span>
+        Linq 下的扩展方法太少了，您期待的 MoreLinq 来啦
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：一：背景 1. 讲故事 前几天看同事在用 linq 给内存中的两个 model 做左连接，用过的朋友都知道，你一定少不了一个叫做 DefaultIfEmpty 函数，这玩意吧，本来很流畅的 from...in...join, 突然搞进来这么一个函数，真的是恶心他妈给恶心开门，恶心到家了，简化后的代码        <a href="https://www.cnblogs.com/huangxincheng/p/13625238.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-09-07 17:56
+一线码农
+<span class="post-view-count">阅读(5130)</span><text> </text>
+<span class="post-comment-count">评论(30)</span><text> </text>
+<span class="post-digg-count">推荐(60)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13625238" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/huangxincheng/archive/2020/09/01.html">2020年9月1日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/huangxincheng/p/13594386.html">
+    <span>
+        终于弄明白了 Singleton,Transient,Scoped 的作用域是如何实现的
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：一：背景 1. 讲故事 前几天有位朋友让我有时间分析一下 aspnetcore 中为什么向 ServiceCollection 中注入的 Class 可以做到 Singleton，Transient，Scoped，挺有意思，这篇就来聊一聊这一话题，自从 core 中有了 ServiceCollect        <a href="https://www.cnblogs.com/huangxincheng/p/13594386.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-09-01 17:38
+一线码农
+<span class="post-view-count">阅读(2702)</span><text> </text>
+<span class="post-comment-count">评论(15)</span><text> </text>
+<span class="post-digg-count">推荐(44)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13594386" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/huangxincheng/archive/2020/08/28.html">2020年8月28日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/huangxincheng/p/13575171.html">
+    <span>
+        快醒醒，C# 9 中又来了一堆关键词 init,record,with
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：一：背景 1. 讲故事 .NET5 终于在 2020-08-25 也就是大前天发布了第八个预览版，这么多的预览版搞得我都麻木了，接踵而来的就是更多的新特性加入到了 C# 9 中，既然还想呆在这条船上，得继续硬着头皮学习哈，这一篇跟大家聊聊新增的几个关键词。 二：新增关键词 1. init 出来一个新        <a href="https://www.cnblogs.com/huangxincheng/p/13575171.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-08-28 15:15
+一线码农
+<span class="post-view-count">阅读(3341)</span><text> </text>
+<span class="post-comment-count">评论(44)</span><text> </text>
+<span class="post-digg-count">推荐(19)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13575171" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/huangxincheng/archive/2020/08/25.html">2020年8月25日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/huangxincheng/p/13558006.html">
+    <span>
+        await,async 我要把它翻个底朝天，这回你总该明白了吧
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：一：背景 1. 讲故事 await，async 这玩意的知识点已经被人说的烂的不能再烂了，看似没什么好说的，但我发现有不少文章还是从理论上讲述了这两个语法糖的用法，懂得还是懂，不懂的看似懂了过几天又不懂了，人生如戏全靠记是不行的哈&amp;#128516;&amp;#128516;&amp;#128516;，其实本质上来说 await, async 只是编译器层面        <a href="https://www.cnblogs.com/huangxincheng/p/13558006.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-08-25 17:47
+一线码农
+<span class="post-view-count">阅读(7228)</span><text> </text>
+<span class="post-comment-count">评论(34)</span><text> </text>
+<span class="post-digg-count">推荐(101)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13558006" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/huangxincheng/archive/2020/08/23.html">2020年8月23日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/huangxincheng/p/13548518.html">
+    <span>
+        内存不够用还要速度快，终于找到可以基于 File 的 Cache 了
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：一：背景 1. 讲故事 18年的时候在做纯内存项目的过程中遇到了这么一个问题，因为一些核心数据都是飘在内存中，所以内存空间对我们来说额外宝贵，但偏偏项目中有些数据需要缓存，比如说需要下钻的报表上的点，基于性能的考虑，不希望采用独立的缓存中间件，比如 redis, mongodb，毕竟再怎么滴还是要走        <a href="https://www.cnblogs.com/huangxincheng/p/13548518.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-08-23 18:46
+一线码农
+<span class="post-view-count">阅读(1090)</span><text> </text>
+<span class="post-comment-count">评论(4)</span><text> </text>
+<span class="post-digg-count">推荐(3)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13548518" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/huangxincheng/archive/2020/08/19.html">2020年8月19日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/huangxincheng/p/13527566.html">
+    <span>
+        如何校验内存数据的一致性，DynamicExpresso 算是帮上大忙了
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：一：背景 1. 讲故事 记的在上一家公司做全内存项目的时候，因为一些关键表会在程序 startup 的时候全量灌入到内存中，但随着时间的推移，内存和数据库的同步偶尔会出现数据差异的情况，伴随着就是运营那边报过来的 bug，检查数据库的数据完整性很简单，直接写一些 sql 验证一下就好了，但校验内存中        <a href="https://www.cnblogs.com/huangxincheng/p/13527566.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-08-19 17:54
+一线码农
+<span class="post-view-count">阅读(767)</span><text> </text>
+<span class="post-comment-count">评论(7)</span><text> </text>
+<span class="post-digg-count">推荐(10)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13527566" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/huangxincheng/archive/2020/08/17.html">2020年8月17日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/huangxincheng/p/13513303.html">
+    <span>
+        用过 mongodb 吧， 这三个大坑踩过吗？
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：一：背景 1. 讲故事 前段时间有位朋友在微信群问，在向 mongodb 中插入的时间为啥取出来的时候少了 8 个小时，8 在时间处理上是一个非常敏感的数字，又吉利又是一个普适的话题，后来我想想初次使用 mongodb 的朋友一定还会遇到各种新坑，比如说： 插入的数据取不出来，看不爽的 Object        <a href="https://www.cnblogs.com/huangxincheng/p/13513303.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-08-17 01:24
+一线码农
+<span class="post-view-count">阅读(3283)</span><text> </text>
+<span class="post-comment-count">评论(20)</span><text> </text>
+<span class="post-digg-count">推荐(22)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13513303" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+
+<div class="topicListFooter">
+    <div id="nav_next_page">
+        
+    <a href="https://www.cnblogs.com/huangxincheng/default.html?page=2">
+        下一页
+    </a>
+
+    </div>    
+</div>
+
+
+
+
+
+
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+	<div id="sideBar">
+		<div id="sideBarMain">
+			<div id="sidebar_news" class="newsItem">
+            <script>loadBlogNews();</script>
+</div>
+<div id="sidebar_ad"></div>
+			<div id="blog-calendar" style="display:none"></div><script>loadBlogDefaultCalendar();</script>			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"></div>
+                    <script>loadBlogSideColumn();</script>
+			</div>			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		<!--done-->
+Copyright &copy; 2020 一线码农
+<br /><span id="poweredby">Powered by .NET 5.0.0-rc.2.20475.5 on Kubernetes</span>
+
+
+
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+    
+</body>
+</html>

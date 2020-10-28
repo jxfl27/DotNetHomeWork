@@ -1,0 +1,648 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="referrer" content="always" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>最新评论 - 博客园</title>
+    <link rel="shortcut icon" href="//common.cnblogs.com/favicon.svg" type="image/svg+xml" />
+    <link rel="Stylesheet" type="text/css" href="/css/aggsite-new.min.css?v=W4Gh4sIvoT8Ud55QjuDrLdxROzmBE8eYOS0dk0EyoMo" />
+    <link rel="Stylesheet" type="text/css" href="/css/aggsite-mobile-new.min.css?v=5CYsGB712qqoMsCoPPr1Fjr6BVKSowOK3kbluIUyIH0" media="only screen and (max-width: 767px)" />
+    <script src="//common.cnblogs.com/script/jquery.js" type="text/javascript"></script>
+    <script src="/js/aggsite-new.min.js?v=DGygqH48rQY3XcpEq4wVBsVBarCX1M3dLoWHQF3LnTs"></script>
+    <script async='async' src='https://www.googletagservices.com/tag/js/gpt.js'></script>
+    <script>
+        var googletag = googletag || {};
+        googletag.cmd = googletag.cmd || [];
+    </script>
+    <script>
+        googletag.cmd.push(function () {
+            googletag.defineSlot('/1090369/A1', [300, 60], 'div-gpt-ad-1547816814884-0').addService(googletag.pubads());
+            googletag.defineSlot('/1090369/B1', [300, 250], 'div-gpt-ad-1546331539224-0').addService(googletag.pubads());
+            googletag.defineSlot('/1090369/B2', [300, 250], 'div-gpt-ad-1539007469525-0').addService(googletag.pubads());
+            googletag.defineSlot('/1090369/B3', [300, 250], 'div-gpt-ad-1546331252242-0').addService(googletag.pubads());
+            googletag.defineSlot('/1090369/B4', [300, 250], 'div-gpt-ad-1546331385104-0').addService(googletag.pubads());
+            googletag.pubads().enableSingleRequest();
+            googletag.enableServices();
+        });
+    </script>
+</head>
+<body>
+    <div id="wrapper" class="flow">
+        <div id="top_nav" class="navbar border-none">
+            <nav id="nav_main" class="navbar-main">
+                <ul id="nav_left" class="navbar-list navbar-left">
+                    <li class="navbar-branding">
+                        <a href="https://www.cnblogs.com/" title="开发者的网上家园"><img src="/images/logo.svg?v=R9M0WmLAIPVydmdzE2keuvnjl-bPR7_35oHqtiBzGsM" alt="博客园Logo" /></a>
+                    </li>
+                    <li><a href="/">首页</a></li>
+                    <li><a href="https://news.cnblogs.com/">新闻</a></li>
+                    <li><a href="https://q.cnblogs.com/">博问</a></li>
+                    <li><a id="nav_brandzone" href="https://brands.cnblogs.com/">专区</a></li>
+                    <li><a href="https://ing.cnblogs.com/">闪存</a></li>
+                    <li><a href="https://edu.cnblogs.com/">班级</a></li>
+                    <li><a id="nav_legacy" href="/legacy">怀旧</a></li>
+                    <li class="dropdown">
+                        <div class="dropdown-button">
+                            <a href="javascript:void(0)">发现</a>
+                            <img src="/images/aggsite/pulldown-light.svg" />
+                        </div>
+                        <div class="dropdown-menu">
+                            <a href="https://home.cnblogs.com/">园子</a>
+                            <a href="https://group.cnblogs.com/">小组</a>
+                            <a href="https://wz.cnblogs.com/">收藏</a>
+                            <a href="https://job.cnblogs.com/">招聘</a>
+                            <a href="https://zzk.cnblogs.com/">找找看</a>
+                        </div>
+                    </li>
+                </ul>
+                <ul id="nav_right" class="navbar-list navbar-right">
+                    <li>
+                        <form id="zzk_search" class="navbar-search" action="https://zzk.cnblogs.com/s" method="get">
+                            <input name="w" id="zzk_search_input" placeholder="代码改变世界" type="text" tabindex="3" />
+                            <button type="submit" id="zzk_search_button">
+                                <img src="/images/aggsite/search.svg" alt="搜索" />
+                            </button>
+                        </form>
+                    </li>
+                    <li id="navbar_login_status" class="navbar-list">
+                        <a id="navblog-myblog-icon" class="navbar-user-info navbar-blog" href="https://passport.cnblogs.com/GetBlogApplyStatus.aspx" alt="我的博客" title="我的博客">
+                            <img id="myblog_icon" class="navbar-icon" src="/images/aggsite/myblog.svg" alt="我的博客" />
+                        </a>
+                        <a class="navbar-user-info navbar-message navbar-icon-wrapper" href="https://msg.cnblogs.com/" alt="短消息" title="短消息">
+                            <img id="msg_icon" class="navbar-icon" src="/images/aggsite/message.svg?v=oS4PkibyMjZ9rGD5XAcLt99uW_s76Javy2up4dbnZNY" alt="短消息" />
+                            <span id="msg_count" style="display: none"></span>
+                        </a>
+                        <div id="user_info" class="navbar-user-info dropdown">
+                            <a class="dropdown-button" href="https://home.cnblogs.com/">
+                                <img id="user_icon" class="navbar-avatar" src="/images/aggsite/avatar-default.svg" alt="用户头像" />
+                            </a>
+                            <div class="dropdown-menu">
+                                <a id="navblog-myblog-text" href="https://passport.cnblogs.com/GetBlogApplyStatus.aspx">我的博客</a>
+                                <a href="https://home.cnblogs.com/">我的园子</a>
+                                <a href="https://account.cnblogs.com/settings/account">账号设置</a>
+                                <a href="javascript:void(0)" onclick="logout();">退出登录</a>
+                            </div>
+                        </div>
+                        <a class="navbar-anonymous" href="https://account.cnblogs.com/signup/">注册</a>
+                        <a class="navbar-anonymous" href="https://account.cnblogs.com/signin/?returnUrl=https://www.cnblogs.com/">登录</a>
+                    </li>
+                </ul>
+            </nav>
+            <nav id="nav_mobile" class="navbar-mobile">
+                <ul class="navbar-list">
+                    <li class="navbar-branding">
+                        <a href="https://www.cnblogs.com/" title="开发者的网上家园"><img src="/images/logo.svg?v=R9M0WmLAIPVydmdzE2keuvnjl-bPR7_35oHqtiBzGsM" alt="博客园Logo" /></a>
+                    </li>
+                    <li class="dropdown">
+                        <div class="dropdown-button" onclick="toggleDropdownMenu()">
+                            <a href="javascript:void(0)">发现</a>
+                            <img src="/images/aggsite/pulldown-bold.svg" height="5" />
+                        </div>
+                        <div id="nav_dropdown_menu" class="dropdown-menu">
+                            <a href="https://news.cnblogs.com/">新闻</a>
+                            <a href="https://q.cnblogs.com/">博问</a>
+                            <a href="https://brands.cnblogs.com/">专区</a>
+                            <a href="https://ing.cnblogs.com/">闪存</a>
+                            <a href="https://edu.cnblogs.com/">班级</a>
+                            <a href="/legacy">怀旧</a>
+                            <a href="https://home.cnblogs.com/">园子</a>
+                            <a href="https://wz.cnblogs.com/">收藏</a>
+                            <a href="https://job.cnblogs.com/">招聘</a>
+                            <a href="https://zzk.cnblogs.com/">找找看</a>
+                        </div>
+                    </li>
+                </ul>
+                <ul class="navbar-list">
+                    <li>
+                        <form id="zzk_search_mobile" class="navbar-search" action="https://zzk.cnblogs.com/s" method="get">
+                            <input name="w" id="zzk_search_input_mobile" placeholder="搜索" type="text" tabindex="3" />
+                            <button type="submit" id="zzk_search_button_mobile">
+                                <img src="/images/aggsite/search.svg" alt="搜索" />
+                            </button>
+                        </form>
+                    </li>
+                    <li id="user_info_mobile" class="navbar-user-info dropdown">
+                        <a class="dropdown-button" href="https://home.cnblogs.com/">
+                            <img id="user_icon_mobile" class="navbar-icon avatar" />
+                        </a>
+                        <div class="dropdown-menu">
+                            <a href="https://account.cnblogs.com/settings/account">设置</a>
+                            <a href="javascript:void(0)" onclick="logout();">退出</a>
+                        </div>
+                    </li>
+                    <li class="navbar-anonymous" id="login_area_mobile">
+                        <a href="https://account.cnblogs.com/signup/">注册</a>
+                    </li>
+                    <li class="navbar-anonymous">
+                        <a href="https://account.cnblogs.com/signin/?returnUrl=https://www.cnblogs.com/">登录</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <img src="https://common.cnblogs.com/images/banner/bannerbar-q-background.png" alt="" style="display:none" />
+        <a href="https://q.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'sitehome-bannerbar')">
+        <div class="bannerbar">
+            <img id="banner-q-logo" src="https://common.cnblogs.com/images/banner/bannerbar-q-logo.png" alt="" />
+            <img id="banner-q-slogan" src="https://common.cnblogs.com/images/banner/bannerbar-q-slogan.png" alt="" />
+        </div>
+        </a>
+        <div id="main_content" class="hero">
+            <div id="main" class="main">
+                <div id="side_nav" class="side-left tab-bar">
+                    
+<ul class="sidenav">
+            <li id="sidenav_pick" class="sidenav-item ">
+                <a href="/pick/" title="精华区博文">
+                    <img src="/images/aggsite/picked.svg" />
+                    <span>精华</span>
+                </a>
+            </li>
+            <li id="sidenav_candidate" class="sidenav-item ">
+                <a href="/candidate/" title="候选区博文">
+                    <img src="/images/aggsite/candidate.svg" />
+                    <span>候选</span>
+                </a>
+            </li>
+            <li class="sidenav-splitter"></li>
+            <li id="sidenav_subscription" class="sidenav-item ">
+                <a href="/subscription" title="我订阅的博客">
+                    <img src="/images/aggsite/subscription.svg" />
+                    <span>订阅</span>
+                </a>
+            </li>
+            <li id="sidenav_following" class="sidenav-item ">
+                <a href="/following" title="我关注的园友">
+                    <img src="/images/aggsite/following.svg" />
+                    <span>关注</span>
+                </a>
+            </li>
+            <li id="sidenav_commented" class="sidenav-item ">
+                <a href="/aggsite/mycommented" title="我评论过的博文">
+                    <img src="/images/aggsite/commented.svg" />
+                    <span>我评</span>
+                </a>
+            </li>
+            <li id="sidenav_digged" class="sidenav-item ">
+                <a href="/aggsite/mydigged" title="我推荐过的博文">
+                    <img src="/images/aggsite/digged.svg" />
+                    <span>我赞</span>
+                </a>
+            </li>
+    <li id="sidenav_more" class="dropdown sidenav-item ">
+        <div class="dropdown-button">
+            <a href="javascript:void(0)">
+                <img src="/images/aggsite/more.svg">
+                <span>更多</span>
+            </a>
+        </div>
+        <div class="dropdown-menu">
+            <a href="/cate/all">所有随笔</a>
+            <a href="/comment/">最新评论</a>
+            <a href="/cmt/">官方博客</a>
+            <a href="/skins.aspx">博客皮肤</a>
+        </div>
+    </li>
+    <li class="sidenav-splitter"></li>
+    <li class="sidenav-item feedback">
+        <a href="https://group.cnblogs.com/forum/public/" class="feedback">
+            <img src="/images/aggsite/feedback.svg" />
+            <span>反馈</span>
+        </a>
+    </li>
+    <li id="dark_switch">
+        <a href="javascript:void(0)"><img src="/images/aggsite/dark.svg" /></a>
+    </li>
+</ul>
+                </div>
+
+                <div id="main_flow" class="main-flow">
+                    <div class="card">
+                            <div id="post_list_title" class="card-title-block">
+                                <div class="card-title">
+                                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M6.819 4H17.18c.764 0 1.381.692 1.381 1.547v12.906c0 .855-.617 1.547-1.38 1.547H6.818c-.764 0-1.381-.692-1.381-1.547V5.547c0-.855.617-1.547 1.38-1.547z" fill="#8D8EA2" /><path d="M12.488 10.769h-3.91c-.284 0-.515.34-.515.76 0 .418.23.759.515.759h3.912c.284 0 .515-.341.515-.76 0-.418-.231-.76-.517-.76zm-1.646 3.947H8.578c-.284 0-.515.34-.515.76 0 .418.23.76.515.76h2.264c.284 0 .515-.342.515-.76 0-.42-.231-.76-.515-.76zm3.705-7.892h-5.97c-.283 0-.514.34-.514.76 0 .418.23.759.515.759h5.97c.283 0 .514-.341.514-.76s-.23-.76-.515-.76z" fill="#FFF" /></svg><a href="/comment/">最新评论</a>
+                                </div>
+                                    <span id="posts_refresh_tips" class="card-title"></span>
+                                    <a id="posts_refresh" href="#" class="card-title" title="刷新博文列表" onclick="aggSite.loadCommentList();return false;">
+                                        刷新
+                                    </a>
+                            </div>
+                            <div class="card-title-line"></div>
+
+                        <div class="card headline">
+    <ul>
+            <li>
+                    <a href="https://www.cnblogs.com/alchemystar/p/13845081.html" id="editor_pick_lnk" target="_blank">
+                        <span class="headline-label">【编辑推荐】</span>从 Linux 源码看 Socket(TCP) 的 listen 及连接队列<span id="editor_pick_count"></span>
+                    </a>
+                    <a href="/aggsite/headline" title="查看更多编辑推荐" class="right_more">»</a>
+            </li>
+            <li>
+                    <a href="https://news.cnblogs.com/n/675761/" target="_blank" title="推荐1, 阅读478, 评论0">
+                        <span class="headline-label">【新闻头条】</span>30行代码：让27吨发电机原地爆炸(1/478)
+                    </a>
+                    <a href="https://news.cnblogs.com/" title="查看更多新闻" class="right_more">»</a>
+            </li>
+            <li>
+                    <a href="https://news.cnblogs.com/n/675726/" target="_blank" title="推荐1, 阅读675, 评论1">
+                        <span class="headline-label">【推荐新闻】</span>马云：蚂蚁已完成上市定价，P2P根本不是互联网金融(1/675)
+                    </a>
+                    <a href="https://news.cnblogs.com/n/recommend" title="查看更多推荐新闻" class="right_more">»</a>
+            </li>
+    </ul>
+</div>
+
+                        <div id="pager_top" style="display: none"></div>
+                        <div id="post_list_tips" class="hide"></div>
+                        
+                        <div id="post_list" class="post-list">
+                                <article class="post-item comment-item">
+        <section class="post-item-body">
+            <div class="post-item-text">
+                <a class="post-item-title" href="https://www.cnblogs.com/zhoukuan/p/13861665.html#4716676" target="_blank">Re:C语言I博客作业02</a>
+                <p class="post-item-summary">
+                    对《提问的智慧》这篇文章有着自己的见解，并且对如何提问也做出啦不错的例子，并且对markdown的用法也很熟悉，对自己在使用PTA时自己的错误也很明了，PTA作业完成的也很好！希望你能够继续保持，在这个基础上更上一层楼
+
+                </p>
+            </div>
+            <footer class="post-item-foot">
+                <a href="https://home.cnblogs.com/u/2177040/" class="post-item-author"><span>琉溪川</span></a>
+                <span class="post-meta-item">
+                    <span>评论于 2020-10-26 08:25</span>
+                </span>
+            </footer>
+        </section>
+    </article>
+    <article class="post-item comment-item">
+        <section class="post-item-body">
+            <div class="post-item-text">
+                <a class="post-item-title" href="https://www.cnblogs.com/yubaolee/p/Net3ToNet5.html#4716675" target="_blank">Re:那些鼓吹国内首个.NET 5框架的，该醒醒了！</a>
+                <p class="post-item-summary">
+                    支持,如果.net社区以后都是标题党都这么浮躁,那.net社区还这么发展
+
+                </p>
+            </div>
+            <footer class="post-item-foot">
+                <a href="https://home.cnblogs.com/u/1654126/" class="post-item-author"><span>Zhou_Taurus</span></a>
+                <span class="post-meta-item">
+                    <span>评论于 2020-10-26 08:22</span>
+                </span>
+            </footer>
+        </section>
+    </article>
+    <article class="post-item comment-item">
+        <section class="post-item-body">
+            <div class="post-item-text">
+                <a class="post-item-title" href="https://www.cnblogs.com/yangzixiang/p/13874271.html#4716674" target="_blank">Re:C语言I博客作业02</a>
+                <p class="post-item-summary">
+                    
+1.这次的作业排版很棒！让人看了很舒适。
+2.作业完成得蛮好的就是贴的顺序有点小瑕疵，但不影响。
+3.学习重在坚持，希望你能坚持下去，坚持就是胜利，加油！
+考研对你来说只是小目标。
+
+
+                </p>
+            </div>
+            <footer class="post-item-foot">
+                <a href="https://home.cnblogs.com/u/2177283/" class="post-item-author"><span>岚影</span></a>
+                <span class="post-meta-item">
+                    <span>评论于 2020-10-26 08:21</span>
+                </span>
+            </footer>
+        </section>
+    </article>
+    <article class="post-item comment-item">
+        <section class="post-item-body">
+            <div class="post-item-text">
+                <a class="post-item-title" href="https://www.cnblogs.com/Sxywjk/p/13866296.html#4716673" target="_blank">Re:C语言I博客作业02</a>
+                <p class="post-item-summary">
+                    把自身的问题都找了出来，读了《提问的智慧》，在提问方面有了很大的进步，知道自己的问题所在，为了解决它做出了很多的努力。在之后的学习中我们一起努力，为了更好的自己，加油！
+一起为了之后的自己努力变强。
+
+                </p>
+            </div>
+            <footer class="post-item-foot">
+                <a href="https://home.cnblogs.com/u/2178260/" class="post-item-author"><span>毁灭的雨</span></a>
+                <span class="post-meta-item">
+                    <span>评论于 2020-10-26 08:18</span>
+                </span>
+            </footer>
+        </section>
+    </article>
+    <article class="post-item comment-item">
+        <section class="post-item-body">
+            <div class="post-item-text">
+                <a class="post-item-title" href="https://www.cnblogs.com/wetry/p/13875999.html#4716672" target="_blank">Re:20201022-2 alpha week 2/2 Scrum立会报告+燃尽图 04</a>
+                <p class="post-item-summary">
+                    建议所有文中链接都可以直接被点击。
+
+                </p>
+            </div>
+            <footer class="post-item-foot">
+                <a href="https://home.cnblogs.com/u/19356/" class="post-item-author"><span>yeka</span></a>
+                <span class="post-meta-item">
+                    <span>评论于 2020-10-26 08:17</span>
+                </span>
+            </footer>
+        </section>
+    </article>
+    <article class="post-item comment-item">
+        <section class="post-item-body">
+            <div class="post-item-text">
+                <a class="post-item-title" href="https://www.cnblogs.com/GeekerJun/p/13564876.html#4716671" target="_blank">Re:VisualStudio Code使用心得与常用插件技巧大全</a>
+                <p class="post-item-summary">
+                    @callmelx
+看我的博客吧 有文章!
+
+                </p>
+            </div>
+            <footer class="post-item-foot">
+                <a href="https://home.cnblogs.com/u/1452855/" class="post-item-author"><span>极客小俊GeekerJun</span></a>
+                <span class="post-meta-item">
+                    <span>评论于 2020-10-26 08:08</span>
+                </span>
+            </footer>
+        </section>
+    </article>
+    <article class="post-item comment-item">
+        <section class="post-item-body">
+            <div class="post-item-text">
+                <a class="post-item-title" href="https://www.cnblogs.com/Point-King/p/13858286.html#4716670" target="_blank">Re:认知自己</a>
+                <p class="post-item-summary">
+                    唯物辩证主义认为人的意识不仅是物质性的，而且更是物质世界的更高层次反映，也许哪一天还会有物质世界的反映的反映，就跟你现在身体里的细胞一样。
+
+                </p>
+            </div>
+            <footer class="post-item-foot">
+                <a href="https://home.cnblogs.com/u/1838917/" class="post-item-author"><span>Schwarzkopf_Henkal</span></a>
+                <span class="post-meta-item">
+                    <span>评论于 2020-10-26 08:07</span>
+                </span>
+            </footer>
+        </section>
+    </article>
+    <article class="post-item comment-item">
+        <section class="post-item-body">
+            <div class="post-item-text">
+                <a class="post-item-title" href="https://www.cnblogs.com/chdy/p/10095783.html#4716669" target="_blank">Re:树上依赖背包总结</a>
+                <p class="post-item-summary">
+                    求背景图片
+
+                </p>
+            </div>
+            <footer class="post-item-foot">
+                <a href="https://home.cnblogs.com/u/1741801/" class="post-item-author"><span>魑吻丶殇之玖梦</span></a>
+                <span class="post-meta-item">
+                    <span>评论于 2020-10-26 08:02</span>
+                </span>
+            </footer>
+        </section>
+    </article>
+    <article class="post-item comment-item">
+        <section class="post-item-body">
+            <div class="post-item-text">
+                <a class="post-item-title" href="https://www.cnblogs.com/yubaolee/p/Net3ToNet5.html#4716668" target="_blank">Re:那些鼓吹国内首个.NET 5框架的，该醒醒了！</a>
+                <p class="post-item-summary">
+                    你不光是李玉宝，你也不光是个程序员，你还是个有闲工夫且爱较真的程序员，哈哈。
+
+                </p>
+            </div>
+            <footer class="post-item-foot">
+                <a href="https://home.cnblogs.com/u/21436/" class="post-item-author"><span>蔡润彬</span></a>
+                <span class="post-meta-item">
+                    <span>评论于 2020-10-26 07:48</span>
+                </span>
+            </footer>
+        </section>
+    </article>
+    <article class="post-item comment-item">
+        <section class="post-item-body">
+            <div class="post-item-text">
+                <a class="post-item-title" href="https://www.cnblogs.com/Jasonlee1/p/13869897.html#4716667" target="_blank">Re:C语言I博客作业02</a>
+                <p class="post-item-summary">
+                    作业完成速度快，内容充实，谈到了自己的想法和见解。继续加油。
+
+                </p>
+            </div>
+            <footer class="post-item-foot">
+                <a href="https://home.cnblogs.com/u/2177290/" class="post-item-author"><span>计科二班刘邦</span></a>
+                <span class="post-meta-item">
+                    <span>评论于 2020-10-26 07:41</span>
+                </span>
+            </footer>
+        </section>
+    </article>
+    <article class="post-item comment-item">
+        <section class="post-item-body">
+            <div class="post-item-text">
+                <a class="post-item-title" href="https://www.cnblogs.com/chenweiweizi/p/13871785.html#4716666" target="_blank">Re:第二周作业</a>
+                <p class="post-item-summary">
+                    对于提问的回答，能看出你已经学会了如何提问，从你的程序看出你扎实的基础，加油！
+
+                </p>
+            </div>
+            <footer class="post-item-foot">
+                <a href="https://home.cnblogs.com/u/2177291/" class="post-item-author"><span>携微博览</span></a>
+                <span class="post-meta-item">
+                    <span>评论于 2020-10-26 07:40</span>
+                </span>
+            </footer>
+        </section>
+    </article>
+    <article class="post-item comment-item">
+        <section class="post-item-body">
+            <div class="post-item-text">
+                <a class="post-item-title" href="https://www.cnblogs.com/20030103tm/p/13875778.html#4716665" target="_blank">Re:C语言I博客作业02</a>
+                <p class="post-item-summary">
+                    对PTA的作业第四题存有一定的疑问，可以自己通过各种途径找到答案。Markdown的语法格式使用正确，理解如何高效并有效的提问。结合编程实际，直面自己的问题。继续努力吧！
+
+                </p>
+            </div>
+            <footer class="post-item-foot">
+                <a href="https://home.cnblogs.com/u/2176921/" class="post-item-author"><span>逝光子</span></a>
+                <span class="post-meta-item">
+                    <span>评论于 2020-10-26 07:32</span>
+                </span>
+            </footer>
+        </section>
+    </article>
+    <article class="post-item comment-item">
+        <section class="post-item-body">
+            <div class="post-item-text">
+                <a class="post-item-title" href="https://www.cnblogs.com/1003905763zzx/p/13865246.html#4716664" target="_blank">Re:C语言I博客作业02</a>
+                <p class="post-item-summary">
+                    厉害了，能把作业完成的如此的好，而且还比别人快，这个字也很厉害
+
+                </p>
+            </div>
+            <footer class="post-item-foot">
+                <a href="https://home.cnblogs.com/u/2177141/" class="post-item-author"><span>mingshao123</span></a>
+                <span class="post-meta-item">
+                    <span>评论于 2020-10-26 07:25</span>
+                </span>
+            </footer>
+        </section>
+    </article>
+    <article class="post-item comment-item">
+        <section class="post-item-body">
+            <div class="post-item-text">
+                <a class="post-item-title" href="https://www.cnblogs.com/dongrgg/p/13864867.html#4716663" target="_blank">Re:C语言I博客作业02</a>
+                <p class="post-item-summary">
+                    加油，花在编程上的时间不比别人少，效果却比别人好，加油，奥利给，希望你在这条路上越走越好
+
+                </p>
+            </div>
+            <footer class="post-item-foot">
+                <a href="https://home.cnblogs.com/u/2177141/" class="post-item-author"><span>mingshao123</span></a>
+                <span class="post-meta-item">
+                    <span>评论于 2020-10-26 07:24</span>
+                </span>
+            </footer>
+        </section>
+    </article>
+    <article class="post-item comment-item">
+        <section class="post-item-body">
+            <div class="post-item-text">
+                <a class="post-item-title" href="https://www.cnblogs.com/pcy23/p/13860298.html#4716662" target="_blank">Re:C语言I博客作业02</a>
+                <p class="post-item-summary">
+                    排版工整，从彭晨雨同学的作业中可以看出，她有很认真的完成老师布置的每一项作业 尤其是在阅读《提问的智慧》这一方面，从中得到了十条收获。也十分清楚自己在编程方面存在的问题。PTA的作业也完成得十分优秀。期待更好的你。(o^^o)
+
+                </p>
+            </div>
+            <footer class="post-item-foot">
+                <a href="https://home.cnblogs.com/u/2177298/" class="post-item-author"><span>miraitowa(ಡωಡ)</span></a>
+                <span class="post-meta-item">
+                    <span>评论于 2020-10-26 07:22</span>
+                </span>
+            </footer>
+        </section>
+    </article>
+    <article class="post-item comment-item">
+        <section class="post-item-body">
+            <div class="post-item-text">
+                <a class="post-item-title" href="https://www.cnblogs.com/hongyinhongyin/p/13863678.html#4716661" target="_blank">Re:C语言I博客作业02</a>
+                <p class="post-item-summary">
+                    加油，坚持即胜利
+
+                </p>
+            </div>
+            <footer class="post-item-foot">
+                <a href="https://home.cnblogs.com/u/2177141/" class="post-item-author"><span>mingshao123</span></a>
+                <span class="post-meta-item">
+                    <span>评论于 2020-10-26 07:20</span>
+                </span>
+            </footer>
+        </section>
+    </article>
+    <article class="post-item comment-item">
+        <section class="post-item-body">
+            <div class="post-item-text">
+                <a class="post-item-title" href="https://www.cnblogs.com/1531303574qq/p/13866639.html#4716660" target="_blank">Re:C语言I博客作业02</a>
+                <p class="post-item-summary">
+                    成功不是一促即成的，失败乃是成功之母。一次次的尝试，一次次的努力最终都会化为踏向成功的阶梯与经验，引领你走向成功。错不可怕，可怕的是错了也不去改正。
+
+                </p>
+            </div>
+            <footer class="post-item-foot">
+                <a href="https://home.cnblogs.com/u/2177461/" class="post-item-author"><span>胡坚</span></a>
+                <span class="post-meta-item">
+                    <span>评论于 2020-10-26 07:14</span>
+                </span>
+            </footer>
+        </section>
+    </article>
+    <article class="post-item comment-item">
+        <section class="post-item-body">
+            <div class="post-item-text">
+                <a class="post-item-title" href="https://www.cnblogs.com/peng-ying/p/13875324.html#4716659" target="_blank">Re:C语言I作业02</a>
+                <p class="post-item-summary">
+                    对《提问的智慧》有了自己的理解，阐明了自己在PTA遇到的各种问题，并予以解决方法，也了解了PTA的评判标准。排版整齐，PTA作业完成的也很好。一起继续加油吧!
+
+                </p>
+            </div>
+            <footer class="post-item-foot">
+                <a href="https://home.cnblogs.com/u/2176921/" class="post-item-author"><span>逝光子</span></a>
+                <span class="post-meta-item">
+                    <span>评论于 2020-10-26 07:10</span>
+                </span>
+            </footer>
+        </section>
+    </article>
+    <article class="post-item comment-item">
+        <section class="post-item-body">
+            <div class="post-item-text">
+                <a class="post-item-title" href="https://www.cnblogs.com/20030103tm/p/13875778.html#4716658" target="_blank">Re:C语言I博客作业02</a>
+                <p class="post-item-summary">
+                    作业内容很丰富，可以看出你在这一周的学习与阅读中收获丰富。这次的PTA作业你也知道了更多的C语言知识，例如else不能在大括号里面等等。坚定自己的步伐，一步一个脚印，相信你到最后一定是硕果累累。
+
+                </p>
+            </div>
+            <footer class="post-item-foot">
+                <a href="https://home.cnblogs.com/u/2177117/" class="post-item-author"><span>彭樱</span></a>
+                <span class="post-meta-item">
+                    <span>评论于 2020-10-26 06:57</span>
+                </span>
+            </footer>
+        </section>
+    </article>
+    <article class="post-item comment-item">
+        <section class="post-item-body">
+            <div class="post-item-text">
+                <a class="post-item-title" href="https://www.cnblogs.com/1531303574qq/p/13866639.html#4716657" target="_blank">Re:C语言I博客作业02</a>
+                <p class="post-item-summary">
+                    @携微博览
+
+
+都是入门技能，请多练习
+
+                </p>
+            </div>
+            <footer class="post-item-foot">
+                <a href="https://home.cnblogs.com/u/202788/" class="post-item-author"><span>SoftwareTeacher</span></a>
+                <span class="post-meta-item">
+                    <span>评论于 2020-10-26 06:56</span>
+                </span>
+            </footer>
+        </section>
+    </article>
+
+
+                        </div>
+                        <script type="text/javascript">
+                        var aggSiteModel = {"CategoryType":"Undefined","ParentCategoryId":0,"CategoryId":0,"PageIndex":1,"TotalPostCount":4000,"ItemListActionName":"AggSiteCommentList"};
+                        </script>
+                        <div id="pager_bottom">
+<div id="paging_block"><div class="pager"><a href="/comment/" class="p_1 current" onclick="aggSite.loadCommentList(1,20);buildPaging(1);return false;">1</a><a href="/comment/2/" class="p_2 middle" onclick="aggSite.loadCommentList(2,20);buildPaging(2);return false;">2</a><a href="/comment/3/" class="p_3 middle" onclick="aggSite.loadCommentList(3,20);buildPaging(3);return false;">3</a><span class="ellipsis">···</span><a href="/comment/200/" class="p_200 last" onclick="aggSite.loadCommentList(200,20);buildPaging(200);return false;">200</a><a href="/comment/2/" onclick="aggSite.loadCommentList(2,20);buildPaging(2);return false;">&gt;</a></div></div><script type="text/javascript">var pagingBuider={"OnlyLinkText":false,"TotalCount":4000,"PageIndex":1,"PageSize":20,"ShowPageCount":1,"SkipCount":0,"UrlFormat":"/comment/{0}/","OnClickJsFunc":"aggSite.loadCommentList()","FirstPageLink":"/comment/","AjaxUrl":"/AggSite/Pager","AjaxCallbak":null,"TopPagerId":"pager_top","IsRenderScript":true};function buildPaging(pageIndex){pagingBuider.PageIndex=pageIndex;$.ajax({url:pagingBuider.AjaxUrl,data:JSON.stringify(pagingBuider),type:'post',dataType:'text',contentType:'application/json; charset=utf-8',success:function (data) { $('#paging_block').html(data); var pagerTop=$('#pager_top');if(pageIndex>1){$(pagerTop).html(data).show();}else{$(pagerTop).hide();}}});}</script>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="side_right" class="side-right card-list sidebar">
+                    <div id="cnblogs_b1" class="sidebar-image">
+                        <div id='div-gpt-ad-1546331539224-0' style="height:250px; width:300px;">
+                            <script>
+                                googletag.cmd.push(function () { googletag.display('div-gpt-ad-1546331539224-0'); });
+                            </script>
+                        </div>
+                    </div>
+                    <div id="ad_right_text" class="ad-right-text"></div>
+                </div>
+            </div>
+        </div>
+        <footer id="footer" class="footer">
+            <div id="friend_link" class="link-list friend-link">
+    友情链接：<a href="https://www.vpsor.cn" target="_blank">硅云</a><a href="https://www.aliyun.com" target="_blank">阿里云</a><a href="https://cloud.tencent.com/act/developer?fromSource=gwzcw.3196334.3196334.3196334&utm_medium=cpc&utm_id=gwzcw.3196334.3196334.3196334" target="_blank">腾讯云</a><a href="https://www.huaweicloud.com/" target="_blank">华为云</a><a href="https://cloud.baidu.com" target="_blank">百度云</a><a href="https://www.jdcloud.com" target="_blank">京东云</a><a href="https://www.yisu.com/" target="_blank">亿速云</a><a href="https://www.163yun.com" target="_blank">网易云</a><a href="http://www.gcpowertools.com.cn" target="_blank">葡萄城控件</a><a href="http://www.chinaz.com/" target="_blank">站长之家</a><a href="http://dev.yesky.com" target="_blank">天极网</a><a href="http://www.hightopo.com/cn-index.html" target="_blank">图扑软件</a><a href="http://www.cnblogs.com/mipengine/" target="_blank">百度MIP博客</a><a href="http://wetest.qq.com/?from=links_cnblogs" target="_blank">腾讯WeTest</a><a href="http://yaq.qq.com/" target="_blank">腾讯御安全</a><a href="http://www.ucancode.com/index.html" target="_blank">工控组态源码</a><a href="https://163yun.cnblogs.com/" target="_blank">网易云博客</a><a href="https://kb.cnblogs.com" target="_blank">知识库</a>
+</div>
+            <div class="footer-splitter"></div>
+            <div id="footer_bottom">
+                <div class="poweredby">Powered by .NET 5.0.0-rc.2.20475.5 on Kubernetes</div>
+                <div class="about"><a href="https://about.cnblogs.com/">关于博客园</a><a href="https://about.cnblogs.com/contact">联系我们</a><a href="https://about.cnblogs.com/ad">广告服务</a><a href="https://about.cnblogs.com/job">人才服务</a>&copy;2004-2020<a href="https://www.cnblogs.com/">博客园</a>保留所有权利<a href="http://www.beian.miit.gov.cn" target="_blank">沪ICP备09004260号</a></div>
+                <div class="beian"><a href="https://ss.knet.cn/verifyseal.dll?sn=e131108110100433392itm000000&amp;ct=df&amp;a=1&amp;pa=0.25787803245785335" rel="nofollow" target="_blank"><img id="cnnic_img" src="//common.cnblogs.com/images/cnnic.png" alt="" width="64" height="23" /></a><a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=31011502001144" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><img src="//common.cnblogs.com/images/ghs.png" alt="" /><span style="float:left;height:20px;line-height:20px;margin: 0 5px 0 5px;">沪公网安备 31011502001144号</span></a></div>
+                <div class="report-contact">举报电话：0571-88079867，举报邮箱：contact@cnblogs.com <a href="http://www.shjbzx.cn" target="_blank"><img src="/images/jblogo.png?v=20200730" alt="" /></a></div>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

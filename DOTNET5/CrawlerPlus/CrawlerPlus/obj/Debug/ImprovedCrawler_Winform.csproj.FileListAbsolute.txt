@@ -1,0 +1,10 @@
+D:\OneDrive\桌面\DotNetHomeWork-master\ImprovedCrawler_Winform\ImprovedCrawler_Winform\bin\Debug\WindowsFormsApp5.exe.config
+D:\OneDrive\桌面\DotNetHomeWork-master\ImprovedCrawler_Winform\ImprovedCrawler_Winform\bin\Debug\WindowsFormsApp5.exe
+D:\OneDrive\桌面\DotNetHomeWork-master\ImprovedCrawler_Winform\ImprovedCrawler_Winform\bin\Debug\WindowsFormsApp5.pdb
+D:\OneDrive\桌面\DotNetHomeWork-master\ImprovedCrawler_Winform\ImprovedCrawler_Winform\obj\Debug\ImprovedCrawler_Winform.csprojAssemblyReference.cache
+D:\OneDrive\桌面\DotNetHomeWork-master\ImprovedCrawler_Winform\ImprovedCrawler_Winform\obj\Debug\WindowsFormsApp5.Properties.Resources.resources
+D:\OneDrive\桌面\DotNetHomeWork-master\ImprovedCrawler_Winform\ImprovedCrawler_Winform\obj\Debug\ImprovedCrawler_Winform.csproj.GenerateResource.cache
+D:\OneDrive\桌面\DotNetHomeWork-master\ImprovedCrawler_Winform\ImprovedCrawler_Winform\obj\Debug\ImprovedCrawler_Winform.csproj.CoreCompileInputs.cache
+D:\OneDrive\桌面\DotNetHomeWork-master\ImprovedCrawler_Winform\ImprovedCrawler_Winform\obj\Debug\WindowsFormsApp5.exe
+D:\OneDrive\桌面\DotNetHomeWork-master\ImprovedCrawler_Winform\ImprovedCrawler_Winform\obj\Debug\WindowsFormsApp5.pdb
+D:\OneDrive\桌面\DotNetHomeWork-master\ImprovedCrawler_Winform\ImprovedCrawler_Winform\obj\Debug\CrawlerPlus.Form1.resources

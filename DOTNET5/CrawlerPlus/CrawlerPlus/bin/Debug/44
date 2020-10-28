@@ -1,0 +1,520 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="origin" />
+    <meta name="description" content="docker compose的使用场景 我们开发的时候，一个应用往往依赖多个服务。采用传统的docker run方式，要挨个启动多个服务，甚至需要配置对应的网络,过程比较繁琐，很不方便。 docker" />
+    <meta property="og:description" content="docker compose的使用场景 我们开发的时候，一个应用往往依赖多个服务。采用传统的docker run方式，要挨个启动多个服务，甚至需要配置对应的网络,过程比较繁琐，很不方便。 docker" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>docker compose 用法 - 西北偏北UP - 博客园</title>
+    <link id="favicon" rel="shortcut icon" href="//common.cnblogs.com/favicon.svg" type="image/svg+xml" />
+    
+    <link rel="stylesheet" href="/css/blog-common.min.css?v=caAedYKpnz341INFIWakIM6r1EP9FIuJg43i9i8zqDQ" />
+    <link id="MainCss" rel="stylesheet" href="/skins/custom/bundle-custom.min.css?v=1ssrnY3Il79Ok472qeVrpxlSprSXcHhYPgZC5S3wtVM" />
+    <link type="text/css" rel="stylesheet" href="https://www.cnblogs.com/niceshot/custom.css?v=7rnz5TtMcHt9VmgMA7H/K8T8fSI=" />
+    <link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="/skins/custom/bundle-custom-mobile.min.css?v=KtAK50iXMDcU4jOl_mm1P0j3gXUtdRHDhFdu7YlsVVg" />
+    
+    <link type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/niceshot/rss" />
+    <link type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/niceshot/rsd.xml" />
+    <link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/niceshot/wlwmanifest.xml" />
+    <script>
+        var currentBlogId = 603790;
+        var currentBlogApp = 'niceshot';
+        var cb_enable_mathjax = true;
+        var isLogined = false;
+        var isBlogOwner = false;
+        var skinName = 'Custom';
+        var visitorUserId = '';
+    </script>
+        <script>
+            var currentPostDateAdded = '2020-10-25 10:57';
+        </script>
+    <script src="https://common.cnblogs.com/scripts/jquery-2.2.0.min.js"></script>
+    <script src="/js/blog-common.min.js?v=kKx3DBtpvO8r97BzPmHJseQ10fGHkI-ZwMh4FA0eEd0"></script>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+        tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']], processClass: 'math', processEscapes: true },
+        TeX: {
+        equationNumbers: { autoNumber: ['AMS'], useLabelIds: true },
+        extensions: ['extpfeil.js', 'mediawiki-texvc.js'],
+        Macros: {bm: "\\boldsymbol"}
+        },
+        'HTML-CSS': { linebreaks: { automatic: true } },
+        SVG: { linebreaks: { automatic: true } }
+        });
+    </script>
+    <script src="https://mathjax.cnblogs.com/2_7_5/MathJax.js?config=TeX-AMS-MML_HTMLorMML&amp;v=20200504"></script>
+    
+</head>
+<body class="no-navbar">
+    <a name="top"></a> 
+    <div id="top_nav" class="navbar navbar-custom">
+        <nav id="nav_main" class="navbar-main">
+            <ul id="nav_left" class="navbar-list navbar-left">
+                <li class="navbar-branding">
+                    <a href="https://www.cnblogs.com/" title="开发者的网上家园"><img src="/images/logo.svg?v=R9M0WmLAIPVydmdzE2keuvnjl-bPR7_35oHqtiBzGsM" alt="博客园Logo" /></a>
+                </li>
+                <li><a href="/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-sitehome')">首页</a></li>
+                <li><a href="https://news.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-news')">新闻</a></li>
+                <li><a href="https://q.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-q')">博问</a></li>
+                <li><a id="nav_brandzone" href="https://brands.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-brands')">专区</a></li>
+                <li><a href="https://ing.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-ing')">闪存</a></li>
+                <li><a href="https://edu.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-edu')">班级</a></li>
+            </ul>
+            <ul id="nav_right" class="navbar-list navbar-right">
+                <li>
+                    <form id="zzk_search" class="navbar-search" action="https://zzk.cnblogs.com/s" method="get">
+                        <input name="w" id="zzk_search_input" placeholder="代码改变世界" type="text" tabindex="3" />
+                        <button type="submit" id="zzk_search_button">
+                            <img src="/images/aggsite/search.svg" alt="搜索" />
+                        </button>
+                    </form>
+                </li>
+                <li id="navbar_login_status" class="navbar-list">
+                    <a id="navblog-myblog-icon" class="navbar-user-info navbar-blog" href="https://passport.cnblogs.com/GetBlogApplyStatus.aspx" alt="我的博客" title="我的博客">
+                        <img id="myblog_icon" class="navbar-icon" src="/images/aggsite/myblog.svg" alt="我的博客" />
+                    </a>
+                    <a class="navbar-user-info navbar-message navbar-icon-wrapper" href="https://msg.cnblogs.com/" alt="短消息" title="短消息">
+                        <img id="msg_icon" class="navbar-icon" src="/images/aggsite/message.svg?v=oS4PkibyMjZ9rGD5XAcLt99uW_s76Javy2up4dbnZNY" alt="短消息" />
+                        <span id="msg_count" style="display: none"></span>
+                    </a>
+                    <div id="user_info" class="navbar-user-info dropdown">
+                        <a class="dropdown-button" href="https://home.cnblogs.com/">
+                            <img id="user_icon" class="navbar-avatar" src="/images/aggsite/avatar-default.svg" alt="用户头像" />
+                        </a>
+                        <div class="dropdown-menu">
+                            <a id="navblog-myblog-text" href="https://passport.cnblogs.com/GetBlogApplyStatus.aspx">我的博客</a>
+                            <a href="https://home.cnblogs.com/">我的园子</a>
+                            <a href="https://account.cnblogs.com/settings/account">账号设置</a>
+                            <a href="javascript:void(0)" onclick="logout();">退出登录</a>
+                        </div>
+                    </div>
+                    <a class="navbar-anonymous" href="https://account.cnblogs.com/signup/">注册</a>
+                    <a class="navbar-anonymous" href="https://account.cnblogs.com/signin/?returnUrl=https://www.cnblogs.com/">登录</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    
+    <!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+        <a id="lnkBlogLogo" href="https://www.cnblogs.com/niceshot/"><img id="blogLogo" src="/skins/custom/images/logo.gif" alt="返回主页" /></a>		
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle HeaderMainTitle" href="https://www.cnblogs.com/niceshot/">西北偏北UP</a>
+</h1>
+<h2>
+
+</h2>
+
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li><a id="blog_nav_sitehome" class="menu" href="https://www.cnblogs.com/">
+博客园</a>
+</li>
+<li>
+<a id="blog_nav_myhome" class="menu" href="https://www.cnblogs.com/niceshot/">
+首页</a>
+</li>
+<li>
+
+
+</li>
+<li>
+<a id="blog_nav_contact" class="menu" href="https://msg.cnblogs.com/send/%E8%A5%BF%E5%8C%97%E5%81%8F%E5%8C%97UP">
+联系</a></li>
+<li>
+<a id="blog_nav_rss" class="menu" href="javascript:void(0)" data-rss="https://www.cnblogs.com/niceshot/rss/">
+订阅</a>
+<!--<partial name="./Shared/_XmlLink.cshtml" model="Model" /></li>--></li>
+<li>
+<a id="blog_nav_admin" class="menu" href="https://i.cnblogs.com/">
+管理</a>
+</li>
+</ul>
+
+
+		<div class="blogStats">
+			<span id="stats_post_count">随笔 - 
+21&nbsp; </span>
+<span id="stats_article_count">文章 - 
+0&nbsp; </span>
+<span id="stats-comment_count">评论 - 
+3</span>
+
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		<div id="post_detail">
+    <!--done-->
+    <div id="topics">
+        <div class="post">
+            <h1 class = "postTitle">
+                
+<a id="cb_post_title_url" class="postTitle2 vertical-middle" href="https://www.cnblogs.com/niceshot/p/13875831.html">
+    <span>docker compose 用法</span>
+    
+
+
+</a>
+
+            </h1>
+            <div class="clear"></div>
+            <div class="postBody">
+                
+<div id="cnblogs_post_body" class="blogpost-body cnblogs-markdown">
+    <p></p><div class="toc"><div class="toc-container-header">目录</div><ul><li><a href="#docker-compose的使用场景">docker compose的使用场景</a></li><li><a href="#一个基本的demo演示">一个基本的demo演示</a><ul><li><a href="#找一个目录，在其中创建一个python文件apppy">找一个目录，在其中创建一个python文件app.py</a></li><li><a href="#在相同的文件夹下，创建requirementstxt文件">在相同的文件夹下，创建requirements.txt文件</a></li><li><a href="#在相同的文件夹下，创建dockerfile">在相同的文件夹下，创建Dockerfile</a></li><li><a href="#在相同的文件下，创建docker-composeyml文件">在相同的文件下，创建docker-compose.yml文件</a></li></ul></li><li><a href="#基础运维">基础运维</a><ul><li><a href="#启动基于docker-composeyml编织好的服务">启动基于docker-compose.yml编织好的服务</a></li><li><a href="#查看compose服务对应的容器服务列表">查看compose服务对应的容器服务列表</a></li><li><a href="#停止service的container">停止service的container</a></li><li><a href="#停止service的container，并且删除对应的container">停止service的container，并且删除对应的container</a></li><li><a href="#停止service的container，并且删除对应的container和对应的volumes数据">停止service的container，并且删除对应的container和对应的volumes数据</a></li><li><a href="#如何登进对应的service">如何登进对应的service</a></li><li><a href="#如何显示指定compose-file">如何显示指定compose file</a></li></ul></li><li><a href="#docker-compose-up和docker-compose-run的区别">docker-compose up和docker-compose run的区别</a></li><li><a href="#一些扩展知识点">一些扩展知识点</a><ul><li><a href="#环境变量">环境变量</a><ul><li><a href="#在docker-composeyml中执行">在docker-compose.yml中执行</a></li><li><a href="#在执行docker-compose-命令之前设置shell环境变量">在执行docker-compose 命令之前设置shell环境变量</a></li><li><a href="#通过env_file文件设置">通过env_file文件设置</a></li><li><a href="#直接在compose-文件中，指定其加载的env_file">直接在compose 文件中，指定其加载的env_file</a></li><li><a href="#以上变量值设置优先级从高到底">以上变量值设置优先级从高到底</a></li><li><a href="#查看最终生效的环境变量">查看最终生效的环境变量</a></li><li><a href="#项目名设定">项目名设定</a></li></ul></li><li><a href="#网络">网络</a><ul><li><a href="#默认网络">默认网络</a></li><li><a href="#对默认网络进行独立配置">对默认网络进行独立配置</a></li><li><a href="#配置和使用非默认网络">配置和使用非默认网络</a></li></ul></li><li><a href="#多service的执行顺序">多service的执行顺序</a></li></ul></li><li><a href="#docker-compose的安装">docker compose的安装</a></li><li><a href="#docker-compose和docker-stack的异同">docker compose和docker stack的异同</a></li><li><a href="#参考资料">参考资料</a></li></ul></div><p></p>
+<h3 id="docker-compose的使用场景">docker compose的使用场景</h3>
+<p>我们开发的时候，一个应用往往依赖多个服务。采用传统的docker run方式，要挨个启动多个服务，甚至需要配置对应的网络,过程比较繁琐，很不方便。 docker compose旨在通过将多服务的构建和依赖关系都编写在<code>docker-compose.yml</code>中，通过<code>docker-compose</code>命令，即可完成对整个服务集群的启动，关闭等操作。</p>
+<h3 id="一个基本的demo演示">一个基本的demo演示</h3>
+<p>demo的功能是一个简单的python程序，暴露一个web服务。该服务用于统计当前服务被访问的次数。次数的累加和存储，都是基于redis进行的。也即该程序本身除了自己的服务，还要依赖一个redis服务。以下是详细步骤</p>
+<h4 id="找一个目录，在其中创建一个python文件apppy">找一个目录，在其中创建一个python文件app.py</h4>
+<pre><code>import time
+
+import redis
+from flask import Flask
+
+app = Flask(__name__)
+cache = redis.Redis(host='redis', port=6379)
+
+def get_hit_count():
+    retries = 5
+    while True:
+        try:
+            return cache.incr('hits')
+        except redis.exceptions.ConnectionError as exc:
+            if retries == 0:
+                raise exc
+            retries -= 1
+            time.sleep(0.5)
+
+@app.route('/')
+def hello():
+    count = get_hit_count()
+    return 'Hello World! I have been seen {} times.\n'.format(count)
+</code></pre>
+<h4 id="在相同的文件夹下，创建requirementstxt文件">在相同的文件夹下，创建requirements.txt文件</h4>
+<p>requirements.txt文件用来声明python程序需要使用到的依赖lib，有点像java中的maven pom文件。上述代码使用的组件有flask和redis。所以requirements.txt文件内容为</p>
+<pre><code>flask
+redis
+</code></pre>
+<h4 id="在相同的文件夹下，创建dockerfile">在相同的文件夹下，创建Dockerfile</h4>
+<p>Dockerfile用来将我们的程序构建成一个docker 镜像，即docker image。一般Dockerfile中会定义我们的代码运行的基本环境，程序启动命令，执行端口等。本例的Dockerfile如下</p>
+<pre><code>FROM python:3.7-alpine
+WORKDIR /code
+ENV FLASK_APP=app.py
+ENV FLASK_RUN_HOST=0.0.0.0
+COPY requirements.txt requirements.txt
+RUN pip install -r requirements.txt
+EXPOSE 5000
+COPY . .
+CMD ["flask", "run"]
+</code></pre>
+<h4 id="在相同的文件下，创建docker-composeyml文件">在相同的文件下，创建docker-compose.yml文件</h4>
+<p>上述几步完成后，我们得到了我们服务本身的docker化执行的能力。但该服务依赖redis service。所以我们通过docker-compose.yml来组织服务的依赖关系，内容如下：</p>
+<pre><code>version: "3.8"
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+  redis:
+    image: "redis:alpine"
+</code></pre>
+<p>文件中定义了两个服务web和redis , web中的<code>build:.</code> 会在当前目录下基于前面定义的Dockerfile将我们的代码构建成一个image，然后启动成一个container时，会对外暴露5000端口，映射到当前宿主机的端口也是5000</p>
+<p>redis服务直接使用现成的image <code>redis:alpine</code>，没有指定端口，将暴露redis的默认端口</p>
+<h3 id="基础运维">基础运维</h3>
+<p>所有docker-compose相关的命令，都要在docker-compose.yml所在的路径下执行才行</p>
+<h4 id="启动基于docker-composeyml编织好的服务">启动基于docker-compose.yml编织好的服务</h4>
+<p>在docker-compose.yml所在的目录，使用命令<code>docker-compose up</code>即可。但该命令在console关闭时，对应的docker service也会被关闭。可以是使用<code>docker-compose up -d</code> 以后台detach模式去执行。</p>
+<p>docker-compose up 也可以单独启动compolse file中的某个服务及其依赖</p>
+<h4 id="查看compose服务对应的容器服务列表">查看compose服务对应的容器服务列表</h4>
+<pre><code>docker-compose ps
+</code></pre>
+<p>输出结果样例</p>
+<pre><code># docker-compose ps
+            Name                          Command               State           Ports
+----------------------------------------------------------------------------------------------
+docker_compose_learn_redis_1   docker-entrypoint.sh redis ...   Up      6379/tcp
+docker_compose_learn_web_1     flask run                        Up      0.0.0.0:5000-&gt;5000/tcp
+
+</code></pre>
+<p>服务前缀<code>docker_compose_learn</code>是当前项目的名称。项目名称可以通过环境变量<code>COMPOSE_PROJECT_NAME</code>来指定，如果未指定，默认的项目名称为compose 文件所在文件夹的名字。本例中的文件夹名为<code>docker_compose_learn</code></p>
+<p>当然compose的一系列服务，最终也是启动了一系列的container. 所以也可使用<code>docker container</code>命令族进行管理，但是太麻烦</p>
+<h4 id="停止service的container">停止service的container</h4>
+<p>需要在docker-compose.yml所在的路径，使用命令<code>docker-compose stop</code></p>
+<h4 id="停止service的container，并且删除对应的container">停止service的container，并且删除对应的container</h4>
+<p>需要在docker-compose.yml所在的路径，使用命令</p>
+<pre><code>docker-compose down
+</code></pre>
+<h4 id="停止service的container，并且删除对应的container和对应的volumes数据">停止service的container，并且删除对应的container和对应的volumes数据</h4>
+<p>需要在docker-compose.yml所在的路径，使用命令</p>
+<pre><code>docker-compose down --volumes
+</code></pre>
+<p>该命令并不会删除挂载的宿主操作系统的文件。</p>
+<h4 id="如何登进对应的service">如何登进对应的service</h4>
+<p>想要登录到compose中，具体某个service的命令行，使用如下命令</p>
+<pre><code>docker-compose exec ***servicename*** bash
+</code></pre>
+<p><img src="https://img2020.cnblogs.com/other/2007268/202010/2007268-20201025225641091-1316286486.png" alt="file" loading="lazy"></p>
+<h4 id="如何显示指定compose-file">如何显示指定compose file</h4>
+<pre><code>docker-compose -f docker-compose.yml -f docker-compose.admin.yml run backup_db
+</code></pre>
+<h3 id="docker-compose-up和docker-compose-run的区别">docker-compose up和docker-compose run的区别</h3>
+<p>docker-compose up会基于compose file 启动所有的的服务，并对外暴露端口<br>
+docker-compose run需要指定特定的服务进行启动，比如<code>docker-compose run web bash</code>只会启动compolse文件中的web服务和其依赖的service，并且不会对外暴露端口，以免跟docker-compose up启动的服务端口冲突。<br>
+docker-compose run仅用在临时启动某个服务定位问题的场景</p>
+<h3 id="一些扩展知识点">一些扩展知识点</h3>
+<h4 id="环境变量">环境变量</h4>
+<p>docker-compose.yml的内容本身可以使用变量占位符，其具体的变量值定义在具体的环境变量中，这样方便同一份docker-compose.yml文件在不同的环境有不同的执行行为。典型的，我们希望依赖服务的image的tag版本，随环境不同而不同。</p>
+<p>那么我们在docker-compose.yml对应的服务配置中以占位符配置其tag，以下用<code>${TAG}</code>配置web服务的image tag</p>
+<pre><code>web:
+  image: "webapp:${TAG}"
+</code></pre>
+<p>除了指定以的变量意外，还有多个docker内置的变量可以设置，他们用来配置docker的或者docker compose的执行行为。这些内置变量是</p>
+<ul>
+<li>COMPOSE_API_VERSION</li>
+<li>COMPOSE_CONVERT_WINDOWS_PATHS</li>
+<li>COMPOSE_FILE</li>
+<li>COMPOSE_HTTP_TIMEOUT</li>
+<li>COMPOSE_TLS_VERSION</li>
+<li>COMPOSE_PROJECT_NAME</li>
+<li>DOCKER_CERT_PATH</li>
+<li>DOCKER_HOST</li>
+<li>DOCKER_TLS_VERIFY<br>
+具体含义参见；<a href="https://docs.docker.com/compose/reference/envvars/">https://docs.docker.com/compose/reference/envvars/</a></li>
+</ul>
+<p>以占位符<code>TAG</code>为例，讲解变量的设置可以有以下几种方式</p>
+<h5 id="在docker-composeyml中执行">在docker-compose.yml中执行</h5>
+<p>在compolse文件中，通过<code>environment</code>配置项指定</p>
+<pre><code>web:
+  image: "webapp:${TAG}"
+  environment:
+    - TAG=dev
+</code></pre>
+<h5 id="在执行docker-compose-命令之前设置shell环境变量">在执行docker-compose 命令之前设置shell环境变量</h5>
+<pre><code>$ export TAG=v2.0
+$ docker-compose up
+</code></pre>
+<h5 id="通过env_file文件设置">通过env_file文件设置</h5>
+<p>docker-compose up默认会找命令执行路径下的.env文件，去其中找变量替换的值，.env文件以key=value的形式配置。例如</p>
+<pre><code>TAG=dev
+</code></pre>
+<p>如果环境变量的名字不为.env或不在当前命令执行的路径下，可以在使用<code>--env-file</code>参数显示加载</p>
+<pre><code>docker-compose --env-file ./config/.env.dev up 
+</code></pre>
+<h5 id="直接在compose-文件中，指定其加载的env_file">直接在compose 文件中，指定其加载的env_file</h5>
+<pre><code>version: '3'
+services:
+  api:
+    image: 'node:6-alpine'
+    env_file:
+     - ./Docker/api/api.env
+    environment:
+     - NODE_ENV=production
+</code></pre>
+<h5 id="以上变量值设置优先级从高到底">以上变量值设置优先级从高到底</h5>
+<h5 id="查看最终生效的环境变量">查看最终生效的环境变量</h5>
+<p>如果不确定最终生效环境变量是什么样，可以使用以下命令来查看</p>
+<pre><code>docker-compose run web env
+</code></pre>
+<h5 id="项目名设定">项目名设定</h5>
+<p>一个compose对应的一组服务有一个公用的项目名(project name), 它会体现在compose服务的容器名前缀中，网络前缀中。<br>
+项目名称可以通过环境变量<code>COMPOSE_PROJECT_NAME</code>来指定，如果未指定，默认的项目名称为compose 文件所在文件夹的名字。</p>
+<h4 id="网络">网络</h4>
+<h5 id="默认网络">默认网络</h5>
+<p>默认情况下，compose中的多个服务会加入一个名为default的网络。这些服务在default网络中是互通的。该default网络的全称是以compose文件所在文件夹名字做为前缀。比如文件夹为hello_world的compose。其一组服务对应的网络名为：hello_world_default。 这组service在该网络中，以compose文件中的第二组端口通信。</p>
+<pre><code>version: "3"
+services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+  db:
+    image: postgres
+    ports:
+      - "8001:5432"
+</code></pre>
+<p>比如上述配置中，在hello_world_default网络中，web服务使用8000端口和db服务的5432端口通信。第一组端口8000和8001是宿主机访问web和db服务的端口。</p>
+<h5 id="对默认网络进行独立配置">对默认网络进行独立配置</h5>
+<p>如果想改变默认网络的配置，可以在compose文件中，单独通过networks项来改变，比如以下改变默认网络驱动</p>
+<pre><code>networks:
+  default:
+    # Use a custom driver
+    driver: custom-driver-1
+</code></pre>
+<h5 id="配置和使用非默认网络">配置和使用非默认网络</h5>
+<p>定义多个网络，并使用</p>
+<pre><code>version: "3"
+services:
+
+  proxy:
+    build: ./proxy
+    networks:
+      - frontend
+  app:
+    build: ./app
+    networks:
+      - frontend
+      - backend
+  db:
+    image: postgres
+    networks:
+      - backend
+
+networks:
+  frontend:
+    # Use a custom driver
+    driver: custom-driver-1
+  backend:
+    # Use a custom driver which takes special options
+    driver: custom-driver-2
+    driver_opts:
+      foo: "1"
+      bar: "2"
+</code></pre>
+<p>上述配置定义了两个网络，frontend 和 backend。其中app 能访问这两个网络，proxy服务只能访问frontend网络，db只能访问backend网络</p>
+<h4 id="多service的执行顺序">多service的执行顺序</h4>
+<p>一个compose的多个service可能会有依赖关系，比如web服务依赖db服务，我们希望先启动db服务，再启动web服务。这种启动的先后顺序，也可以在compose文件中使用depends_on指定</p>
+<pre><code>version: "2"
+services:
+  web:
+    build: .
+    ports:
+      - "80:8000"
+    depends_on:
+      - "db"
+    command: ["./wait-for-it.sh", "db:5432", "--", "python", "app.py"]
+  db:
+    image: postgres
+</code></pre>
+<h3 id="docker-compose的安装">docker compose的安装</h3>
+<p>docker mac版和windows版，默认都带有docker compose 。 只有linux版需要单独安装</p>
+<h3 id="docker-compose和docker-stack的异同">docker compose和docker stack的异同</h3>
+<ul>
+<li>docker compose主要目标是在同一台机器上启动并管理多个服务</li>
+<li>docker stack主要用于在多个机器上，启动并管理多个服务</li>
+<li>docker compose 和docker stack都可以使用docker-compose.yml文件。双方会自动忽略对自己不生效的配置</li>
+<li>docker compose的服务可以使用build动态构建，而docker stack的服务只能基于image</li>
+</ul>
+<h3 id="参考资料">参考资料</h3>
+<p><a href="https://docs.docker.com/compose/gettingstarted/">https://docs.docker.com/compose/gettingstarted/</a><br>
+<a href="https://docs.docker.com/compose/">https://docs.docker.com/compose/</a><br>
+<a href="https://stackoverflow.com/questions/43099408/whats-the-difference-between-a-stack-file-and-a-compose-file">https://stackoverflow.com/questions/43099408/whats-the-difference-between-a-stack-file-and-a-compose-file</a><br>
+<a href="https://nickjanetakis.com/blog/docker-tip-23-docker-compose-vs-docker-stack">https://nickjanetakis.com/blog/docker-tip-23-docker-compose-vs-docker-stack</a><br>
+<a href="https://vsupalov.com/difference-docker-compose-and-docker-stack/">https://vsupalov.com/difference-docker-compose-and-docker-stack/</a><br>
+<a href="https://stackoverflow.com/questions/33066528/should-i-use-docker-compose-up-or-run">https://stackoverflow.com/questions/33066528/should-i-use-docker-compose-up-or-run</a></p>
+<blockquote>
+<p>欢迎关注我的个人公众号"西北偏北UP"，记录代码人生，行业思考，科技评论</p>
+</blockquote>
+
+</div>
+<div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+    <div id="blog_post_info"></div>
+    <div class="clear"></div>
+    <div id="post_next_prev"></div>
+</div>
+            </div>
+            <div class="postDesc">posted @ 
+<span id="post-date">2020-10-25 22:57</span>&nbsp;
+<a href="https://www.cnblogs.com/niceshot/">西北偏北UP</a>&nbsp;
+阅读(<span id="post_view_count">34</span>)&nbsp;
+评论(<span id="post_comment_count">0</span>)&nbsp;
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13875831" rel="nofollow">编辑</a>&nbsp;
+<a href="javascript:void(0)" onclick="AddToWz(13875831);return false;">收藏</a></div>
+        </div>
+	    
+	    
+    </div><!--end: topics 文章、评论容器-->
+</div>
+<script src="https://common.cnblogs.com/highlight/10.3.1/highlight.min.js"></script>
+<script>markdown_highlight();</script>
+<script>
+    var allowComments = true, cb_blogId = 603790, cb_blogApp = 'niceshot', cb_blogUserGuid = '07d6fa49-cca7-495f-a65f-08d7d7b52bb0';
+    var cb_entryId = 13875831, cb_entryCreatedDate = '2020-10-25 22:57', cb_postType = 1;
+    loadViewCount(cb_entryId);
+</script>
+<a name="!comments"></a>
+<div id="blog-comments-placeholder"></div>
+<div id="comment_form" class="commentform">
+    <a name="commentform"></a>
+    <div id="divCommentShow"></div>
+    <div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="#" onclick="return RefreshPage();">刷新页面</a><a href="#top">返回顶部</a></div>
+    <div id="comment_form_container"></div>
+    <div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+    <div id="ad_t2"></div>
+    <div id="opt_under_post"></div>
+    <div id="cnblogs_c1" class="c_ad_block">
+        <div id='div-gpt-ad-1592365906576-0' style='width: 300px; height: 250px;'></div>
+    </div>
+    <div id="under_post_news"></div>
+    <div id="cnblogs_c2" class="c_ad_block">
+        <div id='div-gpt-ad-1592366332455-0' style='width: 468px; height: 60px;'></div>
+    </div>
+    <div id="under_post_kb"></div>
+    <div id="HistoryToday" class="c_ad_block"></div>
+    <script type="text/javascript">
+       var commentManager = new blogCommentManager();
+       commentManager.renderComments(0);
+       fixPostBody();
+       deliverBigBanner();
+setTimeout(function() { incrementViewCount(cb_entryId); }, 50);       deliverT2();
+       deliverC1C2();
+       loadNewsAndKb();
+       loadBlogSignature();
+LoadPostCategoriesTags(cb_blogId, cb_entryId);       LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+       GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+       loadOptUnderPost();
+       GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);
+   </script>
+</div>
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+	<div id="sideBar">
+		<div id="sideBarMain">
+			<div id="sidebar_news" class="newsItem">
+            <script>loadBlogNews();</script>
+</div>
+<div id="sidebar_ad"></div>
+			<div id="blog-calendar" style="display:none"></div><script>loadBlogDefaultCalendar();</script>			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"></div>
+                    <script>loadBlogSideColumn();</script>
+			</div>			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		<!--done-->
+Copyright &copy; 2020 西北偏北UP
+<br /><span id="poweredby">Powered by .NET 5.0.0-rc.2.20475.5 on Kubernetes</span>
+
+
+
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+    
+</body>
+</html>

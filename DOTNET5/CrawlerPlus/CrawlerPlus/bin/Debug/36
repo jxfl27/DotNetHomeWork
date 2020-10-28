@@ -1,0 +1,1657 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="origin" />
+    <meta name="description" content="导读 之前学过ActiveMQ但是并发量不是很大点我直达，所以又学阿里开源的RocketMQ，据说队列可以堆积亿级别。下面是网上找的消息队列对比图，仅供参考 部署 官网 点我直达 前置条件 推荐使用6" />
+    <meta property="og:description" content="导读 之前学过ActiveMQ但是并发量不是很大点我直达，所以又学阿里开源的RocketMQ，据说队列可以堆积亿级别。下面是网上找的消息队列对比图，仅供参考 部署 官网 点我直达 前置条件 推荐使用6" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>RocketMQ 4.7.1 环境搭建、集群、MQ整合SpringBoot - 陈彦斌 - 博客园</title>
+    <link id="favicon" rel="shortcut icon" href="//common.cnblogs.com/favicon.svg" type="image/svg+xml" />
+    
+    <link rel="stylesheet" href="/css/blog-common.min.css?v=caAedYKpnz341INFIWakIM6r1EP9FIuJg43i9i8zqDQ" />
+    
+    <link type="text/css" rel="stylesheet" href="https://www.cnblogs.com/chenyanbin/custom.css?v=dhv7YGQpEqDg0TwtQIup/YQPByY=" />
+    <link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="/skins/custom/bundle-custom-mobile.min.css?v=KtAK50iXMDcU4jOl_mm1P0j3gXUtdRHDhFdu7YlsVVg" />
+    
+    <link type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/chenyanbin/rss" />
+    <link type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/chenyanbin/rsd.xml" />
+    <link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/chenyanbin/wlwmanifest.xml" />
+    <script>
+        var currentBlogId = 484130;
+        var currentBlogApp = 'chenyanbin';
+        var cb_enable_mathjax = false;
+        var isLogined = false;
+        var isBlogOwner = false;
+        var skinName = 'Custom';
+        var visitorUserId = '';
+    </script>
+        <script>
+            var currentPostDateAdded = '2020-10-26 12:21';
+        </script>
+    <script src="https://common.cnblogs.com/scripts/jquery-2.2.0.min.js"></script>
+    <script src="/js/blog-common.min.js?v=kKx3DBtpvO8r97BzPmHJseQ10fGHkI-ZwMh4FA0eEd0"></script>
+    
+    
+    
+</head>
+<body class="no-navbar">
+    <a name="top"></a> 
+    <div id="top_nav" class="navbar navbar-custom">
+        <nav id="nav_main" class="navbar-main">
+            <ul id="nav_left" class="navbar-list navbar-left">
+                <li class="navbar-branding">
+                    <a href="https://www.cnblogs.com/" title="开发者的网上家园"><img src="/images/logo.svg?v=R9M0WmLAIPVydmdzE2keuvnjl-bPR7_35oHqtiBzGsM" alt="博客园Logo" /></a>
+                </li>
+                <li><a href="/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-sitehome')">首页</a></li>
+                <li><a href="https://news.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-news')">新闻</a></li>
+                <li><a href="https://q.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-q')">博问</a></li>
+                <li><a id="nav_brandzone" href="https://brands.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-brands')">专区</a></li>
+                <li><a href="https://ing.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-ing')">闪存</a></li>
+                <li><a href="https://edu.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-edu')">班级</a></li>
+            </ul>
+            <ul id="nav_right" class="navbar-list navbar-right">
+                <li>
+                    <form id="zzk_search" class="navbar-search" action="https://zzk.cnblogs.com/s" method="get">
+                        <input name="w" id="zzk_search_input" placeholder="代码改变世界" type="text" tabindex="3" />
+                        <button type="submit" id="zzk_search_button">
+                            <img src="/images/aggsite/search.svg" alt="搜索" />
+                        </button>
+                    </form>
+                </li>
+                <li id="navbar_login_status" class="navbar-list">
+                    <a id="navblog-myblog-icon" class="navbar-user-info navbar-blog" href="https://passport.cnblogs.com/GetBlogApplyStatus.aspx" alt="我的博客" title="我的博客">
+                        <img id="myblog_icon" class="navbar-icon" src="/images/aggsite/myblog.svg" alt="我的博客" />
+                    </a>
+                    <a class="navbar-user-info navbar-message navbar-icon-wrapper" href="https://msg.cnblogs.com/" alt="短消息" title="短消息">
+                        <img id="msg_icon" class="navbar-icon" src="/images/aggsite/message.svg?v=oS4PkibyMjZ9rGD5XAcLt99uW_s76Javy2up4dbnZNY" alt="短消息" />
+                        <span id="msg_count" style="display: none"></span>
+                    </a>
+                    <div id="user_info" class="navbar-user-info dropdown">
+                        <a class="dropdown-button" href="https://home.cnblogs.com/">
+                            <img id="user_icon" class="navbar-avatar" src="/images/aggsite/avatar-default.svg" alt="用户头像" />
+                        </a>
+                        <div class="dropdown-menu">
+                            <a id="navblog-myblog-text" href="https://passport.cnblogs.com/GetBlogApplyStatus.aspx">我的博客</a>
+                            <a href="https://home.cnblogs.com/">我的园子</a>
+                            <a href="https://account.cnblogs.com/settings/account">账号设置</a>
+                            <a href="javascript:void(0)" onclick="logout();">退出登录</a>
+                        </div>
+                    </div>
+                    <a class="navbar-anonymous" href="https://account.cnblogs.com/signup/">注册</a>
+                    <a class="navbar-anonymous" href="https://account.cnblogs.com/signin/?returnUrl=https://www.cnblogs.com/">登录</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    
+    <!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+        <a id="lnkBlogLogo" href="https://www.cnblogs.com/chenyanbin/"><img id="blogLogo" src="/skins/custom/images/logo.gif" alt="返回主页" /></a>		
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle HeaderMainTitle" href="https://www.cnblogs.com/chenyanbin/">陈彦斌</a>
+</h1>
+<h2>
+生命在于分享，技术源于生命，学无止境！
+</h2>
+
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li><a id="blog_nav_sitehome" class="menu" href="https://www.cnblogs.com/">
+博客园</a>
+</li>
+<li>
+<a id="blog_nav_myhome" class="menu" href="https://www.cnblogs.com/chenyanbin/">
+首页</a>
+</li>
+<li>
+
+<a id="blog_nav_newpost" class="menu" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">
+新随笔</a>
+</li>
+<li>
+<a id="blog_nav_contact" class="menu" href="https://msg.cnblogs.com/send/%E9%99%88%E5%BD%A6%E6%96%8C">
+联系</a></li>
+<li>
+<a id="blog_nav_rss" class="menu" href="javascript:void(0)" data-rss="https://www.cnblogs.com/chenyanbin/rss/">
+订阅</a>
+<!--<partial name="./Shared/_XmlLink.cshtml" model="Model" /></li>--></li>
+<li>
+<a id="blog_nav_admin" class="menu" href="https://i.cnblogs.com/">
+管理</a>
+</li>
+</ul>
+
+
+		<div class="blogStats">
+			<span id="stats_post_count">随笔 - 
+557&nbsp; </span>
+<span id="stats_article_count">文章 - 
+0&nbsp; </span>
+<span id="stats-comment_count">评论 - 
+263</span>
+
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		<div id="post_detail">
+    <!--done-->
+    <div id="topics">
+        <div class="post">
+            <h1 class = "postTitle">
+                
+<a id="cb_post_title_url" class="postTitle2 vertical-middle" href="https://www.cnblogs.com/chenyanbin/p/13798952.html">
+    <span>RocketMQ 4.7.1 环境搭建、集群、MQ整合SpringBoot</span>
+    
+
+
+</a>
+
+            </h1>
+            <div class="clear"></div>
+            <div class="postBody">
+                
+<div id="cnblogs_post_body" class="blogpost-body">
+    <h1 style="text-align: center">导读</h1>
+<p>　　之前学过ActiveMQ但是并发量不是很大<a href="https://www.cnblogs.com/chenyanbin/p/12841966.html" target="_blank">点我直达</a>，所以又学阿里开源的RocketMQ，据说队列可以堆积<span style="color: rgba(255, 0, 0, 1)"><strong>亿级别</strong></span>。下面是网上找的消息队列对比图，仅供参考</p>
+<p><img src="https://img2020.cnblogs.com/blog/1504448/202010/1504448-20201015001549671-432898679.png" alt="" loading="lazy"></p>
+<h1 style="text-align: center">部署</h1>
+<h2>官网</h2>
+<p><a href="http://rocketmq.apache.org/" target="_blank">点我直达</a></p>
+<h2>前置条件</h2>
+<ol>
+<li><span>推荐使用64位操作系统，建议使用Linux / Unix / Mac；</span></li>
+<li><span>64位JDK 1.8+;</span></li>
+<li><span>Maven 3.2.x;</span></li>
+<li><span>Git;</span></li>
+<li><span>适用于Broker服务器的内存4G +可用磁盘</span></li>
+</ol>
+<p><img src="https://img2020.cnblogs.com/blog/1504448/202010/1504448-20201011194313128-1455126295.gif" alt="" loading="lazy"></p>
+<h2>下载</h2>
+<p><img src="https://img2020.cnblogs.com/blog/1504448/202010/1504448-20201011194924233-621417411.gif" alt="" loading="lazy"></p>
+<p>地址：<a href="https://downloads.apache.org/rocketmq/4.7.1/rocketmq-all-4.7.1-source-release.zip">https://downloads.apache.org/rocketmq/4.7.1/rocketmq-all-4.7.1-source-release.zip</a>&nbsp;</p>
+<p>百度云盘：</p>
+<div class="cnblogs_code">
+<pre>链接: https://pan.baidu.com/s/1luq_MwxSn8k_bugrnQSJWg  密码: varj</pre>
+</div>
+<h2>安装依赖项</h2>
+<ol>
+<li>jdk：<a href="https://www.cnblogs.com/chenyanbin/p/12843149.html" target="_blank">点我直达</a></li>
+<li>maven：<a href="https://www.cnblogs.com/chenyanbin/p/13662849.html" target="_blank">点我直达</a></li>
+<li>git安装：<span style="color: rgba(255, 0, 0, 1)"><strong>yum install -y git</strong></span></li>
+</ol>
+<div class="cnblogs_code">
+<pre><span style="color: rgba(0, 0, 0, 1)">export JAVA_HOME=/opt/soft/jdk1.8.0_202
+export PATH=$JAVA_HOME/bin:$PATH
+export CLASPATH=.:$JAVA_home/lib/dt.jar:$JAVA_HOME/lib/tools.jar
+export JAVA_HOME PATH CLASSPATH
+export MAVEN_HOME=/opt/soft/apache-maven-3.6.3
+export PATH=$PATH:$MAVEN_HOME/bin</span></pre>
+</div>
+<h2>mq上传至linux</h2>
+<p><img src="https://img2020.cnblogs.com/blog/1504448/202010/1504448-20201014233448269-1481433064.png" alt="" loading="lazy"></p>
+<h2>解压</h2>
+<p><img src="https://img2020.cnblogs.com/blog/1504448/202010/1504448-20201014233818966-692702057.png" alt="" loading="lazy"></p>
+<p>&nbsp;</p>
+<h3>maven编译</h3>
+<p><img src="https://img2020.cnblogs.com/blog/1504448/202010/1504448-20201014234107606-386167465.png" alt="" loading="lazy"></p>
+<p>&nbsp;</p>
+<h2>启动NameServer</h2>
+<p><img src="https://img2020.cnblogs.com/blog/1504448/202010/1504448-20201014235900308-879694966.png" alt="" loading="lazy"></p>
+<h3>后台启动方式</h3>
+<div class="cnblogs_code">
+<pre>nohup sh bin/mqnamesrv &amp;</pre>
+</div>
+<h3>NameServer启动时内存不足(问题解决)</h3>
+<div class="cnblogs_code">
+<pre><span style="color: rgba(0, 0, 0, 1)">找到runserver.sh 修改JAVA_OPT
+
+vim /bin/runserver.sh配置</span></pre>
+</div>
+<p><img src="https://img2020.cnblogs.com/blog/1504448/202010/1504448-20201015000934810-34096128.gif" alt="" loading="lazy"></p>
+<h2>启动Broker</h2>
+<div class="cnblogs_code">
+<pre><span style="color: rgba(0, 0, 0, 1)">nohup sh bin/mqbroker -n localhost:9876 &amp;
+
+语法：nohup sh bin/mqbroker -n NameServer服务ip地址</span></pre>
+</div>
+<p><img src="https://img2020.cnblogs.com/blog/1504448/202010/1504448-20201015234008578-281866803.png" alt="" loading="lazy"></p>
+<p>&nbsp;</p>
+<h3>Broker内存不足（问题解决）</h3>
+<div class="cnblogs_code">
+<pre><span style="color: rgba(0, 0, 0, 1)">找到runbroker.sh 修改JAVA_OPT
+
+vim /bin/runbroker.sh配置</span></pre>
+</div>
+<p><img src="https://img2020.cnblogs.com/blog/1504448/202010/1504448-20201015235649164-1035949701.gif" alt="" loading="lazy"></p>
+<h2>服务都启动成功</h2>
+<p><img src="https://img2020.cnblogs.com/blog/1504448/202010/1504448-20201015235257337-404846897.png" alt="" loading="lazy"></p>
+<p>&nbsp;</p>
+<h2>模拟消费</h2>
+<div class="cnblogs_code">
+<pre><span style="color: rgba(0, 0, 0, 1)">export NAMESRV_ADDR=localhost:9876
+
+sh bin/tools.sh org.apache.rocketmq.example.quickstart.Producer
+
+sh bin/tools.sh org.apache.rocketmq.example.quickstart.Consumer</span></pre>
+</div>
+<p>开2个控制台，连接通一台linux</p>
+<p><img src="https://img2020.cnblogs.com/blog/1504448/202010/1504448-20201016001044868-1283522608.gif" alt="" loading="lazy"></p>
+<h2>注意</h2>
+<p>　　<span style="color: rgba(255, 255, 255, 1); background-color: rgba(255, 0, 0, 1)"><strong>NameServer默认端口号：9876；broker默认端口号：10911</strong></span></p>
+<h2>可视化控制台</h2>
+<h3>官网地址</h3>
+<p><a href="https://github.com/apache/rocketmq-externals" target="_blank">点我直达</a></p>
+<p>百度云盘</p>
+<div class="cnblogs_code">
+<pre>链接: https://pan.baidu.com/s/1mdEGkq-JBTy1wtNmFPkmDg  密码: v6bq</pre>
+</div>
+<h3>解压</h3>
+<p><img src="https://img2020.cnblogs.com/blog/1504448/202010/1504448-20201018111920028-456683074.gif" alt="" loading="lazy"></p>
+<h3>安装编译</h3>
+<div class="cnblogs_code">
+<pre><span style="color: rgba(0, 0, 0, 1)">进入：/opt/soft/rocketmq-externals-master/rocketmq-console
+编译： mvn clean package -Dmaven.test.skip=true</span></pre>
+</div>
+<p><span style="color: rgba(255, 0, 0, 1)"><strong>修改appliccation.properties的rocketmq.config.namesrvAddr</strong></span></p>
+<p><img src="https://img2020.cnblogs.com/blog/1504448/202010/1504448-20201018114456458-1002270057.gif" alt="" loading="lazy"></p>
+<p><strong><span style="color: rgba(255, 0, 0, 1)">编译打包</span></strong></p>
+<p><img src="https://img2020.cnblogs.com/blog/1504448/202010/1504448-20201018112814634-1111122195.gif" alt="" loading="lazy"></p>
+<h3>启动</h3>
+<p>　　进入target目录，启动java -jar</p>
+<div class="cnblogs_code">
+<pre>守护进程启动： nohup java -jar rocketmq-console-ng-2.0.0.jar &amp;</pre>
+</div>
+<p><img src="https://img2020.cnblogs.com/blog/1504448/202010/1504448-20201018115351864-1407569074.gif" alt="" loading="lazy"></p>
+<h1 style="text-align: center">SpringBoot整合RocketMQ(<span style="color: rgba(255, 0, 0, 1)">生产者</span>)</h1>
+<h2>创建SpringBoot项目</h2>
+<p><a href="https://start.spring.io/" target="_blank">点我直达</a></p>
+<p><img src="https://img2020.cnblogs.com/blog/1504448/202010/1504448-20201018122322653-1329683796.gif" alt="" loading="lazy"></p>
+<h3>项目结构</h3>
+<p><img src="https://img2020.cnblogs.com/blog/1504448/202010/1504448-20201018151059962-899019659.png" alt="" loading="lazy"></p>
+<h3>加入依赖</h3>
+<p>pom.xml</p>
+<div class="cnblogs_code">
+<pre><span style="color: rgba(0, 0, 255, 1)">&lt;?</span><span style="color: rgba(255, 0, 255, 1)">xml version="1.0" encoding="UTF-8"</span><span style="color: rgba(0, 0, 255, 1)">?&gt;</span>
+<span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">project </span><span style="color: rgba(255, 0, 0, 1)">xmlns</span><span style="color: rgba(0, 0, 255, 1)">="http://maven.apache.org/POM/4.0.0"</span><span style="color: rgba(255, 0, 0, 1)"> xmlns:xsi</span><span style="color: rgba(0, 0, 255, 1)">="http://www.w3.org/2001/XMLSchema-instance"</span><span style="color: rgba(255, 0, 0, 1)">
+    xsi:schemaLocation</span><span style="color: rgba(0, 0, 255, 1)">="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd"</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+    <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">modelVersion</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>4.0.0<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">modelVersion</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+    <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">parent</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+        <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">groupId</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>org.springframework.boot<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">groupId</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+        <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">artifactId</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>spring-boot-starter-parent<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">artifactId</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+        <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">version</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>2.3.1.RELEASE<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">version</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+        <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">relativePath</span><span style="color: rgba(0, 0, 255, 1)">/&gt;</span> <span style="color: rgba(0, 128, 0, 1)">&lt;!--</span><span style="color: rgba(0, 128, 0, 1)"> lookup parent from repository </span><span style="color: rgba(0, 128, 0, 1)">--&gt;</span>
+    <span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">parent</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+    <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">groupId</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>com.ybchen<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">groupId</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+    <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">artifactId</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>ybchen-mq<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">artifactId</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+    <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">version</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>0.0.1-SNAPSHOT<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">version</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+    <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">name</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>ybchen-mq<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">name</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+    <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">description</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>Demo project for Spring Boot<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">description</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+
+    <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">properties</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+        <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">java.version</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>1.8<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">java.version</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+    <span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">properties</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+
+    <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">dependencies</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+        <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">dependency</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+            <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">groupId</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>org.springframework.boot<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">groupId</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+            <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">artifactId</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>spring-boot-starter-web<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">artifactId</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+        <span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">dependency</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+
+        <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">dependency</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+            <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">groupId</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>org.springframework.boot<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">groupId</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+            <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">artifactId</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>spring-boot-starter-test<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">artifactId</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+            <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">scope</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>test<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">scope</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+            <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">exclusions</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+                <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">exclusion</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+                    <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">groupId</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>org.junit.vintage<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">groupId</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+                    <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">artifactId</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>junit-vintage-engine<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">artifactId</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+                <span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">exclusion</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+            <span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">exclusions</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+        <span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">dependency</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+        <span style="color: rgba(0, 128, 0, 1)">&lt;!--</span><span style="color: rgba(0, 128, 0, 1)">注意： 这里的版本,要和部署在服务器上的版本号一致</span><span style="color: rgba(0, 128, 0, 1)">--&gt;</span>
+        <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">dependency</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+            <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">groupId</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>org.apache.rocketmq<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">groupId</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+            <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">artifactId</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>rocketmq-client<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">artifactId</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+            <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">version</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>4.7.1<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">version</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+        <span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">dependency</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+        <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">dependency</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+            <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">groupId</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>org.apache.rocketmq<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">groupId</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+            <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">artifactId</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>rocketmq-common<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">artifactId</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+            <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">version</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>4.7.1<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">version</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+        <span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">dependency</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+    <span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">dependencies</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+
+    <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">build</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+        <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">plugins</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+            <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">plugin</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+                <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">groupId</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>org.springframework.boot<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">groupId</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+                <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">artifactId</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>spring-boot-maven-plugin<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">artifactId</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+            <span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">plugin</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+        <span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">plugins</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+    <span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">build</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+
+<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">project</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span></pre>
+</div>
+<h3>PayProducer.java</h3>
+<div class="cnblogs_code">
+<pre><span style="color: rgba(0, 0, 255, 1)">package</span><span style="color: rgba(0, 0, 0, 1)"> com.ybchen.ybchenmq.jms;
+
+</span><span style="color: rgba(0, 0, 255, 1)">import</span><span style="color: rgba(0, 0, 0, 1)"> org.apache.rocketmq.client.exception.MQClientException;
+</span><span style="color: rgba(0, 0, 255, 1)">import</span><span style="color: rgba(0, 0, 0, 1)"> org.apache.rocketmq.client.producer.DefaultMQProducer;
+</span><span style="color: rgba(0, 0, 255, 1)">import</span><span style="color: rgba(0, 0, 0, 1)"> org.springframework.stereotype.Component;
+
+</span><span style="color: rgba(0, 128, 0, 1)">/**</span><span style="color: rgba(0, 128, 0, 1)">
+ * 消息生产者
+ </span><span style="color: rgba(0, 128, 0, 1)">*/</span><span style="color: rgba(0, 0, 0, 1)">
+@Component
+</span><span style="color: rgba(0, 0, 255, 1)">public</span> <span style="color: rgba(0, 0, 255, 1)">class</span><span style="color: rgba(0, 0, 0, 1)"> PayProducer {
+    </span><span style="color: rgba(0, 128, 0, 1)">/**</span><span style="color: rgba(0, 128, 0, 1)">
+     * 生产者所属的组
+     </span><span style="color: rgba(0, 128, 0, 1)">*/</span>
+    <span style="color: rgba(0, 0, 255, 1)">private</span> String producerGroup = "pay_group"<span style="color: rgba(0, 0, 0, 1)">;
+    </span><span style="color: rgba(0, 128, 0, 1)">/**</span><span style="color: rgba(0, 128, 0, 1)">
+     * MQ的地址，注意需开放端口号或者关闭防火墙
+     </span><span style="color: rgba(0, 128, 0, 1)">*/</span>
+    <span style="color: rgba(0, 0, 255, 1)">private</span> String nameServerAddr = "192.168.199.100:9876"<span style="color: rgba(0, 0, 0, 1)">;
+    </span><span style="color: rgba(0, 0, 255, 1)">private</span><span style="color: rgba(0, 0, 0, 1)"> DefaultMQProducer producer;
+
+    </span><span style="color: rgba(0, 0, 255, 1)">public</span><span style="color: rgba(0, 0, 0, 1)"> PayProducer() {
+        producer </span>= <span style="color: rgba(0, 0, 255, 1)">new</span><span style="color: rgba(0, 0, 0, 1)"> DefaultMQProducer(producerGroup);
+        </span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">指定NameServer地址，多个地址以;隔开
+        </span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">如 producer.setNamesrvAddr("192.168.199.100:9876;192.168.199.101:9876;192.168.199.102:9876")</span>
+<span style="color: rgba(0, 0, 0, 1)">        producer.setNamesrvAddr(nameServerAddr);
+        start();
+    }
+
+    </span><span style="color: rgba(0, 128, 0, 1)">/**</span><span style="color: rgba(0, 128, 0, 1)">
+     * 获取生产者
+     * </span><span style="color: rgba(128, 128, 128, 1)">@return</span>
+     <span style="color: rgba(0, 128, 0, 1)">*/</span>
+    <span style="color: rgba(0, 0, 255, 1)">public</span><span style="color: rgba(0, 0, 0, 1)"> DefaultMQProducer getProducer() {
+        </span><span style="color: rgba(0, 0, 255, 1)">return</span> <span style="color: rgba(0, 0, 255, 1)">this</span><span style="color: rgba(0, 0, 0, 1)">.producer;
+    }
+
+    </span><span style="color: rgba(0, 128, 0, 1)">/**</span><span style="color: rgba(0, 128, 0, 1)">
+     * 开启，对象在使用之前必须要调用一次，只能初始化一次
+     </span><span style="color: rgba(0, 128, 0, 1)">*/</span>
+    <span style="color: rgba(0, 0, 255, 1)">public</span> <span style="color: rgba(0, 0, 255, 1)">void</span><span style="color: rgba(0, 0, 0, 1)"> start() {
+        </span><span style="color: rgba(0, 0, 255, 1)">try</span><span style="color: rgba(0, 0, 0, 1)"> {
+            </span><span style="color: rgba(0, 0, 255, 1)">this</span><span style="color: rgba(0, 0, 0, 1)">.producer.start();
+        } </span><span style="color: rgba(0, 0, 255, 1)">catch</span><span style="color: rgba(0, 0, 0, 1)"> (MQClientException e) {
+            e.printStackTrace();
+        }
+    }
+
+    </span><span style="color: rgba(0, 128, 0, 1)">/**</span><span style="color: rgba(0, 128, 0, 1)">
+     * 关闭，一般在应用上下文，使用上下文监听器，进行关闭
+     </span><span style="color: rgba(0, 128, 0, 1)">*/</span>
+    <span style="color: rgba(0, 0, 255, 1)">public</span> <span style="color: rgba(0, 0, 255, 1)">void</span><span style="color: rgba(0, 0, 0, 1)"> shutdown() {
+        </span><span style="color: rgba(0, 0, 255, 1)">this</span><span style="color: rgba(0, 0, 0, 1)">.producer.shutdown();
+    }
+}</span></pre>
+</div>
+<h3>PayController.java</h3>
+<div class="cnblogs_code">
+<pre><span style="color: rgba(0, 0, 255, 1)">package</span><span style="color: rgba(0, 0, 0, 1)"> com.ybchen.ybchenmq.controller;
+
+</span><span style="color: rgba(0, 0, 255, 1)">import</span><span style="color: rgba(0, 0, 0, 1)"> com.ybchen.ybchenmq.jms.PayProducer;
+</span><span style="color: rgba(0, 0, 255, 1)">import</span><span style="color: rgba(0, 0, 0, 1)"> org.apache.rocketmq.client.exception.MQBrokerException;
+</span><span style="color: rgba(0, 0, 255, 1)">import</span><span style="color: rgba(0, 0, 0, 1)"> org.apache.rocketmq.client.exception.MQClientException;
+</span><span style="color: rgba(0, 0, 255, 1)">import</span><span style="color: rgba(0, 0, 0, 1)"> org.apache.rocketmq.client.producer.SendResult;
+</span><span style="color: rgba(0, 0, 255, 1)">import</span><span style="color: rgba(0, 0, 0, 1)"> org.apache.rocketmq.common.message.Message;
+</span><span style="color: rgba(0, 0, 255, 1)">import</span><span style="color: rgba(0, 0, 0, 1)"> org.apache.rocketmq.remoting.exception.RemotingException;
+</span><span style="color: rgba(0, 0, 255, 1)">import</span><span style="color: rgba(0, 0, 0, 1)"> org.springframework.beans.factory.annotation.Autowired;
+</span><span style="color: rgba(0, 0, 255, 1)">import</span><span style="color: rgba(0, 0, 0, 1)"> org.springframework.web.bind.annotation.RequestMapping;
+</span><span style="color: rgba(0, 0, 255, 1)">import</span><span style="color: rgba(0, 0, 0, 1)"> org.springframework.web.bind.annotation.RestController;
+
+</span><span style="color: rgba(0, 128, 0, 1)">/**</span><span style="color: rgba(0, 128, 0, 1)">
+ * @ClassName：PayController
+ * @Description：支付
+ * @Author：chenyb
+ * @Date：2020/10/18 2:47 下午
+ * @Versiion：1.0
+ </span><span style="color: rgba(0, 128, 0, 1)">*/</span><span style="color: rgba(0, 0, 0, 1)">
+@RestController
+@RequestMapping(</span>"/api/v1"<span style="color: rgba(0, 0, 0, 1)">)
+</span><span style="color: rgba(0, 0, 255, 1)">public</span> <span style="color: rgba(0, 0, 255, 1)">class</span><span style="color: rgba(0, 0, 0, 1)"> PayController {
+    @Autowired
+    </span><span style="color: rgba(0, 0, 255, 1)">private</span><span style="color: rgba(0, 0, 0, 1)"> PayProducer payProducer;
+
+    </span><span style="color: rgba(0, 0, 255, 1)">private</span> <span style="color: rgba(0, 0, 255, 1)">static</span> <span style="color: rgba(0, 0, 255, 1)">final</span> String TOPIC = "ybchen_pay_topic"<span style="color: rgba(0, 0, 0, 1)">;
+
+    </span><span style="color: rgba(0, 128, 0, 1)">/**</span><span style="color: rgba(0, 128, 0, 1)">
+     * 支付回调
+     *
+     * </span><span style="color: rgba(128, 128, 128, 1)">@param</span><span style="color: rgba(0, 128, 0, 1)"> text
+     * </span><span style="color: rgba(128, 128, 128, 1)">@return</span>
+     <span style="color: rgba(0, 128, 0, 1)">*/</span><span style="color: rgba(0, 0, 0, 1)">
+    @RequestMapping(</span>"pay_cb"<span style="color: rgba(0, 0, 0, 1)">)
+    </span><span style="color: rgba(0, 0, 255, 1)">public</span><span style="color: rgba(0, 0, 0, 1)"> Object callback(String text) {
+        </span><span style="color: rgba(0, 128, 0, 1)">/**</span><span style="color: rgba(0, 128, 0, 1)">
+         * String topic：话题
+         * String tags：二级分类
+         * byte[] body：body消息字节数组
+         </span><span style="color: rgba(0, 128, 0, 1)">*/</span><span style="color: rgba(0, 0, 0, 1)">
+        Message message </span>= <span style="color: rgba(0, 0, 255, 1)">new</span> Message(TOPIC,"tag_a",("hello ybchen ==&gt;"+<span style="color: rgba(0, 0, 0, 1)">text).getBytes());
+        </span><span style="color: rgba(0, 0, 255, 1)">try</span><span style="color: rgba(0, 0, 0, 1)"> {
+            SendResult send </span>=<span style="color: rgba(0, 0, 0, 1)"> payProducer.getProducer().send(message);
+            System.out.println(</span>"send------&gt;"+<span style="color: rgba(0, 0, 0, 1)">send);
+        } </span><span style="color: rgba(0, 0, 255, 1)">catch</span><span style="color: rgba(0, 0, 0, 1)"> (MQClientException e) {
+            e.printStackTrace();
+        } </span><span style="color: rgba(0, 0, 255, 1)">catch</span><span style="color: rgba(0, 0, 0, 1)"> (RemotingException e) {
+            e.printStackTrace();
+        } </span><span style="color: rgba(0, 0, 255, 1)">catch</span><span style="color: rgba(0, 0, 0, 1)"> (MQBrokerException e) {
+            e.printStackTrace();
+        } </span><span style="color: rgba(0, 0, 255, 1)">catch</span><span style="color: rgba(0, 0, 0, 1)"> (InterruptedException e) {
+            e.printStackTrace();
+        }
+        </span><span style="color: rgba(0, 0, 255, 1)">return</span> "ok"<span style="color: rgba(0, 0, 0, 1)">;
+    }
+}</span></pre>
+</div>
+<h3>测试</h3>
+<p><img src="https://img2020.cnblogs.com/blog/1504448/202010/1504448-20201018151749342-521095817.gif" alt="" loading="lazy"></p>
+<h2>常见错误</h2>
+<h3>错误一</h3>
+<div class="cnblogs_code">
+<pre><span style="color: rgba(0, 0, 0, 1)">org.apache.rocketmq.remoting.exception.RemotingTooMuchRequestException:
+sendDefaultImpl call timeout</span></pre>
+</div>
+<div class="cnblogs_code">
+<pre><span style="color: rgba(0, 0, 0, 1)">原因：阿里云存在多网卡，rocketmq会根据当前网卡选择一个IP使用，当你的机器有多块网卡时，很可能会有问题，比如，机器上有两个ip，一个公网ip，一个私网ip，因此需要配置broker.conf指定当前公网的ip，然后重启broker
+
+
+修改配置：/opt/soft/rocketmq-all-4.7.1-source-release/distribution/target/rocketmq-4.7.1/rocketmq-4.7.1/conf/broker.conf
+新增这个配置：brokerIP1=xxx.xxx.xxx.xxx
+
+启动命令：nohup sh bin/mqbroker -n localhost:9876 -c ./conf/broker.conf &amp;</span></pre>
+</div>
+<h3>错误2</h3>
+<div>
+<div class="cnblogs_code">
+<pre><span style="color: rgba(0, 0, 0, 1)">MQClientException: No route info of this topic, TopicTest1
+
+原因：Broker 紧追自动创建Topic，且用户没有通过手工方式创建此Topic，或者broker和Nameserver网络不通
+
+解决：
+    通过sh bin/mqbroker -m 查看配置
+    autoCreateTopicEnable=true 则自动创建Topic
+
+Centos 7 关闭防火墙：systemctl stop firewalld</span></pre>
+</div>
+<h3>错误3</h3>
+</div>
+<div class="cnblogs_code">
+<pre><span style="color: rgba(0, 0, 0, 1)">控制台查看不了数据，提示连接10909错误
+
+原因：Rocket默认开启了VIP通道，VPI通道端口号为10911-2=10909
+
+解决：阿里云安全组添加一个端口：10909</span></pre>
+</div>
+<h3>错误4</h3>
+<p>　　无法自动创建topic：客户端版本要和服务端版本保持一致</p>
+<div class="cnblogs_code">
+<pre><span style="color: rgba(0, 0, 0, 1)">服务器上装的是4.7.1
+
+引入依赖项时
+        </span><span style="color: rgba(0, 128, 0, 1)">&lt;!--</span><span style="color: rgba(0, 128, 0, 1)">注意： 这里的版本,要和部署在服务器上的版本号一致</span><span style="color: rgba(0, 128, 0, 1)">--&gt;</span>
+        <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">dependency</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+            <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">groupId</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>org.apache.rocketmq<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">groupId</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+            <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">artifactId</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>rocketmq-client<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">artifactId</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+            <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">version</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>4.7.1<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">version</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+        <span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">dependency</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+        <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">dependency</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+            <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">groupId</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>org.apache.rocketmq<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">groupId</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+            <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">artifactId</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>rocketmq-common<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">artifactId</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+            <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">version</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>4.7.1<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">version</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+        <span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">dependency</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span></pre>
+</div>
+<h2>检索消息发送</h2>
+<p><img src="https://img2020.cnblogs.com/blog/1504448/202010/1504448-20201018155251521-921513845.gif" alt="" loading="lazy"></p>
+<h1 style="text-align: center">SpringBoot整合RocketMQ(<span style="color: rgba(255, 0, 0, 1)">消费者</span>)</h1>
+<h2>创建SpringBoot项目</h2>
+<p><img src="https://img2020.cnblogs.com/blog/1504448/202010/1504448-20201018160103066-1093434973.png" alt="" loading="lazy"></p>
+<p>&nbsp;</p>
+<h3>项目结构</h3>
+<p><img src="https://img2020.cnblogs.com/blog/1504448/202010/1504448-20201018164125410-2133590500.png" alt="" loading="lazy"></p>
+<h3>加入依赖</h3>
+<div class="cnblogs_code">
+<pre><span style="color: rgba(0, 0, 255, 1)">&lt;?</span><span style="color: rgba(255, 0, 255, 1)">xml version="1.0" encoding="UTF-8"</span><span style="color: rgba(0, 0, 255, 1)">?&gt;</span>
+<span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">project </span><span style="color: rgba(255, 0, 0, 1)">xmlns</span><span style="color: rgba(0, 0, 255, 1)">="http://maven.apache.org/POM/4.0.0"</span><span style="color: rgba(255, 0, 0, 1)"> xmlns:xsi</span><span style="color: rgba(0, 0, 255, 1)">="http://www.w3.org/2001/XMLSchema-instance"</span><span style="color: rgba(255, 0, 0, 1)">
+    xsi:schemaLocation</span><span style="color: rgba(0, 0, 255, 1)">="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd"</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+    <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">modelVersion</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>4.0.0<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">modelVersion</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+    <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">parent</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+        <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">groupId</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>org.springframework.boot<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">groupId</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+        <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">artifactId</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>spring-boot-starter-parent<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">artifactId</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+        <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">version</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>2.3.1.RELEASE<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">version</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+        <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">relativePath</span><span style="color: rgba(0, 0, 255, 1)">/&gt;</span> <span style="color: rgba(0, 128, 0, 1)">&lt;!--</span><span style="color: rgba(0, 128, 0, 1)"> lookup parent from repository </span><span style="color: rgba(0, 128, 0, 1)">--&gt;</span>
+    <span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">parent</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+    <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">groupId</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>com.ybchen<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">groupId</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+    <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">artifactId</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>ybchen-mq<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">artifactId</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+    <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">version</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>0.0.1-SNAPSHOT<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">version</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+    <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">name</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>ybchen-mq<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">name</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+    <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">description</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>Demo project for Spring Boot<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">description</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+
+    <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">properties</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+        <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">java</span><span style="color: rgba(255, 0, 0, 1)">.version</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>1.8<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">java.version</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+    <span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">properties</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+
+    <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">dependencies</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+        <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">dependency</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+            <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">groupId</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>org.springframework.boot<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">groupId</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+            <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">artifactId</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>spring-boot-starter-web<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">artifactId</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+        <span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">dependency</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+
+        <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">dependency</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+            <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">groupId</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>org.springframework.boot<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">groupId</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+            <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">artifactId</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>spring-boot-starter-test<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">artifactId</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+            <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">scope</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>test<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">scope</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+            <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">exclusions</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+                <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">exclusion</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+                    <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">groupId</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>org.junit.vintage<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">groupId</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+                    <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">artifactId</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>junit-vintage-engine<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">artifactId</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+                <span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">exclusion</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+            <span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">exclusions</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+        <span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">dependency</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+        <span style="color: rgba(0, 128, 0, 1)">&lt;!--</span><span style="color: rgba(0, 128, 0, 1)">注意： 这里的版本,要和部署在服务器上的版本号一致</span><span style="color: rgba(0, 128, 0, 1)">--&gt;</span>
+        <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">dependency</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+            <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">groupId</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>org.apache.rocketmq<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">groupId</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+            <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">artifactId</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>rocketmq-client<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">artifactId</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+            <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">version</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>4.7.1<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">version</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+        <span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">dependency</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+        <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">dependency</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+            <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">groupId</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>org.apache.rocketmq<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">groupId</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+            <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">artifactId</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>rocketmq-common<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">artifactId</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+            <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">version</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>4.7.1<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">version</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+        <span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">dependency</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+    <span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">dependencies</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+
+    <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">build</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+        <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">plugins</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+            <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">plugin</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+                <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">groupId</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>org.springframework.boot<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">groupId</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+                <span style="color: rgba(0, 0, 255, 1)">&lt;</span><span style="color: rgba(128, 0, 0, 1)">artifactId</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>spring-boot-maven-plugin<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">artifactId</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+            <span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">plugin</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+        <span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">plugins</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+    <span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">build</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span>
+
+<span style="color: rgba(0, 0, 255, 1)">&lt;/</span><span style="color: rgba(128, 0, 0, 1)">project</span><span style="color: rgba(0, 0, 255, 1)">&gt;</span></pre>
+</div>
+<h3>PayConsumer.java</h3>
+<div class="cnblogs_code">
+<pre><span style="color: rgba(0, 0, 255, 1)">package</span><span style="color: rgba(0, 0, 0, 1)"> com.ybchen.ybchenmqconsumer.jms;
+
+</span><span style="color: rgba(0, 0, 255, 1)">import</span><span style="color: rgba(0, 0, 0, 1)"> org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
+</span><span style="color: rgba(0, 0, 255, 1)">import</span><span style="color: rgba(0, 0, 0, 1)"> org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyContext;
+</span><span style="color: rgba(0, 0, 255, 1)">import</span><span style="color: rgba(0, 0, 0, 1)"> org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyStatus;
+</span><span style="color: rgba(0, 0, 255, 1)">import</span><span style="color: rgba(0, 0, 0, 1)"> org.apache.rocketmq.client.consumer.listener.MessageListenerConcurrently;
+</span><span style="color: rgba(0, 0, 255, 1)">import</span><span style="color: rgba(0, 0, 0, 1)"> org.apache.rocketmq.client.exception.MQClientException;
+</span><span style="color: rgba(0, 0, 255, 1)">import</span><span style="color: rgba(0, 0, 0, 1)"> org.apache.rocketmq.common.consumer.ConsumeFromWhere;
+</span><span style="color: rgba(0, 0, 255, 1)">import</span><span style="color: rgba(0, 0, 0, 1)"> org.apache.rocketmq.common.message.Message;
+</span><span style="color: rgba(0, 0, 255, 1)">import</span><span style="color: rgba(0, 0, 0, 1)"> org.apache.rocketmq.common.message.MessageExt;
+</span><span style="color: rgba(0, 0, 255, 1)">import</span><span style="color: rgba(0, 0, 0, 1)"> org.springframework.stereotype.Component;
+
+</span><span style="color: rgba(0, 0, 255, 1)">import</span><span style="color: rgba(0, 0, 0, 1)"> java.io.UnsupportedEncodingException;
+</span><span style="color: rgba(0, 0, 255, 1)">import</span><span style="color: rgba(0, 0, 0, 1)"> java.util.List;
+
+</span><span style="color: rgba(0, 128, 0, 1)">/**</span><span style="color: rgba(0, 128, 0, 1)">
+ * @ClassName：PayConsumer
+ * @Description：消费者
+ * @Author：chenyb
+ * @Date：2020/10/18 4:13 下午
+ * @Versiion：1.0
+ </span><span style="color: rgba(0, 128, 0, 1)">*/</span><span style="color: rgba(0, 0, 0, 1)">
+@Component
+</span><span style="color: rgba(0, 0, 255, 1)">public</span> <span style="color: rgba(0, 0, 255, 1)">class</span><span style="color: rgba(0, 0, 0, 1)"> PayConsumer {
+    </span><span style="color: rgba(0, 128, 0, 1)">/**</span><span style="color: rgba(0, 128, 0, 1)">
+     * 生产者所属的组
+     </span><span style="color: rgba(0, 128, 0, 1)">*/</span>
+    <span style="color: rgba(0, 0, 255, 1)">private</span> String producerGroup = "pay_consumer_group"<span style="color: rgba(0, 0, 0, 1)">;
+    </span><span style="color: rgba(0, 128, 0, 1)">/**</span><span style="color: rgba(0, 128, 0, 1)">
+     * MQ的地址，注意需开放端口号或者关闭防火墙
+     </span><span style="color: rgba(0, 128, 0, 1)">*/</span>
+    <span style="color: rgba(0, 0, 255, 1)">private</span> String nameServerAddr = "192.168.199.100:9876"<span style="color: rgba(0, 0, 0, 1)">;
+    </span><span style="color: rgba(0, 128, 0, 1)">/**</span><span style="color: rgba(0, 128, 0, 1)">
+     * 订阅主题
+     </span><span style="color: rgba(0, 128, 0, 1)">*/</span>
+    <span style="color: rgba(0, 0, 255, 1)">private</span> String topic = "ybchen_pay_topic"<span style="color: rgba(0, 0, 0, 1)">;
+    </span><span style="color: rgba(0, 0, 255, 1)">private</span><span style="color: rgba(0, 0, 0, 1)"> DefaultMQPushConsumer consumer;
+
+    </span><span style="color: rgba(0, 0, 255, 1)">public</span> PayConsumer() <span style="color: rgba(0, 0, 255, 1)">throws</span><span style="color: rgba(0, 0, 0, 1)"> MQClientException {
+        consumer </span>= <span style="color: rgba(0, 0, 255, 1)">new</span><span style="color: rgba(0, 0, 0, 1)"> DefaultMQPushConsumer(producerGroup);
+        </span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">指定NameServer地址，多个地址以;隔开
+        </span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">如 producer.setNamesrvAddr("192.168.199.100:9876;192.168.199.101:9876;192.168.199.102:9876")</span>
+<span style="color: rgba(0, 0, 0, 1)">        consumer.setNamesrvAddr(nameServerAddr);
+        </span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">设置消费地点，从最后一个开始消费</span>
+<span style="color: rgba(0, 0, 0, 1)">        consumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_LAST_OFFSET);
+        </span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">订阅主题，监听主题下的那些标签</span>
+        consumer.subscribe(topic, "*"<span style="color: rgba(0, 0, 0, 1)">);
+        </span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">注解一个监听器
+        </span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">lambda方式
+</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">        consumer.registerMessageListener((MessageListenerConcurrently) (msg, context) -&gt; {
+</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">            try {
+</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">                Message message = msg.get(0);
+</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">                System.out.printf("%s Receive New Messages: %s %n",
+</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">                        Thread.currentThread().getName(), new String(msg.get(0).getBody()));
+</span><span style="color: rgba(0, 128, 0, 1)">//</span>                <span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">主题
+</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">                String topic = message.getTopic();
+</span><span style="color: rgba(0, 128, 0, 1)">//</span>                <span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">消息内容
+</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">                String body = null;
+</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">                body = new String(message.getBody(), "utf-8");
+</span><span style="color: rgba(0, 128, 0, 1)">//</span>                <span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">二级分类
+</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">                String tags = message.getTags();
+</span><span style="color: rgba(0, 128, 0, 1)">//</span>                <span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">键
+</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">                String keys = message.getKeys();
+</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">                System.out.println("topic=" + topic + ", tags=" + tags + ", keys=" + keys + ", msg=" + body);
+</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">                return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
+</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">            } catch (UnsupportedEncodingException e) {
+</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">                e.printStackTrace();
+</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">                return ConsumeConcurrentlyStatus.RECONSUME_LATER;
+</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">            }
+</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">        });
+
+        </span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">一般方式</span>
+        consumer.registerMessageListener(<span style="color: rgba(0, 0, 255, 1)">new</span><span style="color: rgba(0, 0, 0, 1)"> MessageListenerConcurrently() {
+            @Override
+            </span><span style="color: rgba(0, 0, 255, 1)">public</span> ConsumeConcurrentlyStatus consumeMessage(List&lt;MessageExt&gt;<span style="color: rgba(0, 0, 0, 1)"> list, ConsumeConcurrentlyContext consumeConcurrentlyContext) {
+                </span><span style="color: rgba(0, 0, 255, 1)">try</span><span style="color: rgba(0, 0, 0, 1)"> {
+                    Message message </span>= list.get(0<span style="color: rgba(0, 0, 0, 1)">);
+                    System.out.printf(</span>"%s Receive New Messages: %s %n"<span style="color: rgba(0, 0, 0, 1)">,
+                            Thread.currentThread().getName(), </span><span style="color: rgba(0, 0, 255, 1)">new</span> String(list.get(0).getBody(),"utf-8"<span style="color: rgba(0, 0, 0, 1)">));
+                    </span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">主题</span>
+                    String topic =<span style="color: rgba(0, 0, 0, 1)"> message.getTopic();
+                    </span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">消息内容</span>
+                    String body = <span style="color: rgba(0, 0, 255, 1)">null</span><span style="color: rgba(0, 0, 0, 1)">;
+                    body </span>= <span style="color: rgba(0, 0, 255, 1)">new</span> String(message.getBody(), "utf-8"<span style="color: rgba(0, 0, 0, 1)">);
+                    </span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">二级分类</span>
+                    String tags =<span style="color: rgba(0, 0, 0, 1)"> message.getTags();
+                    </span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">键</span>
+                    String keys =<span style="color: rgba(0, 0, 0, 1)"> message.getKeys();
+                    System.out.println(</span>"topic=" + topic + ", tags=" + tags + ", keys=" + keys + ", msg=" +<span style="color: rgba(0, 0, 0, 1)"> body);
+                    </span><span style="color: rgba(0, 0, 255, 1)">return</span><span style="color: rgba(0, 0, 0, 1)"> ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
+                } </span><span style="color: rgba(0, 0, 255, 1)">catch</span><span style="color: rgba(0, 0, 0, 1)"> (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                    </span><span style="color: rgba(0, 0, 255, 1)">return</span><span style="color: rgba(0, 0, 0, 1)"> ConsumeConcurrentlyStatus.RECONSUME_LATER;
+                }
+            }
+        });
+        consumer.start();
+        System.out.println(</span>"consumer start .........."<span style="color: rgba(0, 0, 0, 1)">);
+    }
+}</span></pre>
+</div>
+<h3 style="text-align: left">application.properties</h3>
+<div class="cnblogs_code">
+<pre>server.port=8081</pre>
+</div>
+<h1 style="text-align: center">测试生产者消费者</h1>
+<p><img src="https://img2020.cnblogs.com/blog/1504448/202010/1504448-20201018172647315-597304286.gif" alt="" loading="lazy"></p>
+<p><img src="https://img2020.cnblogs.com/blog/1504448/202010/1504448-20201018172724985-430480893.gif" alt="" loading="lazy"></p>
+<h1 style="text-align: center">MQ集群架构模式分析</h1>
+<h2>单节点</h2>
+<h3>优点</h3>
+<p>　　本地开发测试，配置简单，同步刷盘消息一条都不会丢</p>
+<h3>缺点</h3>
+<p>　　不可靠，如果宕机，会导致服务不可用</p>
+<h2>主从(异步、同步双写)</h2>
+<h3>优点</h3>
+<p>　　同步双写消息不丢失，异步复制存在少量丢失你，主节点宕机，从节点可以对外提供消息的消费，但是不支持写入</p>
+<h3>缺点</h3>
+<p>　　主备有短暂消息延迟，毫秒级，目前不支持自动切换，需要脚本或者其他程序进行检测然后停止broker，重启让从节点成为主节点</p>
+<h2>双主</h2>
+<h3>优点</h3>
+<p>　　配置简单，可以靠配置RAID磁盘阵列保证消息可靠，异步刷盘丢失少量消息</p>
+<h3>缺点</h3>
+<p>　　master宕机期间，未被消费的消息在机器恢复之前不可消息，实时性会受到影响</p>
+<h2>双主双从，多主多从模式(异步复制)</h2>
+<h3>优点</h3>
+<p>　　磁盘损坏，消息丢失的非常小，消息实时性不会受影响，Master宕机后，消费者仍然可以从Slave消费</p>
+<h3>缺点</h3>
+<p>　　主备有短暂消息延迟，毫秒级，如果Master宕机，磁盘损坏情况，会丢失你少量消息</p>
+<h2>双主双从，多主多从模式(同步双写)</h2>
+<h3>优点</h3>
+<p>　　同步双写方式，主备都写成功，才向应用返回成功，服务可用性与数据可用性非常高</p>
+<h3>缺点</h3>
+<p>　　性能比异步复制模式略低，主宕机后，备机不能自动切换为主机</p>
+<h2>推荐</h2>
+<ol>
+<li>主从(异步、同步双写)</li>
+<li>双主双从，多主多从模式(异步复制)</li>
+<li>双主双从，多主多从模式(同步双写)</li>
+</ol>
+<h1 style="text-align: center">主从集群搭建</h1>
+<h2>准备工作</h2>
+<p>　　准备2台机器，ip地址分别为：192.168.199.100；192.168.199.101；</p>
+<p>　　环境：RocketMQ4.7.1+jdk8+Maven+Centos 7</p>
+<h2>启动两台nameserver</h2>
+<p>　　启动两个机器的nameserver</p>
+<div class="cnblogs_code">
+<pre><span style="color: rgba(0, 0, 0, 1)">路径：/opt/soft/rocketmq-all-4.7.1-source-release/distribution/target/rocketmq-4.7.1/rocketmq-4.7.1
+
+启动：nohup sh bin/mqnamesrc &amp;</span></pre>
+</div>
+<h2>编辑并启动roccketmq</h2>
+<div class="cnblogs_code">
+<pre><span style="color: rgba(0, 0, 0, 1)">主节点
+
+进入：/opt/soft/rocketmq-all-4.7.1-source-release/distribution/target/rocketmq-4.7.1/rocketmq-4.7.1/conf/2m-2s-async
+
+
+编辑并修改如下：vim broker-a.properties 
+namesrvAddr=192.168.199.100:9876;192.168.199.101:9876
+brokerClusterName=YbChenCluster
+brokerName=broker-a
+brokerId=0
+deleteWhen=04
+fileReservedTime=48
+brokerRole=ASYNC_MASTER
+flushDiskType=ASYNC_FLUSH
+
+
+启动：nohup sh bin/mqbroker -c conf/2m-2s-async/broker/broker-a.properties &amp;</span></pre>
+</div>
+<p><img src="https://img2020.cnblogs.com/blog/1504448/202010/1504448-20201018202803551-902954840.gif" alt="" loading="lazy"></p>
+<div class="cnblogs_code">
+<pre><span style="color: rgba(0, 0, 0, 1)">从节点
+
+进入：/opt/soft/rocketmq-all-4.7.1-source-release/distribution/target/rocketmq-4.7.1/rocketmq-4.7.1/conf/2m-2s-async
+
+
+编辑并修改如下：vim broker-a-s.properties 
+namesrvAddr=192.168.199.100:9876;192.168.199.101:9876
+brokerClusterName=YbChenCluster
+brokerName=broker-a
+brokerId=1
+deleteWhen=04
+fileReservedTime=48
+brokerRole=SLAVE
+flushDiskType=ASYNC_FLUSH
+
+
+启动：nohup sh bin/mqbroker -c conf/2m-2s-async/broker/broker-a-s.properties &amp;</span></pre>
+</div>
+<h3>注意事项</h3>
+<ol>
+<li>namesrvAddr：相同</li>
+<li>brokerClusterName：相同</li>
+<li>brokerName：相同</li>
+<li>brokerId：<strong><span style="color: rgba(255, 0, 0, 1)">不同</span></strong>，0是主节点</li>
+<li>deleteWhen：相同</li>
+<li>fileReservedTime：相同</li>
+<li>brokerRole：<strong><span style="color: rgba(255, 0, 0, 1)">不同</span></strong>，分ASYNC_MASTER、SLAVE</li>
+<li>flushDiskType：相同</li>
+</ol>
+<h2>启动broker</h2>
+<p><img src="https://img2020.cnblogs.com/blog/1504448/202010/1504448-20201018205957653-158004829.gif" alt="" loading="lazy"></p>
+<h2>使用管控台</h2>
+<p>　　使用192.168.199.100这台服务器，修改配置</p>
+<div class="cnblogs_code">
+<pre><span style="color: rgba(0, 0, 0, 1)">192.168.199.100这台服务器
+
+进入：/opt/soft/rocketmq-externals-master/rocketmq-console/src/main/resources
+
+
+修改配置文件：vim application.properties
+
+rocketmq.config.namesrvAddr=192.168.199.100:9876;192.168.199.101:9876
+
+
+编译
+
+切换到：/opt/soft/rocketmq-externals-master/rocketmq-console
+打包：
+mvn clean
+mvn install -Dmaven.test.skip=true
+
+
+启动
+
+进入：/opt/soft/rocketmq-externals-master/rocketmq-console/target
+守护进程方式启动：nohup java -jar rocketmq-console-ng-2.0.0.jar &amp;</span></pre>
+</div>
+<p><img src="https://img2020.cnblogs.com/blog/1504448/202010/1504448-20201018212608723-94008635.gif" alt="" loading="lazy"></p>
+<h2>集群测试</h2>
+<p><img src="https://img2020.cnblogs.com/blog/1504448/202010/1504448-20201018215410295-600083216.gif" alt="" loading="lazy"></p>
+<h2>故障演练</h2>
+<p>　　模拟主挂了，但是从还可以被消费，此时不能写入，等主重启后，可以继续写入(数据不会被重复消费)，以下内容是连续的</p>
+<p><img src="https://img2020.cnblogs.com/blog/1504448/202010/1504448-20201018221737027-140346600.gif" alt="" loading="lazy"></p>
+<p><img src="https://img2020.cnblogs.com/blog/1504448/202010/1504448-20201018221827426-1668480118.gif" alt="" loading="lazy"></p>
+<p><img src="https://img2020.cnblogs.com/blog/1504448/202010/1504448-20201018221901697-2079787767.gif" alt="" loading="lazy"></p>
+<h2>总结</h2>
+<p>　　好了，到目前为止，主从已经搭建完成了。</p>
+<p>　　<span style="color: rgba(255, 0, 0, 1)"><strong>Broker分</strong></span>为<span style="color: rgba(255, 0, 0, 1)"><strong>Master和Slave</strong></span>，<span style="color: rgba(255, 0, 0, 1)"><strong>一个Master可以对应多个Slave</strong></span>，但<span style="color: rgba(255, 0, 0, 1)"><strong>一个Slave只能对应一个Master</strong></span>，Master与Slave<span style="color: rgba(255, 0, 0, 1)"><strong>通过相同的Broker Name来匹配</strong></span>，不同的<span style="color: rgba(255, 0, 0, 1)"><strong>Broker id来定义时Master还是Slave</strong></span></p>
+<p>　　　　Broker向所有的NameServer节点建立长连接，定时注册Topic和发送元数据信息</p>
+<p>　　　　NameServer定时扫描(默认2分钟)所有存活Broker的连接，如果超过时间没响应，则断开连接(心跳检测)，但是Consumer客户端不能感知，Consumer定时(30秒)从NameServer获取topic的最新信息，所以broker不可用时，Consumer最多需要30秒才能发现</p>
+<p>　　<span style="color: rgba(255, 0, 0, 1)"><strong>只有Master才能进行写入操作</strong></span>，<span style="color: rgba(255, 0, 0, 1)"><strong>Slave不允许写入只能同步</strong></span>，同步策略取决于Master配置</p>
+<p>　　<span style="color: rgba(255, 0, 0, 1)"><strong>客户端消费可以从Master和Slave消费，默认消费者都从Master消费</strong></span>，如果在Master挂了之后，客户端从NameServer中感知Broker宕机，就会从Slave消费，感知非实时，存在一定的滞后性，Slave不能保证Master的100%都同步过来，会有少量的消息丢失。一旦Master恢复，未同步过去的消息会被最终消费掉。</p>
+<p>　　如果Consumer实例的数量比Message Queue的总数量还多的话，多出来的Consumer实例将无法分到Queue，也就无法消费到消息，也就无法起到分摊负载的作用，所以需要控制让Queue的总数量大于Consumer的数量。</p>
+<h1 style="text-align: center">场景模拟</h1>
+<h2>生产和消费重试及处理</h2>
+<h3>生产者重试</h3>
+<ul>
+<li>消息重试(保证数据的高可靠性)，本身内部支持重试，默认次数是2</li>
+<li>如果网络情况较差，或者跨集群则建议多改几次</li>
+</ul>
+<p>生产者设置重试次数，并设置唯一的key(一般唯一标识符)</p>
+<p><img src="https://img2020.cnblogs.com/blog/1504448/202010/1504448-20201020231658104-374850981.png" alt="" loading="lazy"></p>
+<p><img src="https://img2020.cnblogs.com/blog/1504448/202010/1504448-20201020232126748-314308313.gif" alt="" loading="lazy"></p>
+<h3>消费者重试</h3>
+<ul>
+<li>原因：消息处理异常，broker端到consumer端各种问题，如网络原因闪断，消费处理失败，ACK返回失败等</li>
+<li>注意
+<ul>
+<li>重试间隔时间配置，默认每条消息<span style="color: rgba(255, 0, 0, 1)"><strong>最多重试16次</strong></span></li>
+<li>超过重试次数人工补偿</li>
+<li>消费端去重</li>
+<li>一条消息无论重试多少次，这些重试消息的<span style="color: rgba(255, 0, 0, 1)"><strong>Message ID，key不会改变</strong></span></li>
+<li>消费重试只针对集群消费方式生效；广播方式不提供失败重试特性，即消费失败后，失败消息不再重试，继续消费新的消息</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://img2020.cnblogs.com/blog/1504448/202010/1504448-20201020234122240-209223726.png" alt="" loading="lazy"></p>
+<p>设置广播方式</p>
+<p><img src="https://img2020.cnblogs.com/blog/1504448/202010/1504448-20201020235545835-431867655.png" alt="" loading="lazy"></p>
+<h3>模拟消息重发</h3>
+<p><img src="https://img2020.cnblogs.com/blog/1504448/202010/1504448-20201021001709494-1194195241.gif" alt="" loading="lazy"></p>
+<p><img src="https://img2020.cnblogs.com/blog/1504448/202010/1504448-20201021001735872-1069412725.gif" alt="" loading="lazy"></p>
+<h2>异步发送消息和回调实战</h2>
+<h3>应用场景</h3>
+<p>　　比如12306付完钱💰后，异步出票，对性能要求高，可以支持更高的并发，回调成功后触发相应的业务(onSuccess)</p>
+<h3>官方例子</h3>
+<p><a href="http://rocketmq.apache.org/docs/simple-example/" target="_blank">点我直达</a></p>
+<p><img src="https://img2020.cnblogs.com/blog/1504448/202010/1504448-20201021220653132-743044759.gif" alt="" loading="lazy"></p>
+<h3>改造生产者</h3>
+<p><img src="https://img2020.cnblogs.com/blog/1504448/202010/1504448-20201021222413320-1614960396.png" alt="" loading="lazy"></p>
+<h3>演示</h3>
+<p><img src="https://img2020.cnblogs.com/blog/1504448/202010/1504448-20201021223312831-1007584699.gif" alt="" loading="lazy"></p>
+<div class="cnblogs_code">
+<pre><span style="color: rgba(0, 0, 0, 1)">onSuccess：因为是异步方式，这里可以记录日志啥的
+onException：补偿机制，根据实际情况使用，看是否进行重试</span></pre>
+</div>
+<h2>OneWay(无需等待)</h2>
+<h3>应用场景</h3>
+<p>　　主要做日志收集，适用于对性能要求高，但可靠性并不高的场景。</p>
+<p><img src="https://img2020.cnblogs.com/blog/1504448/202010/1504448-20201021234047764-1488666584.png" alt="" loading="lazy"></p>
+<h2>延迟消息实战</h2>
+<h3>什么是延迟消息</h3>
+<ul>
+<li>Producer将消息发送到消息队列RocketMQ服务端，但并不期望这条消息立马投递，而是推迟在当前时间点之后的某一个时间投递到Consumer进行消费，该消息即定时消息，目前支持固定精度的消息</li>
+<li>延迟消息级别，1....18</li>
+</ul>
+<div class="cnblogs_code">
+<pre>1s 5s 10s 30s 1m 2m 3m 4m 5m 6m 7m 8m 9m 10m 20m 30m 1h 2h</pre>
+</div>
+<p><img src="https://img2020.cnblogs.com/blog/1504448/202010/1504448-20201022000122770-1907583573.png" alt="" loading="lazy"></p>
+<h3>应用场景</h3>
+<ul>
+<li>通过消息触发一些定时任务，比如在某一固定时间点向用户发送提醒消息</li>
+<li>消息生产和消费有时间窗口要求：比如在天猫电商交易中超时未支付关闭订单的场景，在订单创建时会发送一条延迟消息。这条消息将会在30分钟以后投递给消费者，消费者收到此消息后需要判断对应的订单是否已完成支付。如支付未完成，则关闭订单。如已完成支付则忽略。</li>
+</ul>
+<h3>改生产者</h3>
+<p><img src="https://img2020.cnblogs.com/blog/1504448/202010/1504448-20201022000414491-132645056.png" alt="" loading="lazy"></p>
+<h2>生产者MessageQueueSelector实战</h2>
+<h3>简介</h3>
+<p>　　生产消息使用MessageQueueSelector投递到Topic下指定的Queue</p>
+<h3>应用场景</h3>
+<ul>
+<li>顺序消息</li>
+<li>分摊负载</li>
+</ul>
+<p>默认topic下的queue数量是4，可以配置</p>
+<p>支持同步，异步发送指定的MessageQueue</p>
+<p>选择的queue数量必须小于配置的，否则会出错</p>
+<h3>好处</h3>
+<p>　　如果队列中某个产品，流量暴增，随机分配的话，会导致整个Topic都不能使用，指定到队列的话，如果这个队列坏了，其他队列不影响使用。</p>
+<h3>改造生产者</h3>
+<h4>同步发送</h4>
+<p><img src="https://img2020.cnblogs.com/blog/1504448/202010/1504448-20201023235324992-486504203.png" alt="" loading="lazy"></p>
+<div class="cnblogs_code">
+<pre><span style="color: rgba(0, 0, 0, 1)">发送结果=SEND_OK，msg=SendResult [sendStatus=SEND_OK, msgId=AC1068013E3F18B4AAC276723EAC0000, offsetMsgId=C0A8C76400002A9F000000000009B536, messageQueue=MessageQueue [topic=ybchen_pay_topic, brokerName=broker-a, queueId=0], queueOffset=1]
+发送结果=SEND_OK，msg=SendResult [sendStatus=SEND_OK, msgId=AC1068013E3F18B4AAC27672BCD50001, offsetMsgId=C0A8C76400002A9F000000000009B602, messageQueue=MessageQueue [topic=ybchen_pay_topic, brokerName=broker-a, queueId=0], queueOffset=2]
+发送结果=SEND_OK，msg=SendResult [sendStatus=SEND_OK, msgId=AC1068013E3F18B4AAC27672CAA20002, offsetMsgId=C0A8C76400002A9F000000000009B6CF, messageQueue=MessageQueue [topic=ybchen_pay_topic, brokerName=broker-a, queueId=0], queueOffset=3]</span></pre>
+</div>
+<p>　　可以看到打印出来的，queueId=0</p>
+<h4>异步发送</h4>
+<p>生产者端代码修改</p>
+<div class="cnblogs_code">
+<pre><span style="color: rgba(0, 0, 0, 1)">    @Autowired
+    </span><span style="color: rgba(0, 0, 255, 1)">private</span><span style="color: rgba(0, 0, 0, 1)"> PayProducer payProducer;
+
+    </span><span style="color: rgba(0, 0, 255, 1)">private</span> <span style="color: rgba(0, 0, 255, 1)">static</span> <span style="color: rgba(0, 0, 255, 1)">final</span> String TOPIC = "ybchen_pay_topic"<span style="color: rgba(0, 0, 0, 1)">;
+
+    </span><span style="color: rgba(0, 128, 0, 1)">/**</span><span style="color: rgba(0, 128, 0, 1)">
+     * 支付回调
+     *
+     * </span><span style="color: rgba(128, 128, 128, 1)">@param</span><span style="color: rgba(0, 128, 0, 1)"> text
+     * </span><span style="color: rgba(128, 128, 128, 1)">@return</span>
+     <span style="color: rgba(0, 128, 0, 1)">*/</span><span style="color: rgba(0, 0, 0, 1)">
+    @RequestMapping(</span>"pay_cb"<span style="color: rgba(0, 0, 0, 1)">)
+    </span><span style="color: rgba(0, 0, 255, 1)">public</span><span style="color: rgba(0, 0, 0, 1)"> Object callback(String text) {
+        </span><span style="color: rgba(0, 128, 0, 1)">/**</span><span style="color: rgba(0, 128, 0, 1)">
+         * String topic：话题
+         * String tags：二级分类
+         * byte[] body：body消息字节数组
+         </span><span style="color: rgba(0, 128, 0, 1)">*/</span><span style="color: rgba(0, 0, 0, 1)">
+        Message message </span>= <span style="color: rgba(0, 0, 255, 1)">new</span> Message(TOPIC, "tag_a"<span style="color: rgba(0, 0, 0, 1)">, text.getBytes());
+        </span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">生产者使用MessageQueueSelector投递到Topic下指定的Queue，arg只能小于等于4
+</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">        try {
+</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">            SendResult sendResult = payProducer.getProducer().send(message, new MessageQueueSelector() {
+</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">                @Override
+</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">                public MessageQueue select(List&lt;MessageQueue&gt; list, Message message, Object o) {
+</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">                    int queueNum=Integer.parseInt(o.toString());
+</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">                    return list.get(queueNum);
+</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">                }
+</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">            }, 0);
+</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">            System.out.printf("发送结果=%s，msg=%s",sendResult.getSendStatus(),sendResult);
+</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">        } catch (MQClientException e) {
+</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">            e.printStackTrace();
+</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">        } catch (RemotingException e) {
+</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">            e.printStackTrace();
+</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">        } catch (MQBrokerException e) {
+</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">            e.printStackTrace();
+</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">        } catch (InterruptedException e) {
+</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">            e.printStackTrace();
+</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">        }
+        </span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">异步发送到指定的queue</span>
+        <span style="color: rgba(0, 0, 255, 1)">try</span><span style="color: rgba(0, 0, 0, 1)"> {
+            payProducer.getProducer().send(message, </span><span style="color: rgba(0, 0, 255, 1)">new</span><span style="color: rgba(0, 0, 0, 1)"> MessageQueueSelector() {
+                @Override
+                </span><span style="color: rgba(0, 0, 255, 1)">public</span> MessageQueue select(List&lt;MessageQueue&gt;<span style="color: rgba(0, 0, 0, 1)"> list, Message message, Object o) {
+                    </span><span style="color: rgba(0, 0, 255, 1)">int</span> queueNum =<span style="color: rgba(0, 0, 0, 1)"> Integer.parseInt(o.toString());
+                    </span><span style="color: rgba(0, 0, 255, 1)">return</span><span style="color: rgba(0, 0, 0, 1)"> list.get(queueNum);
+                }
+            }, </span>3, <span style="color: rgba(0, 0, 255, 1)">new</span><span style="color: rgba(0, 0, 0, 1)"> SendCallback() {
+                @Override
+                </span><span style="color: rgba(0, 0, 255, 1)">public</span> <span style="color: rgba(0, 0, 255, 1)">void</span><span style="color: rgba(0, 0, 0, 1)"> onSuccess(SendResult sendResult) {
+                    System.out.printf(</span>"发送结果=%s，msg=%s"<span style="color: rgba(0, 0, 0, 1)">, sendResult.getSendStatus(), sendResult);
+                }
+
+                @Override
+                </span><span style="color: rgba(0, 0, 255, 1)">public</span> <span style="color: rgba(0, 0, 255, 1)">void</span><span style="color: rgba(0, 0, 0, 1)"> onException(Throwable e) {
+                    e.printStackTrace();
+                }
+            });
+        } </span><span style="color: rgba(0, 0, 255, 1)">catch</span><span style="color: rgba(0, 0, 0, 1)"> (MQClientException e) {
+            e.printStackTrace();
+        } </span><span style="color: rgba(0, 0, 255, 1)">catch</span><span style="color: rgba(0, 0, 0, 1)"> (RemotingException e) {
+            e.printStackTrace();
+        } </span><span style="color: rgba(0, 0, 255, 1)">catch</span><span style="color: rgba(0, 0, 0, 1)"> (InterruptedException e) {
+            e.printStackTrace();
+        }
+        </span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">1s 5s 10s 30s 1m 2m 3m 4m 5m 6m 7m 8m 9m 10m 20m 30m 1h 2h
+        </span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">message.setDelayTimeLevel(2);
+</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">        try {
+</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">            SendResult send = payProducer.getProducer().send(message);
+</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">            System.out.println("send------&gt;"+send);
+</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">        } catch (MQClientException e) {
+</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">            e.printStackTrace();
+</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">        } catch (RemotingException e) {
+</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">            e.printStackTrace();
+</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">        } catch (MQBrokerException e) {
+</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">            e.printStackTrace();
+</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">        } catch (InterruptedException e) {
+</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">            e.printStackTrace();
+</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">        }
+        </span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">异步发送
+</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">        try {
+</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">            payProducer.getProducer().send(message, new SendCallback() {
+</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">                @Override
+</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">                public void onSuccess(SendResult sendResult) {
+</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">                    System.out.printf("发送结果=%s，msg=%s",sendResult.getSendStatus(),sendResult);
+</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">                }
+</span><span style="color: rgba(0, 128, 0, 1)">//</span>
+<span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">                @Override
+</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">                public void onException(Throwable e) {
+</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">                    e.printStackTrace();
+</span><span style="color: rgba(0, 128, 0, 1)">//</span>                    <span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">补偿机制，根据实际情况使用，看是否进行重试
+</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">                }
+</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">            });
+</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">        } catch (MQClientException e) {
+</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">            e.printStackTrace();
+</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">        } catch (RemotingException e) {
+</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">            e.printStackTrace();
+</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">        } catch (InterruptedException e) {
+</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">            e.printStackTrace();
+</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">        }</span>
+        <span style="color: rgba(0, 0, 255, 1)">return</span> "ok"<span style="color: rgba(0, 0, 0, 1)">;
+    }</span></pre>
+</div>
+<h2>顺序消息的应用场景</h2>
+<h2>简介</h2>
+<p>　　顺序消息可以应用到电商和证券系统，订单系统。</p>
+<h2>什么是顺序系统？</h2>
+<p>　　消息的生产和消费顺序一致</p>
+<h3>全局顺序</h3>
+<p>　　topic下面全部消息都要有序(很少用)</p>
+<ol>
+<li>性能要求不高，所有的消息严格按照FIFO(先进先出)原则进行消息发布和消费的场景，并行度成为消息系统的瓶颈，吞吐量不够</li>
+<li>在证券处理中，以人民币兑换美元为例，在价格相同的情况下，先出价者优先处理，则可以通过全局顺序的方式进行发布和消费</li>
+</ol>
+<h3>局部顺序</h3>
+<p>　　只要保证一组消息被顺序消费即可(RocketMQ中使用)</p>
+<ol>
+<li>性能要求高</li>
+<li>电商的订单创建，同一订单相关的创建订单消息、订单支付消息、订单退款消息、订单物流消息、订单交易成功消息都会按照先后顺序来发布和消费</li>
+</ol>
+<h3>顺序发布</h3>
+<p>　　对于指定的一个Topic，客户端按照一定的先后顺序发送消息</p>
+<h3>顺序消费</h3>
+<p>　　对于指定的一个Topic，按照一定的先后顺序接收消息，即先发送的消息一定先会被客户端接收到</p>
+<h3>注意事项</h3>
+<ol>
+<li><span style="color: rgba(255, 0, 0, 1)"><strong>顺序消息不支持异步发送</strong></span>，否则将无法保证顺序消费</li>
+<li>顺序消息暂不支持广播模式</li>
+</ol>
+<h3>官方例子</h3>
+<p><a href="http://rocketmq.apache.org/docs/order-example/" target="_blank">点我直达</a></p>
+<h3>改造生产者代码</h3>
+<p>创建ProductOrder.java</p>
+<p><img src="https://img2020.cnblogs.com/blog/1504448/202010/1504448-20201025131931889-656875978.png" alt="" loading="lazy"></p>
+<p>&nbsp;</p>
+<div class="cnblogs_code">
+<pre><span style="color: rgba(0, 0, 255, 1)">package</span><span style="color: rgba(0, 0, 0, 1)"> com.ybchen.ybchenmq.entity;
+
+</span><span style="color: rgba(0, 0, 255, 1)">import</span><span style="color: rgba(0, 0, 0, 1)"> java.io.Serializable;
+</span><span style="color: rgba(0, 0, 255, 1)">import</span><span style="color: rgba(0, 0, 0, 1)"> java.util.ArrayList;
+</span><span style="color: rgba(0, 0, 255, 1)">import</span><span style="color: rgba(0, 0, 0, 1)"> java.util.List;
+
+</span><span style="color: rgba(0, 128, 0, 1)">/**</span><span style="color: rgba(0, 128, 0, 1)">
+ * @ClassName：ProductOrder
+ * @Description：订单
+ * @Author：chenyb
+ * @Date：2020/10/25 12:56 下午
+ * @Versiion：1.0
+ </span><span style="color: rgba(0, 128, 0, 1)">*/</span>
+<span style="color: rgba(0, 0, 255, 1)">public</span> <span style="color: rgba(0, 0, 255, 1)">class</span> ProductOrder <span style="color: rgba(0, 0, 255, 1)">implements</span><span style="color: rgba(0, 0, 0, 1)"> Serializable {
+    </span><span style="color: rgba(0, 128, 0, 1)">/**</span><span style="color: rgba(0, 128, 0, 1)">
+     * 订单id
+     </span><span style="color: rgba(0, 128, 0, 1)">*/</span>
+    <span style="color: rgba(0, 0, 255, 1)">private</span> <span style="color: rgba(0, 0, 255, 1)">long</span><span style="color: rgba(0, 0, 0, 1)"> orderIdl;
+    </span><span style="color: rgba(0, 128, 0, 1)">/**</span><span style="color: rgba(0, 128, 0, 1)">
+     * 订单操作类型
+     </span><span style="color: rgba(0, 128, 0, 1)">*/</span>
+    <span style="color: rgba(0, 0, 255, 1)">private</span><span style="color: rgba(0, 0, 0, 1)"> String type;
+
+    </span><span style="color: rgba(0, 0, 255, 1)">public</span> <span style="color: rgba(0, 0, 255, 1)">long</span><span style="color: rgba(0, 0, 0, 1)"> getOrderIdl() {
+        </span><span style="color: rgba(0, 0, 255, 1)">return</span><span style="color: rgba(0, 0, 0, 1)"> orderIdl;
+    }
+
+    </span><span style="color: rgba(0, 0, 255, 1)">public</span> <span style="color: rgba(0, 0, 255, 1)">void</span> setOrderIdl(<span style="color: rgba(0, 0, 255, 1)">long</span><span style="color: rgba(0, 0, 0, 1)"> orderIdl) {
+        </span><span style="color: rgba(0, 0, 255, 1)">this</span>.orderIdl =<span style="color: rgba(0, 0, 0, 1)"> orderIdl;
+    }
+
+    </span><span style="color: rgba(0, 0, 255, 1)">public</span><span style="color: rgba(0, 0, 0, 1)"> String getType() {
+        </span><span style="color: rgba(0, 0, 255, 1)">return</span><span style="color: rgba(0, 0, 0, 1)"> type;
+    }
+
+    </span><span style="color: rgba(0, 0, 255, 1)">public</span> <span style="color: rgba(0, 0, 255, 1)">void</span><span style="color: rgba(0, 0, 0, 1)"> setType(String type) {
+        </span><span style="color: rgba(0, 0, 255, 1)">this</span>.type =<span style="color: rgba(0, 0, 0, 1)"> type;
+    }
+
+    </span><span style="color: rgba(0, 0, 255, 1)">public</span><span style="color: rgba(0, 0, 0, 1)"> ProductOrder() {
+
+    }
+
+    </span><span style="color: rgba(0, 0, 255, 1)">public</span> ProductOrder(<span style="color: rgba(0, 0, 255, 1)">long</span><span style="color: rgba(0, 0, 0, 1)"> orderIdl, String type) {
+        </span><span style="color: rgba(0, 0, 255, 1)">this</span>.orderIdl =<span style="color: rgba(0, 0, 0, 1)"> orderIdl;
+        </span><span style="color: rgba(0, 0, 255, 1)">this</span>.type =<span style="color: rgba(0, 0, 0, 1)"> type;
+    }
+
+    @Override
+    </span><span style="color: rgba(0, 0, 255, 1)">public</span><span style="color: rgba(0, 0, 0, 1)"> String toString() {
+        </span><span style="color: rgba(0, 0, 255, 1)">return</span> "ProductOrder{" +
+                "orderIdl=" + orderIdl +
+                ", type='" + type + '\'' +
+                '}'<span style="color: rgba(0, 0, 0, 1)">;
+    }
+
+    </span><span style="color: rgba(0, 128, 0, 1)">/**</span><span style="color: rgba(0, 128, 0, 1)">
+     * 模拟批量创建实体类
+     * </span><span style="color: rgba(128, 128, 128, 1)">@return</span>
+     <span style="color: rgba(0, 128, 0, 1)">*/</span>
+    <span style="color: rgba(0, 0, 255, 1)">public</span> <span style="color: rgba(0, 0, 255, 1)">static</span> List&lt;ProductOrder&gt;<span style="color: rgba(0, 0, 0, 1)"> getOrderList(){
+        List</span>&lt;ProductOrder&gt; list=<span style="color: rgba(0, 0, 255, 1)">new</span> ArrayList&lt;&gt;<span style="color: rgba(0, 0, 0, 1)">();
+        list.add(</span><span style="color: rgba(0, 0, 255, 1)">new</span> ProductOrder(111L,"创建订单"<span style="color: rgba(0, 0, 0, 1)">));
+        list.add(</span><span style="color: rgba(0, 0, 255, 1)">new</span> ProductOrder(222L,"创建订单"<span style="color: rgba(0, 0, 0, 1)">));
+        list.add(</span><span style="color: rgba(0, 0, 255, 1)">new</span> ProductOrder(333L,"创建订单"<span style="color: rgba(0, 0, 0, 1)">));
+        list.add(</span><span style="color: rgba(0, 0, 255, 1)">new</span> ProductOrder(111L,"支付订单"<span style="color: rgba(0, 0, 0, 1)">));
+        list.add(</span><span style="color: rgba(0, 0, 255, 1)">new</span> ProductOrder(222L,"支付订单"<span style="color: rgba(0, 0, 0, 1)">));
+        list.add(</span><span style="color: rgba(0, 0, 255, 1)">new</span> ProductOrder(111L,"完成订单"<span style="color: rgba(0, 0, 0, 1)">));
+        list.add(</span><span style="color: rgba(0, 0, 255, 1)">new</span> ProductOrder(222L,"完成订单"<span style="color: rgba(0, 0, 0, 1)">));
+        list.add(</span><span style="color: rgba(0, 0, 255, 1)">new</span> ProductOrder(333L,"支付订单"<span style="color: rgba(0, 0, 0, 1)">));
+        list.add(</span><span style="color: rgba(0, 0, 255, 1)">new</span> ProductOrder(333L,"完成订单"<span style="color: rgba(0, 0, 0, 1)">));
+        </span><span style="color: rgba(0, 0, 255, 1)">return</span><span style="color: rgba(0, 0, 0, 1)"> list;
+    }
+}</span></pre>
+</div>
+<p>控制层：PayController.java</p>
+<p><img src="https://img2020.cnblogs.com/blog/1504448/202010/1504448-20201025132050527-971426409.png" alt="" loading="lazy"></p>
+<p>&nbsp;</p>
+<div class="cnblogs_code">
+<pre><span style="color: rgba(0, 0, 0, 1)">    @Autowired
+    </span><span style="color: rgba(0, 0, 255, 1)">private</span><span style="color: rgba(0, 0, 0, 1)"> PayProducer payProducer;
+
+    </span><span style="color: rgba(0, 0, 255, 1)">private</span> <span style="color: rgba(0, 0, 255, 1)">static</span> <span style="color: rgba(0, 0, 255, 1)">final</span> String TOPIC = "ybchen_pay_topic"<span style="color: rgba(0, 0, 0, 1)">;
+    </span><span style="color: rgba(0, 0, 255, 1)">private</span> <span style="color: rgba(0, 0, 255, 1)">static</span> <span style="color: rgba(0, 0, 255, 1)">final</span> String TOPIC_ORDER = "ybchen_pay_order_topic"<span style="color: rgba(0, 0, 0, 1)">;
+
+    @RequestMapping(</span>"pay_order"<span style="color: rgba(0, 0, 0, 1)">)
+    </span><span style="color: rgba(0, 0, 255, 1)">public</span> Object payOrder() <span style="color: rgba(0, 0, 255, 1)">throws</span><span style="color: rgba(0, 0, 0, 1)"> Exception{
+        </span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">获取订单号</span>
+        List&lt;ProductOrder&gt; list=<span style="color: rgba(0, 0, 0, 1)">ProductOrder.getOrderList();
+        </span><span style="color: rgba(0, 0, 255, 1)">for</span> (<span style="color: rgba(0, 0, 255, 1)">int</span> i = 0; i &lt; list.size(); i++<span style="color: rgba(0, 0, 0, 1)">) {
+            ProductOrder order</span>=<span style="color: rgba(0, 0, 0, 1)">list.get(i);
+            Message message</span>=<span style="color: rgba(0, 0, 255, 1)">new</span><span style="color: rgba(0, 0, 0, 1)"> Message(TOPIC_ORDER,
+                    </span>""<span style="color: rgba(0, 0, 0, 1)">,
+                    order.getOrderIdl()</span>+""<span style="color: rgba(0, 0, 0, 1)">,
+                    order.toString().getBytes());
+            </span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">发送，同一个订单id进入同一个队列中</span>
+           SendResult sendResult =payProducer.getProducer().send(message, <span style="color: rgba(0, 0, 255, 1)">new</span><span style="color: rgba(0, 0, 0, 1)"> MessageQueueSelector() {
+                @Override
+                </span><span style="color: rgba(0, 0, 255, 1)">public</span> MessageQueue select(List&lt;MessageQueue&gt;<span style="color: rgba(0, 0, 0, 1)"> mqs, Message message, Object arg) {
+                    Long id</span>=<span style="color: rgba(0, 0, 0, 1)">(Long)arg;
+                    </span><span style="color: rgba(0, 0, 255, 1)">long</span> index=id%<span style="color: rgba(0, 0, 0, 1)">mqs.size();
+                    </span><span style="color: rgba(0, 0, 255, 1)">return</span> mqs.get((<span style="color: rgba(0, 0, 255, 1)">int</span><span style="color: rgba(0, 0, 0, 1)">) index);
+                }
+            },order.getOrderIdl());
+           </span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">打印输出结果</span>
+            System.out.printf("发送结果=%s，sendResult=%s，orderId=%s，type=%s\n"<span style="color: rgba(0, 0, 0, 1)">,
+                    sendResult.getSendStatus(),
+                    sendResult.toString(),
+                    order.getOrderIdl(),
+                    order.getType());
+
+        }
+        </span><span style="color: rgba(0, 0, 255, 1)">return</span> "ok"<span style="color: rgba(0, 0, 0, 1)">;
+    }</span></pre>
+</div>
+<h3>改造消费者</h3>
+<p><img src="https://img2020.cnblogs.com/blog/1504448/202010/1504448-20201025134612895-809094328.png" alt="" loading="lazy"></p>
+<p>&nbsp;</p>
+<div class="cnblogs_code">
+<pre><span style="color: rgba(0, 0, 255, 1)">package</span><span style="color: rgba(0, 0, 0, 1)"> com.ybchen.ybchenmqconsumer.jms;
+
+</span><span style="color: rgba(0, 0, 255, 1)">import</span><span style="color: rgba(0, 0, 0, 1)"> org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
+</span><span style="color: rgba(0, 0, 255, 1)">import</span> org.apache.rocketmq.client.consumer.listener.*<span style="color: rgba(0, 0, 0, 1)">;
+</span><span style="color: rgba(0, 0, 255, 1)">import</span><span style="color: rgba(0, 0, 0, 1)"> org.apache.rocketmq.client.exception.MQClientException;
+</span><span style="color: rgba(0, 0, 255, 1)">import</span><span style="color: rgba(0, 0, 0, 1)"> org.apache.rocketmq.common.consumer.ConsumeFromWhere;
+</span><span style="color: rgba(0, 0, 255, 1)">import</span><span style="color: rgba(0, 0, 0, 1)"> org.apache.rocketmq.common.message.MessageExt;
+</span><span style="color: rgba(0, 0, 255, 1)">import</span><span style="color: rgba(0, 0, 0, 1)"> org.apache.rocketmq.common.protocol.heartbeat.MessageModel;
+</span><span style="color: rgba(0, 0, 255, 1)">import</span><span style="color: rgba(0, 0, 0, 1)"> org.springframework.stereotype.Component;
+
+</span><span style="color: rgba(0, 0, 255, 1)">import</span><span style="color: rgba(0, 0, 0, 1)"> java.util.List;
+
+</span><span style="color: rgba(0, 128, 0, 1)">/**</span><span style="color: rgba(0, 128, 0, 1)">
+ * @ClassName：PayOrderConsumer
+ * @Description：消费者-订单
+ * @Author：chenyb
+ * @Date：2020/10/18 4:13 下午
+ * @Versiion：1.0
+ </span><span style="color: rgba(0, 128, 0, 1)">*/</span><span style="color: rgba(0, 0, 0, 1)">
+@Component
+</span><span style="color: rgba(0, 0, 255, 1)">public</span> <span style="color: rgba(0, 0, 255, 1)">class</span><span style="color: rgba(0, 0, 0, 1)"> PayOrderConsumer {
+    </span><span style="color: rgba(0, 128, 0, 1)">/**</span><span style="color: rgba(0, 128, 0, 1)">
+     * 生产者所属的组
+     </span><span style="color: rgba(0, 128, 0, 1)">*/</span>
+    <span style="color: rgba(0, 0, 255, 1)">private</span> String producerGroup = "pay_order_consumer_group"<span style="color: rgba(0, 0, 0, 1)">;
+    </span><span style="color: rgba(0, 128, 0, 1)">/**</span><span style="color: rgba(0, 128, 0, 1)">
+     * MQ的地址，注意需开放端口号或者关闭防火墙
+     </span><span style="color: rgba(0, 128, 0, 1)">*/</span>
+    <span style="color: rgba(0, 0, 255, 1)">private</span> String nameServerAddr = "192.168.199.100:9876;192.168.199.101:9876"<span style="color: rgba(0, 0, 0, 1)">;
+    </span><span style="color: rgba(0, 128, 0, 1)">/**</span><span style="color: rgba(0, 128, 0, 1)">
+     * 订阅主题，订单
+     </span><span style="color: rgba(0, 128, 0, 1)">*/</span>
+    <span style="color: rgba(0, 0, 255, 1)">private</span> <span style="color: rgba(0, 0, 255, 1)">static</span> <span style="color: rgba(0, 0, 255, 1)">final</span> String TOPIC_ORDER = "ybchen_pay_order_topic"<span style="color: rgba(0, 0, 0, 1)">;
+    </span><span style="color: rgba(0, 0, 255, 1)">private</span><span style="color: rgba(0, 0, 0, 1)"> DefaultMQPushConsumer consumer;
+
+    </span><span style="color: rgba(0, 0, 255, 1)">public</span> PayOrderConsumer() <span style="color: rgba(0, 0, 255, 1)">throws</span><span style="color: rgba(0, 0, 0, 1)"> MQClientException {
+        consumer </span>= <span style="color: rgba(0, 0, 255, 1)">new</span><span style="color: rgba(0, 0, 0, 1)"> DefaultMQPushConsumer(producerGroup);
+        </span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">指定NameServer地址，多个地址以;隔开
+        </span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">如 producer.setNamesrvAddr("192.168.199.100:9876;192.168.199.101:9876;192.168.199.102:9876")</span>
+<span style="color: rgba(0, 0, 0, 1)">        consumer.setNamesrvAddr(nameServerAddr);
+        </span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">设置消费地点，从最后一个开始消费</span>
+<span style="color: rgba(0, 0, 0, 1)">        consumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_LAST_OFFSET);
+        </span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">订阅主题，监听主题下的那些标签</span>
+        consumer.subscribe(TOPIC_ORDER, "*"<span style="color: rgba(0, 0, 0, 1)">);
+        </span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">默认是集群方式，广播方式不支持重试</span>
+<span style="color: rgba(0, 0, 0, 1)">        consumer.setMessageModel(MessageModel.CLUSTERING);
+        </span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">注解一个监听器</span>
+        consumer.registerMessageListener(<span style="color: rgba(0, 0, 255, 1)">new</span><span style="color: rgba(0, 0, 0, 1)"> MessageListenerOrderly() {
+            @Override
+            </span><span style="color: rgba(0, 0, 255, 1)">public</span> ConsumeOrderlyStatus consumeMessage(List&lt;MessageExt&gt;<span style="color: rgba(0, 0, 0, 1)"> list,
+                                                       ConsumeOrderlyContext consumeOrderlyContext) {
+                MessageExt msg</span>=list.get(0<span style="color: rgba(0, 0, 0, 1)">);
+                System.out.printf(</span>"%s Receive New Messages: %s %n"<span style="color: rgba(0, 0, 0, 1)">,Thread.currentThread().getName(),
+                        </span><span style="color: rgba(0, 0, 255, 1)">new</span><span style="color: rgba(0, 0, 0, 1)"> String(msg.getBody()));
+                </span><span style="color: rgba(0, 0, 255, 1)">return</span><span style="color: rgba(0, 0, 0, 1)"> ConsumeOrderlyStatus.SUCCESS;
+            }
+        });
+        consumer.start();
+        System.out.println(</span>"consumer order start .........."<span style="color: rgba(0, 0, 0, 1)">);
+    }
+}</span></pre>
+</div>
+<h3>测试顺序消息</h3>
+<h4>一个生产者一个消费者</h4>
+<p>　　可以看到消费的时候，有点慢，因为我本地安装了2个虚拟机做一主一从，消费的顺序是正确的，都是按照：创建订单、支付订单、完成订单</p>
+<p><img src="https://img2020.cnblogs.com/blog/1504448/202010/1504448-20201025135637855-1933158576.gif" alt="" loading="lazy" style="font-size: 1em"></p>
+<div class="cnblogs_code">
+<pre>2020-10-25 13:52:31.822  INFO 1473 --- [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-10-25 13:52:31.822  INFO 1473 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2020-10-25 13:52:31.825  INFO 1473 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3<span style="color: rgba(0, 0, 0, 1)"> ms
+发送结果</span>=SEND_OK，sendResult=SendResult [sendStatus=SEND_OK, msgId=AC10680105C118B4AAC27E92D46F0000, offsetMsgId=C0A8C76400002A9F000000000009C8B2, messageQueue=MessageQueue [topic=ybchen_pay_order_topic, brokerName=broker-a, queueId=3], queueOffset=6]，orderId=111，type=<span style="color: rgba(0, 0, 0, 1)">创建订单
+发送结果</span>=SEND_OK，sendResult=SendResult [sendStatus=SEND_OK, msgId=AC10680105C118B4AAC27E92D4930001, offsetMsgId=C0A8C76400002A9F000000000009C9A5, messageQueue=MessageQueue [topic=ybchen_pay_order_topic, brokerName=broker-a, queueId=2], queueOffset=6]，orderId=222，type=<span style="color: rgba(0, 0, 0, 1)">创建订单
+发送结果</span>=SEND_OK，sendResult=SendResult [sendStatus=SEND_OK, msgId=AC10680105C118B4AAC27E92D4A90002, offsetMsgId=C0A8C76400002A9F000000000009CA98, messageQueue=MessageQueue [topic=ybchen_pay_order_topic, brokerName=broker-a, queueId=1], queueOffset=6]，orderId=333，type=<span style="color: rgba(0, 0, 0, 1)">创建订单
+发送结果</span>=SEND_OK，sendResult=SendResult [sendStatus=SEND_OK, msgId=AC10680105C118B4AAC27E92D4C00003, offsetMsgId=C0A8C76400002A9F000000000009CB8B, messageQueue=MessageQueue [topic=ybchen_pay_order_topic, brokerName=broker-a, queueId=3], queueOffset=7]，orderId=111，type=<span style="color: rgba(0, 0, 0, 1)">支付订单
+发送结果</span>=SEND_OK，sendResult=SendResult [sendStatus=SEND_OK, msgId=AC10680105C118B4AAC27E92D4CC0004, offsetMsgId=C0A8C76400002A9F000000000009CC7E, messageQueue=MessageQueue [topic=ybchen_pay_order_topic, brokerName=broker-a, queueId=2], queueOffset=7]，orderId=222，type=<span style="color: rgba(0, 0, 0, 1)">支付订单
+发送结果</span>=SEND_OK，sendResult=SendResult [sendStatus=SEND_OK, msgId=AC10680105C118B4AAC27E92D4D00005, offsetMsgId=C0A8C76400002A9F000000000009CD71, messageQueue=MessageQueue [topic=ybchen_pay_order_topic, brokerName=broker-a, queueId=3], queueOffset=8]，orderId=111，type=<span style="color: rgba(0, 0, 0, 1)">完成订单
+发送结果</span>=SEND_OK，sendResult=SendResult [sendStatus=SEND_OK, msgId=AC10680105C118B4AAC27E92D4D30006, offsetMsgId=C0A8C76400002A9F000000000009CE64, messageQueue=MessageQueue [topic=ybchen_pay_order_topic, brokerName=broker-a, queueId=2], queueOffset=8]，orderId=222，type=<span style="color: rgba(0, 0, 0, 1)">完成订单
+发送结果</span>=SEND_OK，sendResult=SendResult [sendStatus=SEND_OK, msgId=AC10680105C118B4AAC27E92D4DE0007, offsetMsgId=C0A8C76400002A9F000000000009CF57, messageQueue=MessageQueue [topic=ybchen_pay_order_topic, brokerName=broker-a, queueId=1], queueOffset=7]，orderId=333，type=<span style="color: rgba(0, 0, 0, 1)">支付订单
+发送结果</span>=SEND_OK，sendResult=SendResult [sendStatus=SEND_OK, msgId=AC10680105C118B4AAC27E92D4F80008, offsetMsgId=C0A8C76400002A9F000000000009D04A, messageQueue=MessageQueue [topic=ybchen_pay_order_topic, brokerName=broker-a, queueId=1], queueOffset=8]，orderId=333，type=完成订单</pre>
+</div>
+<div class="cnblogs_code">
+<pre>ConsumeMessageThread_1 Receive New Messages: ProductOrder{orderIdl=333, type='创建订单'<span style="color: rgba(0, 0, 0, 1)">} 
+ConsumeMessageThread_1 Receive New Messages: ProductOrder{orderIdl</span>=333, type='支付订单'<span style="color: rgba(0, 0, 0, 1)">} 
+ConsumeMessageThread_1 Receive New Messages: ProductOrder{orderIdl</span>=333, type='完成订单'<span style="color: rgba(0, 0, 0, 1)">} 
+ConsumeMessageThread_2 Receive New Messages: ProductOrder{orderIdl</span>=222, type='创建订单'<span style="color: rgba(0, 0, 0, 1)">} 
+ConsumeMessageThread_2 Receive New Messages: ProductOrder{orderIdl</span>=222, type='支付订单'<span style="color: rgba(0, 0, 0, 1)">} 
+ConsumeMessageThread_2 Receive New Messages: ProductOrder{orderIdl</span>=222, type='完成订单'<span style="color: rgba(0, 0, 0, 1)">} 
+ConsumeMessageThread_3 Receive New Messages: ProductOrder{orderIdl</span>=111, type='创建订单'<span style="color: rgba(0, 0, 0, 1)">} 
+ConsumeMessageThread_3 Receive New Messages: ProductOrder{orderIdl</span>=111, type='支付订单'<span style="color: rgba(0, 0, 0, 1)">} 
+ConsumeMessageThread_3 Receive New Messages: ProductOrder{orderIdl</span>=111, type='完成订单'} </pre>
+</div>
+<h4>一个生产者3个消费者</h4>
+<p>　　<span style="color: rgba(255, 0, 0, 1)"><strong>消费者会平均分配queue的数量，消费者数量小于等于4！！！</strong></span></p>
+<p>　　本地在线模拟，一个生产者、3个消费者场景，看看消费的顺序，内容较长，被分割3块</p>
+<p><img src="https://img2020.cnblogs.com/blog/1504448/202010/1504448-20201025170402636-1503036102.gif" alt="" loading="lazy"></p>
+<p><img src="https://img2020.cnblogs.com/blog/1504448/202010/1504448-20201025170606675-256782685.gif" alt="" loading="lazy"></p>
+<p><img src="https://img2020.cnblogs.com/blog/1504448/202010/1504448-20201025170636984-1202250630.gif" alt="" loading="lazy"></p>
+<h1 style="text-align: center">消费者核心配置</h1>
+<h2 style="text-align: left">setConsumeFromWhere</h2>
+<ol>
+<li>CONSUME_FORM_FIRST_OFFSET：初次从消息队列头部开始消费，即历史消息(还存储在broker的)全部消费一遍，后续在启动接着上次消费的进度开始消费</li>
+<li>CONSUME_FROM_LAST_OFFSET：默认策略，初次从该队列尾开始消费，即跳过历史小心，后续在启动接着上次消费的进度开始消费</li>
+<li>CCONSUME_FROM_TIMESTAMP：从某个时间点开始消费，默认是半小时以前，后续在启动接着上次消费的进度开始消费</li>
+</ol>
+<h2>setAllocateMessageQueueStrategy</h2>
+<ul>
+<li>负载均衡策略算法，即消费者分配到queue的算法，默认值AllocateMessageQueueAveragely即取模平均分配</li>
+</ul>
+<h2>setOffsetStore</h2>
+<ul>
+<li>消息消费进度存储器，2个策略
+<ul>
+<li>LocalFileOffsetStore(广播模式默认使用)</li>
+<li>RemoteBrokerOffsetStore(集群模式默认使用)</li>
+</ul>
+</li>
+</ul>
+<h2>setConsumeThreadMin</h2>
+<ul>
+<li>最小消费线程池数量</li>
+</ul>
+<h2>setConsumeThreadMax</h2>
+<ul>
+<li>最大消费线程池数量</li>
+</ul>
+<h2>setPullBatchSize</h2>
+<ul>
+<li>消费者去broker拉取消息时，一次次拉取多少条</li>
+</ul>
+<h2>setConsumeMessageBatchMaxSize</h2>
+<ul>
+<li>单次消费时一次性消费多少条消息</li>
+</ul>
+<h2>setMessageModel</h2>
+<ul>
+<li>消费者消费模式
+<ul>
+<li>CLUSTERING：默认是集群模式</li>
+<li>BROADCASTING：广播模式</li>
+</ul>
+</li>
+</ul>
+<h2>Topic下队列的奇偶数会影响Customer个数里面的消费数量</h2>
+<ul>
+<li>如果是4个队列(默认队列为4)，8个消息，4个节点则各会消费2条，如果不对等，则负载均衡会分配不均匀</li>
+<li>如果consumer实例数量比message queue的总数量还多的话，多出来的consumer实例将无法分到queue，也就无法消费达到消息，也就无法起到分摊负载的作用，所以需要控制让queue的总数量大于consumer的数量</li>
+</ul>
+<h2>集群模式(默认)</h2>
+<ul>
+<li>Consumer实例平均分摊消费生产者发送的消息</li>
+<li>例如：订单消息，只能被消费一次</li>
+</ul>
+<h2>广播模式</h2>
+<ul>
+<li>广播模式下消费消息，投递到Broker的消息会被每个Consumer进行消费，一条消息被多个Consumer消费，广播消费中ConsumerGroup暂时无用</li>
+<li>例如：QQ群，群主发一条消息，所有人都可以看到</li>
+</ul>
+<h1 style="text-align: center">消息存储</h1>
+<h2>ConsumeQueue</h2>
+<p>　　逻辑队列，默认存储位置：/root/store/consumequeue</p>
+<h2>CommitLog</h2>
+<p>　　真正存储消息文件的，默认存储位置：/root/store/commitlog</p>
+<h1 style="text-align: center">常见面试题</h1>
+<h2>为什么消息队列？</h2>
+<h3>优点</h3>
+<ol>
+<li>异步：例如秒杀，可以使用，<a href="https://www.cnblogs.com/chenyanbin/p/13587508.html" target="_blank">点我直达</a></li>
+<li>解耦</li>
+<li>削峰：秒杀情况下，一个个入队，一个个出队，有序进行</li>
+</ol>
+<h3>缺点</h3>
+<ol>
+<li>系统可用性越低：外部依赖越多，依赖越多，出问题风险越大</li>
+<li>系统复杂性提高：需要考虑多种场景，比如消息重复消费、消息丢失</li>
+<li>需要更多的机器和人力：消息队列一般集群部署，需要运维和监控</li>
+</ol>
+<h2>如何避免重复消费？</h2>
+<p>　　RocketMQ不保证消息不重复，如果业务保证严格的不能重复消费，需要自己去业务端去重</p>
+<h3>数据库表去重</h3>
+<p>　　指定某个字段唯一值</p>
+<h3>setNX</h3>
+<p>　　利用Redis的特性分布式锁，下面是我之前的代码，待改造</p>
+<div class="cnblogs_code">
+<pre><span style="color: rgba(0, 0, 255, 1)">package</span><span style="color: rgba(0, 0, 0, 1)"> com.cyb.redis.utils;
+
+</span><span style="color: rgba(0, 0, 255, 1)">import</span><span style="color: rgba(0, 0, 0, 1)"> redis.clients.jedis.Jedis;
+</span><span style="color: rgba(0, 0, 255, 1)">import</span><span style="color: rgba(0, 0, 0, 1)"> redis.clients.jedis.JedisPool;
+
+</span><span style="color: rgba(0, 0, 255, 1)">public</span> <span style="color: rgba(0, 0, 255, 1)">class</span><span style="color: rgba(0, 0, 0, 1)"> jedisUtils {
+    </span><span style="color: rgba(0, 0, 255, 1)">private</span> <span style="color: rgba(0, 0, 255, 1)">static</span> String ip = "192.168.31.200"<span style="color: rgba(0, 0, 0, 1)">;
+    </span><span style="color: rgba(0, 0, 255, 1)">private</span> <span style="color: rgba(0, 0, 255, 1)">static</span> <span style="color: rgba(0, 0, 255, 1)">int</span> port = 6379<span style="color: rgba(0, 0, 0, 1)">;
+    </span><span style="color: rgba(0, 0, 255, 1)">private</span> <span style="color: rgba(0, 0, 255, 1)">static</span><span style="color: rgba(0, 0, 0, 1)"> JedisPool pool;
+    </span><span style="color: rgba(0, 0, 255, 1)">static</span><span style="color: rgba(0, 0, 0, 1)"> {
+        pool </span>= <span style="color: rgba(0, 0, 255, 1)">new</span><span style="color: rgba(0, 0, 0, 1)"> JedisPool(ip, port);
+    }
+    </span><span style="color: rgba(0, 0, 255, 1)">public</span> <span style="color: rgba(0, 0, 255, 1)">static</span><span style="color: rgba(0, 0, 0, 1)"> Jedis getJedis() {
+        </span><span style="color: rgba(0, 0, 255, 1)">return</span><span style="color: rgba(0, 0, 0, 1)"> pool.getResource();
+    }
+    </span><span style="color: rgba(0, 0, 255, 1)">public</span> <span style="color: rgba(0, 0, 255, 1)">static</span> <span style="color: rgba(0, 0, 255, 1)">boolean</span> getLock(String lockKey, String requestId, <span style="color: rgba(0, 0, 255, 1)">int</span><span style="color: rgba(0, 0, 0, 1)"> timeout) {
+        </span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">获取jedis对象，负责和远程redis服务器进行连接</span>
+        Jedis je=<span style="color: rgba(0, 0, 0, 1)">getJedis();
+        </span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">参数3：NX和XX
+        </span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">参数4：EX和PX</span>
+        String result = je.set(lockKey, requestId, "NX", "EX"<span style="color: rgba(0, 0, 0, 1)">, timeout);
+        </span><span style="color: rgba(0, 0, 255, 1)">if</span> (result=="ok"<span style="color: rgba(0, 0, 0, 1)">) {
+            </span><span style="color: rgba(0, 0, 255, 1)">return</span> <span style="color: rgba(0, 0, 255, 1)">true</span><span style="color: rgba(0, 0, 0, 1)">;
+        }
+        </span><span style="color: rgba(0, 0, 255, 1)">return</span> <span style="color: rgba(0, 0, 255, 1)">false</span><span style="color: rgba(0, 0, 0, 1)">;
+    }
+
+    </span><span style="color: rgba(0, 0, 255, 1)">public</span> <span style="color: rgba(0, 0, 255, 1)">static</span> <span style="color: rgba(0, 0, 255, 1)">synchronized</span> <span style="color: rgba(0, 0, 255, 1)">boolean</span> getLock2(String lockKey, String requestId, <span style="color: rgba(0, 0, 255, 1)">int</span><span style="color: rgba(0, 0, 0, 1)"> timeout) {
+        </span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">获取jedis对象，负责和远程redis服务器进行连接</span>
+        Jedis je=<span style="color: rgba(0, 0, 0, 1)">getJedis();
+        </span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">参数3：NX和XX
+        </span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">参数4：EX和PX</span>
+        Long result =<span style="color: rgba(0, 0, 0, 1)"> je.setnx(lockKey, requestId);
+        </span><span style="color: rgba(0, 0, 255, 1)">if</span> (result==1<span style="color: rgba(0, 0, 0, 1)">) {
+            je.expire(lockKey, timeout); </span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">设置有效期</span>
+            <span style="color: rgba(0, 0, 255, 1)">return</span> <span style="color: rgba(0, 0, 255, 1)">true</span><span style="color: rgba(0, 0, 0, 1)">;
+        }
+        </span><span style="color: rgba(0, 0, 255, 1)">return</span> <span style="color: rgba(0, 0, 255, 1)">false</span><span style="color: rgba(0, 0, 0, 1)">;
+    }
+}</span></pre>
+</div>
+<h3>Redis原子递增</h3>
+<p>　　利用Redis的incr特性，如果大于0说明消费过了(<strong><span style="color: rgba(255, 0, 0, 1)">需要设置过期时间</span></strong>)</p>
+<h2>如何保证消息的可靠性传输？</h2>
+<h3>producer端</h3>
+<ol>
+<li>不采用oneway发送，使用同步或者一部方式发送，做好重试，但是重试的Message key必须唯一</li>
+<li>投递的日志需要保存，关键字段、投递时间、投递状态、重试次数、请求体、响应体等</li>
+</ol>
+<h3>broker端</h3>
+<ol>
+<li>双主双从架构，NameServer需要多节点</li>
+<li>同步双写，异步刷盘</li>
+</ol>
+<h3>consumer端</h3>
+<ol>
+<li>消息消费保存日志文件中</li>
+</ol>
+<h2>大量堆积到broker里面，如何处理？</h2>
+<ol>
+<li>临时topic队列扩容，提高消费者能力</li>
+<li>编写临时处理分发程序，从旧topic快速读取到临时新topic中，新topic的queue数量扩容多倍，然后再启动更多consumer进行临时新的topic消费</li>
+</ol>
+<h2>RocketMQ高性能的原因？</h2>
+<h3>MQ架构配置</h3>
+<ol>
+<li>顺序写</li>
+<li>随机读</li>
+<li>零拷贝</li>
+</ol>
+<h3>发送端高可用</h3>
+<ol>
+<li>双主双从架构：创建Topic的时候，MessageQueue创建在多个Broker上，即相同的Broker名称，不同brokerid；当一个Master不可用时，组内其他的Master仍然可用</li>
+</ol>
+<h3>消费高可用</h3>
+<ol>
+<li>主从架构：Broker角色，Master提供读写，Slave只支持读</li>
+<li>Consumer不用配置，当Master不可用或者繁忙的时候，Consumer会自动切换到Slave节点进行读取</li>
+</ol>
+<h3>提升消息的消费能力</h3>
+<ol>
+<li>增加多个消费者</li>
+<li>修改消费者的线程池最小/大数量</li>
+</ol>
+<h1 style="text-align: center">项目源码</h1>
+<h2>案例源码</h2>
+<div class="cnblogs_code">
+<pre>链接: https:<span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">pan.baidu.com/s/1Q8iL0lH-bdFEycYGq61hQg  密码: rww2</span></pre>
+</div>
+<h2>Linux下RocketMQ安装包</h2>
+<div class="cnblogs_code">
+<pre>链接: https://pan.baidu.com/s/1dkE7sAs9E4TjwDQ38Pv4_A  密码: mkjm</pre>
+</div>
+<h2>尾声</h2>
+<p>　　过几天搭建RocketMQ双主双从集群，今天先到这儿~</p>
+</div>
+<div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+    <div id="blog_post_info"></div>
+    <div class="clear"></div>
+    <div id="post_next_prev"></div>
+</div>
+            </div>
+            <div class="postDesc">posted @ 
+<span id="post-date">2020-10-26 00:21</span>&nbsp;
+<a href="https://www.cnblogs.com/chenyanbin/">陈彦斌</a>&nbsp;
+阅读(<span id="post_view_count">13</span>)&nbsp;
+评论(<span id="post_comment_count">0</span>)&nbsp;
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13798952" rel="nofollow">编辑</a>&nbsp;
+<a href="javascript:void(0)" onclick="AddToWz(13798952);return false;">收藏</a></div>
+        </div>
+	    
+	    
+    </div><!--end: topics 文章、评论容器-->
+</div>
+<script src="https://common.cnblogs.com/highlight/10.3.1/highlight.min.js"></script>
+<script>markdown_highlight();</script>
+<script>
+    var allowComments = true, cb_blogId = 484130, cb_blogApp = 'chenyanbin', cb_blogUserGuid = '19ba9acf-d8e6-4343-a5ad-08d62b9df80b';
+    var cb_entryId = 13798952, cb_entryCreatedDate = '2020-10-26 00:21', cb_postType = 1;
+    loadViewCount(cb_entryId);
+</script>
+<a name="!comments"></a>
+<div id="blog-comments-placeholder"></div>
+<div id="comment_form" class="commentform">
+    <a name="commentform"></a>
+    <div id="divCommentShow"></div>
+    <div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="#" onclick="return RefreshPage();">刷新页面</a><a href="#top">返回顶部</a></div>
+    <div id="comment_form_container"></div>
+    <div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+    <div id="ad_t2"></div>
+    <div id="opt_under_post"></div>
+    <div id="cnblogs_c1" class="c_ad_block">
+        <div id='div-gpt-ad-1592365906576-0' style='width: 300px; height: 250px;'></div>
+    </div>
+    <div id="under_post_news"></div>
+    <div id="cnblogs_c2" class="c_ad_block">
+        <div id='div-gpt-ad-1592366332455-0' style='width: 468px; height: 60px;'></div>
+    </div>
+    <div id="under_post_kb"></div>
+    <div id="HistoryToday" class="c_ad_block"></div>
+    <script type="text/javascript">
+       var commentManager = new blogCommentManager();
+       commentManager.renderComments(0);
+       fixPostBody();
+       deliverBigBanner();
+setTimeout(function() { incrementViewCount(cb_entryId); }, 50);       deliverT2();
+       deliverC1C2();
+       loadNewsAndKb();
+       loadBlogSignature();
+LoadPostCategoriesTags(cb_blogId, cb_entryId);       LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+       GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+       loadOptUnderPost();
+       GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);
+   </script>
+</div>
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+	<div id="sideBar">
+		<div id="sideBarMain">
+			<div id="sidebar_news" class="newsItem">
+            <script>loadBlogNews();</script>
+</div>
+<div id="sidebar_ad"></div>
+			<div id="blog-calendar" style="display:none"></div><script>loadBlogDefaultCalendar();</script>			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"></div>
+                    <script>loadBlogSideColumn();</script>
+			</div>			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		<!--done-->
+Copyright &copy; 2020 陈彦斌
+<br /><span id="poweredby">Powered by .NET 5.0.0-rc.2.20475.5 on Kubernetes</span>
+
+
+
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+    <div id="page_end_html">
+        <!--皮肤-->
+<script src="https://blog-static.cnblogs.com/files/chenyanbin/silencesExt.js"></script>
+
+<!--改变鼠标-->
+<!--<script src="https://blog-static.cnblogs.com/files/chenyanbin/mouse.js"></script>-->
+
+
+<!--网站小图标-->
+<script type="text/javascript">
+(function() {
+     $("pre").addClass("prettyprint");
+var olda=document.getElementById("favicon"); 
+olda.setAttribute("href","https://blog-static.cnblogs.com/files/chenyanbin/o_qianxun.ico");
+})();
+</script>
+
+<!--播放器-->
+<link rel="stylesheet" href="https://blog-static.cnblogs.com/files/chenyanbin/APlayer2.min.css">
+<script src="https://blog-static.cnblogs.com/files/chenyanbin/APlayer2.min.js"></script>
+<div id="aplayer" class="aplayer"  data-id="4942457064" data-server="netease" data-type="playlist" data-fixed="true" data-listfolded="true" data-order="random" data-theme="#F58EA8"></div>
+<script src="https://blog-static.cnblogs.com/files/chenyanbin/Meting2.min.js"></script>
+
+<script src="https://blog-static.cnblogs.com/files/chenyanbin/prettify.js"></script>
+
+
+<!--鼠标特效-->
+<script>
+      function o(w,v,i){
+          return w.getAttribute(v)||i
+      }
+      function j(i){
+          return document.getElementsByTagName(i)
+      }
+      function l(){
+          var i=j("script"),w=i.length,v=i[w-1];
+          return {l:w,z:o(v,"zIndex",-1),o:o(v,"opacity",0.5),c:o(v,"color","0,0,0"),n:o(v,"count",99)}
+      }
+      function k(){
+          r=u.width=window.innerWidth||document.documentElement.clientWidth||document.body.clientWidth,
+          n=u.height=window.innerHeight||document.documentElement.clientHeight||document.body.clientHeight
+      }
+      function b(){
+          e.clearRect(0,0,r,n);
+          var w=[f].concat(t);
+          var x,v,A,B,z,y;
+          t.forEach(function(i){
+              i.x+=i.xa,
+              i.y+=i.ya,
+              i.xa*=i.x>r||i.x<0?-1:1,
+              i.ya*=i.y>n||i.y<0?-1:1,
+              e.fillRect(i.x-0.5,i.y-0.5,1,1);
+              for(v=0;v<w.length;v++){
+                  x=w[v];
+                  if(i!==x&&null!==x.x&&null!==x.y){
+                      B=i.x-x.x,z=i.y-x.y,y=B*B+z*z;
+                      y<x.max&&(x===f&&y>=x.max/2&&(i.x-=0.03*B,i.y-=0.03*z),A=(x.max-y)/x.max,e.beginPath(),e.lineWidth=A/2,e.strokeStyle="rgba("+s.c+","+(A+0.2)+")",e.moveTo(i.x,i.y),e.lineTo(x.x,x.y),e.stroke())
+                  }
+              }
+              w.splice(w.indexOf(i),1)
+          }),m(b)
+      }
+      var u=document.createElement("canvas"),s=l(),c="c_n"+s.l,e=u.getContext("2d-disabled"),r,n,
+      m=window.requestAnimationFrame||window.webkitRequestAnimationFrame||window.mozRequestAnimationFrame||window.oRequestAnimationFrame||window.msRequestAnimationFrame||function(i){
+          window.setTimeout(i,1000/45)
+      },
+      a=Math.random,f={x:null,y:null,max:20000};
+      u.className="particle_canvas";
+      var browserName = navigator.userAgent.toLowerCase();
+      if (/msie/i.test(browserName) && !/opera/.test(browserName)) {
+          u.className += ' ie10_gte';
+      };
+      u.id=c;
+      u.style.cssText="position:fixed;top:0;left:0;z-index:"+s.z+";opacity:"+s.o;
+      j("body")[0].appendChild(u);
+      k(),window.onresize=k;
+      window.onmousemove=function(i){
+          i=i||window.event,
+          f.x=i.clientX,
+          f.y=i.clientY
+      },
+      window.onmouseout=function(){
+          f.x=null,
+          f.y=null
+      };
+      for(var t=[],p=0;s.n>p;p++){
+          var h=a()*r,
+          g=a()*n,
+          q=2*a()-1,
+          d=2*a()-1;
+          t.push({x:h,y:g,xa:q,ya:d,max:6000})
+      }
+      setTimeout(function(){b()},100)
+    </script>
+
+<!--分割线-->
+
+    </div>
+</body>
+</html>

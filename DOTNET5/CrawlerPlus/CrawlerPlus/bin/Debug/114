@@ -1,0 +1,401 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="origin" />
+    <meta name="description" content="ps 命令是 process status 的简写，主要用于查询当前正在运行中进程的信息，它从 /proc/进程ID 目录中读取指定进程ID的信息 语法 ps [options] ps 的选项非常多，" />
+    <meta property="og:description" content="ps 命令是 process status 的简写，主要用于查询当前正在运行中进程的信息，它从 /proc/进程ID 目录中读取指定进程ID的信息 语法 ps [options] ps 的选项非常多，" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>进程查看器 - ps 命令 - Linux开发那些事儿 - 博客园</title>
+    <link id="favicon" rel="shortcut icon" href="//common.cnblogs.com/favicon.svg" type="image/svg+xml" />
+    
+    <link rel="stylesheet" href="/css/blog-common.min.css?v=caAedYKpnz341INFIWakIM6r1EP9FIuJg43i9i8zqDQ" />
+    <link id="MainCss" rel="stylesheet" href="/skins/simplememory/bundle-simplememory.min.css?v=uknaX_hejnSu-njQgx4Hj1R0JiPLwUhFPUlwWNmWyB4" />
+    
+    <link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="/skins/SimpleMemory/bundle-SimpleMemory-mobile.min.css" />
+    
+    <link type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/wanng/rss" />
+    <link type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/wanng/rsd.xml" />
+    <link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/wanng/wlwmanifest.xml" />
+    <script>
+        var currentBlogId = 591012;
+        var currentBlogApp = 'wanng';
+        var cb_enable_mathjax = false;
+        var isLogined = false;
+        var isBlogOwner = false;
+        var skinName = 'SimpleMemory';
+        var visitorUserId = '';
+    </script>
+        <script>
+            var currentPostDateAdded = '2020-10-25 11:03';
+        </script>
+    <script src="https://common.cnblogs.com/scripts/jquery-2.2.0.min.js"></script>
+    <script src="/js/blog-common.min.js?v=kKx3DBtpvO8r97BzPmHJseQ10fGHkI-ZwMh4FA0eEd0"></script>
+    
+    
+    
+</head>
+<body class="has-navbar">
+    <a name="top"></a> 
+    <div id="top_nav" class="navbar">
+        <nav id="nav_main" class="navbar-main">
+            <ul id="nav_left" class="navbar-list navbar-left">
+                <li class="navbar-branding">
+                    <a href="https://www.cnblogs.com/" title="开发者的网上家园"><img src="/images/logo.svg?v=R9M0WmLAIPVydmdzE2keuvnjl-bPR7_35oHqtiBzGsM" alt="博客园Logo" /></a>
+                </li>
+                <li><a href="/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-sitehome')">首页</a></li>
+                <li><a href="https://news.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-news')">新闻</a></li>
+                <li><a href="https://q.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-q')">博问</a></li>
+                <li><a id="nav_brandzone" href="https://brands.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-brands')">专区</a></li>
+                <li><a href="https://ing.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-ing')">闪存</a></li>
+                <li><a href="https://edu.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-edu')">班级</a></li>
+            </ul>
+            <ul id="nav_right" class="navbar-list navbar-right">
+                <li>
+                    <form id="zzk_search" class="navbar-search" action="https://zzk.cnblogs.com/s" method="get">
+                        <input name="w" id="zzk_search_input" placeholder="代码改变世界" type="text" tabindex="3" />
+                        <button type="submit" id="zzk_search_button">
+                            <img src="/images/aggsite/search.svg" alt="搜索" />
+                        </button>
+                    </form>
+                </li>
+                <li id="navbar_login_status" class="navbar-list">
+                    <a id="navblog-myblog-icon" class="navbar-user-info navbar-blog" href="https://passport.cnblogs.com/GetBlogApplyStatus.aspx" alt="我的博客" title="我的博客">
+                        <img id="myblog_icon" class="navbar-icon" src="/images/aggsite/myblog.svg" alt="我的博客" />
+                    </a>
+                    <a class="navbar-user-info navbar-message navbar-icon-wrapper" href="https://msg.cnblogs.com/" alt="短消息" title="短消息">
+                        <img id="msg_icon" class="navbar-icon" src="/images/aggsite/message.svg?v=oS4PkibyMjZ9rGD5XAcLt99uW_s76Javy2up4dbnZNY" alt="短消息" />
+                        <span id="msg_count" style="display: none"></span>
+                    </a>
+                    <div id="user_info" class="navbar-user-info dropdown">
+                        <a class="dropdown-button" href="https://home.cnblogs.com/">
+                            <img id="user_icon" class="navbar-avatar" src="/images/aggsite/avatar-default.svg" alt="用户头像" />
+                        </a>
+                        <div class="dropdown-menu">
+                            <a id="navblog-myblog-text" href="https://passport.cnblogs.com/GetBlogApplyStatus.aspx">我的博客</a>
+                            <a href="https://home.cnblogs.com/">我的园子</a>
+                            <a href="https://account.cnblogs.com/settings/account">账号设置</a>
+                            <a href="javascript:void(0)" onclick="logout();">退出登录</a>
+                        </div>
+                    </div>
+                    <a class="navbar-anonymous" href="https://account.cnblogs.com/signup/">注册</a>
+                    <a class="navbar-anonymous" href="https://account.cnblogs.com/signin/?returnUrl=https://www.cnblogs.com/">登录</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    
+    <!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+        <a id="lnkBlogLogo" href="https://www.cnblogs.com/wanng/"><img id="blogLogo" src="/skins/custom/images/logo.gif" alt="返回主页" /></a>		
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle HeaderMainTitle" href="https://www.cnblogs.com/wanng/">Linux开发那些事儿</a>
+</h1>
+<h2>
+
+</h2>
+
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li><a id="blog_nav_sitehome" class="menu" href="https://www.cnblogs.com/">
+博客园</a>
+</li>
+<li>
+<a id="blog_nav_myhome" class="menu" href="https://www.cnblogs.com/wanng/">
+首页</a>
+</li>
+<li>
+
+<a id="blog_nav_newpost" class="menu" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">
+新随笔</a>
+</li>
+<li>
+<a id="blog_nav_contact" class="menu" href="https://msg.cnblogs.com/send/Linux%E5%BC%80%E5%8F%91%E9%82%A3%E4%BA%9B%E4%BA%8B%E5%84%BF">
+联系</a></li>
+<li>
+<a id="blog_nav_rss" class="menu" href="javascript:void(0)" data-rss="https://www.cnblogs.com/wanng/rss/">
+订阅</a>
+<!--<partial name="./Shared/_XmlLink.cshtml" model="Model" /></li>--></li>
+<li>
+<a id="blog_nav_admin" class="menu" href="https://i.cnblogs.com/">
+管理</a>
+</li>
+</ul>
+
+
+		<div class="blogStats">
+			<span id="stats_post_count">随笔 - 
+19&nbsp; </span>
+<span id="stats_article_count">文章 - 
+0&nbsp; </span>
+<span id="stats-comment_count">评论 - 
+0</span>
+
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		<div id="post_detail">
+    <!--done-->
+    <div id="topics">
+        <div class="post">
+            <h1 class = "postTitle">
+                
+<a id="cb_post_title_url" class="postTitle2 vertical-middle" href="https://www.cnblogs.com/wanng/p/13875865.html">
+    <span>进程查看器 - ps 命令</span>
+    
+
+
+</a>
+
+            </h1>
+            <div class="clear"></div>
+            <div class="postBody">
+                
+<div id="cnblogs_post_body" class="blogpost-body cnblogs-markdown">
+    <p><img src="https://img2020.cnblogs.com/other/1988848/202010/1988848-20201025230238450-1217957837.jpg" alt="" loading="lazy"></p>
+<p>ps 命令是 process status 的简写，主要用于查询当前正在运行中进程的信息，它从 <code>/proc/进程ID</code> 目录中读取指定进程ID的信息</p>
+<h3 id="语法"><font color="CornflowerBlue">语法</font></h3>
+<pre><code>ps [options]
+</code></pre>
+<p>ps 的选项非常多，总共有一百多个选项，可以通过 <code> ps L | wc -l</code> 命令查看ps的选项数量</p>
+<p>这篇文章主要介绍 ps 命令的一些常用的用法，对于一些使用频率很低的选项不在这里讨论</p>
+<h3 id="选项风格"><font color="CornflowerBlue">选项风格</font></h3>
+<p>根据选项前是否有 <code>-</code>，ps命令的选项可以分成以下几种风格</p>
+<ul>
+<li>UNIX风格: 选项前面必须以 <code>-</code> 开头</li>
+<li>BSD分格: 选项前面必须不能以 <code>-</code> 开头</li>
+<li>GNU风格: 选项前面必须以 <code>--</code> 开头</li>
+</ul>
+<pre><code>[root@ecs-centos-7 ~]# ps p 842
+  PID TTY      STAT   TIME COMMAND
+  842 ?        Sl    12:55 /usr/sbin/mysqld --daemonize --pid-file=/var/run/mysqld/mysqld.pid
+[root@ecs-centos-7 ~]# ps -p 842
+  PID TTY          TIME CMD
+  842 ?        00:12:55 mysqld
+[root@ecs-centos-7 ~]# ps --pid 842
+  PID TTY          TIME CMD
+  842 ?        00:12:55 mysqld
+</code></pre>
+<p>上面的例子中 <code>ps p 842</code>和 <code> ps -p 842</code> 以及 <code>ps --pid 842</code> 都是查询进程ID为842的进程信息，只不过分别用ps命令选项的 BSD风格、UNIX风格、GNU风格而已</p>
+<p><mark>注意：ps命令选项可以混用不同风格的选项，但是可能会出现冲突，兼容混用的主要原因是帮助过度旧的脚本和习惯，我们实际使用的时候尽量使用同一种风格的选项</mark></p>
+<h3 id="所有运行中的进程"><font color="CornflowerBlue">所有运行中的进程</font></h3>
+<p>通过 <code>ps -A</code> 或者 <code>ps -e</code> 命令可以查看所有运行中的进程</p>
+<pre><code>[tt@ecs-centos-7 ~]$ ps -fA | more
+UID        PID  PPID  C STIME TTY          TIME CMD
+root         1     0  0 Aug14 ?        00:00:07 /usr/lib/systemd/systemd --switched-root --system --deserialize 22
+root         2     0  0 Aug14 ?        00:00:00 [kthreadd]
+root         4     2  0 Aug14 ?        00:00:00 [kworker/0:0H]
+
+[tt@ecs-centos-7 ~]$ ps -fe | more
+UID        PID  PPID  C STIME TTY          TIME CMD
+root         1     0  0 Aug14 ?        00:00:07 /usr/lib/systemd/systemd --switched-root --system --deserialize 22
+root         2     0  0 Aug14 ?        00:00:00 [kthreadd]
+root         4     2  0 Aug14 ?        00:00:00 [kworker/0:0H]
+</code></pre>
+<p>列说明：</p>
+<pre><code>UID: 进程所属的用户
+PID: 进程ID
+PPID: 进程的父进程ID
+C: 同 %CPU,进程CPU利用率
+STIME: 进程启动的日期
+TTY: 进程相关的终端
+TIME: 进程占用的总CPU时间
+CMD: 进程启动命令以及参数
+</code></pre>
+<p><code>-f</code> 或 <code>-F</code>选项：全格式列表选项，这个选项和其他UNIX风格的选项组合使用可以使得结果多出一些列</p>
+<p>上面例子中 <code>-A</code> 和 <code>-e</code> 选项都是查看所有运行的进程信息的，后面重定向到 <code>more</code> 命令是为了分页查看结果</p>
+<h3 id="查看指定用户的进程"><font color="CornflowerBlue">查看指定用户的进程</font></h3>
+<p><code>-u、-U、U、--user、--User</code> 这几个选项后面接用户名列表(用户名之间用逗号分隔) 或用户ID列表(ID之间用逗号分隔) , 可以查看指定用户列表中用户的进程</p>
+<ul>
+<li>用户名列表</li>
+</ul>
+<pre><code>[root@ecs-centos-7 ~]# ps -u tt
+  PID TTY          TIME CMD
+13087 pts/8    00:00:00 bash
+13257 pts/9    00:00:00 bash
+[root@ecs-centos-7 ~]# ps -u wl
+  PID TTY          TIME CMD
+13275 pts/11   00:00:00 bash
+13294 pts/11   00:00:00 top
+
+[root@ecs-centos-7 ~]# ps -u tt,wl
+  PID TTY          TIME CMD
+13087 pts/8    00:00:00 bash
+13257 pts/9    00:00:00 bash
+13275 pts/11   00:00:00 bash
+13294 pts/11   00:00:00 top
+
+</code></pre>
+<p>上面例子中分别查看了用户 <code>tt</code> 和 <code>wl</code> 的进程,用户列表<code>tt,wl</code>的进程实际上是列表中每个用户的进程组合</p>
+<ul>
+<li>用户ID列表</li>
+</ul>
+<pre><code>[root@ecs-centos-7 ~]# id tt
+uid=1003(tt) gid=1003(tt) groups=1003(tt)
+[root@ecs-centos-7 ~]# id wl
+uid=1000(wl) gid=1000(wl) groups=1000(wl)
+
+[root@ecs-centos-7 ~]# ps -u 1003
+  PID TTY          TIME CMD
+13087 pts/8    00:00:00 bash
+13257 pts/9    00:00:00 bash
+[root@ecs-centos-7 ~]# ps -u 1000
+  PID TTY          TIME CMD
+13275 pts/11   00:00:00 bash
+13294 pts/11   00:00:00 top
+
+[root@ecs-centos-7 ~]# ps -u 1003,1000
+  PID TTY          TIME CMD
+13087 pts/8    00:00:00 bash
+13257 pts/9    00:00:00 bash
+13275 pts/11   00:00:00 bash
+13294 pts/11   00:00:00 top
+</code></pre>
+<p>上面例子中分别按照用户<code>tt</code>和<code>wl</code>的用户ID 查看进程, 用户ID列表<code>1003,1000</code>的进程实际上是列表中每个用户ID的进程组合</p>
+<h3 id="查看指定进程id的进程"><font color="CornflowerBlue">查看指定进程ID的进程</font></h3>
+<p><code>ps p 进程ID</code>、<code>ps -p 进程ID</code>、<code>ps --pid 进程ID</code> 这三种方式都可以查看指定进程ID的进程信息</p>
+<pre><code>[root@ecs-centos-7 ~]# ps -p 1,2,4
+  PID TTY          TIME CMD
+    1 ?        00:00:07 systemd
+    2 ?        00:00:00 kthreadd
+    4 ?        00:00:00 kworker/0:0H
+</code></pre>
+<p>上面例子中查看进程ID分别为 <code>1,2,4</code> 的进程信息，使用 <code>ps p 1,2,4</code> 命令或者 <code>ps --pid 1,2,4</code> 命令也可以得到和例子中一样的结果</p>
+<h3 id="查看线程"><font color="CornflowerBlue">查看线程</font></h3>
+<p>知道了进程ID，可以通过 <code>ps -fL -p 进程ID</code> 命令查看指定进程的线程信息</p>
+<pre><code>[root@ecs-centos-7 ~]# ps -fL -p 842
+UID        PID  PPID   LWP  C NLWP STIME TTY          TIME CMD
+mysql      842     1   842  0   27 Aug14 ?        00:00:00 /usr/sbin/mysqld --daemonize --pid-file=/var/run/mysqld/mysqld.pid
+mysql      842     1  1043  0   27 Aug14 ?        00:00:00 /usr/sbin/mysqld --daemonize --pid-file=/var/run/mysqld/mysqld.pid
+mysql      842     1  1061  0   27 Aug14 ?        00:00:37 /usr/sbin/mysqld --daemonize --pid-file=/var/run/mysqld/mysqld.pid
+</code></pre>
+<p>线程相关字段说明:</p>
+<pre><code>LWP: 线程ID
+NLWP: 线程数量
+</code></pre>
+<p>上面的例子查看进程ID为842的进程(MySQL进程)的线程信息，由于输出信息太多，这里只截取了一部分，从结果可以看出，MySQL进程有27个线程，其中 <code>PID</code> 和 <code>LWP</code> 值相同的是主线程</p>
+<h3 id="根据进程名字获得进程id"><font color="CornflowerBlue">根据进程名字获得进程ID</font></h3>
+<p>在服务器开发中，关闭服务器进程的时候，通常都需要根据进程名字取得进程ID，然后再利用 kill 命令向指定进程ID发送终止信号</p>
+<pre><code>[root@ecs-centos-7 ~]# ps aux | grep mysql | grep -v grep | awk '{print $2}'
+842
+</code></pre>
+<p>上面的例子中，<code>ps aux</code> 是查找所有用户运行的进程，<code>grep mysql</code> 是从前面查找的结果中过滤出含有<code>mysql</code>的关键字，<code>grep -v grep</code> 是从上一步的结果中进一步去掉含有 <code>grep</code> 的关键字，最后 <code>awk '{print $2} </code> 是输出最终结果中第二列的值，也即MySQL的进程ID</p>
+<p><mark>注意：ps命令查找的结果中程序启动命令以及参数(CMD列)最多只能显示15个字符宽度，如果应用程序名字查过15字符长度，就会被截断，此时用 grep 查找应用程序名字的话会出现找不到应用程序的情况。关于这个问题请参考</mark> <a href="https://mp.weixin.qq.com/s/v_t2JCagyCH1b9ksMQp6FQ">ps 命令显示不完整的问题</a></p>
+<h3 id="总结"><font color="CornflowerBlue">总结</font></h3>
+<p>在对 Linux 系统中问题进行故障排除的过程中，ps命令是常用的命令之一,它有很多的选项，但是大多数时候都在使用 <code>ps aux </code> 或者 <code>ps -ef </code> 命令查看正在运行进程的信息</p>
+<p>有关 ps 命令更多选项可以通过 <code>man ps</code>命令查看</p>
+<h5 id="推荐阅读"><font color="CornflowerBlue">推荐阅读</font></h5>
+<p><a href="https://mp.weixin.qq.com/s/hqWQPDf9x8CP_Mf4KdrlIg">Linux 下top命令详解</a></p>
+<p><a href="https://mp.weixin.qq.com/s/v_t2JCagyCH1b9ksMQp6FQ">ps 命令显示不完整的问题</a></p>
+
+</div>
+<div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+    <div id="blog_post_info"></div>
+    <div class="clear"></div>
+    <div id="post_next_prev"></div>
+</div>
+            </div>
+            <div class="postDesc">posted @ 
+<span id="post-date">2020-10-25 23:03</span>&nbsp;
+<a href="https://www.cnblogs.com/wanng/">Linux开发那些事儿</a>&nbsp;
+阅读(<span id="post_view_count">2</span>)&nbsp;
+评论(<span id="post_comment_count">0</span>)&nbsp;
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13875865" rel="nofollow">编辑</a>&nbsp;
+<a href="javascript:void(0)" onclick="AddToWz(13875865);return false;">收藏</a></div>
+        </div>
+	    
+	    
+    </div><!--end: topics 文章、评论容器-->
+</div>
+<script src="https://common.cnblogs.com/highlight/10.3.1/highlight.min.js"></script>
+<script>markdown_highlight();</script>
+<script>
+    var allowComments = true, cb_blogId = 591012, cb_blogApp = 'wanng', cb_blogUserGuid = '23229085-2c8c-4027-9ea1-08d7d2f044e4';
+    var cb_entryId = 13875865, cb_entryCreatedDate = '2020-10-25 23:03', cb_postType = 1;
+    loadViewCount(cb_entryId);
+</script>
+<a name="!comments"></a>
+<div id="blog-comments-placeholder"></div>
+<div id="comment_form" class="commentform">
+    <a name="commentform"></a>
+    <div id="divCommentShow"></div>
+    <div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="#" onclick="return RefreshPage();">刷新页面</a><a href="#top">返回顶部</a></div>
+    <div id="comment_form_container"></div>
+    <div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+    <div id="ad_t2"></div>
+    <div id="opt_under_post"></div>
+    <div id="cnblogs_c1" class="c_ad_block">
+        <div id='div-gpt-ad-1592365906576-0' style='width: 300px; height: 250px;'></div>
+    </div>
+    <div id="under_post_news"></div>
+    <div id="cnblogs_c2" class="c_ad_block">
+        <div id='div-gpt-ad-1592366332455-0' style='width: 468px; height: 60px;'></div>
+    </div>
+    <div id="under_post_kb"></div>
+    <div id="HistoryToday" class="c_ad_block"></div>
+    <script type="text/javascript">
+       var commentManager = new blogCommentManager();
+       commentManager.renderComments(0);
+       fixPostBody();
+       deliverBigBanner();
+setTimeout(function() { incrementViewCount(cb_entryId); }, 50);       deliverT2();
+       deliverC1C2();
+       loadNewsAndKb();
+       loadBlogSignature();
+LoadPostCategoriesTags(cb_blogId, cb_entryId);       LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+       GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+       loadOptUnderPost();
+       GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);
+   </script>
+</div>
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+	<div id="sideBar">
+		<div id="sideBarMain">
+			<div id="sidebar_news" class="newsItem">
+            <script>loadBlogNews();</script>
+</div>
+<div id="sidebar_ad"></div>
+			<div id="blog-calendar" style="display:none"></div><script>loadBlogDefaultCalendar();</script>			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"></div>
+                    <script>loadBlogSideColumn();</script>
+			</div>			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		<!--done-->
+Copyright &copy; 2020 Linux开发那些事儿
+<br /><span id="poweredby">Powered by .NET 5.0.0-rc.2.20475.5 on Kubernetes</span>
+
+
+
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+    
+</body>
+</html>

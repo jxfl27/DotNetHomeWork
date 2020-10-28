@@ -1,0 +1,616 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="origin" />
+    
+    
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>李玉宝 - 博客园</title>
+    <link id="favicon" rel="shortcut icon" href="//common.cnblogs.com/favicon.svg" type="image/svg+xml" />
+    
+    <link rel="stylesheet" href="/css/blog-common.min.css?v=caAedYKpnz341INFIWakIM6r1EP9FIuJg43i9i8zqDQ" />
+    
+    <link type="text/css" rel="stylesheet" href="https://www.cnblogs.com/yubaolee/custom.css?v=DauP8kTCdGKen7O2yDvS&#x2B;nMEVIo=" />
+    <link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="/skins/custom/bundle-custom-mobile.min.css?v=KtAK50iXMDcU4jOl_mm1P0j3gXUtdRHDhFdu7YlsVVg" />
+    
+    <link type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/yubaolee/rss" />
+    <link type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/yubaolee/rsd.xml" />
+    <link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/yubaolee/wlwmanifest.xml" />
+    <script>
+        var currentBlogId = 46237;
+        var currentBlogApp = 'yubaolee';
+        var cb_enable_mathjax = false;
+        var isLogined = false;
+        var isBlogOwner = false;
+        var skinName = 'Custom';
+        var visitorUserId = '';
+    </script>
+    <script src="https://common.cnblogs.com/scripts/jquery-2.2.0.min.js"></script>
+    <script src="/js/blog-common.min.js?v=kKx3DBtpvO8r97BzPmHJseQ10fGHkI-ZwMh4FA0eEd0"></script>
+    
+    
+    
+</head>
+<body class="no-navbar">
+    <a name="top"></a> 
+    <div id="top_nav" class="navbar navbar-custom">
+        <nav id="nav_main" class="navbar-main">
+            <ul id="nav_left" class="navbar-list navbar-left">
+                <li class="navbar-branding">
+                    <a href="https://www.cnblogs.com/" title="开发者的网上家园"><img src="/images/logo.svg?v=R9M0WmLAIPVydmdzE2keuvnjl-bPR7_35oHqtiBzGsM" alt="博客园Logo" /></a>
+                </li>
+                <li><a href="/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-sitehome')">首页</a></li>
+                <li><a href="https://news.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-news')">新闻</a></li>
+                <li><a href="https://q.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-q')">博问</a></li>
+                <li><a id="nav_brandzone" href="https://brands.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-brands')">专区</a></li>
+                <li><a href="https://ing.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-ing')">闪存</a></li>
+                <li><a href="https://edu.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-edu')">班级</a></li>
+            </ul>
+            <ul id="nav_right" class="navbar-list navbar-right">
+                <li>
+                    <form id="zzk_search" class="navbar-search" action="https://zzk.cnblogs.com/s" method="get">
+                        <input name="w" id="zzk_search_input" placeholder="代码改变世界" type="text" tabindex="3" />
+                        <button type="submit" id="zzk_search_button">
+                            <img src="/images/aggsite/search.svg" alt="搜索" />
+                        </button>
+                    </form>
+                </li>
+                <li id="navbar_login_status" class="navbar-list">
+                    <a id="navblog-myblog-icon" class="navbar-user-info navbar-blog" href="https://passport.cnblogs.com/GetBlogApplyStatus.aspx" alt="我的博客" title="我的博客">
+                        <img id="myblog_icon" class="navbar-icon" src="/images/aggsite/myblog.svg" alt="我的博客" />
+                    </a>
+                    <a class="navbar-user-info navbar-message navbar-icon-wrapper" href="https://msg.cnblogs.com/" alt="短消息" title="短消息">
+                        <img id="msg_icon" class="navbar-icon" src="/images/aggsite/message.svg?v=oS4PkibyMjZ9rGD5XAcLt99uW_s76Javy2up4dbnZNY" alt="短消息" />
+                        <span id="msg_count" style="display: none"></span>
+                    </a>
+                    <div id="user_info" class="navbar-user-info dropdown">
+                        <a class="dropdown-button" href="https://home.cnblogs.com/">
+                            <img id="user_icon" class="navbar-avatar" src="/images/aggsite/avatar-default.svg" alt="用户头像" />
+                        </a>
+                        <div class="dropdown-menu">
+                            <a id="navblog-myblog-text" href="https://passport.cnblogs.com/GetBlogApplyStatus.aspx">我的博客</a>
+                            <a href="https://home.cnblogs.com/">我的园子</a>
+                            <a href="https://account.cnblogs.com/settings/account">账号设置</a>
+                            <a href="javascript:void(0)" onclick="logout();">退出登录</a>
+                        </div>
+                    </div>
+                    <a class="navbar-anonymous" href="https://account.cnblogs.com/signup/">注册</a>
+                    <a class="navbar-anonymous" href="https://account.cnblogs.com/signin/?returnUrl=https://www.cnblogs.com/">登录</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    
+    <!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+        <a id="lnkBlogLogo" href="https://www.cnblogs.com/yubaolee/"><img id="blogLogo" src="/skins/custom/images/logo.gif" alt="返回主页" /></a>		
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle HeaderMainTitle" href="https://www.cnblogs.com/yubaolee/">李玉宝的代码人生</a>
+</h1>
+<h2>
+敌不动，我不动；敌动，我一动不动
+</h2>
+
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li><a id="blog_nav_sitehome" class="menu" href="https://www.cnblogs.com/">
+博客园</a>
+</li>
+<li>
+<a id="blog_nav_myhome" class="menu" href="https://www.cnblogs.com/yubaolee/">
+首页</a>
+</li>
+<li>
+
+<a id="blog_nav_newpost" class="menu" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">
+新随笔</a>
+</li>
+<li>
+<a id="blog_nav_contact" class="menu" href="https://msg.cnblogs.com/send/%E6%9D%8E%E7%8E%89%E5%AE%9D">
+联系</a></li>
+<li>
+<a id="blog_nav_rss" class="menu" href="javascript:void(0)" data-rss="https://www.cnblogs.com/yubaolee/rss/">
+订阅</a>
+<!--<partial name="./Shared/_XmlLink.cshtml" model="Model" /></li>--></li>
+<li>
+<a id="blog_nav_admin" class="menu" href="https://i.cnblogs.com/">
+管理</a>
+</li>
+</ul>
+
+
+		<div class="blogStats">
+			<span id="stats_post_count">随笔 - 
+37&nbsp; </span>
+<span id="stats_article_count">文章 - 
+0&nbsp; </span>
+<span id="stats-comment_count">评论 - 
+995</span>
+
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		
+
+
+
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/yubaolee/archive/2020/10/26.html">2020年10月26日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/yubaolee/p/Net3ToNet5.html">
+    <span>
+        那些鼓吹国内首个.NET 5框架的，该醒醒了！
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：前两天看过园子里有篇【国内首个 .NET 5 框架 XX 斩获 XXX stars，XXX 发布】，一顿羡慕嫉妒恨啊。我这.net core 3.1才上手没几天,还没用热乎呢，你这.NET 5的框架都出来了。我好难啊！不过难归难咱也得跟上啊。于是一个天高云淡的的夜晚，一顿猛操作。花费了我.....5分钟的时间把.net core 3.1的项目升级到.NET 5预览版。        <a href="https://www.cnblogs.com/yubaolee/p/Net3ToNet5.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-10-26 07:33
+李玉宝
+<span class="post-view-count">阅读(71)</span><text> </text>
+<span class="post-comment-count">评论(1)</span><text> </text>
+<span class="post-digg-count">推荐(1)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13866880" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/yubaolee/archive/2019/11/27.html">2019年11月27日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/yubaolee/p/DataPrivilege.html">
+    <span>
+        大话设计，没有模式—通用权限设计与实现
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：当代码写多了，总有些是经验，但经验是什么呢？if…else用的次数比别人多？显然不是。有些超棒的设计可以谓之经验！网络上流行的经典的权限设计是【主体】- 【领域】 - 【权限】( who、what、how问题原型 ) 的设计思想，数据权限是在功能权限的基础上面进一步的扩展，比如可以查看订单属于【功能权限】的范围，但是可以查看哪些订单就是【数据权限】的工作了。        <a href="https://www.cnblogs.com/yubaolee/p/DataPrivilege.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2019-11-27 07:42
+李玉宝
+<span class="post-view-count">阅读(7613)</span><text> </text>
+<span class="post-comment-count">评论(28)</span><text> </text>
+<span class="post-digg-count">推荐(35)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=11893151" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/yubaolee/archive/2019/02/25.html">2019年2月25日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/yubaolee/p/10398633.html">
+    <span>
+        仅此一文让你明白事务隔离级别、脏读、不可重复读、幻读
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：网络上关于这方面的博文有些偏理论，有些通篇代码，都不能深入浅出。本文用图文并茂的方式，配上行云流水般的代码，非要摆清楚这个问题。相关代码已提交至码云（点击这里下载）。 事务是现代关系型数据库的核心之一。在多个事务并发操作数据库（多线程、网络并发等）的时候，如果没有有效的避免机制，就会出现以下几种问题        <a href="https://www.cnblogs.com/yubaolee/p/10398633.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2019-02-25 08:43
+李玉宝
+<span class="post-view-count">阅读(10284)</span><text> </text>
+<span class="post-comment-count">评论(8)</span><text> </text>
+<span class="post-digg-count">推荐(25)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=10398633" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/yubaolee/archive/2019/01/18.html">2019年1月18日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/yubaolee/p/10287643.html">
+    <span>
+        我是李玉宝，我是个程序员！
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：听说今天我的名字很火，那我也来凑个热闹。在2015年的时候，我做过一次人生总结，当时写了：为了理想，我放弃了一切！ 转眼到了2019年，说说最近一年多的一些事情吧！ 做的好的！ 坚持把权限管理框架OpenAuth.Net做了下来，star数已经1800+。在开源中国这个java横行的地方为.NET赚        <a href="https://www.cnblogs.com/yubaolee/p/10287643.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2019-01-18 15:00
+李玉宝
+<span class="post-view-count">阅读(5955)</span><text> </text>
+<span class="post-comment-count">评论(57)</span><text> </text>
+<span class="post-digg-count">推荐(31)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=10287643" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/yubaolee/archive/2018/07/07.html">2018年7月7日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/yubaolee/p/DotNetCoreUnitTest.html">
+    <span>
+        关于单元测试的思考--Asp.Net Core单元测试最佳实践
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：在我们码字过程中，单元测试是必不可少的。但在从业过程中，很多开发者却对单元测试望而却步。有些时候并不是不想写，而是常常会碰到诸如不能模拟一次HTTP请求，不能读取配置文件，测试类的构造参数太多等问题，让开发者放下了码字的脚步。这些问题确实存在，但它们阻止不了我们那颗要写单元测试的心。单元测试的优点很多，你或许可以不管。但至少能让你从那些需要在浏览器里点击10多下的操作里解脱出来。本文从一个简单的逻辑测试出发，慢慢拉开测试的大幕，让你爱上测试。文章主要是传播一些单元测试的理念，顺便介绍一下asp.net core中的单元测试。        <a href="https://www.cnblogs.com/yubaolee/p/DotNetCoreUnitTest.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2018-07-07 22:23
+李玉宝
+<span class="post-view-count">阅读(3730)</span><text> </text>
+<span class="post-comment-count">评论(14)</span><text> </text>
+<span class="post-digg-count">推荐(16)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=9272984" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/yubaolee/archive/2018/06/10.html">2018年6月10日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/yubaolee/p/9145920.html">
+    <span>
+        千星项目.Net Core 2.1移植填坑记--OpenAuth.Core诞生
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：本文并不是诸如《.net core 入门系列之新建....》《.net core项目实战系列（1）.....》等介绍step by step。因为我觉得完全没有必要。asp.net core mvc与asp.net mvc在应用层面的开发体验区别并不是很大，一个拥有多年.net开发经验的人完全没必要再去走新建一个Hello world的道路，完全可以新建一个asp.net core应用项目，然后把原来.net 4.5的工程代码文件扔进来，修修改改即可。本文介绍在我移植过程中 ，让我无限吐槽（大部分是让我无限惊喜）的地方，以及某些疑问的最优解决方案！        <a href="https://www.cnblogs.com/yubaolee/p/9145920.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2018-06-10 16:02
+李玉宝
+<span class="post-view-count">阅读(7650)</span><text> </text>
+<span class="post-comment-count">评论(34)</span><text> </text>
+<span class="post-digg-count">推荐(44)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=9145920" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/yubaolee/archive/2018/04/23.html">2018年4月23日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/yubaolee/p/webrtc.html">
+    <span>
+        5分钟快速打造WebRTC视频聊天
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：百度一下WebRTC，我想也是一堆。本以为用SkyRTC-demo 就可以一马平川的实现聊天，结果折腾了半天，文本信息都发不出去，更别说视频了。网上的SimpWebRTCDemo，WebRTC-Experiment等对于第一次部署的人来说，都是相当的蛋疼。于是亲自踩坑填坑，完美实现！        <a href="https://www.cnblogs.com/yubaolee/p/webrtc.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2018-04-23 10:04
+李玉宝
+<span class="post-view-count">阅读(19147)</span><text> </text>
+<span class="post-comment-count">评论(20)</span><text> </text>
+<span class="post-digg-count">推荐(27)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=8891143" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/yubaolee/archive/2018/04/15.html">2018年4月15日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/yubaolee/p/8837836.html">
+    <span>
+        关于OpenAuth.Net被攻击
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：<img src="http://openauth.me/upload/180415002004891.png" class="desc_img">
+
+今天我个人开源项目OpenAuth.Net发布了最新版（有兴趣戳一下：http://openauth.me/），本来是比较高兴的事情。但下午在外面的时候，有人QQ私信我说官网打不开，当时没在意，以为是哪个应用出问题了，回来搞搞就可以了。        <a href="https://www.cnblogs.com/yubaolee/p/8837836.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2018-04-15 00:21
+李玉宝
+<span class="post-view-count">阅读(7748)</span><text> </text>
+<span class="post-comment-count">评论(20)</span><text> </text>
+<span class="post-digg-count">推荐(7)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=8837836" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/yubaolee/archive/2016/07/13.html">2016年7月13日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/yubaolee/p/sso.html">
+    <span>
+        细说SSO单点登录
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：什么是SSO？ 如果你已知道，请略过本节！ SSO核心意义就一句话：一处登录，处处登录；一处注销，处处注销。即：在多个应用系统中，用户只需要登录一次就可以访问所有相互信任的应用系统。 很多人容易把SSO与OAuth搞混。这里简单说明一下： OAuth也可简单总结为一句：基于各种懒和YY的原因，拿别人        <a href="https://www.cnblogs.com/yubaolee/p/sso.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2016-07-13 00:26
+李玉宝
+<span class="post-view-count">阅读(20646)</span><text> </text>
+<span class="post-comment-count">评论(36)</span><text> </text>
+<span class="post-digg-count">推荐(37)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=5665312" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/yubaolee/archive/2016/04/25.html">2016年4月25日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/yubaolee/p/OpenAuthNet.html">
+    <span>
+        基于DDDLite的权限管理OpenAuth.net 1.0版正式发布
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：距离上一篇OpenAuth.net的文章已经有5个多月了，在这段时间里项目得到了很多朋友的认可，开源中国上面的Star数接近300，于是坚定了我做下去的信心。最近稍微清闲点，正式推出1.0版，并在阿里云上部署了一个在线演示（文章结尾处给出在线演示链接）。相比刚开始时的版本，现在整个架构已经稳定，系统        <a href="https://www.cnblogs.com/yubaolee/p/OpenAuthNet.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2016-04-25 00:19
+李玉宝
+<span class="post-view-count">阅读(8296)</span><text> </text>
+<span class="post-comment-count">评论(63)</span><text> </text>
+<span class="post-digg-count">推荐(63)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=5428893" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+
+<div class="topicListFooter">
+    <div id="nav_next_page">
+        
+    <a href="https://www.cnblogs.com/yubaolee/default.html?page=2">
+        下一页
+    </a>
+
+    </div>    
+</div>
+
+
+
+
+
+
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+	<div id="sideBar">
+		<div id="sideBarMain">
+			<div id="sidebar_news" class="newsItem">
+            <script>loadBlogNews();</script>
+</div>
+<div id="sidebar_ad"></div>
+			<div id="blog-calendar" style="display:none"></div><script>loadBlogDefaultCalendar();</script>			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"></div>
+                    <script>loadBlogSideColumn();</script>
+			</div>			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		<!--done-->
+Copyright &copy; 2020 李玉宝
+<br /><span id="poweredby">Powered by .NET 5.0.0-rc.2.20475.5 on Kubernetes</span>
+
+
+
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+    
+</body>
+</html>

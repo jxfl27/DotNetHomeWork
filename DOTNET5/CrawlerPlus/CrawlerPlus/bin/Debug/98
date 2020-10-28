@@ -1,0 +1,1348 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="origin" />
+    
+    
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>hsm_computer - 博客园</title>
+    <link id="favicon" rel="shortcut icon" href="//common.cnblogs.com/favicon.svg" type="image/svg+xml" />
+    
+    <link rel="stylesheet" href="/css/blog-common.min.css?v=caAedYKpnz341INFIWakIM6r1EP9FIuJg43i9i8zqDQ" />
+    <link id="MainCss" rel="stylesheet" href="/skins/arrow/bundle-arrow.min.css?v=BENCAgKp8ZdF1BRxez1g_ZfOgPMVRLyoSIAkMRPR1LU" />
+    
+    <link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="/skins/arrow/bundle-arrow-mobile.min.css?v=PKiM4CM83HaUF6a3vMrF_P59Gs2ZsFeOyI8RGqLAOeQ" />
+    
+    <link type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/JavaArchitect/rss" />
+    <link type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/JavaArchitect/rsd.xml" />
+    <link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/JavaArchitect/wlwmanifest.xml" />
+    <script>
+        var currentBlogId = 376303;
+        var currentBlogApp = 'JavaArchitect';
+        var cb_enable_mathjax = false;
+        var isLogined = false;
+        var isBlogOwner = false;
+        var skinName = 'arrow';
+        var visitorUserId = '';
+    </script>
+    <script src="https://common.cnblogs.com/scripts/jquery-2.2.0.min.js"></script>
+    <script src="/js/blog-common.min.js?v=kKx3DBtpvO8r97BzPmHJseQ10fGHkI-ZwMh4FA0eEd0"></script>
+    
+    
+    
+</head>
+<body class="has-navbar">
+    <a name="top"></a> 
+    <div id="top_nav" class="navbar">
+        <nav id="nav_main" class="navbar-main">
+            <ul id="nav_left" class="navbar-list navbar-left">
+                <li class="navbar-branding">
+                    <a href="https://www.cnblogs.com/" title="开发者的网上家园"><img src="/images/logo.svg?v=R9M0WmLAIPVydmdzE2keuvnjl-bPR7_35oHqtiBzGsM" alt="博客园Logo" /></a>
+                </li>
+                <li><a href="/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-sitehome')">首页</a></li>
+                <li><a href="https://news.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-news')">新闻</a></li>
+                <li><a href="https://q.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-q')">博问</a></li>
+                <li><a id="nav_brandzone" href="https://brands.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-brands')">专区</a></li>
+                <li><a href="https://ing.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-ing')">闪存</a></li>
+                <li><a href="https://edu.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-edu')">班级</a></li>
+            </ul>
+            <ul id="nav_right" class="navbar-list navbar-right">
+                <li>
+                    <form id="zzk_search" class="navbar-search" action="https://zzk.cnblogs.com/s" method="get">
+                        <input name="w" id="zzk_search_input" placeholder="代码改变世界" type="text" tabindex="3" />
+                        <button type="submit" id="zzk_search_button">
+                            <img src="/images/aggsite/search.svg" alt="搜索" />
+                        </button>
+                    </form>
+                </li>
+                <li id="navbar_login_status" class="navbar-list">
+                    <a id="navblog-myblog-icon" class="navbar-user-info navbar-blog" href="https://passport.cnblogs.com/GetBlogApplyStatus.aspx" alt="我的博客" title="我的博客">
+                        <img id="myblog_icon" class="navbar-icon" src="/images/aggsite/myblog.svg" alt="我的博客" />
+                    </a>
+                    <a class="navbar-user-info navbar-message navbar-icon-wrapper" href="https://msg.cnblogs.com/" alt="短消息" title="短消息">
+                        <img id="msg_icon" class="navbar-icon" src="/images/aggsite/message.svg?v=oS4PkibyMjZ9rGD5XAcLt99uW_s76Javy2up4dbnZNY" alt="短消息" />
+                        <span id="msg_count" style="display: none"></span>
+                    </a>
+                    <div id="user_info" class="navbar-user-info dropdown">
+                        <a class="dropdown-button" href="https://home.cnblogs.com/">
+                            <img id="user_icon" class="navbar-avatar" src="/images/aggsite/avatar-default.svg" alt="用户头像" />
+                        </a>
+                        <div class="dropdown-menu">
+                            <a id="navblog-myblog-text" href="https://passport.cnblogs.com/GetBlogApplyStatus.aspx">我的博客</a>
+                            <a href="https://home.cnblogs.com/">我的园子</a>
+                            <a href="https://account.cnblogs.com/settings/account">账号设置</a>
+                            <a href="javascript:void(0)" onclick="logout();">退出登录</a>
+                        </div>
+                    </div>
+                    <a class="navbar-anonymous" href="https://account.cnblogs.com/signup/">注册</a>
+                    <a class="navbar-anonymous" href="https://account.cnblogs.com/signin/?returnUrl=https://www.cnblogs.com/">登录</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    
+    <!--done-->
+<div id="header">
+	
+<!--done-->
+<div class="header">
+	<div class="headerText">
+		<a id="Header1_HeaderTitle" class="headermaintitle HeaderMainTitle" href="https://www.cnblogs.com/JavaArchitect/">hsm_computer</a>
+<br>
+		
+我写的书　Java Web轻量级开发面试教程，java核心技术及面试指南，spring cloud实战，基于股票大数据分析的Python入门实战
+
+	</div>
+</div>
+
+
+</div>
+<div id="mylinks">
+<!--done-->
+<a id="blog_nav_sitehome" class="menu" href="https://www.cnblogs.com/">
+博客园</a>
+&nbsp;&nbsp;&nbsp;
+
+<a id="blog_nav_myhome" class="menu" href="https://www.cnblogs.com/JavaArchitect/">
+首页</a>
+&nbsp;&nbsp;&nbsp;
+
+
+<a id="blog_nav_newpost" class="menu" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">
+新随笔</a>
+&nbsp;&nbsp;&nbsp;
+
+<a id="blog_nav_contact" class="menu" href="https://msg.cnblogs.com/send/hsm_computer">
+联系</a>&nbsp;&nbsp;&nbsp;
+
+<a id="blog_nav_rss" class="menu" href="javascript:void(0)" data-rss="https://www.cnblogs.com/JavaArchitect/rss/">
+订阅</a>
+<a id="blog_nav_rss_image" href="https://www.cnblogs.com/JavaArchitect/rss/">
+    <img src="/skins/arrow/images/xml.gif" alt="订阅" />
+</a>&nbsp;&nbsp;&nbsp;
+
+<a id="blog_nav_admin" class="menu" href="https://i.cnblogs.com/">
+管理</a>
+
+
+</div>
+<div id="mytopmenu">
+	
+		<div class="blogStats">随笔 - 
+185&nbsp;
+文章 - 
+0&nbsp;评论 - 
+1356&nbsp;trackbacks - 
+0
+</div>
+
+
+	
+</div>
+<div id="leftcontent">
+	
+		<DIV id="leftcontentcontainer">
+			<div id="blog-calendar" style="display:none"></div><script>loadBlogDefaultCalendar();</script><br>
+			<div id="sidebar_news" class="newsItem">
+            <script>loadBlogNews();</script>
+</div>
+<div id="sidebar_ad"></div>
+			<div id="blog-sidecolumn"></div>
+                    <script>loadBlogSideColumn();</script></DIV>		
+	
+</div>
+<div id="centercontent">
+	
+
+
+
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/JavaArchitect/archive/2020/08/28.html">2020年8月28日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/JavaArchitect/p/13575164.html">
+    <span>
+        用Python的Pandas和Matplotlib绘制股票KDJ指标线
+    </span>
+    
+
+
+</a>
+
+        </div>
+        
+
+    <div class="c_b_p_desc">
+摘要：我最近出了一本书，《基于股票大数据分析的Python入门实战 视频教学版》，京东链接：https://item.jd.com/69241653952.html，在其中给出了MACD，KDJ等指标图的绘制方法。这里将根据KDJ的算法，计算并绘制KDJ指标线。 1 KDJ指标的计算过程 KDJ指标也叫随        <a href="https://www.cnblogs.com/JavaArchitect/p/13575164.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+
+        <div class="postDesc">posted @ 2020-08-28 07:12
+hsm_computer
+<span class="post-view-count">阅读(337)</span><text> </text>
+<span class="post-comment-count">评论(0)</span><text> </text>
+<span class="post-digg-count">推荐(0)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13575164" rel="nofollow">
+    编辑
+</a>
+</div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/JavaArchitect/archive/2020/08/20.html">2020年8月20日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/JavaArchitect/p/13534075.html">
+    <span>
+        用Python的Pandas和Matplotlib绘制股票唐奇安通道，布林带通道和鳄鱼组线
+    </span>
+    
+
+
+</a>
+
+        </div>
+        
+
+    <div class="c_b_p_desc">
+摘要：我最近出了一本书，《基于股票大数据分析的Python入门实战 视频教学版》，京东链接：https://item.jd.com/69241653952.html，在其中给出了MACD，KDJ等指标图的绘制方法。此外，还可以用价格通道来分析。根据指定股票通道指标的算法，能用过去一定时间段的交易数据绘制出        <a href="https://www.cnblogs.com/JavaArchitect/p/13534075.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+
+        <div class="postDesc">posted @ 2020-08-20 13:30
+hsm_computer
+<span class="post-view-count">阅读(421)</span><text> </text>
+<span class="post-comment-count">评论(0)</span><text> </text>
+<span class="post-digg-count">推荐(0)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13534075" rel="nofollow">
+    编辑
+</a>
+</div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/JavaArchitect/archive/2020/08/14.html">2020年8月14日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/JavaArchitect/p/13501034.html">
+    <span>
+        盘点这些年我出的书，以及由此得到的收获
+    </span>
+    
+
+
+</a>
+
+        </div>
+        
+
+    <div class="c_b_p_desc">
+摘要：从2017年2月开始到现在，我一共出了4本书，还有一本已经写好，将于今年9月出版，目前还在写一本Redis的书，估计也是9月份能完稿，出版可能要到年底甚至明年1，2月了。 虽然说，当下更可以靠录视频和开公众号挣钱，而且通过视频和公众号挣的钱要远超过出书，但平心而论，出书给我带来的不仅是金钱方面的收益        <a href="https://www.cnblogs.com/JavaArchitect/p/13501034.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+
+        <div class="postDesc">posted @ 2020-08-14 12:24
+hsm_computer
+<span class="post-view-count">阅读(2090)</span><text> </text>
+<span class="post-comment-count">评论(22)</span><text> </text>
+<span class="post-digg-count">推荐(13)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13501034" rel="nofollow">
+    编辑
+</a>
+</div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/JavaArchitect/archive/2020/08/12.html">2020年8月12日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/JavaArchitect/p/13489328.html">
+    <span>
+        用Python爬取股票数据，绘制K线和均线并用机器学习预测股价（来自我出的书）
+    </span>
+    
+
+
+</a>
+
+        </div>
+        
+
+    <div class="c_b_p_desc">
+摘要：最近我出了一本书，《基于股票大数据分析的Python入门实战 视频教学版》，京东链接：https://item.jd.com/69241653952.html，在其中用股票范例讲述Python爬虫、数据分析和机器学习的技术，大家看了我的书，不仅能很快用比较热门的案例学好Python，更能了解些股票知        <a href="https://www.cnblogs.com/JavaArchitect/p/13489328.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+
+        <div class="postDesc">posted @ 2020-08-12 11:54
+hsm_computer
+<span class="post-view-count">阅读(1790)</span><text> </text>
+<span class="post-comment-count">评论(6)</span><text> </text>
+<span class="post-digg-count">推荐(3)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13489328" rel="nofollow">
+    编辑
+</a>
+</div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/JavaArchitect/archive/2020/07/31.html">2020年7月31日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/JavaArchitect/p/13410197.html">
+    <span>
+        用Docker搭建Redis主从复制的集群
+    </span>
+    
+
+
+</a>
+
+        </div>
+        
+
+    <div class="c_b_p_desc">
+摘要：在主从复制模式的集群里，主节点一般是一个，从节点一般是两个或多个，写入主节点的数据会被复制到从节点上，这样一旦主节点出现故障，应用系统能切换到从节点去读写数据，这样能提升系统的可用性。而且如果再采用主从复制模式里默认的读写分离的机制，更能提升系统的缓存读写性能。所以对性能和实时性不高的系统而言，主从        <a href="https://www.cnblogs.com/JavaArchitect/p/13410197.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+
+        <div class="postDesc">posted @ 2020-07-31 15:56
+hsm_computer
+<span class="post-view-count">阅读(419)</span><text> </text>
+<span class="post-comment-count">评论(1)</span><text> </text>
+<span class="post-digg-count">推荐(0)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13410197" rel="nofollow">
+    编辑
+</a>
+</div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/JavaArchitect/archive/2020/07/10.html">2020年7月10日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/JavaArchitect/p/13272315.html">
+    <span>
+        聊聊我当年在培训学校做开发的经历
+    </span>
+    
+
+
+</a>
+
+        </div>
+        
+
+    <div class="c_b_p_desc">
+摘要：我在大厂和外企前，也在上海一家培训班干过一段时间。这个培训班现在已经倒闭了，不过话说回来，是因为资金的问题倒闭的，培训班本身的运作的还算规范。 当年的培训班和现在的培训班可比性不大，而且我也无意用一家已经倒闭的培训学校去映射当前任何一家。这里只是记录下我当时的一些经历，从中大家能了解培训学校里的一些        <a href="https://www.cnblogs.com/JavaArchitect/p/13272315.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+
+        <div class="postDesc">posted @ 2020-07-10 12:01
+hsm_computer
+<span class="post-view-count">阅读(2675)</span><text> </text>
+<span class="post-comment-count">评论(12)</span><text> </text>
+<span class="post-digg-count">推荐(17)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13272315" rel="nofollow">
+    编辑
+</a>
+</div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/JavaArchitect/archive/2020/07/07.html">2020年7月7日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/JavaArchitect/p/13180774.html">
+    <span>
+        用Python语言绘制股市OBV指标效果
+    </span>
+    
+
+
+</a>
+
+        </div>
+        
+
+    <div class="c_b_p_desc">
+摘要：我的新书《基于股票大数据分析的Python入门实战》于近日上架，在这篇博文向大家介绍我的新书：《基于股票大数据分析的Python入门实战》里，介绍了这本书的内容。这里将摘录出部分内容，用以推广本书，请大家多多支持。 《基于股票大数据分析的Python入门实战 视频教学版》，京东链接：https://        <a href="https://www.cnblogs.com/JavaArchitect/p/13180774.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+
+        <div class="postDesc">posted @ 2020-07-07 10:14
+hsm_computer
+<span class="post-view-count">阅读(482)</span><text> </text>
+<span class="post-comment-count">评论(3)</span><text> </text>
+<span class="post-digg-count">推荐(1)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13180774" rel="nofollow">
+    编辑
+</a>
+</div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/JavaArchitect/archive/2020/06/23.html">2020年6月23日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/JavaArchitect/p/13181181.html">
+    <span>
+        程序员如何高效学Python，如何高效用Python挣钱
+    </span>
+    
+
+
+</a>
+
+        </div>
+        
+
+    <div class="c_b_p_desc">
+摘要：本人在1年半之前，不熟悉Python（不过有若干年Java开发基础），由于公司要用Python，所以学习了一通。现在除了能用Python做本职工作外，还出了本Python书，《基于股票大数据分析的Python入门实战 视频教学版》，京东链接：https://item.jd.com/692416539        <a href="https://www.cnblogs.com/JavaArchitect/p/13181181.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+
+        <div class="postDesc">posted @ 2020-06-23 13:06
+hsm_computer
+<span class="post-view-count">阅读(955)</span><text> </text>
+<span class="post-comment-count">评论(3)</span><text> </text>
+<span class="post-digg-count">推荐(9)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13181181" rel="nofollow">
+    编辑
+</a>
+</div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/JavaArchitect/archive/2020/05/20.html">2020年5月20日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/JavaArchitect/p/12921960.html">
+    <span>
+        用matplotlib和pandas绘制股票MACD指标图，并验证化交易策略
+    </span>
+    
+
+
+</a>
+
+        </div>
+        
+
+    <div class="c_b_p_desc">
+摘要：我的新书《基于股票大数据分析的Python入门实战》于近日上架，在这篇博文向大家介绍我的新书：《基于股票大数据分析的Python入门实战》里，介绍了这本书的内容。这里将摘录出部分内容，用以推广本书，请大家多多支持。 1 MACD指标的计算方式 从数学角度来分析，MACD指标是根据均线的构造原理，对股        <a href="https://www.cnblogs.com/JavaArchitect/p/12921960.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+
+        <div class="postDesc">posted @ 2020-05-20 10:42
+hsm_computer
+<span class="post-view-count">阅读(859)</span><text> </text>
+<span class="post-comment-count">评论(1)</span><text> </text>
+<span class="post-digg-count">推荐(1)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12921960" rel="nofollow">
+    编辑
+</a>
+</div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/JavaArchitect/archive/2020/05/17.html">2020年5月17日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/JavaArchitect/p/12892692.html">
+    <span>
+        向大家介绍我的新书：《基于股票大数据分析的Python入门实战》
+    </span>
+    
+
+
+</a>
+
+        </div>
+        
+
+    <div class="c_b_p_desc">
+摘要：我在公司里做了一段时间Python数据分析和机器学习的工作后，就尝试着写一本Python数据分析方面的书。正好去年有段时间股票题材比较火，就在清华出版社夏老师指导下构思了这本书。在这段特殊时期内，夏老师和出版社的其它老师为这本书到处奔走，终于在近期上市。 《基于股票大数据分析的Python入门实战         <a href="https://www.cnblogs.com/JavaArchitect/p/12892692.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+
+        <div class="postDesc">posted @ 2020-05-17 12:20
+hsm_computer
+<span class="post-view-count">阅读(1085)</span><text> </text>
+<span class="post-comment-count">评论(8)</span><text> </text>
+<span class="post-digg-count">推荐(5)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12892692" rel="nofollow">
+    编辑
+</a>
+</div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/JavaArchitect/archive/2020/05/10.html">2020年5月10日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/JavaArchitect/p/12864794.html">
+    <span>
+        在windows环境里，用Docker搭建Redis开发环境（新书第一个章节）
+    </span>
+    
+
+
+</a>
+
+        </div>
+        
+
+    <div class="c_b_p_desc">
+摘要：大家都知道高并发分布式组件的重要性，而且如果要进大厂，这些技术不可或缺。但这些技术的学习难点在于，大多数项目里的分布式组件，都是搭建在Linux系统上，在自己的windows机器上很难搭建开发环境，如果无法搭建开发环境，就无法实际操练，而单靠背理论题，是无法通过面试的。 比如搭建Redis环境，或许        <a href="https://www.cnblogs.com/JavaArchitect/p/12864794.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+
+        <div class="postDesc">posted @ 2020-05-10 20:05
+hsm_computer
+<span class="post-view-count">阅读(440)</span><text> </text>
+<span class="post-comment-count">评论(1)</span><text> </text>
+<span class="post-digg-count">推荐(0)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12864794" rel="nofollow">
+    编辑
+</a>
+</div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/JavaArchitect/archive/2020/05/08.html">2020年5月8日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/JavaArchitect/p/12807715.html">
+    <span>
+        谈谈最近副业挣钱的感受，一要形成体系，二要找平台加持
+    </span>
+    
+
+
+</a>
+
+        </div>
+        
+
+    <div class="c_b_p_desc">
+摘要：最近我的博文发表得比较少，因为除了主业之外，我把时间都用在录制视频和写书等方面。这几天正好录制完一门课，和出版社谈好的一本书也全部交稿，所以趁着最近构思下本书和后继视频课的时机，总结了一下副业挣钱的模式。所以在这篇博文里，将分享下最近我经营副业的各种心得。 1 总是先从搬砖的钱挣起，但同时要规划自己        <a href="https://www.cnblogs.com/JavaArchitect/p/12807715.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+
+        <div class="postDesc">posted @ 2020-05-08 18:24
+hsm_computer
+<span class="post-view-count">阅读(1667)</span><text> </text>
+<span class="post-comment-count">评论(3)</span><text> </text>
+<span class="post-digg-count">推荐(11)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12807715" rel="nofollow">
+    编辑
+</a>
+</div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/JavaArchitect/archive/2020/04/14.html">2020年4月14日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/JavaArchitect/p/12665483.html">
+    <span>
+        进大厂也就这回事，工作后2到3年进大厂操作指南
+    </span>
+    
+
+
+</a>
+
+        </div>
+        
+
+    <div class="c_b_p_desc">
+摘要：在BAT这种大厂里，只要肯吃苦，技术和工资进步的速度会超出你想象，我在上海，按当前价格算，一般在大厂里干个三四年，好歹房子的首付应该能有，而且这种房子还不是太偏远太小的。 进大厂确实需要一定的实力，但如果单单技术好，没有其它的技巧，估计确实也有些难度。不过话说来，哪怕是二本出身，哪怕技术一般，只要肯        <a href="https://www.cnblogs.com/JavaArchitect/p/12665483.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+
+        <div class="postDesc">posted @ 2020-04-14 11:45
+hsm_computer
+<span class="post-view-count">阅读(8240)</span><text> </text>
+<span class="post-comment-count">评论(33)</span><text> </text>
+<span class="post-digg-count">推荐(59)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12665483" rel="nofollow">
+    编辑
+</a>
+</div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/JavaArchitect/archive/2020/04/06.html">2020年4月6日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/JavaArchitect/p/12638749.html">
+    <span>
+        最近录制视频挣钱的经过和体会
+    </span>
+    
+
+
+</a>
+
+        </div>
+        
+
+    <div class="c_b_p_desc">
+摘要：最近，我在某网出了Java面试视频。为了避免打广告的嫌疑，我就不说在哪里录了，也不给出视频课的链接。再看了一遍我录制视频前写过篇博文，程序员副业那些事：聊聊出书和录视频，感觉又有了不少心得，所以在这篇文章里，就结合我的实践和心得，专门在“录制教学视频”方面，向广大程序员朋友分享些以此挣外快的经验。         <a href="https://www.cnblogs.com/JavaArchitect/p/12638749.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+
+        <div class="postDesc">posted @ 2020-04-06 13:49
+hsm_computer
+<span class="post-view-count">阅读(523)</span><text> </text>
+<span class="post-comment-count">评论(1)</span><text> </text>
+<span class="post-digg-count">推荐(11)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12638749" rel="nofollow">
+    编辑
+</a>
+</div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/JavaArchitect/archive/2020/03/29.html">2020年3月29日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/JavaArchitect/p/12566320.html">
+    <span>
+        以外派的身份进大厂，或许条程序员升级的途径
+    </span>
+    
+
+
+</a>
+
+        </div>
+        
+
+    <div class="c_b_p_desc">
+摘要：最近看到了几篇关于外包的文章，而在我最近干的几家公司里，身边都一直有以外派或者Vendor身份入职的同事，前几年我自己都差点去做外包。可以说，公司本身的底蕴决定了对待外包员工的态度，同时，对些基础薄弱的同学，以外包身份进大公司实践，或许也是条升级的途径。在这篇博文里，就将围绕一些外包程序员的现状，结        <a href="https://www.cnblogs.com/JavaArchitect/p/12566320.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+
+        <div class="postDesc">posted @ 2020-03-29 18:12
+hsm_computer
+<span class="post-view-count">阅读(860)</span><text> </text>
+<span class="post-comment-count">评论(2)</span><text> </text>
+<span class="post-digg-count">推荐(4)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12566320" rel="nofollow">
+    编辑
+</a>
+</div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/JavaArchitect/archive/2020/03/16.html">2020年3月16日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/JavaArchitect/p/12466948.html">
+    <span>
+        面试中更多会考核相关技能的项目经验——再论程序员该如何准备面试
+    </span>
+    
+
+
+</a>
+
+        </div>
+        
+
+    <div class="c_b_p_desc">
+摘要：在如何准备Java面试？如何把面试官的提问引导到自己准备好的范围内？这篇博文后，提到了不少引导的说辞和技巧，如果能把面试官的提问引导到事先准备好的亮点上，一方面确实可以更有效地耗费面试时间，另一方面也能最大程度地挖掘和展示自己的亮点。 上述博文是站在战术角度讲述方法论，而本文会从“技术面试官凭什么让        <a href="https://www.cnblogs.com/JavaArchitect/p/12466948.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+
+        <div class="postDesc">posted @ 2020-03-16 11:08
+hsm_computer
+<span class="post-view-count">阅读(955)</span><text> </text>
+<span class="post-comment-count">评论(2)</span><text> </text>
+<span class="post-digg-count">推荐(5)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12466948" rel="nofollow">
+    编辑
+</a>
+</div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/JavaArchitect/archive/2020/02/12.html">2020年2月12日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/JavaArchitect/p/12298114.html">
+    <span>
+        如何准备Java面试？如何把面试官的提问引导到自己准备好的范围内？
+    </span>
+    
+
+
+</a>
+
+        </div>
+        
+
+    <div class="c_b_p_desc">
+摘要：Java能力和面试能力，这是两个方面的技能，可以这样说，如果不准备，一些大神或许也能通过面试，但能力和工资有可能被低估。再仔细分析下原因，面试中问的问题，虽然在职位介绍里已经给出了范围，但针对每个点，面试官的问题是随机想的，甚至同一个面试官在两场相似的面试里，提的问题也未必一样。 也就是说，如果让面        <a href="https://www.cnblogs.com/JavaArchitect/p/12298114.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+
+        <div class="postDesc">posted @ 2020-02-12 14:57
+hsm_computer
+<span class="post-view-count">阅读(2431)</span><text> </text>
+<span class="post-comment-count">评论(3)</span><text> </text>
+<span class="post-digg-count">推荐(8)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12298114" rel="nofollow">
+    编辑
+</a>
+</div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/JavaArchitect/archive/2020/02/09.html">2020年2月9日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/JavaArchitect/p/12286314.html">
+    <span>
+        在面试通过通过单例模式来展示实例
+    </span>
+    
+
+
+</a>
+
+        </div>
+        
+
+    <div class="c_b_p_desc">
+摘要：在面试初级和高级开发时，一般会问设计模式的问题。通常会让写下单例模式的实现方法，或者让结合项目，说下用过的设计模式，在本文里，就将讲述单例模式的多种写法，以此告诉大家如何在面试中展示实力。 如果在项目里，多个运行实例都会从同一个配置文件里读取发送邮件的列表，那么我们就可以用单例模式来创建这个读配置文        <a href="https://www.cnblogs.com/JavaArchitect/p/12286314.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+
+        <div class="postDesc">posted @ 2020-02-09 10:15
+hsm_computer
+<span class="post-view-count">阅读(304)</span><text> </text>
+<span class="post-comment-count">评论(1)</span><text> </text>
+<span class="post-digg-count">推荐(0)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12286314" rel="nofollow">
+    编辑
+</a>
+</div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/JavaArchitect/archive/2020/02/02.html">2020年2月2日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/JavaArchitect/p/12251778.html">
+    <span>
+        Java多线程，对锁机制的进一步分析
+    </span>
+    
+
+
+</a>
+
+        </div>
+        
+
+    <div class="c_b_p_desc">
+摘要：1 可重入锁 可重入锁，也叫递归锁。它有两层含义，第一，当一个线程在外层函数得到可重入锁后，能直接递归地调用该函数，第二，同一线程在外层函数获得可重入锁后，内层函数可以直接获取该锁对应其它代码的控制权。之前我们提到的synchronized和ReentrantLock都是可重入锁。 通过ReEnte        <a href="https://www.cnblogs.com/JavaArchitect/p/12251778.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+
+        <div class="postDesc">posted @ 2020-02-02 12:51
+hsm_computer
+<span class="post-view-count">阅读(353)</span><text> </text>
+<span class="post-comment-count">评论(0)</span><text> </text>
+<span class="post-digg-count">推荐(0)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12251778" rel="nofollow">
+    编辑
+</a>
+</div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/JavaArchitect/archive/2020/02/01.html">2020年2月1日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/JavaArchitect/p/12248145.html">
+    <span>
+        为了升级到架构师，程序员无需过度关注哪些技能？哪些技能不可缺？
+    </span>
+    
+
+
+</a>
+
+        </div>
+        
+
+    <div class="c_b_p_desc">
+摘要：如果走技术路线，架构师是个关键的结点。如果在大厂，一般有有6年时间足以升级到高级开发。因为在大厂里，能提供架构师所需的分布式组件开发调试以及上线的经验，上进点的程序员只要跟着大流，多通过排查问题观察底层，多通过压测或部署组件多实践缓存、高并发高可能之类的技术，想不升级到架构师都难。 但不少程序员止步        <a href="https://www.cnblogs.com/JavaArchitect/p/12248145.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+
+        <div class="postDesc">posted @ 2020-02-01 12:41
+hsm_computer
+<span class="post-view-count">阅读(355)</span><text> </text>
+<span class="post-comment-count">评论(0)</span><text> </text>
+<span class="post-digg-count">推荐(1)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12248145" rel="nofollow">
+    编辑
+</a>
+</div>
+            <div class="postSeparator"></div>
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/JavaArchitect/p/12247542.html">
+    <span>
+        内部类、final与垃圾回收，面试时你一说，面试官就知道
+    </span>
+    
+
+
+</a>
+
+        </div>
+        
+
+    <div class="c_b_p_desc">
+摘要：内部类并不常用，而且使用起来有一定的定式，比如在下面的InnterDemoByTrhead.java里，我们通过内部类的形式创建线程。 1	public class InnerDemoByThread { 2 public static void main(String[] args) { 3 //        <a href="https://www.cnblogs.com/JavaArchitect/p/12247542.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+
+        <div class="postDesc">posted @ 2020-02-01 09:10
+hsm_computer
+<span class="post-view-count">阅读(397)</span><text> </text>
+<span class="post-comment-count">评论(0)</span><text> </text>
+<span class="post-digg-count">推荐(0)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12247542" rel="nofollow">
+    编辑
+</a>
+</div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/JavaArchitect/archive/2020/01/31.html">2020年1月31日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/JavaArchitect/p/12244680.html">
+    <span>
+        Java反射的常见用法
+    </span>
+    
+
+
+</a>
+
+        </div>
+        
+
+    <div class="c_b_p_desc">
+摘要：反射的常见用法有三类，第一类是“查看”，比如输入某个类的属性方法等信息，第二类是“装载“，比如装载指定的类到内存里，第三类是“调用”，比如通过传入参数，调用指定的方法。 1 查看属性的修饰符、类型和名字 通过反射机制，我们能从.class文件里看到指定类的属性，比如属性的修饰符，属性和类型和属性的变        <a href="https://www.cnblogs.com/JavaArchitect/p/12244680.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+
+        <div class="postDesc">posted @ 2020-01-31 09:56
+hsm_computer
+<span class="post-view-count">阅读(460)</span><text> </text>
+<span class="post-comment-count">评论(0)</span><text> </text>
+<span class="post-digg-count">推荐(2)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12244680" rel="nofollow">
+    编辑
+</a>
+</div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/JavaArchitect/archive/2020/01/30.html">2020年1月30日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/JavaArchitect/p/12243296.html">
+    <span>
+        Java解析XML文件的方式
+    </span>
+    
+
+
+</a>
+
+        </div>
+        
+
+    <div class="c_b_p_desc">
+摘要：在项目里，我们往往会把一些配置信息放到xml文件里，或者各部门间会通过xml文件来交换业务数据，所以有时候我们会遇到“解析xml文件”的需求。一般来讲，有基于DOM树和SAX的两种解析xml文件的方式，在这部分里，将分别给大家演示通过这两种方式解析xml文件的一般步骤。 1 XML的文件格式 XML        <a href="https://www.cnblogs.com/JavaArchitect/p/12243296.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+
+        <div class="postDesc">posted @ 2020-01-30 18:35
+hsm_computer
+<span class="post-view-count">阅读(335)</span><text> </text>
+<span class="post-comment-count">评论(0)</span><text> </text>
+<span class="post-digg-count">推荐(0)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12243296" rel="nofollow">
+    编辑
+</a>
+</div>
+            <div class="postSeparator"></div>
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/JavaArchitect/p/12242126.html">
+    <span>
+        泛型的深入研究——面试时说出能加分
+    </span>
+    
+
+
+</a>
+
+        </div>
+        
+
+    <div class="c_b_p_desc">
+摘要：我们可以在定义集合时设置泛型这样的约束，也可以在定义类和方法时加上泛型，这样能提升类和方法的灵活性。此外我们还可以在定义泛型时加上继承和通配符。在平时的培训中，我曾发现初学者对一些复杂的泛型（其实也不复杂，只不过是较少用）感到困惑。这里就通过一些案例展示泛型在项目里的常见用法。 1 泛型可以作用在类        <a href="https://www.cnblogs.com/JavaArchitect/p/12242126.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+
+        <div class="postDesc">posted @ 2020-01-30 09:21
+hsm_computer
+<span class="post-view-count">阅读(351)</span><text> </text>
+<span class="post-comment-count">评论(0)</span><text> </text>
+<span class="post-digg-count">推荐(0)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12242126" rel="nofollow">
+    编辑
+</a>
+</div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/JavaArchitect/archive/2020/01/20.html">2020年1月20日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/JavaArchitect/p/12195219.html">
+    <span>
+        程序员怎样出版一本技术书
+    </span>
+    
+
+
+</a>
+
+        </div>
+        
+
+    <div class="c_b_p_desc">
+摘要：在面试或联系副业的时候，如果能令人信服地证明自己的实力，那么很有可能事半功倍。如何证明自己的实力？最有信服力的是大公司职位背景背书，没有之一，比如在BAT担任资深架构，那么其它话甚至都不用讲了。 不过，不是每个人入职后马上就是大公司架构师，在上进的路上，还可以通过公众号，专栏博文，github代码量        <a href="https://www.cnblogs.com/JavaArchitect/p/12195219.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+
+        <div class="postDesc">posted @ 2020-01-20 14:36
+hsm_computer
+<span class="post-view-count">阅读(888)</span><text> </text>
+<span class="post-comment-count">评论(5)</span><text> </text>
+<span class="post-digg-count">推荐(6)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12195219" rel="nofollow">
+    编辑
+</a>
+</div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/JavaArchitect/archive/2019/12/31.html">2019年12月31日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/JavaArchitect/p/12118956.html">
+    <span>
+        2019我获得的些许成绩，能不能弥补这一年光阴的流逝？盘点2019我的得失
+    </span>
+    
+
+
+</a>
+
+        </div>
+        
+
+    <div class="c_b_p_desc">
+摘要：记得我在17年底的总结文章是n年前，我没钱但年轻，我怕n年后我老时，还是一无所成——2017我的收获和反思，去年年底的终结文是2018我跳出了舒适区，发现自己缺的不仅是技术，另外还得探索其它挣钱渠道。转眼又到了年底，离年少轻狂又远了一年的距离，在这篇文章里，不仅将盘点这一年的得失，记录下今年的各种心        <a href="https://www.cnblogs.com/JavaArchitect/p/12118956.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+
+        <div class="postDesc">posted @ 2019-12-31 11:11
+hsm_computer
+<span class="post-view-count">阅读(1890)</span><text> </text>
+<span class="post-comment-count">评论(16)</span><text> </text>
+<span class="post-digg-count">推荐(20)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12118956" rel="nofollow">
+    编辑
+</a>
+</div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/JavaArchitect/archive/2019/12/30.html">2019年12月30日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/JavaArchitect/p/12097776.html">
+    <span>
+        小公司和大公司的程序员有什么差别？如何进大公司？
+    </span>
+    
+
+
+</a>
+
+        </div>
+        
+
+    <div class="c_b_p_desc">
+摘要：我在大公司干活前，基本都在小公司之间辗转，对比两种公司的经历，切身感受到“人往高处走“绝非是空话。我在之前的博文里，多次讲到程序员该去大厂看看，在这篇博文里，将结合我和我朋友的所见所闻，从技术和发展前景等方面，综合讲述小公司和大公司里程序员的普遍差别，以此再让大家感受下大公司经历的重要性。不过本文不        <a href="https://www.cnblogs.com/JavaArchitect/p/12097776.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+
+        <div class="postDesc">posted @ 2019-12-30 09:13
+hsm_computer
+<span class="post-view-count">阅读(6577)</span><text> </text>
+<span class="post-comment-count">评论(47)</span><text> </text>
+<span class="post-digg-count">推荐(25)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12097776" rel="nofollow">
+    编辑
+</a>
+</div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/JavaArchitect/archive/2019/12/12.html">2019年12月12日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/JavaArchitect/p/12015084.html">
+    <span>
+        程序员在创业前可以尝试的试炼任务
+    </span>
+    
+
+
+</a>
+
+        </div>
+        
+
+    <div class="c_b_p_desc">
+摘要：在互联网时代，不少干IT的人白手起家，在短短的几年里通过努力干出了一番事业，有房有车有公司，在人前也很光鲜。这就吸引了更多的程序员想要通过自主创业来实现财务自由。 殊不知，创业要比在公司干活要难得多，在公司里不管如何都可以旱涝保收，如果创业者只凭满腔激情，没有相关技能软实力和人脉，那最后或许只能再回        <a href="https://www.cnblogs.com/JavaArchitect/p/12015084.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+
+        <div class="postDesc">posted @ 2019-12-12 11:30
+hsm_computer
+<span class="post-view-count">阅读(2511)</span><text> </text>
+<span class="post-comment-count">评论(8)</span><text> </text>
+<span class="post-digg-count">推荐(16)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=12015084" rel="nofollow">
+    编辑
+</a>
+</div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/JavaArchitect/archive/2019/12/02.html">2019年12月2日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/JavaArchitect/p/11950437.html">
+    <span>
+        从面试官甄别项目经验的角度，说说如何在简历中写项目经验（java后端方向）
+    </span>
+    
+
+
+</a>
+
+        </div>
+        
+
+    <div class="c_b_p_desc">
+摘要：在大多的JD（职位介绍）里，会写明该职位需要xx时间的相关经验，换句话说就是需要在简历中看到一定年限的相关商业项目经验，否则估计连面试的机会都没。 在本文里，不讨论这种门槛是否合理，而会以Java相关经验为例，说说面试官甄别真实商业项目的方式，并以此为基础讲述在简历中描述项目的要点，并进一步给出在面        <a href="https://www.cnblogs.com/JavaArchitect/p/11950437.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+
+        <div class="postDesc">posted @ 2019-12-02 12:41
+hsm_computer
+<span class="post-view-count">阅读(2824)</span><text> </text>
+<span class="post-comment-count">评论(1)</span><text> </text>
+<span class="post-digg-count">推荐(3)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=11950437" rel="nofollow">
+    编辑
+</a>
+</div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/JavaArchitect/archive/2019/11/21.html">2019年11月21日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/JavaArchitect/p/11881141.html">
+    <span>
+        在校生如何面向面试地学习Java
+    </span>
+    
+
+
+</a>
+
+        </div>
+        
+
+    <div class="c_b_p_desc">
+摘要：最近我在博客园里，看到不少在校的同学在学java，而且，在我最近举办的一次直播活动中，也有不少在校生同学来提问，java该怎么学。 对于那些已经工作的同学，哪怕才工作不久，毕竟也能从项目实践里总结和探索java的学习途径和相关方法。但在校生同学由于没机会接触实际项目，在学习内容、进阶途径和学成标准这        <a href="https://www.cnblogs.com/JavaArchitect/p/11881141.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+
+        <div class="postDesc">posted @ 2019-11-21 17:15
+hsm_computer
+<span class="post-view-count">阅读(2247)</span><text> </text>
+<span class="post-comment-count">评论(14)</span><text> </text>
+<span class="post-digg-count">推荐(12)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=11881141" rel="nofollow">
+    编辑
+</a>
+</div>
+</div>
+
+
+
+<div class="topicListFooter">
+    <div id="nav_next_page">
+        
+    <a href="https://www.cnblogs.com/JavaArchitect/default.html?page=2">
+        下一页
+    </a>
+
+    </div>    
+</div>
+
+
+
+
+
+
+
+	<!--done-->
+<div class="footer">
+	Copyright &copy; 2020 hsm_computer
+<br /><span id="poweredby">Powered by .NET 5.0.0-rc.2.20475.5 on Kubernetes</span>
+ Powered by: <a href="http://www.cnblogs.com" class="footerlink">博客园</a><br>
+</div>
+
+
+</div>
+
+
+
+
+    
+</body>
+</html>

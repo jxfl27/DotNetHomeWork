@@ -1,0 +1,400 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="origin" />
+    <meta name="description" content="写在前面 最近，在使用SpringBoot&#x2B;K8S开发微服务系统，既然使用了K8S，我就不想使用SpringCloud了。为啥，因为K8S本身的就提供了非常6的服务注册与发现、限流、熔断、负载均衡等等" />
+    <meta property="og:description" content="写在前面 最近，在使用SpringBoot&#x2B;K8S开发微服务系统，既然使用了K8S，我就不想使用SpringCloud了。为啥，因为K8S本身的就提供了非常6的服务注册与发现、限流、熔断、负载均衡等等" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>SpringBoot整合原生OpenFegin的坑（非SpringCloud） - 冰河团队 - 博客园</title>
+    <link id="favicon" rel="shortcut icon" href="//common.cnblogs.com/favicon.svg" type="image/svg+xml" />
+    
+    <link rel="stylesheet" href="/css/blog-common.min.css?v=caAedYKpnz341INFIWakIM6r1EP9FIuJg43i9i8zqDQ" />
+    <link id="MainCss" rel="stylesheet" href="/skins/bluesky/bundle-bluesky.min.css?v=66dDisik3fcPwRHzge6OPz5XXEtQYoHeZwqfADmMifQ" />
+    <link type="text/css" rel="stylesheet" href="https://www.cnblogs.com/binghe001/custom.css?v=xb7lYj2J1ysiNILqcCn5g76IIu4=" />
+    <link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="/skins/bluesky/bundle-bluesky-mobile.min.css?v=w2Rgaiz5pwMvQiaI018cDsOEsicdDhpRf-p561XUG6Q" />
+    
+    <link type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/binghe001/rss" />
+    <link type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/binghe001/rsd.xml" />
+    <link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/binghe001/wlwmanifest.xml" />
+    <script>
+        var currentBlogId = 578171;
+        var currentBlogApp = 'binghe001';
+        var cb_enable_mathjax = false;
+        var isLogined = false;
+        var isBlogOwner = false;
+        var skinName = 'BlueSky';
+        var visitorUserId = '';
+    </script>
+        <script>
+            var currentPostDateAdded = '2020-10-26 01:37';
+        </script>
+    <script src="https://common.cnblogs.com/scripts/jquery-2.2.0.min.js"></script>
+    <script src="/js/blog-common.min.js?v=kKx3DBtpvO8r97BzPmHJseQ10fGHkI-ZwMh4FA0eEd0"></script>
+    
+    
+    
+</head>
+<body class="has-navbar">
+    <a name="top"></a> 
+    <div id="top_nav" class="navbar">
+        <nav id="nav_main" class="navbar-main">
+            <ul id="nav_left" class="navbar-list navbar-left">
+                <li class="navbar-branding">
+                    <a href="https://www.cnblogs.com/" title="开发者的网上家园"><img src="/images/logo.svg?v=R9M0WmLAIPVydmdzE2keuvnjl-bPR7_35oHqtiBzGsM" alt="博客园Logo" /></a>
+                </li>
+                <li><a href="/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-sitehome')">首页</a></li>
+                <li><a href="https://news.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-news')">新闻</a></li>
+                <li><a href="https://q.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-q')">博问</a></li>
+                <li><a id="nav_brandzone" href="https://brands.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-brands')">专区</a></li>
+                <li><a href="https://ing.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-ing')">闪存</a></li>
+                <li><a href="https://edu.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-edu')">班级</a></li>
+            </ul>
+            <ul id="nav_right" class="navbar-list navbar-right">
+                <li>
+                    <form id="zzk_search" class="navbar-search" action="https://zzk.cnblogs.com/s" method="get">
+                        <input name="w" id="zzk_search_input" placeholder="代码改变世界" type="text" tabindex="3" />
+                        <button type="submit" id="zzk_search_button">
+                            <img src="/images/aggsite/search.svg" alt="搜索" />
+                        </button>
+                    </form>
+                </li>
+                <li id="navbar_login_status" class="navbar-list">
+                    <a id="navblog-myblog-icon" class="navbar-user-info navbar-blog" href="https://passport.cnblogs.com/GetBlogApplyStatus.aspx" alt="我的博客" title="我的博客">
+                        <img id="myblog_icon" class="navbar-icon" src="/images/aggsite/myblog.svg" alt="我的博客" />
+                    </a>
+                    <a class="navbar-user-info navbar-message navbar-icon-wrapper" href="https://msg.cnblogs.com/" alt="短消息" title="短消息">
+                        <img id="msg_icon" class="navbar-icon" src="/images/aggsite/message.svg?v=oS4PkibyMjZ9rGD5XAcLt99uW_s76Javy2up4dbnZNY" alt="短消息" />
+                        <span id="msg_count" style="display: none"></span>
+                    </a>
+                    <div id="user_info" class="navbar-user-info dropdown">
+                        <a class="dropdown-button" href="https://home.cnblogs.com/">
+                            <img id="user_icon" class="navbar-avatar" src="/images/aggsite/avatar-default.svg" alt="用户头像" />
+                        </a>
+                        <div class="dropdown-menu">
+                            <a id="navblog-myblog-text" href="https://passport.cnblogs.com/GetBlogApplyStatus.aspx">我的博客</a>
+                            <a href="https://home.cnblogs.com/">我的园子</a>
+                            <a href="https://account.cnblogs.com/settings/account">账号设置</a>
+                            <a href="javascript:void(0)" onclick="logout();">退出登录</a>
+                        </div>
+                    </div>
+                    <a class="navbar-anonymous" href="https://account.cnblogs.com/signup/">注册</a>
+                    <a class="navbar-anonymous" href="https://account.cnblogs.com/signin/?returnUrl=https://www.cnblogs.com/">登录</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    
+    <!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+        <a id="lnkBlogLogo" href="https://www.cnblogs.com/binghe001/"><img id="blogLogo" src="/skins/custom/images/logo.gif" alt="返回主页" /></a>		
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle HeaderMainTitle" href="https://www.cnblogs.com/binghe001/">冰河团队</a>
+</h1>
+<h2>
+
+</h2>
+
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li><a id="blog_nav_sitehome" class="menu" href="https://www.cnblogs.com/">
+博客园</a>
+</li>
+<li>
+<a id="blog_nav_myhome" class="menu" href="https://www.cnblogs.com/binghe001/">
+首页</a>
+</li>
+<li>
+
+<a id="blog_nav_newpost" class="menu" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">
+新随笔</a>
+</li>
+<li>
+<a id="blog_nav_contact" class="menu" href="https://msg.cnblogs.com/send/%E5%86%B0%E6%B2%B3%E5%9B%A2%E9%98%9F">
+联系</a></li>
+<li>
+<a id="blog_nav_rss" class="menu" href="javascript:void(0)" data-rss="https://www.cnblogs.com/binghe001/rss/">
+订阅</a>
+<!--<partial name="./Shared/_XmlLink.cshtml" model="Model" /></li>--></li>
+<li>
+<a id="blog_nav_admin" class="menu" href="https://i.cnblogs.com/">
+管理</a>
+</li>
+</ul>
+
+
+		<div class="blogStats">
+			<span id="stats_post_count">随笔 - 
+171&nbsp; </span>
+<span id="stats_article_count">文章 - 
+0&nbsp; </span>
+<span id="stats-comment_count">评论 - 
+88</span>
+
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		<div id="post_detail">
+    <!--done-->
+    <div id="topics">
+        <div class="post">
+            <h1 class = "postTitle">
+                
+<a id="cb_post_title_url" class="postTitle2 vertical-middle" href="https://www.cnblogs.com/binghe001/p/13876226.html">
+    <span>SpringBoot整合原生OpenFegin的坑（非SpringCloud）</span>
+    
+
+
+</a>
+
+            </h1>
+            <div class="clear"></div>
+            <div class="postBody">
+                
+<div id="cnblogs_post_body" class="blogpost-body cnblogs-markdown">
+    <h2 id="写在前面">写在前面</h2>
+<blockquote>
+<p>最近，在使用SpringBoot+K8S开发微服务系统，既然使用了K8S，我就不想使用SpringCloud了。为啥，因为K8S本身的就提供了非常6的服务注册与发现、限流、熔断、负载均衡等等微服务需要使用的技术，那我为啥还要接入SpringCloud呢？额，说了这么多，在真正使用SpringBoot+K8S这一套技术栈的时候，也会遇到一些问题，比如我不需要使用SpringCloud时，调用其他服务时，我使用的是原生的OpenFegin，在使用OpenFegin调用其他服务的时候，就遇到了一个大坑。通过OpenFeign请求返回值LocalDateTime发生了异常，今天，我们就来说说这个坑！</p>
+</blockquote>
+<h2 id="项目集成openfegin">项目集成OpenFegin</h2>
+<h3 id="集成openfegin依赖">集成OpenFegin依赖</h3>
+<p>首先，我先跟大家说下项目的配置，整体项目使用的SpringBoot版本为2.2.6，原生的OpenFegin使用的是11.0，我们通过如下方式在pom.xml中引入OpenFegin。</p>
+<pre><code class="language-xml">&lt;properties&gt;
+    &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;
+    &lt;skip_maven_deploy&gt;false&lt;/skip_maven_deploy&gt;
+    &lt;java.version&gt;1.8&lt;/java.version&gt;
+    &lt;openfegin.version&gt;11.0&lt;/openfegin.version&gt;
+&lt;/properties&gt;
+&lt;dependencies&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;io.github.openfeign&lt;/groupId&gt;
+        &lt;artifactId&gt;feign-core&lt;/artifactId&gt;
+        &lt;version&gt;${openfegin.version}&lt;/version&gt;
+    &lt;/dependency&gt;
+
+    &lt;dependency&gt;
+        &lt;groupId&gt;io.github.openfeign&lt;/groupId&gt;
+        &lt;artifactId&gt;feign-jackson&lt;/artifactId&gt;
+        &lt;version&gt;${openfegin.version}&lt;/version&gt;
+    &lt;/dependency&gt;
+&lt;/dependencies&gt;
+</code></pre>
+<p>这里，我省略了一些其他的配置项。</p>
+<p>接下来，我就开始在我的项目中使用OpenFegin调用远程服务了。具体步骤如下。</p>
+<h3 id="实现远程调用">实现远程调用</h3>
+<p>首先，创建OpenFeignConfig类，配置OpenFegin默认使用的Contract。</p>
+<pre><code class="language-java">@Configuration
+public class OpenFeignConfig {
+	@Bean
+	public Contract useFeignAnnotations() {
+		return new Contract.Default();
+	}
+}
+</code></pre>
+<p>接下来，我们写一个通用的获取OpenFeign客户端的工厂类，这个类也比较简单，本质上就是以一个HashMap来缓存所有的FeginClient，这个的FeginClient本质上就是我们自定义的Fegin接口，缓存中的Key为请求连接的基础URL，缓存的Value就是我们定义的FeginClient接口。</p>
+<pre><code class="language-java">public class FeginClientFactory {
+	
+	/**
+	 * 缓存所有的Fegin客户端
+	 */
+	private volatile static Map&lt;String, Object&gt; feginClientCache = new HashMap&lt;&gt;();
+	
+	/**
+	 * 从Map中获取数据
+	 * @return 
+	 */
+	@SuppressWarnings("unchecked")
+	public static &lt;T&gt; T getFeginClient(Class&lt;T&gt; clazz, String baseUrl){
+		if(!feginClientCache.containsKey(baseUrl)) {
+			synchronized (FeginClientFactory.class) {
+				if(!feginClientCache.containsKey(baseUrl)) {
+					T feginClient = Feign.builder().decoder(new JacksonDecoder()).encoder(new JacksonEncoder()).target(clazz, baseUrl);
+					feginClientCache.put(baseUrl, feginClient);
+				}
+			}
+		}
+		return (T)feginClientCache.get(baseUrl);
+	}
+}
+</code></pre>
+<p>接下来，我们就定义一个FeginClient接口。</p>
+<pre><code class="language-java">public interface FeginClientProxy {
+	@Headers("Content-Type:application/json;charset=UTF-8")
+	@RequestLine("POST /user/login")
+	UserLoginVo login(UserLoginVo loginVo);
+}
+</code></pre>
+<p>接下来，我们创建SpringBoot的测试类。</p>
+<pre><code class="language-java">@RunWith(SpringRunner.class)
+@SpringBootTest
+public class IcpsWeightStarterTest {
+	@Test
+	public void testUserLogin() {
+		ResponseMessage result = FeginClientFactory.getFeginClient(FeginClientProxy.class, "http://127.0.0.1").login(new UserLoginVo("zhangsan", "123456", 1));
+		System.out.println(JsonUtils.bean2Json(result));
+	}
+}
+</code></pre>
+<p>一切准备就绪，运行测试。麻蛋，出问题了。主要的问题就是通过OpenFeign请求返回值LocalDateTime字段会发生异常！！！</p>
+<p>注：此时异常时，我们在LocalDateTime字段上添加的注解如下所示。</p>
+<pre><code class="language-java">import java.time.LocalDateTime;
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+
+@TableField(value = "CREATE_TIME", fill = FieldFill.INSERT)
+@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", locale = "zh", timezone = "GMT+8")
+private LocalDateTime createTime;
+</code></pre>
+<h2 id="解决问题">解决问题</h2>
+<h3 id="问题描述">问题描述</h3>
+<p>SpringBoot通过原生OpenFeign客户端调用HTTP接口，如果返回值中包含LocalDateTime类型（包括其他JSR-310中java.time包的时间类），在客户端可能会出现反序列化失败的错误。错误信息如下：</p>
+<pre><code class="language-bash"> Caused by:com.fasterxml.jackson.databind.exc.InvalidDefinitionException: Cannot construct instance of `java.time.LocalDateTime` (no Creators, like default construct, exist): no String-argument constructor/factory method to deserialize from String value ('2020-10-07T11:04:32')
+</code></pre>
+<h3 id="问题分析">问题分析</h3>
+<p>从客户端调用fegin，也是相当于URL传参就相当于经过一次JSON转换，数据库取出‘2020-10-07T11:04:32’数据这时是时间类型，进过JSON之后就变成了String类型，T就变成了字符不再是一个特殊字符，因此String的字符串“2020-10-07T11:04:32”反序列化就会失败。</p>
+<h3 id="问题解决">问题解决</h3>
+<p>在项目中增加依赖。</p>
+<pre><code class="language-xml">&lt;dependency&gt;
+    &lt;groupId&gt;com.fasterxml.jackson.datatype&lt;/groupId&gt;
+    &lt;artifactId&gt;jackson-datatype-jsr310&lt;/artifactId&gt;
+    &lt;version&gt;2.9.9&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
+<p>注：如果是用的是SpringBoot，并且明确指定了SpringBoot版本，引入jackson-datatype-jsr310时，可以不用指定版本号。</p>
+<p>接下来，在POJO类的LocalDateTime类型字段增加如下注解。</p>
+<pre><code class="language-java">import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+</code></pre>
+<p>添加后的效果如下所示。</p>
+<pre><code class="language-java">import java.time.LocalDateTime;
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+
+
+@TableField(value = "CREATE_TIME", fill = FieldFill.INSERT)
+@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", locale = "zh", timezone = "GMT+8")
+@JsonDeserialize(using = LocalDateTimeDeserializer.class)
+private LocalDateTime createTime;
+</code></pre>
+<p>此时，再次调用远程接口，问题解决。</p>
+<h2 id="重磅福利">重磅福利</h2>
+<p>微信搜一搜【冰河技术】微信公众号，关注这个有深度的程序员，每天阅读超硬核技术干货，公众号内回复【PDF】有我准备的一线大厂面试资料和我原创的超硬核PDF技术文档，以及我为大家精心准备的多套简历模板（不断更新中），希望大家都能找到心仪的工作，学习是一条时而郁郁寡欢，时而开怀大笑的路，加油。如果你通过努力成功进入到了心仪的公司，一定不要懈怠放松，职场成长和新技术学习一样，不进则退。如果有幸我们江湖再见！</p>
+<p>另外，我开源的各个PDF，后续我都会持续更新和维护，感谢大家长期以来对冰河的支持！！</p>
+
+</div>
+<div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+    <div id="blog_post_info"></div>
+    <div class="clear"></div>
+    <div id="post_next_prev"></div>
+</div>
+            </div>
+            <div class="postDesc">posted @ 
+<span id="post-date">2020-10-26 01:37</span>&nbsp;
+<a href="https://www.cnblogs.com/binghe001/">冰河团队</a>&nbsp;
+阅读(<span id="post_view_count">27</span>)&nbsp;
+评论(<span id="post_comment_count">0</span>)&nbsp;
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13876226" rel="nofollow">编辑</a>&nbsp;
+<a href="javascript:void(0)" onclick="AddToWz(13876226);return false;">收藏</a></div>
+        </div>
+	    
+	    
+    </div><!--end: topics 文章、评论容器-->
+</div>
+<script src="https://common.cnblogs.com/highlight/10.3.1/highlight.min.js"></script>
+<script>markdown_highlight();</script>
+<script>
+    var allowComments = true, cb_blogId = 578171, cb_blogApp = 'binghe001', cb_blogUserGuid = '05b2a200-765e-4a35-ba19-08d6fd3e81b2';
+    var cb_entryId = 13876226, cb_entryCreatedDate = '2020-10-26 01:37', cb_postType = 1;
+    loadViewCount(cb_entryId);
+</script>
+<a name="!comments"></a>
+<div id="blog-comments-placeholder"></div>
+<div id="comment_form" class="commentform">
+    <a name="commentform"></a>
+    <div id="divCommentShow"></div>
+    <div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="#" onclick="return RefreshPage();">刷新页面</a><a href="#top">返回顶部</a></div>
+    <div id="comment_form_container"></div>
+    <div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+    <div id="ad_t2"></div>
+    <div id="opt_under_post"></div>
+    <div id="cnblogs_c1" class="c_ad_block">
+        <div id='div-gpt-ad-1592365906576-0' style='width: 300px; height: 250px;'></div>
+    </div>
+    <div id="under_post_news"></div>
+    <div id="cnblogs_c2" class="c_ad_block">
+        <div id='div-gpt-ad-1592366332455-0' style='width: 468px; height: 60px;'></div>
+    </div>
+    <div id="under_post_kb"></div>
+    <div id="HistoryToday" class="c_ad_block"></div>
+    <script type="text/javascript">
+       var commentManager = new blogCommentManager();
+       commentManager.renderComments(0);
+       fixPostBody();
+       deliverBigBanner();
+setTimeout(function() { incrementViewCount(cb_entryId); }, 50);       deliverT2();
+       deliverC1C2();
+       loadNewsAndKb();
+       loadBlogSignature();
+LoadPostCategoriesTags(cb_blogId, cb_entryId);       LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+       GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+       loadOptUnderPost();
+       GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);
+   </script>
+</div>
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+	<div id="sideBar">
+		<div id="sideBarMain">
+			<div id="sidebar_news" class="newsItem">
+            <script>loadBlogNews();</script>
+</div>
+<div id="sidebar_ad"></div>
+			<div id="blog-calendar" style="display:none"></div><script>loadBlogDefaultCalendar();</script>			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"></div>
+                    <script>loadBlogSideColumn();</script>
+			</div>			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		<!--done-->
+Copyright &copy; 2020 冰河团队
+<br /><span id="poweredby">Powered by .NET 5.0.0-rc.2.20475.5 on Kubernetes</span>
+
+
+
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+    
+</body>
+</html>

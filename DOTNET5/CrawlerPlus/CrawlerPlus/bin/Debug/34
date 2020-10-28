@@ -1,0 +1,276 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="origin" />
+    <meta name="description" content="激活是APP拉新后的一个重要环节。通常，我们希望用户打开我们的APP之后，能够顺利的被激活，从而留下来成为我们的忠实用户。 激活一词，就跟北斗星指标一样，对每个产品来说都是不一样的。有些APP一旦打开" />
+    <meta property="og:description" content="激活是APP拉新后的一个重要环节。通常，我们希望用户打开我们的APP之后，能够顺利的被激活，从而留下来成为我们的忠实用户。 激活一词，就跟北斗星指标一样，对每个产品来说都是不一样的。有些APP一旦打开" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>APP打开（三）—激活率提升20%的思考 - 花开可缓归 - 博客园</title>
+    <link id="favicon" rel="shortcut icon" href="//common.cnblogs.com/favicon.svg" type="image/svg+xml" />
+    
+    <link rel="stylesheet" href="/css/blog-common.min.css?v=caAedYKpnz341INFIWakIM6r1EP9FIuJg43i9i8zqDQ" />
+    <link id="MainCss" rel="stylesheet" href="/skins/simpleblue/bundle-simpleblue.min.css?v=Bz6eufLWGVsWJjKcjfFVp12zhnPfKDi7i7Z6x00pOIo" />
+    
+    <link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="/skins/simpleblue/bundle-simpleblue-mobile.min.css?v=xbzzau3Jqgjmy0hPlKp75vATFEb2H-hCGf6MOx4l_3g" />
+    
+    <link type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/zshcnblogs/rss" />
+    <link type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/zshcnblogs/rsd.xml" />
+    <link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/zshcnblogs/wlwmanifest.xml" />
+    <script>
+        var currentBlogId = 625881;
+        var currentBlogApp = 'zshcnblogs';
+        var cb_enable_mathjax = false;
+        var isLogined = false;
+        var isBlogOwner = false;
+        var skinName = 'SimpleBlue';
+        var visitorUserId = '';
+    </script>
+        <script>
+            var currentPostDateAdded = '2020-10-26 12:25';
+        </script>
+    <script src="https://common.cnblogs.com/scripts/jquery-2.2.0.min.js"></script>
+    <script src="/js/blog-common.min.js?v=kKx3DBtpvO8r97BzPmHJseQ10fGHkI-ZwMh4FA0eEd0"></script>
+    
+    
+    
+</head>
+<body class="has-navbar">
+    <a name="top"></a> 
+    <div id="top_nav" class="navbar">
+        <nav id="nav_main" class="navbar-main">
+            <ul id="nav_left" class="navbar-list navbar-left">
+                <li class="navbar-branding">
+                    <a href="https://www.cnblogs.com/" title="开发者的网上家园"><img src="/images/logo.svg?v=R9M0WmLAIPVydmdzE2keuvnjl-bPR7_35oHqtiBzGsM" alt="博客园Logo" /></a>
+                </li>
+                <li><a href="/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-sitehome')">首页</a></li>
+                <li><a href="https://news.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-news')">新闻</a></li>
+                <li><a href="https://q.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-q')">博问</a></li>
+                <li><a id="nav_brandzone" href="https://brands.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-brands')">专区</a></li>
+                <li><a href="https://ing.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-ing')">闪存</a></li>
+                <li><a href="https://edu.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-edu')">班级</a></li>
+            </ul>
+            <ul id="nav_right" class="navbar-list navbar-right">
+                <li>
+                    <form id="zzk_search" class="navbar-search" action="https://zzk.cnblogs.com/s" method="get">
+                        <input name="w" id="zzk_search_input" placeholder="代码改变世界" type="text" tabindex="3" />
+                        <button type="submit" id="zzk_search_button">
+                            <img src="/images/aggsite/search.svg" alt="搜索" />
+                        </button>
+                    </form>
+                </li>
+                <li id="navbar_login_status" class="navbar-list">
+                    <a id="navblog-myblog-icon" class="navbar-user-info navbar-blog" href="https://passport.cnblogs.com/GetBlogApplyStatus.aspx" alt="我的博客" title="我的博客">
+                        <img id="myblog_icon" class="navbar-icon" src="/images/aggsite/myblog.svg" alt="我的博客" />
+                    </a>
+                    <a class="navbar-user-info navbar-message navbar-icon-wrapper" href="https://msg.cnblogs.com/" alt="短消息" title="短消息">
+                        <img id="msg_icon" class="navbar-icon" src="/images/aggsite/message.svg?v=oS4PkibyMjZ9rGD5XAcLt99uW_s76Javy2up4dbnZNY" alt="短消息" />
+                        <span id="msg_count" style="display: none"></span>
+                    </a>
+                    <div id="user_info" class="navbar-user-info dropdown">
+                        <a class="dropdown-button" href="https://home.cnblogs.com/">
+                            <img id="user_icon" class="navbar-avatar" src="/images/aggsite/avatar-default.svg" alt="用户头像" />
+                        </a>
+                        <div class="dropdown-menu">
+                            <a id="navblog-myblog-text" href="https://passport.cnblogs.com/GetBlogApplyStatus.aspx">我的博客</a>
+                            <a href="https://home.cnblogs.com/">我的园子</a>
+                            <a href="https://account.cnblogs.com/settings/account">账号设置</a>
+                            <a href="javascript:void(0)" onclick="logout();">退出登录</a>
+                        </div>
+                    </div>
+                    <a class="navbar-anonymous" href="https://account.cnblogs.com/signup/">注册</a>
+                    <a class="navbar-anonymous" href="https://account.cnblogs.com/signin/?returnUrl=https://www.cnblogs.com/">登录</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    
+    <div id="home">
+    <div id="header">
+        <div id="blogTitle">
+            
+<div class="title"><a id="Header1_HeaderTitle" class="headermaintitle HeaderMainTitle" href="https://www.cnblogs.com/zshcnblogs/">花开可缓归</a>
+</div>
+<div class="subtitle">
+
+</div>
+
+        </div>
+        <div id="navigator">
+            
+<ul id="navList">
+    <li id="nav_sitehome"><a id="blog_nav_sitehome" class="menu" href="https://www.cnblogs.com/">
+博客园</a>
+</li>
+    <li id="nav_myhome">
+<a id="blog_nav_myhome" class="menu" href="https://www.cnblogs.com/zshcnblogs/">
+首页</a>
+</li>
+    <li id="nav_newpost">
+
+<a id="blog_nav_newpost" class="menu" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">
+新随笔</a>
+</li>
+    <li id="nav_contact">
+<a id="blog_nav_contact" class="menu" href="https://msg.cnblogs.com/send/%E8%8A%B1%E5%BC%80%E5%8F%AF%E7%BC%93%E5%BD%92">
+联系</a></li>
+    <li id="nav_rss">
+<a id="blog_nav_rss" class="menu" href="javascript:void(0)" data-rss="https://www.cnblogs.com/zshcnblogs/rss/">
+订阅</a></li>
+    <li id="nav_admin">
+<a id="blog_nav_admin" class="menu" href="https://i.cnblogs.com/">
+管理</a>
+</li>
+</ul>
+
+            <div class="blogStats">
+                
+<span id="stats_post_count">随笔 - 
+6&nbsp;</span>
+<span id="stats_article_count">文章 - 
+0&nbsp;</span>
+<!-- <span id="stats-comment_count"></span> -->
+<span id="stats_comment_count">评论 - 
+2</span>
+            </div>
+        </div>
+    </div>
+    <div id="main">
+        <div id="mainContent">
+            <div class="forFlow">
+                <div id="post_detail">
+    <div id="topics">
+        <div class="post">
+            <h1 class="postTitle">
+                
+<a id="cb_post_title_url" class="postTitle2 vertical-middle" href="https://www.cnblogs.com/zshcnblogs/p/13876117.html">
+    <span>APP打开（三）—激活率提升20%的思考</span>
+    
+
+
+</a>
+
+            </h1>
+            <div class="clear"></div>
+            <div class="postBody">
+                
+<div id="cnblogs_post_body" class="blogpost-body">
+    <p><span style="font-family: 宋体; font-size: 14px">激活是APP拉新后的一个重要环节。通常，我们希望用户打开我们的APP之后，能够顺利的被激活，从而留下来成为我们的忠实用户。</span></p>
+<p><span style="font-family: 宋体; font-size: 14px">激活一词，就跟北斗星指标一样，对每个产品来说都是不一样的。有些APP一旦打开就算激活了，有些APP注册了才算激活，有些APP使用了服务才算激活，总之不同的APP都有着不同的标准。</span></p>
+<p><span style="font-family: 宋体; font-size: 14px"><strong>1. 实例</strong></span></p>
+<p><span style="font-family: 宋体; font-size: 14px">在增长黑客的世界里，往往一个小小的改动就能够引起一连串的化学反应，这些改动可能是一个文案、一个按钮、一个特别的小挂件等。而我今天要说的，就是一个简单的逻辑变化，但是这个变化却能够就APP的激活率提升20%，简单画个图看看。</span></p>
+<p><span style="font-family: 宋体; font-size: 14px">&nbsp;<img src="https://img2020.cnblogs.com/blog/2135113/202010/2135113-20201026001823125-987122376.png" alt="" loading="lazy"></span></p>
+<p><span style="font-family: 宋体; font-size: 14px">我们做的是一个流量工具+电商类的产品，新用户成功启用一次我们的服务才算激活，在激活之前的打开注册等在这里不讨论，我们只说激活。</span></p>
+<p><span style="font-family: 宋体; font-size: 14px">拉新的彩头是送新手红包，所以每一个新用户打开首页之后，都会弹出一个红包框，在红包框上面可以选择“立即领取”or“关掉红包”，原本的流程是 01-&gt;03，用户不论是在红包框上面选择什么，都会直接关掉红包框，同时将红包里面赠送的流量充值到用户账户并展示首页给用户，红包消失后没有任何引导，这个时候全靠用户自己去启用服务才能够到02，在03到02之间流失了大量的用户。</span></p>
+<p><span style="font-family: 宋体; font-size: 14px"><strong>这个时候我们考虑到以下两个问题：</strong></span></p>
+<p><span style="font-family: 宋体; font-size: 14px">① 我们已经赠送给用户免费的流量，用户来也是希望体验这个产品的，我们为什么一定要用户自己手动去启用服务，而不能直接帮用户启用服务进行体验呢？这个过程中，用户是没有任何损失的。</span></p>
+<p><span style="font-family: 宋体; font-size: 14px">②领用红包之后用户就不知道干嘛了，那能不能让用户干点什么？让用户傻等着显然不是一件好事情。</span></p>
+<p><span style="font-family: 宋体; font-size: 14px"><strong>先说问题①</strong>，帮用户把服务启起来，这看起来是个好主意，反正也是要用的，索性就少掉那个用户要自己去启用的过程（03页面），直接从01-&gt;02，一步到位，<strong>将手动激活变更为自动激活。这样做了之后，我们的激活率直接提升了20%左右</strong>，这个数字无疑是很振奋人心的。每一个指标想做出跨越性的提升都是艰难的，做增长的产品应该都能够体会到这其中的五味杂陈。过了半个月之后，我们发现激活率上去了，但是留存降低了很多。<strong>手动变为自动，用户体验了，但却没学会怎么更好的使用，也没有增加更多有效的措施留下用户，毛病就出来了。</strong></span></p>
+<p><span style="font-size: 14px; font-family: 宋体">再说一下问题②，让用户做点什么。新产品刚上去还在探索期，总是瞻前不顾后，帮用户激活了服务，那激活这个步骤跟过程是怎么样的却没有告诉给用户，导致用户一脸懵逼，莫名其妙的我的服务就能用了，莫名其妙的我就不知道怎么用了，又不是一锤子买卖，怎么留住用户也是一个关键点。很多产品，尤其是游戏类的产品，新手引导都做的很棒，手把手教学，还有像微信漂流瓶，用户在界面上停留几秒没有操作它就会小箭头提示用户要干嘛，这都是我们应该借鉴的点。</span></p>
+<p><span style="font-family: 宋体; font-size: 14px"><strong>2. 回顾</strong></span></p>
+<p><span style="font-family: 宋体; font-size: 14px">将手动变更为自动，激活率提升上去之后，我们接下来就该考虑怎么做留存留住用户，一步没做到位没关系，多迭代两个版本推广这一块就问题不大了，每一个指标提升都不易，很多时候试很多办法可能都提不上去，所以一旦有提升一定要坚守住当前的指标，在这个指标的基础上再去提升其他的指标。但很遗憾的是，因为某些原因（产品经理无法坚守）我们去掉了自动激活，激活率又掉了下去，做的补充方案也并没有达到效果，可以说是十分遗憾了。</span></p>
+<p><span style="font-family: 宋体; font-size: 14px">如果有机会实际上我还是想试一下自动激活这个方案加上留存的补充措施，最终能够达到的实际效果，从推演来看，产品工作做到位后，在激活提升20%的基础上，留存最终至少能够提升10%，这样获客成本就能够降低￥15+。</span></p>
+<p><span style="font-family: 宋体; font-size: 14px"><strong>3.总结</strong></span></p>
+<p><span style="font-family: 宋体; font-size: 14px">总的来说，帮用户做是可行的，可以先享受到服务，但别忘了教用户怎么做，两者结合才能够同步提升激活和留存。同时，帮用户做的时候，一定要注意不能损害用户的任何利益。</span></p>
+<p><span style="font-family: 宋体; font-size: 14px">拓展到其他的APP和其他的指标，比如说注册，一定要邮箱注册谷歌注册手机号注册吗？不一定，还可以选择免账号注册（比如华为的天际通），当然免账号涉及到手机系统参数读取问题，并不是所有的APP都能搞。</span></p>
+<p><span style="font-family: 宋体; font-size: 14px"><strong>&nbsp;</strong></span></p>
+<p><span style="font-family: 宋体; font-size: 14px"><strong>写在最后：产品经理一定不能让眼前的小利益或者小困难蒙蔽住了双眼，要尽可能从更高的地方，全局思考，并且多转换自己的思路，不要一叶障目。</strong></span></p>
+<p><span style="font-family: 宋体; font-size: 14px">&nbsp;</span></p>
+</div>
+<div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+    <div id="blog_post_info"></div>
+    <div class="clear"></div>
+    <div id="post_next_prev"></div>
+</div>
+            </div>
+            <div class="postDesc">posted @ 
+<span id="post-date">2020-10-26 00:25</span>&nbsp;
+<a href="https://www.cnblogs.com/zshcnblogs/">花开可缓归</a>&nbsp;
+阅读(<span id="post_view_count">11</span>)&nbsp;
+评论(<span id="post_comment_count">0</span>)&nbsp;
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13876117" rel="nofollow">编辑</a>&nbsp;
+<a href="javascript:void(0)" onclick="AddToWz(13876117);return false;">收藏</a></div>
+        </div>
+        <script src="https://common.cnblogs.com/highlight/10.3.1/highlight.min.js"></script>
+<script>markdown_highlight();</script>
+<script>
+    var allowComments = true, cb_blogId = 625881, cb_blogApp = 'zshcnblogs', cb_blogUserGuid = '7ed07f95-8fb7-4419-b97f-08d8458257d5';
+    var cb_entryId = 13876117, cb_entryCreatedDate = '2020-10-26 00:25', cb_postType = 1;
+    loadViewCount(cb_entryId);
+</script>
+        <a name="!comments"></a>
+<div id="blog-comments-placeholder"></div>
+<div id="comment_form" class="commentform">
+    <a name="commentform"></a>
+    <div id="divCommentShow"></div>
+    <div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="#" onclick="return RefreshPage();">刷新页面</a><a href="#top">返回顶部</a></div>
+    <div id="comment_form_container"></div>
+    <div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+    <div id="ad_t2"></div>
+    <div id="opt_under_post"></div>
+    <div id="cnblogs_c1" class="c_ad_block">
+        <div id='div-gpt-ad-1592365906576-0' style='width: 300px; height: 250px;'></div>
+    </div>
+    <div id="under_post_news"></div>
+    <div id="cnblogs_c2" class="c_ad_block">
+        <div id='div-gpt-ad-1592366332455-0' style='width: 468px; height: 60px;'></div>
+    </div>
+    <div id="under_post_kb"></div>
+    <div id="HistoryToday" class="c_ad_block"></div>
+    <script type="text/javascript">
+       var commentManager = new blogCommentManager();
+       commentManager.renderComments(0);
+       fixPostBody();
+       deliverBigBanner();
+setTimeout(function() { incrementViewCount(cb_entryId); }, 50);       deliverT2();
+       deliverC1C2();
+       loadNewsAndKb();
+       loadBlogSignature();
+LoadPostCategoriesTags(cb_blogId, cb_entryId);       LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+       GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+       loadOptUnderPost();
+       GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);
+   </script>
+</div>
+
+    </div>
+</div>
+            </div>
+        </div>
+
+        <div id="sideBar">
+            <div id="sideBarMain">
+                <div id="sidebar_news" class="newsItem">
+            <script>loadBlogNews();</script>
+</div>
+<div id="sidebar_ad"></div>
+                <div id="calendar"><div id="blog-calendar" style="display:none"></div></div>                
+                <script>loadBlogDefaultCalendar();</script>
+                <div id="leftcontentcontainer">
+                    <!-- begin:SingleColumn -->
+                    <div id="blog-sidecolumn"></div>
+                    <script>loadBlogSideColumn();</script>
+                    <!-- end:  SingleColumn -->
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+    <div id="footer">
+        <!--done-->
+Copyright &copy; 2020 花开可缓归
+<br /><span id="poweredby">Powered by .NET 5.0.0-rc.2.20475.5 on Kubernetes</span>
+
+    </div>
+</div>
+
+    
+</body>
+</html>

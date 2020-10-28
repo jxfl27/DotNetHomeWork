@@ -1,0 +1,460 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="never" />
+    <meta name="description" content="从Linux源码看Socket(TCP)的listen及连接队列 前言 笔者一直觉得如果能知道从应用到框架再到操作系统的每一处代码，是一件Exciting的事情。 今天笔者就来从Linux源码的角度看" />
+    <meta property="og:description" content="从Linux源码看Socket(TCP)的listen及连接队列 前言 笔者一直觉得如果能知道从应用到框架再到操作系统的每一处代码，是一件Exciting的事情。 今天笔者就来从Linux源码的角度看" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>从Linux源码看Socket(TCP)的listen及连接队列 - 无毁的湖光-Al - 博客园</title>
+    <link id="favicon" rel="shortcut icon" href="//common.cnblogs.com/favicon.svg" type="image/svg+xml" />
+    
+    <link rel="stylesheet" href="/css/blog-common.min.css?v=caAedYKpnz341INFIWakIM6r1EP9FIuJg43i9i8zqDQ" />
+    <link id="MainCss" rel="stylesheet" href="/skins/simplememory/bundle-simplememory.min.css?v=uknaX_hejnSu-njQgx4Hj1R0JiPLwUhFPUlwWNmWyB4" />
+    
+    <link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="/skins/SimpleMemory/bundle-SimpleMemory-mobile.min.css" />
+    
+    <link type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/alchemystar/rss" />
+    <link type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/alchemystar/rsd.xml" />
+    <link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/alchemystar/wlwmanifest.xml" />
+    <script>
+        var currentBlogId = 605890;
+        var currentBlogApp = 'alchemystar';
+        var cb_enable_mathjax = false;
+        var isLogined = false;
+        var isBlogOwner = false;
+        var skinName = 'SimpleMemory';
+        var visitorUserId = '';
+    </script>
+        <script>
+            var currentPostDateAdded = '2020-10-20 10:34';
+        </script>
+    <script src="https://common.cnblogs.com/scripts/jquery-2.2.0.min.js"></script>
+    <script src="/js/blog-common.min.js?v=kKx3DBtpvO8r97BzPmHJseQ10fGHkI-ZwMh4FA0eEd0"></script>
+    
+    
+    
+</head>
+<body class="has-navbar">
+    <a name="top"></a> 
+    <div id="top_nav" class="navbar">
+        <nav id="nav_main" class="navbar-main">
+            <ul id="nav_left" class="navbar-list navbar-left">
+                <li class="navbar-branding">
+                    <a href="https://www.cnblogs.com/" title="开发者的网上家园"><img src="/images/logo.svg?v=R9M0WmLAIPVydmdzE2keuvnjl-bPR7_35oHqtiBzGsM" alt="博客园Logo" /></a>
+                </li>
+                <li><a href="/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-sitehome')">首页</a></li>
+                <li><a href="https://news.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-news')">新闻</a></li>
+                <li><a href="https://q.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-q')">博问</a></li>
+                <li><a id="nav_brandzone" href="https://brands.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-brands')">专区</a></li>
+                <li><a href="https://ing.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-ing')">闪存</a></li>
+                <li><a href="https://edu.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-edu')">班级</a></li>
+            </ul>
+            <ul id="nav_right" class="navbar-list navbar-right">
+                <li>
+                    <form id="zzk_search" class="navbar-search" action="https://zzk.cnblogs.com/s" method="get">
+                        <input name="w" id="zzk_search_input" placeholder="代码改变世界" type="text" tabindex="3" />
+                        <button type="submit" id="zzk_search_button">
+                            <img src="/images/aggsite/search.svg" alt="搜索" />
+                        </button>
+                    </form>
+                </li>
+                <li id="navbar_login_status" class="navbar-list">
+                    <a id="navblog-myblog-icon" class="navbar-user-info navbar-blog" href="https://passport.cnblogs.com/GetBlogApplyStatus.aspx" alt="我的博客" title="我的博客">
+                        <img id="myblog_icon" class="navbar-icon" src="/images/aggsite/myblog.svg" alt="我的博客" />
+                    </a>
+                    <a class="navbar-user-info navbar-message navbar-icon-wrapper" href="https://msg.cnblogs.com/" alt="短消息" title="短消息">
+                        <img id="msg_icon" class="navbar-icon" src="/images/aggsite/message.svg?v=oS4PkibyMjZ9rGD5XAcLt99uW_s76Javy2up4dbnZNY" alt="短消息" />
+                        <span id="msg_count" style="display: none"></span>
+                    </a>
+                    <div id="user_info" class="navbar-user-info dropdown">
+                        <a class="dropdown-button" href="https://home.cnblogs.com/">
+                            <img id="user_icon" class="navbar-avatar" src="/images/aggsite/avatar-default.svg" alt="用户头像" />
+                        </a>
+                        <div class="dropdown-menu">
+                            <a id="navblog-myblog-text" href="https://passport.cnblogs.com/GetBlogApplyStatus.aspx">我的博客</a>
+                            <a href="https://home.cnblogs.com/">我的园子</a>
+                            <a href="https://account.cnblogs.com/settings/account">账号设置</a>
+                            <a href="javascript:void(0)" onclick="logout();">退出登录</a>
+                        </div>
+                    </div>
+                    <a class="navbar-anonymous" href="https://account.cnblogs.com/signup/">注册</a>
+                    <a class="navbar-anonymous" href="https://account.cnblogs.com/signin/?returnUrl=https://www.cnblogs.com/">登录</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    
+    <!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+        <a id="lnkBlogLogo" href="https://www.cnblogs.com/alchemystar/"><img id="blogLogo" src="/skins/custom/images/logo.gif" alt="返回主页" /></a>		
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle HeaderMainTitle" href="https://www.cnblogs.com/alchemystar/">alchemystar</a>
+</h1>
+<h2>
+
+</h2>
+
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li><a id="blog_nav_sitehome" class="menu" href="https://www.cnblogs.com/">
+博客园</a>
+</li>
+<li>
+<a id="blog_nav_myhome" class="menu" href="https://www.cnblogs.com/alchemystar/">
+首页</a>
+</li>
+<li>
+
+<a id="blog_nav_newpost" class="menu" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">
+新随笔</a>
+</li>
+<li>
+<a id="blog_nav_contact" class="menu" href="https://msg.cnblogs.com/send/%E6%97%A0%E6%AF%81%E7%9A%84%E6%B9%96%E5%85%89-Al">
+联系</a></li>
+<li>
+<a id="blog_nav_rss" class="menu" href="javascript:void(0)" data-rss="https://www.cnblogs.com/alchemystar/rss/">
+订阅</a>
+<!--<partial name="./Shared/_XmlLink.cshtml" model="Model" /></li>--></li>
+<li>
+<a id="blog_nav_admin" class="menu" href="https://i.cnblogs.com/">
+管理</a>
+</li>
+</ul>
+
+
+		<div class="blogStats">
+			<span id="stats_post_count">随笔 - 
+28&nbsp; </span>
+<span id="stats_article_count">文章 - 
+0&nbsp; </span>
+<span id="stats-comment_count">评论 - 
+261</span>
+
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		<div id="post_detail">
+    <!--done-->
+    <div id="topics">
+        <div class="post">
+            <h1 class = "postTitle">
+                
+<a id="cb_post_title_url" class="postTitle2 vertical-middle" href="https://www.cnblogs.com/alchemystar/p/13845081.html">
+    <span>从Linux源码看Socket(TCP)的listen及连接队列</span>
+    
+
+
+</a>
+
+            </h1>
+            <div class="clear"></div>
+            <div class="postBody">
+                
+<div id="cnblogs_post_body" class="blogpost-body cnblogs-markdown">
+    <h1 id="从linux源码看sockettcp的listen及连接队列">从Linux源码看Socket(TCP)的listen及连接队列</h1>
+<h2 id="前言">前言</h2>
+<p>笔者一直觉得如果能知道从应用到框架再到操作系统的每一处代码，是一件Exciting的事情。 今天笔者就来从Linux源码的角度看下Server端的Socket在进行listen的时候到底做了哪些事情(基于Linux 3.10内核)，当然由于listen的backlog参数和半连接hash表以及全连接队列都相关，在这一篇博客里也一块讲了。</p>
+<h2 id="server端socket需要listen">Server端Socket需要Listen</h2>
+<p>众所周知，一个Server端Socket的建立，需要socket、bind、listen、accept四个步骤。<br>
+今天笔者就聚焦于Listen这个步骤。<br>
+<img src="https://oscimg.oschina.net/oscnet/up-231a760e7ed2dcc880b80930f3e8ca8a32e.png" alt="" loading="lazy"><br>
+代码如下:</p>
+<pre><code>void start_server(){
+    // server fd
+    int sockfd_server;
+    // accept fd 
+    int sockfd;
+    int call_err;
+    struct sockaddr_in sock_addr;
+	 ......
+    call_err=bind(sockfd_server,(struct sockaddr*)(&amp;sock_addr),sizeof(sock_addr));
+    if(call_err == -1){
+        fprintf(stdout,"bind error!\n");
+        exit(1);
+    }
+    // 这边就是我们今天的聚焦点listen
+    call_err=listen(sockfd_server,MAX_BACK_LOG);
+    if(call_err == -1){
+        fprintf(stdout,"listen error!\n");
+        exit(1);
+    }
+}
+</code></pre>
+<p>首先我们通过socket系统调用创建了一个socket，其中指定了SOCK_STREAM,而且最后一个参数为0，也就是建立了一个通常所有的TCP Socket。在这里，我们直接给出TCP Socket所对应的ops也就是操作函数。<br>
+<img src="https://oscimg.oschina.net/oscnet/up-ffb587cdd5c37946484f4b78df5053abdef.png" alt="codegen" loading="lazy"><br>
+如果你想知道上图中的结构是怎么来的，可以看下笔者以前的博客:</p>
+<pre><code>https://my.oschina.net/alchemystar/blog/1791017
+</code></pre>
+<h2 id="listen系统调用">Listen系统调用</h2>
+<p>好了，现在我们直接进入Listen系统调用吧。</p>
+<pre><code>#include &lt;sys/socket.h&gt;
+// 成功返回0,错误返回-1,同时错误码设置在errno
+int listen(int sockfd, int backlog);
+</code></pre>
+<p>注意，这边的listen调用是被glibc的INLINE_SYSCALL装过一层，其将返回值修正为只有0和-1这两个选择，同时将错误码的绝对值设置在errno内。<br>
+这里面的backlog是个非常重要的参数，如果设置不好，是个很隐蔽的坑。<br>
+对于java开发者而言，基本用的现成的框架，而java本身默认的backlog设置大小只有50。这就会引起一些微妙的现象，这个在本文中会进行讲解。<br>
+<img src="https://oscimg.oschina.net/oscnet/up-c602a304624365326b96beba53bada6b911.png" alt="" loading="lazy"><br>
+接下来，我们就进入Linux内核源码栈吧</p>
+<pre><code>listen
+	|-&gt;INLINE_SYSCALL(listen......)
+		|-&gt;SYSCALL_DEFINE2(listen, int, fd, int, backlog)
+			/* 检测对应的描述符fd是否存在，不存在，返回-BADF
+			|-&gt;sockfd_lookup_light
+			/* 限定传过来的backlog最大值不超出 /proc/sys/net/core/somaxconn
+			|-&gt;if ((unsigned int)backlog &gt; somaxconn) backlog = somaxconn
+			|-&gt;sock-&gt;ops-&gt;listen(sock, backlog) &lt;=&gt; inet_listen
+</code></pre>
+<p>值得注意的是，Kernel对于我们传进来的backlog值做了一次调整，让其无法&gt;内核参数设置中的somaxconn。</p>
+<h2 id="inet_listen">inet_listen</h2>
+<p>接下来就是核心调用程序inet_listen了。</p>
+<pre><code>int inet_listen(struct socket *sock, int backlog)
+{
+
+	/* Really, if the socket is already in listen state
+	 * we can only allow the backlog to be adjusted.
+	 *if ((sysctl_tcp_fastopen &amp; TFO_SERVER_ENABLE) != 0 &amp;&amp;
+		    inet_csk(sk)-&gt;icsk_accept_queue.fastopenq == NULL) {
+		    // fastopen的逻辑
+			if ((sysctl_tcp_fastopen &amp; TFO_SERVER_WO_SOCKOPT1) != 0)
+				err = fastopen_init_queue(sk, backlog);
+			else if ((sysctl_tcp_fastopen &amp;
+				  TFO_SERVER_WO_SOCKOPT2) != 0)
+				err = fastopen_init_queue(sk,
+				    ((uint)sysctl_tcp_fastopen) &gt;&gt; 16);
+			else
+				err = 0;
+			if (err)
+				goto out;
+		}
+	if(old_state != TCP_LISTEN) {
+	
+		err = inet_csk_listen_start(sk, backlog);
+	}
+	sk-&gt;sk_max_ack_backlog =backlog;
+	......
+}
+</code></pre>
+<p>从这段代码中，第一个有意思的地方就是,listen这个系统调用可以重复调用！第二次调用的时候仅仅只能修改其backlog队列长度(虽然感觉没啥必要)。<br>
+<img src="https://oscimg.oschina.net/oscnet/up-c596b5e9fcc6e04d73c19011d386aa19149.png" alt="" loading="lazy"><br>
+首先，我们看下除fastopen之外的逻辑(fastopen以后开单章详细讨论)。也就是最后的inet_csk_listen_start调用。</p>
+<pre><code>int inet_csk_listen_start(struct sock *sk, const int nr_table_entries)
+{
+	......
+	// 这里的nr_table_entries即为调整过后的backlog
+	// 但是在此函数内部会进一步将nr_table_entries = min(backlog,sysctl_max_syn_backlog)这个逻辑
+	int rc = reqsk_queue_alloc(&amp;icsk-&gt;icsk_accept_queue, nr_table_entries);
+	......
+	inet_csk_delack_init(sk);
+	// 设置socket为listen状态
+	sk-&gt;sk_state = TCP_LISTEN;
+	// 检查端口号
+	if (!sk-&gt;sk_prot-&gt;get_port(sk, inet-&gt;inet_num)){
+		// 清除掉dst cache
+		sk_dst_reset(sk);
+		// 将当前sock链入listening_hash
+		// 这样，当SYN到来的时候就能通过__inet_lookup_listen函数找到这个listen中的sock
+		sk-&gt;sk_prot-&gt;hash(sk);
+	}
+	sk-&gt;sk_state = TCP_CLOSE;
+	__reqsk_queue_destroy(&amp;icsk-&gt;icsk_accept_queue);
+	// 端口已经被占用，返回错误码-EADDRINUSE
+	return -EADDRINUSE;
+}
+</code></pre>
+<p>这里最重要的一个调用sk-&gt;sk_prot-&gt;hash(sk),也就是inet_hash,其将当前sock链入全局的listen hash表，这样就可以在SYN包到来的时候寻找到对应的listen sock了。如下图所示:<br>
+<img src="https://oscimg.oschina.net/oscnet/up-eedc10f033af093e58fd956a3fc540f68ed.png" alt="" loading="lazy"><br>
+如图中所示，如果开启了SO_REUSEPORT的话，可以让不同的Socket listen(监听)同一个端口，这样就能在内核进行创建连接的负载均衡。在Nginx 1.9.1版本开启了之后，其压测性能达到3倍!<br>
+<img src="https://oscimg.oschina.net/oscnet/up-53d21d8a6e166fb50521c4d4489982b0740.png" alt="" loading="lazy"></p>
+<h2 id="半连接队列hash表和全连接队列">半连接队列hash表和全连接队列</h2>
+<p>在笔者一开始翻阅的资料里面,都提到。tcp的连接队列有两个，一个是sync_queue,另一个accept_queue。但笔者仔细阅读了一下源码，其实并非如此。事实上，sync_queue其实是个hash表(syn_table)。另一个队列是icsk_accept_queue。</p>
+<p>所以在本篇文章里面，将其称为reqsk_queue(request_socket_queue的简称)。<br>
+在这里，笔者先给出这两个queue在三次握手时候的出现时机。如下图所示:<br>
+<img src="https://oscimg.oschina.net/oscnet/up-9900f7a4b655332540d88b9d992ab041131.png" alt="" loading="lazy"><br>
+当然了，除了上面提到的qlen和sk_ack_backlog这两个计数器之外，还有一个qlen_young,其作用如下:</p>
+<pre><code>qlen_young: 
+记录的是刚有SYN到达，
+没有被SYN_ACK重传定时器重传过SYN_ACK
+同时也没有完成过三次握手的sock数量
+
+</code></pre>
+<p>如下图所示:<br>
+<img src="https://oscimg.oschina.net/oscnet/up-fe8cb45b64eb96b317f7067e4378c12477d.png" alt="" loading="lazy"><br>
+至于SYN_ACK的重传定时器在内核中的代码为下面所示:</p>
+<pre><code>static void tcp_synack_timer(struct sock *sk)
+{
+	inet_csk_reqsk_queue_prune(sk, TCP_SYNQ_INTERVAL,
+				   TCP_TIMEOUT_INIT, TCP_RTO_MAX);
+}
+</code></pre>
+<p>这个定时器在半连接队列不为空的情况下，以200ms(TCP_SYNQ_INTERVAL)为间隔运行一次。限于篇幅，笔者就在这里不多讨论了。</p>
+<h3 id="为什么要存在半连接队列">为什么要存在半连接队列</h3>
+<p>因为根据TCP协议的特点，会存在半连接这样的网络攻击存在，即不停的发SYN包，而从不回应SYN_ACK。如果发一个SYN包就让Kernel建立一个消耗极大的sock，那么很容易就内存耗尽。所以内核在三次握手成功之前，只分配一个占用内存极小的request_sock，以防止这种攻击的现象，再配合syn_cookie机制，尽量抵御这种半连接攻击的风险。</p>
+<h3 id="半连接hash表和全连接队列的限制">半连接hash表和全连接队列的限制</h3>
+<p>由于全连接队列里面保存的是占用内存很大的普通sock，所以Kernel给其加了一个最大长度的限制。这个限制为:</p>
+<pre><code>下面三者中的最小值
+1.listen系统调用中传进去的backlog
+2./proc/sys/inet/ipv4/tcp_max_syn_backlog
+3./proc/sys/net/core/somaxconn 
+即min(backlog,tcp_ma_syn_backlog,somaxcon)
+</code></pre>
+<p>如果超过这个somaxconn会被内核丢弃，如下图所示:<br>
+<img src="https://oscimg.oschina.net/oscnet/up-62137fc0a406837916cd5698d1bdadc6857.png" alt="" loading="lazy"><br>
+这种情况的连接丢弃会发生比较诡异的现象。在不设置tcp_abort_on_overflow的时候,client端无法感知，就会导致即在第一笔调用的时候才会知道对端连接丢弃了。<br>
+<img src="https://oscimg.oschina.net/oscnet/up-d1b601a0faf6dfe156aa9937319bdc450f5.png" alt="" loading="lazy"><br>
+那么，怎么让client端在这种情况下感知呢，我们可以设置一下tcp_abort_on_overflow</p>
+<pre><code>echo '1' &gt; tcp_abort_on_overflow
+</code></pre>
+<p>设置后，如下图所示:<br>
+<img src="https://oscimg.oschina.net/oscnet/up-fb0e16108e8e3e510e7114433dff865853d.png" alt="" loading="lazy"><br>
+当然了，最直接的还是调大backlog!</p>
+<pre><code>listen(fd,2048)
+echo '2048' &gt; /proc/sys/inet/ipv4/tcp_max_syn_backlog
+echo '2048' &gt; /proc/sys/net/core/somaxconn
+</code></pre>
+<h3 id="backlog对半连接队列的影响">backlog对半连接队列的影响</h3>
+<p>这个backlog对半连接队列也有影响，如下代码所示:</p>
+<pre><code>	/* TW buckets are converted to open requests without
+	 * limitations, they conserve resources and peer is
+	 * evidently real one.
+	 */
+	// 在开启SYN cookie的情况下，如果半连接队列长度超过backlog，则发送cookie
+	// 否则丢弃
+	if (inet_csk_reqsk_queue_is_full(sk) &amp;&amp; !isn) {
+		want_cookie = tcp_syn_flood_action(sk, skb, "TCP");
+		if (!want_cookie)
+			goto drop;
+	}
+
+	/* Accept backlog is full. If we have already queued enough
+	 * of warm entries in syn queue, drop request. It is better than
+	 * clogging syn queue with openreqs with exponentially increasing
+	 * timeout.
+	 */
+	// 在全连接队列满的情况下，如果有young_ack，那么直接丢弃
+	if (sk_acceptq_is_full(sk) &amp;&amp; inet_csk_reqsk_queue_young(sk) &gt; 1) {
+		NET_INC_STATS_BH(sock_net(sk), LINUX_MIB_LISTENOVERFLOWS);
+		goto drop;
+	}
+</code></pre>
+<p>我们在dmesg里面经常看到的</p>
+<pre><code>Possible SYN flooding on port 8080 
+</code></pre>
+<p>就是由于半连接队列满以后，Kernel发送cookie校验而导致。</p>
+<h1 id="总结">总结</h1>
+<p>TCP作为一个古老而又流行的协议，在演化了几十年后，其设计变的相当复杂。从而在出问题的时候变的难于分析，这时候就要reading the fucking source code!而笔者也正是写这篇博客而详细阅读源码的时候偶然间灵光一闪，找到了最近一个诡异问题的根因。这个诡异问题的分析过程将会在近期写出来分享给大家。<br>
+欢迎大家关注我公众号，里面有各种干货，还有大礼包相送哦!<br>
+<img src="https://oscimg.oschina.net/oscnet/up-e1c265ba66280f2ad904fcd3b8e3059bd2f.png" alt="" loading="lazy"></p>
+
+</div>
+<div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+    <div id="blog_post_info"></div>
+    <div class="clear"></div>
+    <div id="post_next_prev"></div>
+</div>
+            </div>
+            <div class="postDesc">posted @ 
+<span id="post-date">2020-10-20 10:34</span>&nbsp;
+<a href="https://www.cnblogs.com/alchemystar/">无毁的湖光-Al</a>&nbsp;
+阅读(<span id="post_view_count">951</span>)&nbsp;
+评论(<span id="post_comment_count">7</span>)&nbsp;
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13845081" rel="nofollow">编辑</a>&nbsp;
+<a href="javascript:void(0)" onclick="AddToWz(13845081);return false;">收藏</a></div>
+        </div>
+	    
+	    
+    </div><!--end: topics 文章、评论容器-->
+</div>
+<script src="https://common.cnblogs.com/highlight/10.3.1/highlight.min.js"></script>
+<script>markdown_highlight();</script>
+<script>
+    var allowComments = true, cb_blogId = 605890, cb_blogApp = 'alchemystar', cb_blogUserGuid = '1cf9229d-640a-4286-28a5-08d5c3af5c24';
+    var cb_entryId = 13845081, cb_entryCreatedDate = '2020-10-20 10:34', cb_postType = 1;
+    loadViewCount(cb_entryId);
+</script>
+<a name="!comments"></a>
+<div id="blog-comments-placeholder"></div>
+<div id="comment_form" class="commentform">
+    <a name="commentform"></a>
+    <div id="divCommentShow"></div>
+    <div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="#" onclick="return RefreshPage();">刷新页面</a><a href="#top">返回顶部</a></div>
+    <div id="comment_form_container"></div>
+    <div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+    <div id="ad_t2"></div>
+    <div id="opt_under_post"></div>
+    <div id="cnblogs_c1" class="c_ad_block">
+        <div id='div-gpt-ad-1592365906576-0' style='width: 300px; height: 250px;'></div>
+    </div>
+    <div id="under_post_news"></div>
+    <div id="cnblogs_c2" class="c_ad_block">
+        <div id='div-gpt-ad-1592366332455-0' style='width: 468px; height: 60px;'></div>
+    </div>
+    <div id="under_post_kb"></div>
+    <div id="HistoryToday" class="c_ad_block"></div>
+    <script type="text/javascript">
+       var commentManager = new blogCommentManager();
+       commentManager.renderComments(0);
+       fixPostBody();
+       deliverBigBanner();
+setTimeout(function() { incrementViewCount(cb_entryId); }, 50);       deliverT2();
+       deliverC1C2();
+       loadNewsAndKb();
+       loadBlogSignature();
+LoadPostCategoriesTags(cb_blogId, cb_entryId);       LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+       GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+       loadOptUnderPost();
+       GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);
+   </script>
+</div>
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+	<div id="sideBar">
+		<div id="sideBarMain">
+			<div id="sidebar_news" class="newsItem">
+            <script>loadBlogNews();</script>
+</div>
+<div id="sidebar_ad"></div>
+			<div id="blog-calendar" style="display:none"></div><script>loadBlogDefaultCalendar();</script>			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"></div>
+                    <script>loadBlogSideColumn();</script>
+			</div>			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		<!--done-->
+Copyright &copy; 2020 无毁的湖光-Al
+<br /><span id="poweredby">Powered by .NET 5.0.0-rc.2.20475.5 on Kubernetes</span>
+
+
+
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+    
+</body>
+</html>

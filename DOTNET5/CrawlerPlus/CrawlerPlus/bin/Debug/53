@@ -1,0 +1,1039 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="never" />
+    <meta name="description" content="一、前言 benchmark 即基准测试。通常操作系统主要服务于应用程序，其运行也是需要一定cpu资源的，一般来说操作系统提供服务一定要快，否则会影响应用程序的运行效率，尤其是实时操作系统。所以本文针" />
+    <meta property="og:description" content="一、前言 benchmark 即基准测试。通常操作系统主要服务于应用程序，其运行也是需要一定cpu资源的，一般来说操作系统提供服务一定要快，否则会影响应用程序的运行效率，尤其是实时操作系统。所以本文针" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>【原创】linux实时操作系统xenomai x86平台基准测试(benchmark） - 木多 - 博客园</title>
+    <link id="favicon" rel="shortcut icon" href="//common.cnblogs.com/favicon.svg" type="image/svg+xml" />
+    
+    <link rel="stylesheet" href="/css/blog-common.min.css?v=caAedYKpnz341INFIWakIM6r1EP9FIuJg43i9i8zqDQ" />
+    <link id="MainCss" rel="stylesheet" href="/skins/coffee/bundle-coffee.min.css?v=F9ODK0b_BexrGFuzwObB8A2Gx3VnPgTALBeh3BNdKdg" />
+    
+    <link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="/skins/coffee/bundle-coffee-mobile.min.css?v=_A34W8fnMJT0tcRq18x5CRz6GYA4gZvedLXGAkdf2Ms" />
+    
+    <link type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/wsg1100/rss" />
+    <link type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/wsg1100/rsd.xml" />
+    <link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/wsg1100/wlwmanifest.xml" />
+    <script>
+        var currentBlogId = 385777;
+        var currentBlogApp = 'wsg1100';
+        var cb_enable_mathjax = true;
+        var isLogined = false;
+        var isBlogOwner = false;
+        var skinName = 'coffee';
+        var visitorUserId = '';
+    </script>
+        <script>
+            var currentPostDateAdded = '2020-10-25 09:39';
+        </script>
+    <script src="https://common.cnblogs.com/scripts/jquery-2.2.0.min.js"></script>
+    <script src="/js/blog-common.min.js?v=kKx3DBtpvO8r97BzPmHJseQ10fGHkI-ZwMh4FA0eEd0"></script>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+        tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']], processClass: 'math', processEscapes: true },
+        TeX: {
+        equationNumbers: { autoNumber: ['AMS'], useLabelIds: true },
+        extensions: ['extpfeil.js', 'mediawiki-texvc.js'],
+        Macros: {bm: "\\boldsymbol"}
+        },
+        'HTML-CSS': { linebreaks: { automatic: true } },
+        SVG: { linebreaks: { automatic: true } }
+        });
+    </script>
+    <script src="https://mathjax.cnblogs.com/2_7_5/MathJax.js?config=TeX-AMS-MML_HTMLorMML&amp;v=20200504"></script>
+    
+</head>
+<body class="has-navbar">
+    <a name="top"></a> 
+    <div id="top_nav" class="navbar">
+        <nav id="nav_main" class="navbar-main">
+            <ul id="nav_left" class="navbar-list navbar-left">
+                <li class="navbar-branding">
+                    <a href="https://www.cnblogs.com/" title="开发者的网上家园"><img src="/images/logo.svg?v=R9M0WmLAIPVydmdzE2keuvnjl-bPR7_35oHqtiBzGsM" alt="博客园Logo" /></a>
+                </li>
+                <li><a href="/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-sitehome')">首页</a></li>
+                <li><a href="https://news.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-news')">新闻</a></li>
+                <li><a href="https://q.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-q')">博问</a></li>
+                <li><a id="nav_brandzone" href="https://brands.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-brands')">专区</a></li>
+                <li><a href="https://ing.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-ing')">闪存</a></li>
+                <li><a href="https://edu.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-edu')">班级</a></li>
+            </ul>
+            <ul id="nav_right" class="navbar-list navbar-right">
+                <li>
+                    <form id="zzk_search" class="navbar-search" action="https://zzk.cnblogs.com/s" method="get">
+                        <input name="w" id="zzk_search_input" placeholder="代码改变世界" type="text" tabindex="3" />
+                        <button type="submit" id="zzk_search_button">
+                            <img src="/images/aggsite/search.svg" alt="搜索" />
+                        </button>
+                    </form>
+                </li>
+                <li id="navbar_login_status" class="navbar-list">
+                    <a id="navblog-myblog-icon" class="navbar-user-info navbar-blog" href="https://passport.cnblogs.com/GetBlogApplyStatus.aspx" alt="我的博客" title="我的博客">
+                        <img id="myblog_icon" class="navbar-icon" src="/images/aggsite/myblog.svg" alt="我的博客" />
+                    </a>
+                    <a class="navbar-user-info navbar-message navbar-icon-wrapper" href="https://msg.cnblogs.com/" alt="短消息" title="短消息">
+                        <img id="msg_icon" class="navbar-icon" src="/images/aggsite/message.svg?v=oS4PkibyMjZ9rGD5XAcLt99uW_s76Javy2up4dbnZNY" alt="短消息" />
+                        <span id="msg_count" style="display: none"></span>
+                    </a>
+                    <div id="user_info" class="navbar-user-info dropdown">
+                        <a class="dropdown-button" href="https://home.cnblogs.com/">
+                            <img id="user_icon" class="navbar-avatar" src="/images/aggsite/avatar-default.svg" alt="用户头像" />
+                        </a>
+                        <div class="dropdown-menu">
+                            <a id="navblog-myblog-text" href="https://passport.cnblogs.com/GetBlogApplyStatus.aspx">我的博客</a>
+                            <a href="https://home.cnblogs.com/">我的园子</a>
+                            <a href="https://account.cnblogs.com/settings/account">账号设置</a>
+                            <a href="javascript:void(0)" onclick="logout();">退出登录</a>
+                        </div>
+                    </div>
+                    <a class="navbar-anonymous" href="https://account.cnblogs.com/signup/">注册</a>
+                    <a class="navbar-anonymous" href="https://account.cnblogs.com/signin/?returnUrl=https://www.cnblogs.com/">登录</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    
+    
+<!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+	<a href="https://www.cnblogs.com/wsg1100/"><img id="blogLogo" src="/skins/custom/images/logo.gif" alt="返回主页" /></a>			
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle HeaderMainTitle" href="https://www.cnblogs.com/wsg1100/">木多</a>
+</h1>
+<h2>
+
+</h2>
+
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+</div><!--end: header 头部 -->
+
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		<div id="navigator">
+			
+<ul id="navList">
+	<li><a id="blog_nav_sitehome" class="menu" href="https://www.cnblogs.com/">
+博客园</a>
+</li>
+	<li>
+<a id="blog_nav_myhome" class="menu" href="https://www.cnblogs.com/wsg1100/">
+首页</a>
+</li>
+	<li>
+
+<a id="blog_nav_newpost" class="menu" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">
+新随笔</a>
+</li>
+	<li>
+<a id="blog_nav_contact" class="menu" href="https://msg.cnblogs.com/send/%E6%9C%A8%E5%A4%9A">
+联系</a></li>
+	<li>
+<a id="blog_nav_admin" class="menu" href="https://i.cnblogs.com/">
+管理</a>
+</li>
+	<li>
+<a id="blog_nav_rss" class="menu" href="javascript:void(0)" data-rss="https://www.cnblogs.com/wsg1100/rss/">
+订阅</a>
+	
+<a id="blog_nav_rss_image" href="https://www.cnblogs.com/wsg1100/rss/">
+    <img src="/skins/coffee/images/xml.gif" alt="订阅" />
+</a></li>
+</ul>
+
+
+
+			<div class="blogStats">
+				
+				<!--done-->
+随笔- 
+23&nbsp;
+文章- 
+0&nbsp;
+评论- 
+9&nbsp;
+
+
+
+				
+			</div><!--end: blogStats -->
+		</div><!--end: navigator 博客导航栏 -->
+		<div id="post_detail">
+<!--done-->
+<div id="topics">
+	<div class="post">
+		<h1 class = "postTitle">
+			
+<a id="cb_post_title_url" class="postTitle2 vertical-middle" href="https://www.cnblogs.com/wsg1100/p/13875385.html">
+    <span>【原创】linux实时操作系统xenomai x86平台基准测试(benchmark）</span>
+    
+
+
+</a>
+
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			
+<div id="cnblogs_post_body" class="blogpost-body cnblogs-markdown">
+    <h2 id="一、前言">一、前言</h2>
+<p>benchmark 即基准测试。通常操作系统主要服务于应用程序，其运行也是需要一定cpu资源的，一般来说操作系统提供服务一定要快，否则会影响应用程序的运行效率，尤其是实时操作系统。所以本文针对操作系统来做一些基准测试，看看在低端x86平台上，xenomai提供我们平时常用的服务所需要的时间，清楚地了解该平台上一些xenomai服务的消耗，有时能有利于我们进一步优化程序。影响因素有：主机CPU的结构、指令集以及CPU特性、运算速度等。</p>
+<p>目前大多商业实时操作系统会提供详细benchmark测试，比如VxWorks，目前xenomai没有这类的方式，所以借鉴VxWorks的测试方式，对xenomai进行同样测试，所以文章中的测试项命名可能在Linux开发人员看来有点别扭，切勿见怪，其中一些具体流程可见本博客另外一篇文章<a href="https://www.cnblogs.com/wsg1100/p/13415750.html">xenomai与VxWorks实时性对比（资源抢占上下文切换对比）</a>。</p>
+<p>测试环境：</p>
+<p>CPU：Intel  j1900</p>
+<p>内存：4GB  DDR3</p>
+<blockquote>
+<p>注：<strong>测试数据仅供个人参考</strong>，单位us，每项测试次数500万次,编写测试用例使用的接口为Alchemy API，原因主要是Alchemy API比较好编写。</p>
+</blockquote>
+<h2 id="二、-测试数据处理">二、 测试数据处理</h2>
+<p>对于每个基准测试，通过在操作前读取时间戳<span class="math inline">\(t1\)</span>，该操作完成后读取时间戳<span class="math inline">\(t2\)</span>，<span class="math inline">\(t2\)</span>与<span class="math inline">\(t1\)</span>之间的差值就是测该操作的耗时。</p>
+<p><img src="https://wsg-blogs-pic.oss-cn-beijing.aliyuncs.com/xenomai/test.png" alt="" loading="lazy"></p>
+<h3 id="11-测试注意事项">1.1 测试注意事项</h3>
+<p>需要注意的是，由于我们是基准测试，所以<span class="math inline">\(t1\)</span>~<span class="math inline">\(t2\)</span>这段时间尽量不要被不相关的事务打断，比如处理不相关的中断、非测试范围内的任务抢占等。为此需要考虑如下。</p>
+<p>① 执行测试操作的任务优先级必须最高，两个任务间交互的测试类似。</p>
+<p>② 必须检测t1-t2之间的非相关中断，并丢弃对应的测试数据，由于我们已将非xenomai的中断隔离到其cpu0，且无其他实时设备中断，除各种异常外，剩下与xenomai相关的就是定时器中断了，所以仅对tick中断处理，如果测试过程中产生了定时器中断，则忽略这组数据，因此需要为xenomai添加一个系统调用来获取中断信息，测试前后通过该系统调用获中断信息，以此判断测试的过程中有没有中断产生。</p>
+<p>③ 读取时间戳的操作也是需要执行时间的，所以需要从结果中减去该时间的影响，测量读取时间戳的需要的时间很简单，通过连续两次读取时间戳<span class="math inline">\(a1\)</span>,<span class="math inline">\(a2\)</span>,<span class="math inline">\(a2-a1\)</span>就是函数 <code>_M_TIMESTAMP()</code>的执行需要时间。</p>
+<h3 id="12-数据的处理">1.2 数据的处理</h3>
+<p>得到无误的操作耗时、测试次数后计算平均值最大值、最小值即可；</p>
+<h3 id="13-测试结构">1.3 测试结构</h3>
+<p>根据以上，每个测试的流程及代码结构如下：</p>
+<p>① 读取起始tick</p>
+<p>② 开始测试循环</p>
+<p>③ 读取时间戳a</p>
+<p>④ 读取起始时间戳b</p>
+<p>⑤ <strong>被测试的操作</strong></p>
+<p>⑥读取结束时间戳c</p>
+<p>⑦判断是否是loadrun,是则丢弃本次结果跳转到③</p>
+<p>⑧读取tick,判断本次测试是否位于同一tick内,否则丢弃本次结果跳转到③</p>
+<p>⑨判读耗时是都正确(a-b且b-c为正值),是则为有效值,否则丢弃本次结果跳转到③</p>
+<pre><code class="language-C">	unsigned long  a;
+    unsigned long  b;
+    unsigned long  c;
+    ULONG	   tick;
+    BOOL	   loadRun = TRUE;  /*排除cache对测试的影响，丢弃第一次测试的数据*/
+
+    tick = tickGet();  /*确保测试在同一个tick内完成*/
+
+ 	/*循环测试iterations次操作并统计结果*/
+    for (counter = 0; counter &lt; pData-&gt;iterations; counter++)
+	{	
+    
+	a = _M_TIMESTAMP();
+	b = _M_TIMESTAMP();  /*起始时间*/
+	
+        wd = wdCreate ();/*测试的操作*/
+
+	c = _M_TIMESTAMP();	/*结束时间*/
+        
+	/*数据统计处理*/
+	BM_DATA_RECORD (((c &gt;= b) &amp;&amp; (b &gt;= a)), c - b, b - a,
+			counter, tick, loadRun);
+	}
+</code></pre>
+<h2 id="二、测试项">二、测试项</h2>
+<p>明白数据统计处理后剩下的就是其中测试的具体操作了，benchmark 分别对二值信号量(semB)、计数信号量(semC)、互斥量(semM)、读写信号量(SemRW)、任务(Task)、消息队列(msgq)、事件(event)、 中断响应(interrupt)、上下文切换(contexswitch)、时钟抖动(TaskJitter、IntJitter)在各种可能的情况下，测试该操作的耗时。</p>
+<h3 id="21-时间戳">2.1 时间戳</h3>
+<p>测试读时间戳耗时<code>bmTimestampRead</code>。</p>
+<pre><code class="language-C"> 	unsigned long a;
+    unsigned long b;
+    ULONG	  tick;
+    BOOL	  loadRun = TRUE;					\
+
+    tick = tickGet();
+
+    for (counter = 0; counter &lt; pData-&gt;iterations; counter++)
+        {
+	a = _M_TIMESTAMP();
+	b = _M_TIMESTAMP();
+
+	/* validate and record data */
+
+	BM_DATA_RECORD ((b &gt; a), b - a, 0, counter, tick, loadRun);
+	}
+</code></pre>
+<p><img src="https://wsg-blogs-pic.oss-cn-beijing.aliyuncs.com/xenomai/rdtims.png" alt="" loading="lazy"></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center">min</th>
+<th style="text-align: center">avg</th>
+<th style="text-align: center">max</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center">0.084</td>
+<td style="text-align: center">0.094</td>
+<td style="text-align: center">0.132</td>
+</tr>
+</tbody>
+</table>
+<h3 id="22-任务切换">2.2 任务切换</h3>
+<h5 id="221信号量响应上下文切换时间">2.2.1信号量响应上下文切换时间</h5>
+<p>bmCtxSempend: 同一cpu上，高优先级任务对空信号量P操作阻塞，到低优先任务激活的时间。</p>
+<p>bmCtxSemUnpend: 同一cpu上，低优先级任务对信号量V操作到高优先任务激活的时间。</p>
+<p>CtxSmpAffinitySemUnPend: 高低优先级任务运行于不同cpu上，高优先级任务对空信号量P操作阻塞，到低优先任务激活的时间。</p>
+<p>CtxSmpNoAffinitySemUnPend: 不设置亲和性，随系统调度，低优先级任务对信号量V操作到高优先任务激活的时间。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>min</th>
+<th>avg</th>
+<th>max</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>bmCtxSempend</td>
+<td>2.136</td>
+<td>2.193</td>
+<td>2.641</td>
+</tr>
+<tr>
+<td>bmCtxSemUnpend</td>
+<td>2.351</td>
+<td>2.395</td>
+<td>2.977</td>
+</tr>
+<tr>
+<td>CtxSmpAffinitySemUnPend</td>
+<td>0.000</td>
+<td>0.752</td>
+<td>2.642</td>
+</tr>
+<tr>
+<td>CtxSmpNoAffinitySemUnPend</td>
+<td>2.389</td>
+<td>2.454</td>
+<td>2.797</td>
+</tr>
+</tbody>
+</table>
+<h5 id="222消息队列响应上下文切换时间">2.2.2消息队列响应上下文切换时间</h5>
+<p>bmCtxMsgqPend：同一cpu上，高优先级任务对空消息队列接收数据阻塞，到低优先任务激活的时间。</p>
+<p>bmCtxMsgqUnpend：同一cpu上，  低优先级任务写消息队列到高优先任务激活的时间。</p>
+<p>CtxSmpAffinityMsgQUnPend：高低优先级任务运行于不同cpu上，高优先级任务对空消息队列接收数据阻塞，到低优先任务激活的时间。</p>
+<p>CtxSmpNoAffinityMsgQUnPend：不设置亲和性，随系统调度， 低优先级任务写消息队列到高优先任务激活的时间。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>min</th>
+<th>avg</th>
+<th>max</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>bmCtxMsgqPend</td>
+<td>2.496</td>
+<td>2.529</td>
+<td>2.833</td>
+</tr>
+<tr>
+<td>bmCtxMsgqUnpend</td>
+<td>2.882</td>
+<td>2.949</td>
+<td>3.374</td>
+</tr>
+<tr>
+<td>CtxSmpAffinityMsgQUnPend</td>
+<td>5.245</td>
+<td>5.497</td>
+<td>10.589</td>
+</tr>
+<tr>
+<td>CtxSmpNoAffinityMsgQUnPend</td>
+<td>2.941</td>
+<td>2.995</td>
+<td>3.636</td>
+</tr>
+</tbody>
+</table>
+<h5 id="223事件响应上下文切换时间">2.2.3事件响应上下文切换时间</h5>
+<p>bmCtxMsgqPend：高优先级任务接收事件阻塞，到低优先任务激活的时间。</p>
+<p>bmCtxMsgqUnpend： 低优先级任务发送事件到高优先任务激活的时间。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>min</th>
+<th>avg</th>
+<th>max</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>bmCtxEventPend</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>bmCtxEventUnpend</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>CtxSmpAffinityEventQUnPend</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>CtxSmpNoAffinityEventUnPend</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<h5 id="2224任务上下文切换时间">2.2.2.4任务上下文切换时间</h5>
+<p>bmCtxTaskSwitch：同一cpu上，优先级调度下的任务切换时间。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>min</th>
+<th>avg</th>
+<th>max</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>bmCtxTaskSwitch</td>
+<td>0.703</td>
+<td>1.633</td>
+<td>2.594</td>
+</tr>
+</tbody>
+</table>
+<h3 id="23-信号量semaphore">2.3 信号量(Semaphore)</h3>
+<h5 id="1--信号量的创建与删除">1.  信号量的创建与删除</h5>
+<p>bmSemBCreate: 创建一个信号量耗时。</p>
+<p>bmSemBDelete: 删除一个信号量耗时。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>min</th>
+<th>avg</th>
+<th>max</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>bmSemCreate</td>
+<td>10.433</td>
+<td>11.417</td>
+<td>12.977</td>
+</tr>
+<tr>
+<td>bmSemDelete</td>
+<td>10.276</td>
+<td>11.431</td>
+<td>12.317</td>
+</tr>
+</tbody>
+</table>
+<h5 id="2-信号量pv操作">2. 信号量PV操作</h5>
+<p>SemGiveNoTask：当没有任务阻塞在信号量上时，对空信号量V操作消耗的时间。</p>
+<p>SemGiveTaskInQ：同一CPU上，高优先级任务阻塞在信号量时，低优先级任务释放信号量操作消耗的时间。</p>
+<p>SemTakeUnavail：单任务对不可用的信号量P操作消耗的时间。</p>
+<p>SemTakeAvail：单任务对可用信号量非阻塞P操作消耗的时间。</p>
+<p>bmSemGiveTake：单任务对同一信号量连续一次PV操作消耗的时间。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>min</th>
+<th>avg</th>
+<th>max</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SemGiveNoTask</td>
+<td>0.099</td>
+<td>0.110</td>
+<td>0.132</td>
+</tr>
+<tr>
+<td>SemGiveTaskInQ</td>
+<td>1.837</td>
+<td>2.036</td>
+<td>2.281</td>
+</tr>
+<tr>
+<td>SemTakeAvail</td>
+<td>0.084</td>
+<td>0.094</td>
+<td>0.108</td>
+</tr>
+<tr>
+<td>SemTakeUnavail</td>
+<td>0.111</td>
+<td>0.125</td>
+<td>0.144</td>
+</tr>
+<tr>
+<td>SemGiveTake</td>
+<td>0.187</td>
+<td>0.192</td>
+<td>0.198</td>
+</tr>
+<tr>
+<td>SemPrioInv</td>
+<td>6.531</td>
+<td>6.842</td>
+<td>11.968</td>
+</tr>
+</tbody>
+</table>
+<h3 id="24-互斥量mutex">2.4 互斥量(Mutex)</h3>
+<h5 id="241---互斥量的创建与删除">2.4.1   互斥量的创建与删除</h5>
+<p>MutexCreate：创建一个互斥量耗时。</p>
+<p>MutexDelete：删除一个互斥量耗时。</p>
+<h5 id="242-互斥量pv操作">2.4.2 互斥量PV操作</h5>
+<p>MutexGiveNoTask：当没有任务阻塞在mutex上时，释放mutex操作消耗的时间。</p>
+<p>MutexGiveTaskInQ：同一CPU上，高优先级任务阻塞在mutex时，低优先级任务释放mutex操作消耗的时间。</p>
+<p>MutexTakeUnavail：当没有mutex可用时，对mutex请求操作的耗时。</p>
+<p>MutexTakeAvail：在mutex可用时，请求mutex消耗的时间。</p>
+<p>MutexGiveTake：单任务对mutex连续请求释放消耗的时间。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>min</th>
+<th>avg</th>
+<th>max</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MutexCreate</td>
+<td>2.881</td>
+<td>2.947</td>
+<td>3.205</td>
+</tr>
+<tr>
+<td>MutexDelete</td>
+<td>2.039</td>
+<td>2.084</td>
+<td>2.209</td>
+</tr>
+<tr>
+<td>MutexGiveNoTask</td>
+<td>0.033</td>
+<td>0.044</td>
+<td>0.066</td>
+</tr>
+<tr>
+<td>MutexGiveTaskInQ</td>
+<td>0.047</td>
+<td>0.117</td>
+<td>0.228</td>
+</tr>
+<tr>
+<td>MutexTakeAvail</td>
+<td>0.084</td>
+<td>0.094</td>
+<td>0.114</td>
+</tr>
+<tr>
+<td>MutexGiveTake</td>
+<td>0.118</td>
+<td>0.122</td>
+<td>0.148</td>
+</tr>
+</tbody>
+</table>
+<h3 id="25--消息队列message-queue">2.5  消息队列(Message Queue)</h3>
+<h5 id="251-创建与删除">2.5.1 创建与删除</h5>
+<p>MsgQCreate：创建一个MsgQ需要的时间。</p>
+<p>MsgQDelete：删除一个MsgQ需要的时间。</p>
+<h5 id="252-数据收发">2.5.2 数据收发</h5>
+<p>MsgQRecvAvail：当MsgQ内有数据时，接收1Byte数据需要的时间。</p>
+<p>MsgQRecvNoAvail：当MsgQ没有数据时，非阻塞接收1Byte数据需要的时间。</p>
+<p>MsgQSendPend：高优先级等待数据时，发送1Byte数据需要的时间。</p>
+<p>MsgQSendNoPend：没有任务等待数据时，发送1Byte数据需要的时间。</p>
+<p>MsgQSendQFull：当MsgQ满时，非阻塞发送1Byte数据需要的时间。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>min</th>
+<th>avg</th>
+<th>max</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MsgQCreate</td>
+<td>5.991</td>
+<td>6.324</td>
+<td>6.855</td>
+</tr>
+<tr>
+<td>MsgQDelete</td>
+<td>3.733</td>
+<td>3.849</td>
+<td>4.046</td>
+</tr>
+<tr>
+<td>MsgQRecvAvail</td>
+<td>0.240</td>
+<td>0.279</td>
+<td>0.396</td>
+</tr>
+<tr>
+<td>MsgQRecvNoAvail</td>
+<td>0.216</td>
+<td>0.267</td>
+<td>0.349</td>
+</tr>
+<tr>
+<td>MsgQSendPend</td>
+<td>2.401</td>
+<td>2.647</td>
+<td>3.902</td>
+</tr>
+<tr>
+<td>MsgQSendNoPend</td>
+<td>1.223</td>
+<td>1.262</td>
+<td>1.536</td>
+</tr>
+<tr>
+<td>MsgQSendQFull</td>
+<td>0.228</td>
+<td>0.275</td>
+<td>0.408</td>
+</tr>
+</tbody>
+</table>
+<h3 id="26--定时器alarm">2.6  定时器(Alarm)</h3>
+<p>AlarmCreate：创建一个alarm的时间。</p>
+<p>AlarmDelStarted：删除一个已经激活的alarm的时间。</p>
+<p>AlarmDelNotStarted：删除一个未激活alarm的时间。</p>
+<p>AlarmStartQEmpty：任务没有alarm时，start一个alarm需要的时间。</p>
+<p>AlarmStartQEmpty：任务在已有一个 alarm的基础上，再start一个alarm需要的时间。</p>
+<p>AlarmCancel：stop一个alarm需要的时间。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>min</th>
+<th>avg</th>
+<th>max</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AlarmCreate</td>
+<td>4.790</td>
+<td>4.937</td>
+<td>7.719</td>
+</tr>
+<tr>
+<td>AlarmDelStarted</td>
+<td>3.637</td>
+<td>3.804</td>
+<td>4.250</td>
+</tr>
+<tr>
+<td>AlarmDelNotStarted</td>
+<td>3.420</td>
+<td>3.523</td>
+<td>4.381</td>
+</tr>
+<tr>
+<td>AlarmStartQEmpty</td>
+<td>1.860</td>
+<td>2.079</td>
+<td>3.158</td>
+</tr>
+<tr>
+<td>AlarmStartQFull</td>
+<td>1.835</td>
+<td>1.897</td>
+<td>2.101</td>
+</tr>
+<tr>
+<td>AlarmCancel</td>
+<td>1.596</td>
+<td>1.680</td>
+<td>2.677</td>
+</tr>
+</tbody>
+</table>
+<h3 id="27-事件event">2.7 事件(Event)</h3>
+<p>EventSendSelf:  任务向自己发送一个Event需要的时间。</p>
+<p>EventReceiveAvailable:  接收一个已产生的Event需要的时间。</p>
+<p>EventReceiveUnavailable:  非阻塞接收一个未产生的Event需要的时间。</p>
+<p>EventTaskSendWanted:  高优先级等待Event时，发送Event需要的时间。</p>
+<p>EventTaskSendUnwanted:  无任务等待Event时，发送Event需要的时间。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>min</th>
+<th>avg</th>
+<th>max</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>EventSendSelf</td>
+<td>4.790</td>
+<td>4.937</td>
+<td>7.719</td>
+</tr>
+<tr>
+<td>EventReceiveAvailable</td>
+<td>3.637</td>
+<td>3.804</td>
+<td>4.250</td>
+</tr>
+<tr>
+<td>EventReceiveUnavailable</td>
+<td>3.420</td>
+<td>3.523</td>
+<td>4.381</td>
+</tr>
+<tr>
+<td>EventTaskSendWanted</td>
+<td>1.860</td>
+<td>2.079</td>
+<td>3.158</td>
+</tr>
+<tr>
+<td>EventTaskSendUnwanted</td>
+<td>1.835</td>
+<td>1.897</td>
+<td>2.101</td>
+</tr>
+</tbody>
+</table>
+<h3 id="28--任务task">2.8  任务(Task)</h3>
+<h5 id="281-任务创建激活">2.8.1 任务创建激活</h5>
+<p>TaskSpawn： 创建并激活一个任务需要的时间。</p>
+<p>TaskDelete：删除一个任务需要的时间。</p>
+<p>TaskInit：创建一个任务需要的时间。</p>
+<p>TaskActivate：激活新创建的任务需要的时间。</p>
+<h5 id="282-任务调度控制">2.8.2 任务调度控制</h5>
+<p>TaskSuspendReady：对一个已经处于ready状态的任务suspend操作需要的时间。</p>
+<p>TaskSuspendPend：对一个等待资源处于pend状态的任务进行suspend操作需要的时间。</p>
+<p>TaskSuspendSusp：对刚创建的处于Suspend任务 执行Suspend操作需要的时间。</p>
+<p>TaskSuspendDelay：对一个处于sleep任务进行suspend操作需要的时间。</p>
+<p>TaskResumeReady：对一个处于Ready状态的任务进行Resume操作需要的时间。</p>
+<p>TaskResumePend：对一个等待资源处于pend状态的任务进行Resume操作需要的时间。</p>
+<p>TaskResumeSusp：对一个处于Suspend状态的任务进行Resume操作需要的时间。</p>
+<p>TaskResumeDelay：对一个处于sleep任务进行Resume操作需要的时间。</p>
+<p>TaskPrioritySetReady：对一个处于Ready状态任务修改优先级操作需要的时间。</p>
+<p>TaskPrioritySetPend：对一个处于pend状态任务修改优先级操作需要的时间。</p>
+<p>bmTaskCpuAffinityGet：获取任务的亲和性需要的时间。</p>
+<p>bmTaskCpuAffinitySet：设置任务的亲和性需要的时间。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>min</th>
+<th>avg</th>
+<th>max</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TaskSpawn(1000万次)</td>
+<td>150.649</td>
+<td>153.859</td>
+<td>1162.041</td>
+</tr>
+<tr>
+<td>TaskDelete(1000万次)</td>
+<td>136.074</td>
+<td>145.766</td>
+<td>189.952</td>
+</tr>
+<tr>
+<td>TaskInit(1000万次)</td>
+<td>178.703</td>
+<td>185.015</td>
+<td>436.639</td>
+</tr>
+<tr>
+<td>TaskActivate</td>
+<td>1.052</td>
+<td>1.336</td>
+<td>2.986</td>
+</tr>
+<tr>
+<td>TaskSuspendReady</td>
+<td>1.404</td>
+<td>1.444</td>
+<td>1.681</td>
+</tr>
+<tr>
+<td>TaskSuspendPend</td>
+<td>0.035</td>
+<td>1.392</td>
+<td>1.561</td>
+</tr>
+<tr>
+<td>TaskSuspendSusp</td>
+<td>0.151</td>
+<td>0.155</td>
+<td>0.321</td>
+</tr>
+<tr>
+<td>TaskSuspendDelay</td>
+<td>1.356</td>
+<td>1.401</td>
+<td>1.525</td>
+</tr>
+<tr>
+<td>TaskResumeReady</td>
+<td>0.146</td>
+<td>0.155</td>
+<td>0.487</td>
+</tr>
+<tr>
+<td>TaskResumePend</td>
+<td>0.756</td>
+<td>0.802</td>
+<td>0.877</td>
+</tr>
+<tr>
+<td>TaskResumeSusp</td>
+<td>0.204</td>
+<td>0.248</td>
+<td>0.324</td>
+</tr>
+<tr>
+<td>TaskResumeDelay</td>
+<td>0.180</td>
+<td>0.228</td>
+<td>0.300</td>
+</tr>
+<tr>
+<td>TaskPrioritySetReady</td>
+<td>18.925</td>
+<td>21.002</td>
+<td>21.855</td>
+</tr>
+<tr>
+<td>TaskPrioritySetPend</td>
+<td>19.046</td>
+<td>21.014</td>
+<td>28.296</td>
+</tr>
+<tr>
+<td>TaskCpuAffinityGet</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>TaskCpuAffinitySet</td>
+<td>8.332</td>
+<td>9.541</td>
+<td>19.808</td>
+</tr>
+</tbody>
+</table>
+<p>Cyclic:如下操作的流程循环一次的耗时，图中M表示mutex，B表示Semaphore。</p>
+<pre><code class="language-C">/*
+       Higher Priority 	   Lower Priority
+		 Task1			   			Task2
+		=============== 		   ==============
+
+
+	   semTake(M)
+	   semGive(M)
+		 |
+		 V
+	   semGive(B)
+	   semTake(B)
+		 |
+		 V
+	   semTake(B)
+		 \
+		  \
+		   \-------------&gt;	  semTake(M)
+							  semGive(B)
+									  /
+									 /
+	   semTake(M)	  &lt;-------------/
+		 \
+		  \
+		   \-------------&gt;	  semGive(M)
+									  /
+									 /
+	   semGive(M)	  &lt;-------------/
+		 |
+		 V
+	   taskSuspend()  &lt;-------------/
+		 \
+		  \
+		   \-------------&gt;	  taskResume()
+								      /
+									 /
+	   msgQSend()	  &lt;-------------/
+	   msgQReceive()
+		 |
+		 V
+	   msgQReceive()
+		 \
+		  \
+		   \-------------&gt;	  msgQSend()
+									  /
+									 /
+	   taskDelay(0)   &lt;-------------/
+		 |
+		 V
+	   eventReceive()
+		 \
+		  \
+		   \-------------&gt;	  eventSend()
+									  /
+									 /
+	   repeat...	  &lt;-------------/
+*/
+</code></pre>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>min</th>
+<th>avg</th>
+<th>max</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cyclic</td>
+<td>33.589</td>
+<td>34.409</td>
+<td>36.471</td>
+</tr>
+</tbody>
+</table>
+<p>版权声明：本文为本文为博主原创文章，转载请注明出处。如有问题，欢迎指正。博客地址：<a href="https://www.cnblogs.com/wsg1100/">https://www.cnblogs.com/wsg1100/</a></p>
+
+</div>
+<div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+    <div id="blog_post_info"></div>
+    <div class="clear"></div>
+    <div id="post_next_prev"></div>
+</div>
+		</div>
+		<div class="postDesc">posted @ 
+<span id="post-date">2020-10-25 21:39</span>&nbsp;
+<a href="https://www.cnblogs.com/wsg1100/">木多</a>&nbsp;
+阅读(<span id="post_view_count">24</span>)&nbsp;
+评论(<span id="post_comment_count">0</span>)&nbsp;
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13875385" rel="nofollow">编辑</a>&nbsp;
+<a href="javascript:void(0)" onclick="AddToWz(13875385);return false;">收藏</a></div>
+	</div>
+	
+	
+</div><!--end: topics 文章、评论容器-->
+<script src="https://common.cnblogs.com/highlight/10.3.1/highlight.min.js"></script>
+<script>markdown_highlight();</script>
+<script>
+    var allowComments = true, cb_blogId = 385777, cb_blogApp = 'wsg1100', cb_blogUserGuid = '7e999067-b854-4fb5-ff22-08d4ef52ecb5';
+    var cb_entryId = 13875385, cb_entryCreatedDate = '2020-10-25 21:39', cb_postType = 1;
+    loadViewCount(cb_entryId);
+</script>
+<a name="!comments"></a>
+<div id="blog-comments-placeholder"></div>
+<div id="comment_form" class="commentform">
+    <a name="commentform"></a>
+    <div id="divCommentShow"></div>
+    <div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="#" onclick="return RefreshPage();">刷新页面</a><a href="#top">返回顶部</a></div>
+    <div id="comment_form_container"></div>
+    <div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+    <div id="ad_t2"></div>
+    <div id="opt_under_post"></div>
+    <div id="cnblogs_c1" class="c_ad_block">
+        <div id='div-gpt-ad-1592365906576-0' style='width: 300px; height: 250px;'></div>
+    </div>
+    <div id="under_post_news"></div>
+    <div id="cnblogs_c2" class="c_ad_block">
+        <div id='div-gpt-ad-1592366332455-0' style='width: 468px; height: 60px;'></div>
+    </div>
+    <div id="under_post_kb"></div>
+    <div id="HistoryToday" class="c_ad_block"></div>
+    <script type="text/javascript">
+       var commentManager = new blogCommentManager();
+       commentManager.renderComments(0);
+       fixPostBody();
+       deliverBigBanner();
+setTimeout(function() { incrementViewCount(cb_entryId); }, 50);       deliverT2();
+       deliverC1C2();
+       loadNewsAndKb();
+       loadBlogSignature();
+LoadPostCategoriesTags(cb_blogId, cb_entryId);       LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+       GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+       loadOptUnderPost();
+       GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);
+   </script>
+</div>
+
+</div>
+
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			<div id="sidebar_news" class="newsItem">
+            <script>loadBlogNews();</script>
+</div>
+<div id="sidebar_ad"></div>
+			<div id="calendar"><div id="blog-calendar" style="display:none"></div><script>loadBlogDefaultCalendar();</script></div>
+			
+			<DIV id="leftcontentcontainer">
+				<div id="blog-sidecolumn"></div>
+                    <script>loadBlogSideColumn();</script>
+			</DIV>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		<!--done-->
+Copyright &copy; 2020 木多
+<br /><span id="poweredby">Powered by .NET 5.0.0-rc.2.20475.5 on Kubernetes</span>
+
+
+
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+    
+</body>
+</html>

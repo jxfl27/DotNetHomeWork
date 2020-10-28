@@ -1,0 +1,1275 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="origin" />
+    
+    
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>字母哥博客 - 博客园</title>
+    <link id="favicon" rel="shortcut icon" href="//common.cnblogs.com/favicon.svg" type="image/svg+xml" />
+    
+    <link rel="stylesheet" href="/css/blog-common.min.css?v=caAedYKpnz341INFIWakIM6r1EP9FIuJg43i9i8zqDQ" />
+    <link id="MainCss" rel="stylesheet" href="/skins/codinglife/bundle-codinglife.min.css?v=dij5UHLPkhCwoV5SpUeOW7BnKC0vZ5-8GYi-drRcxLA" />
+    
+    <link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="/skins/codinglife/bundle-codinglife-mobile.min.css?v=JtOonyglmq10yOLdtvmh-WsVtFwm8HRB8mR_g_TGArQ" />
+    
+    <link type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/zimug/rss" />
+    <link type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/zimug/rsd.xml" />
+    <link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/zimug/wlwmanifest.xml" />
+    <script>
+        var currentBlogId = 547155;
+        var currentBlogApp = 'zimug';
+        var cb_enable_mathjax = false;
+        var isLogined = false;
+        var isBlogOwner = false;
+        var skinName = 'CodingLife';
+        var visitorUserId = '';
+    </script>
+    <script src="https://common.cnblogs.com/scripts/jquery-2.2.0.min.js"></script>
+    <script src="/js/blog-common.min.js?v=kKx3DBtpvO8r97BzPmHJseQ10fGHkI-ZwMh4FA0eEd0"></script>
+    
+    
+    
+</head>
+<body class="has-navbar">
+    <a name="top"></a> 
+    <div id="top_nav" class="navbar">
+        <nav id="nav_main" class="navbar-main">
+            <ul id="nav_left" class="navbar-list navbar-left">
+                <li class="navbar-branding">
+                    <a href="https://www.cnblogs.com/" title="开发者的网上家园"><img src="/images/logo.svg?v=R9M0WmLAIPVydmdzE2keuvnjl-bPR7_35oHqtiBzGsM" alt="博客园Logo" /></a>
+                </li>
+                <li><a href="/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-sitehome')">首页</a></li>
+                <li><a href="https://news.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-news')">新闻</a></li>
+                <li><a href="https://q.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-q')">博问</a></li>
+                <li><a id="nav_brandzone" href="https://brands.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-brands')">专区</a></li>
+                <li><a href="https://ing.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-ing')">闪存</a></li>
+                <li><a href="https://edu.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-edu')">班级</a></li>
+            </ul>
+            <ul id="nav_right" class="navbar-list navbar-right">
+                <li>
+                    <form id="zzk_search" class="navbar-search" action="https://zzk.cnblogs.com/s" method="get">
+                        <input name="w" id="zzk_search_input" placeholder="代码改变世界" type="text" tabindex="3" />
+                        <button type="submit" id="zzk_search_button">
+                            <img src="/images/aggsite/search.svg" alt="搜索" />
+                        </button>
+                    </form>
+                </li>
+                <li id="navbar_login_status" class="navbar-list">
+                    <a id="navblog-myblog-icon" class="navbar-user-info navbar-blog" href="https://passport.cnblogs.com/GetBlogApplyStatus.aspx" alt="我的博客" title="我的博客">
+                        <img id="myblog_icon" class="navbar-icon" src="/images/aggsite/myblog.svg" alt="我的博客" />
+                    </a>
+                    <a class="navbar-user-info navbar-message navbar-icon-wrapper" href="https://msg.cnblogs.com/" alt="短消息" title="短消息">
+                        <img id="msg_icon" class="navbar-icon" src="/images/aggsite/message.svg?v=oS4PkibyMjZ9rGD5XAcLt99uW_s76Javy2up4dbnZNY" alt="短消息" />
+                        <span id="msg_count" style="display: none"></span>
+                    </a>
+                    <div id="user_info" class="navbar-user-info dropdown">
+                        <a class="dropdown-button" href="https://home.cnblogs.com/">
+                            <img id="user_icon" class="navbar-avatar" src="/images/aggsite/avatar-default.svg" alt="用户头像" />
+                        </a>
+                        <div class="dropdown-menu">
+                            <a id="navblog-myblog-text" href="https://passport.cnblogs.com/GetBlogApplyStatus.aspx">我的博客</a>
+                            <a href="https://home.cnblogs.com/">我的园子</a>
+                            <a href="https://account.cnblogs.com/settings/account">账号设置</a>
+                            <a href="javascript:void(0)" onclick="logout();">退出登录</a>
+                        </div>
+                    </div>
+                    <a class="navbar-anonymous" href="https://account.cnblogs.com/signup/">注册</a>
+                    <a class="navbar-anonymous" href="https://account.cnblogs.com/signin/?returnUrl=https://www.cnblogs.com/">登录</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    
+    <!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+        <a id="lnkBlogLogo" href="https://www.cnblogs.com/zimug/"><img id="blogLogo" src="/skins/custom/images/logo.gif" alt="返回主页" /></a>		
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle HeaderMainTitle" href="https://www.cnblogs.com/zimug/">字母哥博客</a>
+</h1>
+<h2>
+
+</h2>
+
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li><a id="blog_nav_sitehome" class="menu" href="https://www.cnblogs.com/">
+博客园</a>
+</li>
+<li>
+<a id="blog_nav_myhome" class="menu" href="https://www.cnblogs.com/zimug/">
+首页</a>
+</li>
+<li>
+
+<a id="blog_nav_newpost" class="menu" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">
+新随笔</a>
+</li>
+<li>
+<a id="blog_nav_contact" class="menu" href="https://msg.cnblogs.com/send/%E5%AD%97%E6%AF%8D%E5%93%A5%E5%8D%9A%E5%AE%A2">
+联系</a></li>
+<li>
+<a id="blog_nav_rss" class="menu" href="javascript:void(0)" data-rss="https://www.cnblogs.com/zimug/rss/">
+订阅</a>
+<!--<partial name="./Shared/_XmlLink.cshtml" model="Model" /></li>--></li>
+<li>
+<a id="blog_nav_admin" class="menu" href="https://i.cnblogs.com/">
+管理</a>
+</li>
+</ul>
+
+
+		<div class="blogStats">
+			<span id="stats_post_count">随笔 - 
+121&nbsp; </span>
+<span id="stats_article_count">文章 - 
+0&nbsp; </span>
+<span id="stats-comment_count">评论 - 
+40</span>
+
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		
+
+
+
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/zimug/archive/2019/10/18.html">2019年10月18日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/zimug/p/11701178.html">
+    <span>
+            <span>[置顶]</span>
+        springboot深入浅出系列(16章97节)-看了都说好
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：章节目录 &quot;第一章 spring boot 2.x基础及概念入门&quot; &quot;1.1.spring boot 产生的背景及其优势&quot; &quot;1.2.spring boot 2.x 新特性说明&quot; &quot;1.3.helloworld及项目结构介绍&quot; &quot;1.4.IDEA结合spring boot开发技巧&quot; &quot;第二章 RES        <a href="https://www.cnblogs.com/zimug/p/11701178.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2019-10-18 22:23
+字母哥博客
+<span class="post-view-count">阅读(720)</span><text> </text>
+<span class="post-comment-count">评论(1)</span><text> </text>
+<span class="post-digg-count">推荐(1)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=11701178" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/zimug/archive/2020/10/26.html">2020年10月26日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/zimug/p/13876509.html">
+    <span>
+        跨站资源共享CORS原理深度解析
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：我相信如果你写过前后端分离的web应用程序，或者写过一些ajax请求调用，你可能会遇到过CORS错误。 CORS是什么？ 它与安全性有关吗？ 为什么要有CORS？它解决了什么目的？ CORS是怎样运行的？ 如果您有这些问题，那么这篇文章非常适合您。 一、什么是CORS？ 要了解什么是CORS（Cro        <a href="https://www.cnblogs.com/zimug/p/13876509.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-10-26 07:13
+字母哥博客
+<span class="post-view-count">阅读(16)</span><text> </text>
+<span class="post-comment-count">评论(0)</span><text> </text>
+<span class="post-digg-count">推荐(0)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13876509" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/zimug/archive/2020/10/22.html">2020年10月22日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/zimug/p/13855837.html">
+    <span>
+        Java9系列第8篇-Module模块化编程
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：我计划在后续的一段时间内，写一系列关于java 9的文章，虽然java 9 不像Java 8或者Java 11那样的核心java版本，但是还是有很多的特性值得关注。期待您能关注我，我将把java 9 写成一系列的文章，大概十篇左右，本文是第8篇。 java9系列文章访问地址 在Java 9版本中Ja        <a href="https://www.cnblogs.com/zimug/p/13855837.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-10-22 07:56
+字母哥博客
+<span class="post-view-count">阅读(198)</span><text> </text>
+<span class="post-comment-count">评论(1)</span><text> </text>
+<span class="post-digg-count">推荐(1)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13855837" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/zimug/archive/2020/10/20.html">2020年10月20日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/zimug/p/13844268.html">
+    <span>
+        Java9系列第7篇：Java.util.Optional优化与增强
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：我计划在后续的一段时间内，写一系列关于java 9的文章，虽然java 9 不像Java 8或者Java 11那样的核心java版本，但是还是有很多的特性值得关注。期待您能关注我，我将把java 9 写成一系列的文章，大概十篇左右，本文是第7篇。 java9系列文章访问地址 java.util.Op        <a href="https://www.cnblogs.com/zimug/p/13844268.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-10-20 06:59
+字母哥博客
+<span class="post-view-count">阅读(193)</span><text> </text>
+<span class="post-comment-count">评论(0)</span><text> </text>
+<span class="post-digg-count">推荐(0)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13844268" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/zimug/archive/2020/10/19.html">2020年10月19日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/zimug/p/13838150.html">
+    <span>
+        Java9系列第6篇-Stream流API的增强
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：我计划在后续的一段时间内，写一系列关于java 9的文章，虽然java 9 不像Java 8或者Java 11那样的核心java版本，但是还是有很多的特性值得关注。期待您能关注我，我将把java 9 写成一系列的文章，大概十篇左右，本文是第6篇。 java9系列文章访问地址 本文带大家快速的了解一下        <a href="https://www.cnblogs.com/zimug/p/13838150.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-10-19 06:35
+字母哥博客
+<span class="post-view-count">阅读(194)</span><text> </text>
+<span class="post-comment-count">评论(0)</span><text> </text>
+<span class="post-digg-count">推荐(1)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13838150" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/zimug/archive/2020/10/18.html">2020年10月18日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/zimug/p/13833383.html">
+    <span>
+        java9第5篇-Collection集合类的增强与优化
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：我计划在后续的一段时间内，写一系列关于java 9的文章，虽然java 9 不像Java 8或者Java 11那样的核心java版本，但是还是有很多的特性值得关注。期待您能关注我，我将把java 9 写成一系列的文章，大概十篇左右，本文是第5篇。 java9系列文章访问地址 本文带大家快速的了解一下        <a href="https://www.cnblogs.com/zimug/p/13833383.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-10-18 07:07
+字母哥博客
+<span class="post-view-count">阅读(148)</span><text> </text>
+<span class="post-comment-count">评论(0)</span><text> </text>
+<span class="post-digg-count">推荐(0)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13833383" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/zimug/archive/2020/10/17.html">2020年10月17日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/zimug/p/13829758.html">
+    <span>
+        Java9第四篇-Reactive Stream API响应式编程
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：我计划在后续的一段时间内，写一系列关于java 9的文章，虽然java 9 不像Java 8或者Java 11那样的核心java版本，但是还是有很多的特性值得关注。期待您能关注我，我将把java 9 写成一系列的文章，大概十篇左右。 java9第一篇-可以在interface中定义私有方法了 jav        <a href="https://www.cnblogs.com/zimug/p/13829758.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-10-17 08:21
+字母哥博客
+<span class="post-view-count">阅读(131)</span><text> </text>
+<span class="post-comment-count">评论(1)</span><text> </text>
+<span class="post-digg-count">推荐(1)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13829758" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/zimug/archive/2020/10/16.html">2020年10月16日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/zimug/p/13824215.html">
+    <span>
+        Java9系列第三篇-同一个Jar支持多JDK版本运行
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：我计划在后续的一段时间内，写一系列关于java 9的文章，虽然java 9 不像Java 8或者Java 11那样的核心java版本，但是还是有很多的特性值得关注。期待您能关注我，我将把java 9 写成一系列的文章，大概十篇左右。 java9第一篇-可以在interface中定义私有方法了 jav        <a href="https://www.cnblogs.com/zimug/p/13824215.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-10-16 08:07
+字母哥博客
+<span class="post-view-count">阅读(277)</span><text> </text>
+<span class="post-comment-count">评论(0)</span><text> </text>
+<span class="post-digg-count">推荐(0)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13824215" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/zimug/archive/2020/10/15.html">2020年10月15日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/zimug/p/13818458.html">
+    <span>
+        java9系列第二篇-资源自动关闭的语法增强
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：我计划在后续的一段时间内，写一系列关于java 9的文章，虽然java 9 不像Java 8或者Java 11那样的核心java版本，但是还是有很多的特性值得关注。期待您能关注我，我将把java 9 写成一系列的文章，大概十篇左右。 java9第一篇-可以在interface中定义私有方法了 在Ja        <a href="https://www.cnblogs.com/zimug/p/13818458.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-10-15 07:19
+字母哥博客
+<span class="post-view-count">阅读(161)</span><text> </text>
+<span class="post-comment-count">评论(0)</span><text> </text>
+<span class="post-digg-count">推荐(1)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13818458" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/zimug/archive/2020/10/13.html">2020年10月13日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/zimug/p/13806592.html">
+    <span>
+        我要告诉你：java接口中可以定义private私有方法
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：在传统的Java编程中，被广为人知的一个知识点是：java Interface接口中不能定义private私有方法。只允许我们定义public访问权限的方法、抽象方法或静态方法。但是从Java 9 开始，Interface 接口中允许定义私有方法和私有静态方法。下面我们就来为大家介绍其语法规则，和为        <a href="https://www.cnblogs.com/zimug/p/13806592.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-10-13 07:39
+字母哥博客
+<span class="post-view-count">阅读(252)</span><text> </text>
+<span class="post-comment-count">评论(2)</span><text> </text>
+<span class="post-digg-count">推荐(2)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13806592" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/zimug/archive/2020/10/12.html">2020年10月12日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/zimug/p/13800694.html">
+    <span>
+        在java中使用SFTP协议安全的传输文件
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：本文介绍在Java中如何使用基于SSH的文件传输协议（SFTP）将文件从本地上传到远程服务器，或者将文件在两个服务器之间安全的传输。我们先来了解一下这几个协议 SSH 是较可靠，专为远程登录会话和其他网络服务提供安全性的协议。比如：我们购买的云服务器登陆的时候使用的协议都是ssh。 ftp协议通常是        <a href="https://www.cnblogs.com/zimug/p/13800694.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-10-12 07:12
+字母哥博客
+<span class="post-view-count">阅读(212)</span><text> </text>
+<span class="post-comment-count">评论(0)</span><text> </text>
+<span class="post-digg-count">推荐(0)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13800694" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/zimug/archive/2020/10/10.html">2020年10月10日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/zimug/p/13790005.html">
+    <span>
+        js日志输出还是只会console.log么，那你就out了
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：几乎所有的javascript开发者最常使用的日志打印调试api都是console.log(),其实还有很多的选项供我们选择，笔者下面就为大家一一介绍. 一、console.table() console.table()是我非常建议大家去使用的方法，它可以接受JSON或数组并以表格格式打印，在对js        <a href="https://www.cnblogs.com/zimug/p/13790005.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-10-10 07:38
+字母哥博客
+<span class="post-view-count">阅读(931)</span><text> </text>
+<span class="post-comment-count">评论(4)</span><text> </text>
+<span class="post-digg-count">推荐(11)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13790005" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/zimug/archive/2020/09/28.html">2020年9月28日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/zimug/p/13742920.html">
+    <span>
+        Jackson精讲第7篇-类继承关系下的JSON序列化与反序列化JsonTypeInfo
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：Jackson是Spring Boot(SpringBoot)默认的JSON数据处理框架，但是其并不依赖于任何的Spring 库。有的小伙伴以为Jackson只能在Spring框架内使用，其实不是的，没有这种限制。它提供了很多的JSON数据处理方法、注解，也包括流式API、树模型、数据绑定，以及复杂        <a href="https://www.cnblogs.com/zimug/p/13742920.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-09-28 07:24
+字母哥博客
+<span class="post-view-count">阅读(129)</span><text> </text>
+<span class="post-comment-count">评论(0)</span><text> </text>
+<span class="post-digg-count">推荐(0)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13742920" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/zimug/archive/2020/09/26.html">2020年9月26日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/zimug/p/13733675.html">
+    <span>
+        没有公网IP？使用Ngrok将局域网服务映射到公网
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：这篇文章将为大家介绍ngrok，如何安装，配置以及在什么场景下需要使用ngrok。在没有使用过Ngrok之前，您可能会遇到过这样一些情况 你需要向客户演示你们正在研发的项目，所以你要求开发人员帮助你，在你的资源有限的笔记本电脑上部署一套用于给客户演示的环境。当下一次另一个同事需要去为客户演示的时候，        <a href="https://www.cnblogs.com/zimug/p/13733675.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-09-26 08:14
+字母哥博客
+<span class="post-view-count">阅读(33)</span><text> </text>
+<span class="post-comment-count">评论(0)</span><text> </text>
+<span class="post-digg-count">推荐(0)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13733675" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/zimug/archive/2020/09/24.html">2020年9月24日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/zimug/p/13722254.html">
+    <span>
+        Jaskson精讲第6篇-自定义JsonSerialize与Deserialize实现数据类型转换
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：Jackson是Spring Boot(SpringBoot)默认的JSON数据处理框架，但是其并不依赖于任何的Spring 库。有的小伙伴以为Jackson只能在Spring框架内使用，其实不是的，没有这种限制。它提供了很多的JSON数据处理方法、注解，也包括流式API、树模型、数据绑定，以及复杂        <a href="https://www.cnblogs.com/zimug/p/13722254.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-09-24 07:30
+字母哥博客
+<span class="post-view-count">阅读(217)</span><text> </text>
+<span class="post-comment-count">评论(0)</span><text> </text>
+<span class="post-digg-count">推荐(0)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13722254" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/zimug/archive/2020/09/23.html">2020年9月23日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/zimug/p/13716062.html">
+    <span>
+        @JsonCreator自定义反序列化函数-JSON框架Jackson精解第5篇
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：Jackson是Spring Boot(SpringBoot)默认的JSON数据处理框架，但是其并不依赖于任何的Spring 库。有的小伙伴以为Jackson只能在Spring框架内使用，其实不是的，没有这种限制。它提供了很多的JSON数据处理方法、注解，也包括流式API、树模型、数据绑定，以及复杂        <a href="https://www.cnblogs.com/zimug/p/13716062.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-09-23 07:01
+字母哥博客
+<span class="post-view-count">阅读(111)</span><text> </text>
+<span class="post-comment-count">评论(0)</span><text> </text>
+<span class="post-digg-count">推荐(0)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13716062" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/zimug/archive/2020/09/22.html">2020年9月22日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/zimug/p/13709986.html">
+    <span>
+        Jackson精解第4篇-@JacksonInject与@JsonAlias注解
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：Jackson是Spring Boot(SpringBoot)默认的JSON数据处理框架，但是其并不依赖于任何的Spring 库。有的小伙伴以为Jackson只能在Spring框架内使用，其实不是的，没有这种限制。它提供了很多的JSON数据处理方法、注解，也包括流式API、树模型、数据绑定，以及复杂        <a href="https://www.cnblogs.com/zimug/p/13709986.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-09-22 07:17
+字母哥博客
+<span class="post-view-count">阅读(205)</span><text> </text>
+<span class="post-comment-count">评论(0)</span><text> </text>
+<span class="post-digg-count">推荐(1)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13709986" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/zimug/archive/2020/09/21.html">2020年9月21日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/zimug/p/13703635.html">
+    <span>
+        属性序列化自定义与字母表排序-JSON框架Jackson精解第3篇
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：Jackson是Spring Boot默认的JSON数据处理框架，但是其并不依赖于任何的Spring 库。有的小伙伴以为Jackson只能在Spring框架内使用，其实不是的，没有这种限制。它提供了很多的JSON数据处理方法、注解，也包括流式API、树模型、数据绑定，以及复杂数据类型转换等功能。它虽        <a href="https://www.cnblogs.com/zimug/p/13703635.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-09-21 08:39
+字母哥博客
+<span class="post-view-count">阅读(109)</span><text> </text>
+<span class="post-comment-count">评论(1)</span><text> </text>
+<span class="post-digg-count">推荐(1)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13703635" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/zimug/archive/2020/09/20.html">2020年9月20日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/zimug/p/13698844.html">
+    <span>
+        URL及日期等特殊数据格式处理-JSON框架Jackson精解第2篇
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：Jackson是Spring Boot默认的JSON数据处理框架，但是其并不依赖于任何的Spring 库。有的小伙伴以为Jackson只能在Spring框架内使用，其实不是的，没有这种限制。它提供了很多的JSON数据处理方法、注解，也包括流式API、树模型、数据绑定，以及复杂数据类型转换等功能。它虽        <a href="https://www.cnblogs.com/zimug/p/13698844.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-09-20 09:55
+字母哥博客
+<span class="post-view-count">阅读(159)</span><text> </text>
+<span class="post-comment-count">评论(0)</span><text> </text>
+<span class="post-digg-count">推荐(0)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13698844" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/zimug/archive/2020/09/17.html">2020年9月17日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/zimug/p/13683167.html">
+    <span>
+        JSON数据处理框架Jackson精解第一篇-序列化与反序列化核心用法
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：Jackson是Spring Boot默认的JSON数据处理框架，但是其并不依赖于任何的Spring 库。有的小伙伴以为Jackson只能在Spring框架内使用，其实不是的，没有这种限制。它提供了很多的JSON数据处理方法、注解，也包括流式API、树模型、数据绑定，以及复杂数据类型转换等功能。它虽        <a href="https://www.cnblogs.com/zimug/p/13683167.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-09-17 07:58
+字母哥博客
+<span class="post-view-count">阅读(348)</span><text> </text>
+<span class="post-comment-count">评论(0)</span><text> </text>
+<span class="post-digg-count">推荐(0)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13683167" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/zimug/archive/2020/09/15.html">2020年9月15日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/zimug/p/13670915.html">
+    <span>
+        开源项目-跨项目及操作系统的通用代码生成器，解放您的双手
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：一、设计宗旨 所有被程序员掌握了代码规律的知识，都可以用代码生成器完成开发 模板类代码生成，减轻程序员的开发工作量，这当然是核心需求。 生成的代码直接应用于项目，可以指定代码的生成路径，直接让代码生成到项目路径下面。 跨项目，很多的代码生成器都是基于某个作者自己的项目开发的。(你只需要学会模板的开发        <a href="https://www.cnblogs.com/zimug/p/13670915.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-09-15 06:57
+字母哥博客
+<span class="post-view-count">阅读(208)</span><text> </text>
+<span class="post-comment-count">评论(0)</span><text> </text>
+<span class="post-digg-count">推荐(0)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13670915" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/zimug/archive/2020/09/13.html">2020年9月13日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/zimug/p/13660326.html">
+    <span>
+        图解并发与并行-分别从CPU和线程的角度理解
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：本文作为图解java并发编程的第三篇，前2篇访问地址如下所示： 图解进程线程、互斥锁与信号量-看完还不懂你来打我 8成以上的java线程状态图都画错了--图解java并发第二篇 一、CPU角度的并发与并行 并发 曾经我作为一个不是很爱学习的孩子，在上学的时候经常做这样的事情：在数学课上补物理作业，数        <a href="https://www.cnblogs.com/zimug/p/13660326.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-09-13 09:23
+字母哥博客
+<span class="post-view-count">阅读(216)</span><text> </text>
+<span class="post-comment-count">评论(0)</span><text> </text>
+<span class="post-digg-count">推荐(0)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13660326" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/zimug/archive/2020/09/10.html">2020年9月10日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/zimug/p/13644034.html">
+    <span>
+        8成以上的java线程状态图都画错了，看看这个-图解java并发第二篇
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：本文作为图解java并发编程的第二篇，前一篇访问地址如下所示： 图解进程线程、互斥锁与信号量-看完还不懂你来打我 图形说明 在开始想写这篇文章之前，我去网上搜索了很多关于线程状态转换的图，我惊讶的发现：超过80%的图都是不完整的，或者是错的。所以我只好再次去阅读源码，然后画出下面的这张图，理解了这张        <a href="https://www.cnblogs.com/zimug/p/13644034.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-09-10 09:43
+字母哥博客
+<span class="post-view-count">阅读(67)</span><text> </text>
+<span class="post-comment-count">评论(1)</span><text> </text>
+<span class="post-digg-count">推荐(0)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13644034" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/zimug/archive/2020/09/09.html">2020年9月9日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/zimug/p/13637250.html">
+    <span>
+        面霸告诉你这些技术面试的非技术性经验，让你的面试成功率显著提升
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：作为一个驰骋职场的老油条，自己曾面试过10余回(我换工作比较少)。我工作十余年面试从未失败过，当然也有可能和我面试的公司有关系，从微软离职之后回到二线城市，我一直在一些”非大厂公司&amp;quot;工作。作为技术管理者，我也先后面过少说有上千人。 下面我给大家说一些非技术性的面试经验，我相信我的经验会对你有很大的帮        <a href="https://www.cnblogs.com/zimug/p/13637250.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-09-09 10:05
+字母哥博客
+<span class="post-view-count">阅读(123)</span><text> </text>
+<span class="post-comment-count">评论(0)</span><text> </text>
+<span class="post-digg-count">推荐(1)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13637250" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/zimug/archive/2020/09/07.html">2020年9月7日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/zimug/p/13625424.html">
+    <span>
+        List集合对象去重及按属性去重的8种方法-java基础总结系列第六篇
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：最近在写一些关于java基础的文章，但是我又不想按照教科书的方式去写知识点的文章，因为意义不大。基础知识太多了，如何将这些知识归纳总结，总结出优缺点或者是使用场景才是对知识的升华。所以我更想把java相关的基础知识进行穿针引线，进行整体上的总结。 总结java中创建并写文件的5种方式 总结java从        <a href="https://www.cnblogs.com/zimug/p/13625424.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-09-07 10:26
+字母哥博客
+<span class="post-view-count">阅读(424)</span><text> </text>
+<span class="post-comment-count">评论(0)</span><text> </text>
+<span class="post-digg-count">推荐(0)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13625424" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/zimug/archive/2020/09/06.html">2020年9月6日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/zimug/p/13620696.html">
+    <span>
+        图解进程线程、互斥锁与信号量-看完不懂你来打我
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：在上学的时候，老师讲到进程与线程的时候可能是这样讲的： 进程是一个具有一定独立功能的程序在一个数据集上的一次动态执行的过程，是操作系统进行资源分配和调度的一个独立单元，是应用程序运行的载体。 线程是程序执行中一个单一的顺序控制流程，是程序执行流的最小单元，是处理器调度和分派的基本单位。一个进程可以有        <a href="https://www.cnblogs.com/zimug/p/13620696.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-09-06 08:51
+字母哥博客
+<span class="post-view-count">阅读(305)</span><text> </text>
+<span class="post-comment-count">评论(0)</span><text> </text>
+<span class="post-digg-count">推荐(1)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13620696" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+
+<div class="topicListFooter">
+    <div id="nav_next_page">
+        
+    <a href="https://www.cnblogs.com/zimug/default.html?page=2">
+        下一页
+    </a>
+
+    </div>    
+</div>
+
+
+
+
+
+
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+	<div id="sideBar">
+		<div id="sideBarMain">
+			<div id="sidebar_news" class="newsItem">
+            <script>loadBlogNews();</script>
+</div>
+<div id="sidebar_ad"></div>
+			<div id="blog-calendar" style="display:none"></div><script>loadBlogDefaultCalendar();</script>			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"></div>
+                    <script>loadBlogSideColumn();</script>
+			</div>			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		<!--done-->
+Copyright &copy; 2020 字母哥博客
+<br /><span id="poweredby">Powered by .NET 5.0.0-rc.2.20475.5 on Kubernetes</span>
+
+
+
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+    <div id="page_end_html">
+        <a href="https://www.kancloud.cn/hanxt/springboot2/content">
+<img src="http://cdn.zimug.com/zimug-banner-ad.png" style="width: 100%"> 
+</a>
+    </div>
+</body>
+</html>

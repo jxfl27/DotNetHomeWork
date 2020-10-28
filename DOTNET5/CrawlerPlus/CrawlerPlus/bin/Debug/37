@@ -1,0 +1,1481 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="origin" />
+    
+    
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>陈彦斌 - 博客园</title>
+    <link id="favicon" rel="shortcut icon" href="//common.cnblogs.com/favicon.svg" type="image/svg+xml" />
+    
+    <link rel="stylesheet" href="/css/blog-common.min.css?v=caAedYKpnz341INFIWakIM6r1EP9FIuJg43i9i8zqDQ" />
+    
+    <link type="text/css" rel="stylesheet" href="https://www.cnblogs.com/chenyanbin/custom.css?v=dhv7YGQpEqDg0TwtQIup/YQPByY=" />
+    <link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="/skins/custom/bundle-custom-mobile.min.css?v=KtAK50iXMDcU4jOl_mm1P0j3gXUtdRHDhFdu7YlsVVg" />
+    
+    <link type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/chenyanbin/rss" />
+    <link type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/chenyanbin/rsd.xml" />
+    <link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/chenyanbin/wlwmanifest.xml" />
+    <script>
+        var currentBlogId = 484130;
+        var currentBlogApp = 'chenyanbin';
+        var cb_enable_mathjax = false;
+        var isLogined = false;
+        var isBlogOwner = false;
+        var skinName = 'Custom';
+        var visitorUserId = '';
+    </script>
+    <script src="https://common.cnblogs.com/scripts/jquery-2.2.0.min.js"></script>
+    <script src="/js/blog-common.min.js?v=kKx3DBtpvO8r97BzPmHJseQ10fGHkI-ZwMh4FA0eEd0"></script>
+    
+    
+    
+</head>
+<body class="no-navbar">
+    <a name="top"></a> 
+    <div id="top_nav" class="navbar navbar-custom">
+        <nav id="nav_main" class="navbar-main">
+            <ul id="nav_left" class="navbar-list navbar-left">
+                <li class="navbar-branding">
+                    <a href="https://www.cnblogs.com/" title="开发者的网上家园"><img src="/images/logo.svg?v=R9M0WmLAIPVydmdzE2keuvnjl-bPR7_35oHqtiBzGsM" alt="博客园Logo" /></a>
+                </li>
+                <li><a href="/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-sitehome')">首页</a></li>
+                <li><a href="https://news.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-news')">新闻</a></li>
+                <li><a href="https://q.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-q')">博问</a></li>
+                <li><a id="nav_brandzone" href="https://brands.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-brands')">专区</a></li>
+                <li><a href="https://ing.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-ing')">闪存</a></li>
+                <li><a href="https://edu.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-edu')">班级</a></li>
+            </ul>
+            <ul id="nav_right" class="navbar-list navbar-right">
+                <li>
+                    <form id="zzk_search" class="navbar-search" action="https://zzk.cnblogs.com/s" method="get">
+                        <input name="w" id="zzk_search_input" placeholder="代码改变世界" type="text" tabindex="3" />
+                        <button type="submit" id="zzk_search_button">
+                            <img src="/images/aggsite/search.svg" alt="搜索" />
+                        </button>
+                    </form>
+                </li>
+                <li id="navbar_login_status" class="navbar-list">
+                    <a id="navblog-myblog-icon" class="navbar-user-info navbar-blog" href="https://passport.cnblogs.com/GetBlogApplyStatus.aspx" alt="我的博客" title="我的博客">
+                        <img id="myblog_icon" class="navbar-icon" src="/images/aggsite/myblog.svg" alt="我的博客" />
+                    </a>
+                    <a class="navbar-user-info navbar-message navbar-icon-wrapper" href="https://msg.cnblogs.com/" alt="短消息" title="短消息">
+                        <img id="msg_icon" class="navbar-icon" src="/images/aggsite/message.svg?v=oS4PkibyMjZ9rGD5XAcLt99uW_s76Javy2up4dbnZNY" alt="短消息" />
+                        <span id="msg_count" style="display: none"></span>
+                    </a>
+                    <div id="user_info" class="navbar-user-info dropdown">
+                        <a class="dropdown-button" href="https://home.cnblogs.com/">
+                            <img id="user_icon" class="navbar-avatar" src="/images/aggsite/avatar-default.svg" alt="用户头像" />
+                        </a>
+                        <div class="dropdown-menu">
+                            <a id="navblog-myblog-text" href="https://passport.cnblogs.com/GetBlogApplyStatus.aspx">我的博客</a>
+                            <a href="https://home.cnblogs.com/">我的园子</a>
+                            <a href="https://account.cnblogs.com/settings/account">账号设置</a>
+                            <a href="javascript:void(0)" onclick="logout();">退出登录</a>
+                        </div>
+                    </div>
+                    <a class="navbar-anonymous" href="https://account.cnblogs.com/signup/">注册</a>
+                    <a class="navbar-anonymous" href="https://account.cnblogs.com/signin/?returnUrl=https://www.cnblogs.com/">登录</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    
+    <!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+        <a id="lnkBlogLogo" href="https://www.cnblogs.com/chenyanbin/"><img id="blogLogo" src="/skins/custom/images/logo.gif" alt="返回主页" /></a>		
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle HeaderMainTitle" href="https://www.cnblogs.com/chenyanbin/">陈彦斌</a>
+</h1>
+<h2>
+生命在于分享，技术源于生命，学无止境！
+</h2>
+
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li><a id="blog_nav_sitehome" class="menu" href="https://www.cnblogs.com/">
+博客园</a>
+</li>
+<li>
+<a id="blog_nav_myhome" class="menu" href="https://www.cnblogs.com/chenyanbin/">
+首页</a>
+</li>
+<li>
+
+<a id="blog_nav_newpost" class="menu" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">
+新随笔</a>
+</li>
+<li>
+<a id="blog_nav_contact" class="menu" href="https://msg.cnblogs.com/send/%E9%99%88%E5%BD%A6%E6%96%8C">
+联系</a></li>
+<li>
+<a id="blog_nav_rss" class="menu" href="javascript:void(0)" data-rss="https://www.cnblogs.com/chenyanbin/rss/">
+订阅</a>
+<!--<partial name="./Shared/_XmlLink.cshtml" model="Model" /></li>--></li>
+<li>
+<a id="blog_nav_admin" class="menu" href="https://i.cnblogs.com/">
+管理</a>
+</li>
+</ul>
+
+
+		<div class="blogStats">
+			<span id="stats_post_count">随笔 - 
+557&nbsp; </span>
+<span id="stats_article_count">文章 - 
+0&nbsp; </span>
+<span id="stats-comment_count">评论 - 
+263</span>
+
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		
+
+
+
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/chenyanbin/archive/2020/10/26.html">2020年10月26日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/chenyanbin/p/13798952.html">
+    <span>
+            <span>[置顶]</span>
+        RocketMQ 4.7.1 环境搭建、集群、MQ整合SpringBoot
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：导读 之前学过ActiveMQ但是并发量不是很大点我直达，所以又学阿里开源的RocketMQ，据说队列可以堆积亿级别。下面是网上找的消息队列对比图，仅供参考 部署 官网 点我直达 前置条件 推荐使用64位操作系统，建议使用Linux / Unix / Mac； 64位JDK 1.8+; Maven         <a href="https://www.cnblogs.com/chenyanbin/p/13798952.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-10-26 08:21
+陈彦斌
+<span class="post-view-count">阅读(27)</span><text> </text>
+<span class="post-comment-count">评论(0)</span><text> </text>
+<span class="post-digg-count">推荐(1)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13798952" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/chenyanbin/archive/2020/10/11.html">2020年10月11日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/chenyanbin/p/13783030.html">
+    <span>
+            <span>[置顶]</span>
+        Mac Idea你不知道的秘密
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：导读 工欲善其事必先利其器，日常工作中，知道这些Idea技巧，可以极大提高日常开发效率。 技巧篇 以下内容不分先后顺序 显示类中的方法 搜索 搜索方法，按两下shift 文字搜索，control+shift+f；可以搜指定项目、目录下的文字、文件后缀等 多线程下调试 自动导包 抽返回值 快捷键：op        <a href="https://www.cnblogs.com/chenyanbin/p/13783030.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-10-11 11:00
+陈彦斌
+<span class="post-view-count">阅读(89)</span><text> </text>
+<span class="post-comment-count">评论(7)</span><text> </text>
+<span class="post-digg-count">推荐(2)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13783030" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/chenyanbin/archive/2020/10/08.html">2020年10月8日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/chenyanbin/p/13756921.html">
+    <span>
+            <span>[置顶]</span>
+        java 线程池、多线程并发实战(生产者消费者模型 1 vs 10) 附案例源码
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：导读 前二天写了一篇《Java 多线程并发编程》点我直达，放国庆，在家闲着没事，继续写剩下的东西，开干！ 线程池 为什么要使用线程池 例如web服务器、数据库服务器、文件服务器或邮件服务器之类的。请求的时候，单个任务时间很短，但是请求数量巨大。每一次请求，就会创建一个新线程，然后在新线程中请求服务，        <a href="https://www.cnblogs.com/chenyanbin/p/13756921.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-10-08 07:00
+陈彦斌
+<span class="post-view-count">阅读(237)</span><text> </text>
+<span class="post-comment-count">评论(0)</span><text> </text>
+<span class="post-digg-count">推荐(3)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13756921" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/chenyanbin/archive/2020/09/30.html">2020年9月30日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/chenyanbin/p/13629067.html">
+    <span>
+            <span>[置顶]</span>
+        Java 多线程并发编程
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：导读 创作不易，禁止转载！ 并发编程简介 发展历程 早起计算机，从头到尾执行一个程序，这样就严重造成资源的浪费。然后操作系统就出现了，计算机能运行多个程序，不同的程序在不同的单独的进程中运行，一个进程，有多个线程，提高资源的利用率。ok，如果以上你还不了解的话，我这里有2个脑补链接(点我直达1、点我        <a href="https://www.cnblogs.com/chenyanbin/p/13629067.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-09-30 22:27
+陈彦斌
+<span class="post-view-count">阅读(471)</span><text> </text>
+<span class="post-comment-count">评论(3)</span><text> </text>
+<span class="post-digg-count">推荐(5)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13629067" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/chenyanbin/archive/2020/09/20.html">2020年9月20日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/chenyanbin/p/qq543210188.html">
+    <span>
+            <span>[置顶]</span>
+        Jenkins持续集成git、gitlab、sonarqube(7.0)、nexus，自动化部署实战，附安装包
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：导读 之前用的都是SVN，由于工作需要用到Git，求人不如求己，技多不压身，多学一项技能，未来就少求别人一次，系统的学一遍，自己搭建一整套环境，自动化部署(自动发版)，代码质量检测等等(为啥不用docker搭建环境呢，个人平时比较忙，暂未学习docker，过段时间会学docker相关，也会写相应博文        <a href="https://www.cnblogs.com/chenyanbin/p/qq543210188.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-09-20 08:57
+陈彦斌
+<span class="post-view-count">阅读(396)</span><text> </text>
+<span class="post-comment-count">评论(1)</span><text> </text>
+<span class="post-digg-count">推荐(2)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13654621" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/chenyanbin/archive/2020/08/31.html">2020年8月31日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/chenyanbin/p/13587508.html">
+    <span>
+            <span>[置顶]</span>
+        Redis秒杀实战-微信抢红包-秒杀库存，附案例源码（Jmeter压测）
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：导读 前二天我写了一篇，Redis高级项目实战(点我直达)，SpringBoot整合Redis附源码(点我直达)，今天我们来做一下Redis秒杀系统的设计。当然啦，Redis基础知识还不过关的，先去加强下自身内功，然后在回来看这篇，Redis基础知识(点我直达)。为啥写这个微信抢红包项目呢，公司02        <a href="https://www.cnblogs.com/chenyanbin/p/13587508.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-08-31 09:32
+陈彦斌
+<span class="post-view-count">阅读(2933)</span><text> </text>
+<span class="post-comment-count">评论(23)</span><text> </text>
+<span class="post-digg-count">推荐(21)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13587508" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/chenyanbin/archive/2020/08/22.html">2020年8月22日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/chenyanbin/p/13506946.html">
+    <span>
+            <span>[置顶]</span>
+        Redis高级项目实战，都0202年了，还不会Redis？
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：导读 大家都听过1万小时定律，可事实真的是这样吗？做了1万小时的CRUD，不还只会CRUD吗，这年头不适当的更新自身下技术栈，出门和别人聊天吹牛的时候，都没拿的出手的，(⊙o⊙)…Redis没入门的童鞋不推荐往下看，先去脑补下Redis入门(点我直达)，SpringBoot整合Redis的教程(点我        <a href="https://www.cnblogs.com/chenyanbin/p/13506946.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-08-22 08:46
+陈彦斌
+<span class="post-view-count">阅读(1664)</span><text> </text>
+<span class="post-comment-count">评论(7)</span><text> </text>
+<span class="post-digg-count">推荐(14)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13506946" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/chenyanbin/archive/2020/08/18.html">2020年8月18日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/chenyanbin/p/13515268.html">
+    <span>
+            <span>[置顶]</span>
+        SpringBoot整合Redis、mybatis实战，封装RedisUtils工具类，redis缓存mybatis数据 附源码
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：导读 Redis不了解的小伙伴，先去脑补下Redis从入门到精通，点我直达。在看下面的东西哟~ 创建SpringBoot项目 在线创建方式 网址：https://start.spring.io/ 然后创建Controller、Mapper、Service包 SpringBoot整合Redis 引入R        <a href="https://www.cnblogs.com/chenyanbin/p/13515268.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-08-18 07:31
+陈彦斌
+<span class="post-view-count">阅读(514)</span><text> </text>
+<span class="post-comment-count">评论(0)</span><text> </text>
+<span class="post-digg-count">推荐(2)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13515268" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/chenyanbin/archive/2020/08/13.html">2020年8月13日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/chenyanbin/p/13493920.html">
+    <span>
+            <span>[置顶]</span>
+        ElasticSearch 7.8.1集群搭建
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：通往集群的大门 集群由什么用? 高可用 高可用(High Availability)是分布式系统架构设计中必须考虑的因素之一，它通常是指，通过设计减少系统不能提供服务的时间。如果系统每运行100个时间单位，会有1个时间单位无法提供服务，我们说系统的可用性是99%。 负载均衡 将流量均衡的分布在不同的        <a href="https://www.cnblogs.com/chenyanbin/p/13493920.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-08-13 08:17
+陈彦斌
+<span class="post-view-count">阅读(728)</span><text> </text>
+<span class="post-comment-count">评论(3)</span><text> </text>
+<span class="post-digg-count">推荐(3)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13493920" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/chenyanbin/archive/2020/08/12.html">2020年8月12日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/chenyanbin/p/13473132.html">
+    <span>
+            <span>[置顶]</span>
+        Spring Boot整合ElasticSearch和Mysql 附案例源码
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：导读 前二天，写了一篇ElasticSearch7.8.1从入门到精通的（点我直达），但是还没有整合到SpringBoot中，下面演示将ElasticSearch和mysql整合到Spring Boot中，附演示源码。 项目介绍 模仿NBA网站 网址地址：点我直达 接口开发 将数据库数据导入到Ela        <a href="https://www.cnblogs.com/chenyanbin/p/13473132.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-08-12 08:27
+陈彦斌
+<span class="post-view-count">阅读(613)</span><text> </text>
+<span class="post-comment-count">评论(0)</span><text> </text>
+<span class="post-digg-count">推荐(2)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13473132" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/chenyanbin/archive/2020/08/11.html">2020年8月11日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/chenyanbin/p/13476152.html">
+    <span>
+            <span>[置顶]</span>
+        fastjson对象，JSON，字符串，map之间的互转
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：对象与字符串之间的互转 将对象转换成为字符串 String str = JSON.toJSONString(infoDo); 字符串转换成为对象 InfoDo infoDo = JSON.parseObject(strInfoDo, InfoDo.class); 字符串转对象 List&lt;NbaPla        <a href="https://www.cnblogs.com/chenyanbin/p/13476152.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-08-11 23:55
+陈彦斌
+<span class="post-view-count">阅读(116)</span><text> </text>
+<span class="post-comment-count">评论(2)</span><text> </text>
+<span class="post-digg-count">推荐(2)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13476152" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+            <div class="postSeparator"></div>
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/chenyanbin/p/13473486.html">
+    <span>
+            <span>[置顶]</span>
+        @ConfigurationProperties 还能这样用
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：在编写项目代码时，我们要求更灵活的配置，更好的模块化整合。在 Spring Boot 项目中，为满足以上要求，我们将大量的参数配置在 application.properties 或 application.yml 文件中，通过 @ConfigurationProperties 注解，我们可以方便的        <a href="https://www.cnblogs.com/chenyanbin/p/13473486.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-08-11 16:42
+陈彦斌
+<span class="post-view-count">阅读(56)</span><text> </text>
+<span class="post-comment-count">评论(0)</span><text> </text>
+<span class="post-digg-count">推荐(0)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13473486" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/chenyanbin/archive/2020/08/10.html">2020年8月10日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/chenyanbin/p/13419497.html">
+    <span>
+            <span>[置顶]</span>
+        ElasticSearch 7.8.1 从入门到精通
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：学前导读 ElasticSearch对电脑配置要求较高，内存至少4G以上，空闲2G内存，线程数4018+ 学习的时候，推荐将ElasticSearch安装到Linux或者mac上，极度不推荐装Windows上(坑太多，服务器部署的时候，也不会部署到Window上，学习用Windows上玩，不是耽误自        <a href="https://www.cnblogs.com/chenyanbin/p/13419497.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-08-10 08:47
+陈彦斌
+<span class="post-view-count">阅读(2099)</span><text> </text>
+<span class="post-comment-count">评论(11)</span><text> </text>
+<span class="post-digg-count">推荐(14)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13419497" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/chenyanbin/archive/2020/08/03.html">2020年8月3日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/chenyanbin/p/13420274.html">
+    <span>
+            <span>[置顶]</span>
+        Linux 更新网络时间
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：下载包 yum install -y ntpdate 同步网络时间 ntpdate 0.asia.pool.ntp.org 若上面的时间服务器不可用，也可以改用如下服务器进行同步： time.nist.gov time.nuri.net 0.asia.pool.ntp.org 1.asia.pool        <a href="https://www.cnblogs.com/chenyanbin/p/13420274.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-08-03 03:43
+陈彦斌
+<span class="post-view-count">阅读(121)</span><text> </text>
+<span class="post-comment-count">评论(0)</span><text> </text>
+<span class="post-digg-count">推荐(0)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13420274" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/chenyanbin/archive/2020/08/02.html">2020年8月2日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/chenyanbin/p/13417527.html">
+    <span>
+            <span>[置顶]</span>
+        Java 数据类型的包装数据类型
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：什么是包装数据类型 Java是一个面向对象的编程语言，但基本类型并不具有对象的性质，为了让基本类型也具有对象的特征，就出现了包装类型。 集合框架里面需要存储对象，不能存储基本数据类型，所以需要存储包装类型 Java里面的包装数据类型 基本类型 包装器类型 boolean Boolean char C        <a href="https://www.cnblogs.com/chenyanbin/p/13417527.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-08-02 10:06
+陈彦斌
+<span class="post-view-count">阅读(55)</span><text> </text>
+<span class="post-comment-count">评论(0)</span><text> </text>
+<span class="post-digg-count">推荐(0)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13417527" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+            <div class="postSeparator"></div>
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/chenyanbin/p/13417375.html">
+    <span>
+            <span>[置顶]</span>
+        Java核心字符串String进阶
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：字符串对象 字符串是对象，不是简单数据类型 封装在java.lang包，自动导入 创建字符串对象 常见创建一个字符串对象有下面2个方法 String str=new String(&quot;chenyanbin&quot;); String str=&quot;chenyanbin&quot;; 字符串比较内容是否相等 ==：比较地址         <a href="https://www.cnblogs.com/chenyanbin/p/13417375.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-08-02 08:14
+陈彦斌
+<span class="post-view-count">阅读(59)</span><text> </text>
+<span class="post-comment-count">评论(0)</span><text> </text>
+<span class="post-digg-count">推荐(0)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13417375" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+            <div class="postSeparator"></div>
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/chenyanbin/p/13417364.html">
+    <span>
+            <span>[置顶]</span>
+        Java基本数学运算之Math类
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：什么是Math类 Java操作数学运算相关的类 构造函数被私有化，所以不允许创建对象 都是静态方法，使用是直接类名.方法名 常用API //计算平⽅根 System.out.println(Math.sqrt(16)); //计算⽴⽅根 System.out.println(Math.cbrt(8)        <a href="https://www.cnblogs.com/chenyanbin/p/13417364.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-08-02 08:08
+陈彦斌
+<span class="post-view-count">阅读(76)</span><text> </text>
+<span class="post-comment-count">评论(0)</span><text> </text>
+<span class="post-digg-count">推荐(0)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13417364" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+            <div class="postSeparator"></div>
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/chenyanbin/p/13417358.html">
+    <span>
+            <span>[置顶]</span>
+        JavaSE进阶核心之class类
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：Java顶级对象之Object 什么是Object类 Object类位于java.lang包中，java.lang包包含着Java最基础和核心的类，在编译时会自动导入 Object类是所有java类的祖先，每个类都使用Object作为超类 常见方法 public final native Class        <a href="https://www.cnblogs.com/chenyanbin/p/13417358.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-08-02 08:05
+陈彦斌
+<span class="post-view-count">阅读(56)</span><text> </text>
+<span class="post-comment-count">评论(0)</span><text> </text>
+<span class="post-digg-count">推荐(0)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13417358" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+            <div class="postSeparator"></div>
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/chenyanbin/p/13417210.html">
+    <span>
+            <span>[置顶]</span>
+        Mac IDEA 免激活破解版 亲测有效 2020.8.1记
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：开局一张图 注意事项 若下载后，打开文件提示“文件已损坏”。Mac默认不认第三方工具，需要手动设置，你可以百度搜：Mac文件损坏，找到相应博文！！！！！！ 下载地址 链接: https://pan.baidu.com/s/1OKbYCRQiZ3ip0Gzle5wydg 密码: iwfb 百度云下载慢        <a href="https://www.cnblogs.com/chenyanbin/p/13417210.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-08-02 07:27
+陈彦斌
+<span class="post-view-count">阅读(5426)</span><text> </text>
+<span class="post-comment-count">评论(12)</span><text> </text>
+<span class="post-digg-count">推荐(4)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13417210" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+            <div class="postSeparator"></div>
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/chenyanbin/p/13417048.html">
+    <span>
+            <span>[置顶]</span>
+        Spring Boot集成Mybatis分页插件pagehelper
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：引入依赖 &lt;!--分页插件开始--&gt; &lt;dependency&gt; &lt;groupId&gt;com.github.pagehelper&lt;/groupId&gt; &lt;artifactId&gt;pagehelper&lt;/artifactId&gt; &lt;version&gt;5.2.0&lt;/version&gt; &lt;/dependency&gt; &lt;d        <a href="https://www.cnblogs.com/chenyanbin/p/13417048.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-08-02 06:56
+陈彦斌
+<span class="post-view-count">阅读(98)</span><text> </text>
+<span class="post-comment-count">评论(0)</span><text> </text>
+<span class="post-digg-count">推荐(0)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13417048" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/chenyanbin/archive/2020/10/26.html">2020年10月26日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/chenyanbin/p/13798952.html">
+    <span>
+        RocketMQ 4.7.1 环境搭建、集群、MQ整合SpringBoot
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：导读 之前学过ActiveMQ但是并发量不是很大点我直达，所以又学阿里开源的RocketMQ，据说队列可以堆积亿级别。下面是网上找的消息队列对比图，仅供参考 部署 官网 点我直达 前置条件 推荐使用64位操作系统，建议使用Linux / Unix / Mac； 64位JDK 1.8+; Maven         <a href="https://www.cnblogs.com/chenyanbin/p/13798952.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-10-26 08:21
+陈彦斌
+<span class="post-view-count">阅读(27)</span><text> </text>
+<span class="post-comment-count">评论(0)</span><text> </text>
+<span class="post-digg-count">推荐(1)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13798952" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/chenyanbin/archive/2020/10/14.html">2020年10月14日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/chenyanbin/p/13814274.html">
+    <span>
+        mac 安装homebrew 报443
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：描述 macOS安装Homebrew时总是报错（Failed to connect to raw.githubusercontent.com port 443: Connection refused） 原因 由于某些你懂的因素，导致GitHub的raw.githubusercontent.com域名        <a href="https://www.cnblogs.com/chenyanbin/p/13814274.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-10-14 21:20
+陈彦斌
+<span class="post-view-count">阅读(10)</span><text> </text>
+<span class="post-comment-count">评论(0)</span><text> </text>
+<span class="post-digg-count">推荐(0)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13814274" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/chenyanbin/archive/2020/10/11.html">2020年10月11日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/chenyanbin/p/13783030.html">
+    <span>
+        Mac Idea你不知道的秘密
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：导读 工欲善其事必先利其器，日常工作中，知道这些Idea技巧，可以极大提高日常开发效率。 技巧篇 以下内容不分先后顺序 显示类中的方法 搜索 搜索方法，按两下shift 文字搜索，control+shift+f；可以搜指定项目、目录下的文字、文件后缀等 多线程下调试 自动导包 抽返回值 快捷键：op        <a href="https://www.cnblogs.com/chenyanbin/p/13783030.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-10-11 11:00
+陈彦斌
+<span class="post-view-count">阅读(89)</span><text> </text>
+<span class="post-comment-count">评论(7)</span><text> </text>
+<span class="post-digg-count">推荐(2)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13783030" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/chenyanbin/archive/2020/10/08.html">2020年10月8日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/chenyanbin/p/13756921.html">
+    <span>
+        java 线程池、多线程并发实战(生产者消费者模型 1 vs 10) 附案例源码
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：导读 前二天写了一篇《Java 多线程并发编程》点我直达，放国庆，在家闲着没事，继续写剩下的东西，开干！ 线程池 为什么要使用线程池 例如web服务器、数据库服务器、文件服务器或邮件服务器之类的。请求的时候，单个任务时间很短，但是请求数量巨大。每一次请求，就会创建一个新线程，然后在新线程中请求服务，        <a href="https://www.cnblogs.com/chenyanbin/p/13756921.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-10-08 07:00
+陈彦斌
+<span class="post-view-count">阅读(237)</span><text> </text>
+<span class="post-comment-count">评论(0)</span><text> </text>
+<span class="post-digg-count">推荐(3)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13756921" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/chenyanbin/archive/2020/09/30.html">2020年9月30日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/chenyanbin/p/13629067.html">
+    <span>
+        Java 多线程并发编程
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：导读 创作不易，禁止转载！ 并发编程简介 发展历程 早起计算机，从头到尾执行一个程序，这样就严重造成资源的浪费。然后操作系统就出现了，计算机能运行多个程序，不同的程序在不同的单独的进程中运行，一个进程，有多个线程，提高资源的利用率。ok，如果以上你还不了解的话，我这里有2个脑补链接(点我直达1、点我        <a href="https://www.cnblogs.com/chenyanbin/p/13629067.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-09-30 22:27
+陈彦斌
+<span class="post-view-count">阅读(471)</span><text> </text>
+<span class="post-comment-count">评论(3)</span><text> </text>
+<span class="post-digg-count">推荐(5)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13629067" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/chenyanbin/archive/2020/09/28.html">2020年9月28日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/chenyanbin/p/13741039.html">
+    <span>
+        PO、VO、BO、DTO、POJO、DAO、DO
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：DO： domain object持久对象就是从现实世界中抽象出来的有形或无形的业务实体。 PO：persistant object持久对象最形象的理解就是一个PO就是数据库中的一条记录。好处是可以把一条记录作为一个对象处理，可以方便的转为其它对象。 BO：business object业务对象主要        <a href="https://www.cnblogs.com/chenyanbin/p/13741039.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-09-28 02:07
+陈彦斌
+<span class="post-view-count">阅读(39)</span><text> </text>
+<span class="post-comment-count">评论(0)</span><text> </text>
+<span class="post-digg-count">推荐(1)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13741039" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/chenyanbin/archive/2020/09/24.html">2020年9月24日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/chenyanbin/p/13722629.html">
+    <span>
+        SpirngBoot整合MybatisPlus 附源码
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：项目搭建 目录结构 pom.xml &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt; &lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchem        <a href="https://www.cnblogs.com/chenyanbin/p/13722629.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-09-24 17:55
+陈彦斌
+<span class="post-view-count">阅读(67)</span><text> </text>
+<span class="post-comment-count">评论(0)</span><text> </text>
+<span class="post-digg-count">推荐(0)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13722629" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/chenyanbin/archive/2020/09/23.html">2020年9月23日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/chenyanbin/p/13718228.html">
+    <span>
+        Swagger注解说明
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：常用注解：&#160;-&#160;@Api()用于类；&#160;表示标识这个类是swagger的资源&#160;-&#160;@ApiOperation()用于方法；&#160;表示一个http请求的操作&#160;-&#160;@ApiParam()用于方法，参数，字段说明；&#160;表示对参数的添加元数据（说明或是否必填等）&#160;-&#160;@ApiModel()用于类&#160;表示对类进行说明，        <a href="https://www.cnblogs.com/chenyanbin/p/13718228.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-09-23 22:34
+陈彦斌
+<span class="post-view-count">阅读(22)</span><text> </text>
+<span class="post-comment-count">评论(0)</span><text> </text>
+<span class="post-digg-count">推荐(0)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13718228" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+            <div class="postSeparator"></div>
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/chenyanbin/p/13713960.html">
+    <span>
+        SpringBoot整合Swagger
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：添加依赖 pom.xml &lt;dependency&gt; &lt;groupId&gt;io.springfox&lt;/groupId&gt; &lt;artifactId&gt;springfox-bean-validators&lt;/artifactId&gt; &lt;version&gt;2.8.0&lt;/version&gt; &lt;/dependency&gt; &lt;d        <a href="https://www.cnblogs.com/chenyanbin/p/13713960.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-09-23 02:15
+陈彦斌
+<span class="post-view-count">阅读(41)</span><text> </text>
+<span class="post-comment-count">评论(0)</span><text> </text>
+<span class="post-digg-count">推荐(0)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13713960" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/chenyanbin/archive/2020/09/21.html">2020年9月21日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/chenyanbin/p/13702283.html">
+    <span>
+        MybatisPlus根据模板生成器代码
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+摘要：导读 网上的代码生成器，都不是自己想要的，今天下午研究了下，可以使用mybatisplus自定义模板，根据模板生成相应的代码，可以根据需求，改造相应模板即可。代码已上传github/百度云。 项目结构 pom.xml &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt; &lt;p        <a href="https://www.cnblogs.com/chenyanbin/p/13702283.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-09-21 05:06
+陈彦斌
+<span class="post-view-count">阅读(143)</span><text> </text>
+<span class="post-comment-count">评论(0)</span><text> </text>
+<span class="post-digg-count">推荐(0)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13702283" rel="nofollow">
+    编辑
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+
+<div class="topicListFooter">
+    <div id="nav_next_page">
+        
+    <a href="https://www.cnblogs.com/chenyanbin/default.html?page=2">
+        下一页
+    </a>
+
+    </div>    
+</div>
+
+
+
+
+
+
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+	<div id="sideBar">
+		<div id="sideBarMain">
+			<div id="sidebar_news" class="newsItem">
+            <script>loadBlogNews();</script>
+</div>
+<div id="sidebar_ad"></div>
+			<div id="blog-calendar" style="display:none"></div><script>loadBlogDefaultCalendar();</script>			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"></div>
+                    <script>loadBlogSideColumn();</script>
+			</div>			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		<!--done-->
+Copyright &copy; 2020 陈彦斌
+<br /><span id="poweredby">Powered by .NET 5.0.0-rc.2.20475.5 on Kubernetes</span>
+
+
+
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+    <div id="page_end_html">
+        <!--皮肤-->
+<script src="https://blog-static.cnblogs.com/files/chenyanbin/silencesExt.js"></script>
+
+<!--改变鼠标-->
+<!--<script src="https://blog-static.cnblogs.com/files/chenyanbin/mouse.js"></script>-->
+
+
+<!--网站小图标-->
+<script type="text/javascript">
+(function() {
+     $("pre").addClass("prettyprint");
+var olda=document.getElementById("favicon"); 
+olda.setAttribute("href","https://blog-static.cnblogs.com/files/chenyanbin/o_qianxun.ico");
+})();
+</script>
+
+<!--播放器-->
+<link rel="stylesheet" href="https://blog-static.cnblogs.com/files/chenyanbin/APlayer2.min.css">
+<script src="https://blog-static.cnblogs.com/files/chenyanbin/APlayer2.min.js"></script>
+<div id="aplayer" class="aplayer"  data-id="4942457064" data-server="netease" data-type="playlist" data-fixed="true" data-listfolded="true" data-order="random" data-theme="#F58EA8"></div>
+<script src="https://blog-static.cnblogs.com/files/chenyanbin/Meting2.min.js"></script>
+
+<script src="https://blog-static.cnblogs.com/files/chenyanbin/prettify.js"></script>
+
+
+<!--鼠标特效-->
+<script>
+      function o(w,v,i){
+          return w.getAttribute(v)||i
+      }
+      function j(i){
+          return document.getElementsByTagName(i)
+      }
+      function l(){
+          var i=j("script"),w=i.length,v=i[w-1];
+          return {l:w,z:o(v,"zIndex",-1),o:o(v,"opacity",0.5),c:o(v,"color","0,0,0"),n:o(v,"count",99)}
+      }
+      function k(){
+          r=u.width=window.innerWidth||document.documentElement.clientWidth||document.body.clientWidth,
+          n=u.height=window.innerHeight||document.documentElement.clientHeight||document.body.clientHeight
+      }
+      function b(){
+          e.clearRect(0,0,r,n);
+          var w=[f].concat(t);
+          var x,v,A,B,z,y;
+          t.forEach(function(i){
+              i.x+=i.xa,
+              i.y+=i.ya,
+              i.xa*=i.x>r||i.x<0?-1:1,
+              i.ya*=i.y>n||i.y<0?-1:1,
+              e.fillRect(i.x-0.5,i.y-0.5,1,1);
+              for(v=0;v<w.length;v++){
+                  x=w[v];
+                  if(i!==x&&null!==x.x&&null!==x.y){
+                      B=i.x-x.x,z=i.y-x.y,y=B*B+z*z;
+                      y<x.max&&(x===f&&y>=x.max/2&&(i.x-=0.03*B,i.y-=0.03*z),A=(x.max-y)/x.max,e.beginPath(),e.lineWidth=A/2,e.strokeStyle="rgba("+s.c+","+(A+0.2)+")",e.moveTo(i.x,i.y),e.lineTo(x.x,x.y),e.stroke())
+                  }
+              }
+              w.splice(w.indexOf(i),1)
+          }),m(b)
+      }
+      var u=document.createElement("canvas"),s=l(),c="c_n"+s.l,e=u.getContext("2d-disabled"),r,n,
+      m=window.requestAnimationFrame||window.webkitRequestAnimationFrame||window.mozRequestAnimationFrame||window.oRequestAnimationFrame||window.msRequestAnimationFrame||function(i){
+          window.setTimeout(i,1000/45)
+      },
+      a=Math.random,f={x:null,y:null,max:20000};
+      u.className="particle_canvas";
+      var browserName = navigator.userAgent.toLowerCase();
+      if (/msie/i.test(browserName) && !/opera/.test(browserName)) {
+          u.className += ' ie10_gte';
+      };
+      u.id=c;
+      u.style.cssText="position:fixed;top:0;left:0;z-index:"+s.z+";opacity:"+s.o;
+      j("body")[0].appendChild(u);
+      k(),window.onresize=k;
+      window.onmousemove=function(i){
+          i=i||window.event,
+          f.x=i.clientX,
+          f.y=i.clientY
+      },
+      window.onmouseout=function(){
+          f.x=null,
+          f.y=null
+      };
+      for(var t=[],p=0;s.n>p;p++){
+          var h=a()*r,
+          g=a()*n,
+          q=2*a()-1,
+          d=2*a()-1;
+          t.push({x:h,y:g,xa:q,ya:d,max:6000})
+      }
+      setTimeout(function(){b()},100)
+    </script>
+
+<!--分割线-->
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,1471 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="origin" />
+    <meta name="description" content="1.安装Tomcat 2.安装mysql [1].pull [root@pluto tomcat7logs]# docker pull mysql:5.6 [root@pluto tomcat7log" />
+    <meta property="og:description" content="1.安装Tomcat 2.安装mysql [1].pull [root@pluto tomcat7logs]# docker pull mysql:5.6 [root@pluto tomcat7log" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>DockerInstall - Pluto_H - 博客园</title>
+    <link id="favicon" rel="shortcut icon" href="//common.cnblogs.com/favicon.svg" type="image/svg+xml" />
+    
+    <link rel="stylesheet" href="/css/blog-common.min.css?v=caAedYKpnz341INFIWakIM6r1EP9FIuJg43i9i8zqDQ" />
+    <link id="MainCss" rel="stylesheet" href="/skins/custom/bundle-custom.min.css?v=1ssrnY3Il79Ok472qeVrpxlSprSXcHhYPgZC5S3wtVM" />
+    
+    <link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="/skins/custom/bundle-custom-mobile.min.css?v=KtAK50iXMDcU4jOl_mm1P0j3gXUtdRHDhFdu7YlsVVg" />
+    
+    <link type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/CSAH/rss" />
+    <link type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/CSAH/rsd.xml" />
+    <link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/CSAH/wlwmanifest.xml" />
+    <script>
+        var currentBlogId = 496651;
+        var currentBlogApp = 'CSAH';
+        var cb_enable_mathjax = false;
+        var isLogined = false;
+        var isBlogOwner = false;
+        var skinName = 'Custom';
+        var visitorUserId = '';
+    </script>
+        <script>
+            var currentPostDateAdded = '2020-10-25 11:51';
+        </script>
+    <script src="https://common.cnblogs.com/scripts/jquery-2.2.0.min.js"></script>
+    <script src="/js/blog-common.min.js?v=kKx3DBtpvO8r97BzPmHJseQ10fGHkI-ZwMh4FA0eEd0"></script>
+    
+    
+    
+</head>
+<body class="no-navbar">
+    <a name="top"></a> 
+    <div id="top_nav" class="navbar navbar-custom">
+        <nav id="nav_main" class="navbar-main">
+            <ul id="nav_left" class="navbar-list navbar-left">
+                <li class="navbar-branding">
+                    <a href="https://www.cnblogs.com/" title="开发者的网上家园"><img src="/images/logo.svg?v=R9M0WmLAIPVydmdzE2keuvnjl-bPR7_35oHqtiBzGsM" alt="博客园Logo" /></a>
+                </li>
+                <li><a href="/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-sitehome')">首页</a></li>
+                <li><a href="https://news.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-news')">新闻</a></li>
+                <li><a href="https://q.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-q')">博问</a></li>
+                <li><a id="nav_brandzone" href="https://brands.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-brands')">专区</a></li>
+                <li><a href="https://ing.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-ing')">闪存</a></li>
+                <li><a href="https://edu.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-edu')">班级</a></li>
+            </ul>
+            <ul id="nav_right" class="navbar-list navbar-right">
+                <li>
+                    <form id="zzk_search" class="navbar-search" action="https://zzk.cnblogs.com/s" method="get">
+                        <input name="w" id="zzk_search_input" placeholder="代码改变世界" type="text" tabindex="3" />
+                        <button type="submit" id="zzk_search_button">
+                            <img src="/images/aggsite/search.svg" alt="搜索" />
+                        </button>
+                    </form>
+                </li>
+                <li id="navbar_login_status" class="navbar-list">
+                    <a id="navblog-myblog-icon" class="navbar-user-info navbar-blog" href="https://passport.cnblogs.com/GetBlogApplyStatus.aspx" alt="我的博客" title="我的博客">
+                        <img id="myblog_icon" class="navbar-icon" src="/images/aggsite/myblog.svg" alt="我的博客" />
+                    </a>
+                    <a class="navbar-user-info navbar-message navbar-icon-wrapper" href="https://msg.cnblogs.com/" alt="短消息" title="短消息">
+                        <img id="msg_icon" class="navbar-icon" src="/images/aggsite/message.svg?v=oS4PkibyMjZ9rGD5XAcLt99uW_s76Javy2up4dbnZNY" alt="短消息" />
+                        <span id="msg_count" style="display: none"></span>
+                    </a>
+                    <div id="user_info" class="navbar-user-info dropdown">
+                        <a class="dropdown-button" href="https://home.cnblogs.com/">
+                            <img id="user_icon" class="navbar-avatar" src="/images/aggsite/avatar-default.svg" alt="用户头像" />
+                        </a>
+                        <div class="dropdown-menu">
+                            <a id="navblog-myblog-text" href="https://passport.cnblogs.com/GetBlogApplyStatus.aspx">我的博客</a>
+                            <a href="https://home.cnblogs.com/">我的园子</a>
+                            <a href="https://account.cnblogs.com/settings/account">账号设置</a>
+                            <a href="javascript:void(0)" onclick="logout();">退出登录</a>
+                        </div>
+                    </div>
+                    <a class="navbar-anonymous" href="https://account.cnblogs.com/signup/">注册</a>
+                    <a class="navbar-anonymous" href="https://account.cnblogs.com/signin/?returnUrl=https://www.cnblogs.com/">登录</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    
+    <!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+        <a id="lnkBlogLogo" href="https://www.cnblogs.com/CSAH/"><img id="blogLogo" src="/skins/custom/images/logo.gif" alt="返回主页" /></a>		
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle HeaderMainTitle" href="https://www.cnblogs.com/CSAH/">Pluto_H</a>
+</h1>
+<h2>
+
+</h2>
+
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li>
+</li>
+<li>
+
+</li>
+<li>
+
+<a id="blog_nav_newpost" class="menu" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">
+新随笔</a>
+</li>
+<li>
+</li>
+<li>
+
+<!--<partial name="./Shared/_XmlLink.cshtml" model="Model" /></li>--></li>
+<li>
+<a id="blog_nav_admin" class="menu" href="https://i.cnblogs.com/">
+管理</a>
+</li>
+</ul>
+
+
+		<div class="blogStats">
+			<span id="stats_post_count">随笔 - 
+95&nbsp; </span>
+<span id="stats_article_count">文章 - 
+0&nbsp; </span>
+<span id="stats-comment_count">评论 - 
+15</span>
+
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		<div id="post_detail">
+    <!--done-->
+    <div id="topics">
+        <div class="post">
+            <h1 class = "postTitle">
+                
+<a id="cb_post_title_url" class="postTitle2 vertical-middle" href="https://www.cnblogs.com/CSAH/p/13861883.html">
+    <span>DockerInstall</span>
+    
+
+
+</a>
+
+            </h1>
+            <div class="clear"></div>
+            <div class="postBody">
+                
+<div id="cnblogs_post_body" class="blogpost-body">
+    <p>&nbsp;<img src="https://img2020.cnblogs.com/blog/1617215/202010/1617215-20201023010610464-1524276812.png" alt="" loading="lazy"></p>
+<p><span style="font-size: 14pt">1.安装Tomcat</span></p>
+<p><span style="font-size: 14pt">2.安装mysql</span></p>
+<p><span style="font-size: 14pt">[1].pull</span></p>
+<table border="0" cellspacing="0">
+<tbody>
+<tr>
+<td valign="center" width="775">
+<p><span style="font-size: 14pt">[root@pluto tomcat7logs]# docker pull mysql:5.6</span></p>
+<p><span style="font-size: 14pt">[root@pluto tomcat7logs]# docker images;</span></p>
+<p><span style="font-size: 14pt">REPOSITORY &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TAG &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMAGE ID &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CREATED &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VIRTUAL SIZE</span></p>
+<p><span style="font-size: 14pt">mysql &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5.6 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;99b116904259 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2 weeks ago &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;302.4 MB</span></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p><span style="font-size: 14pt">[2].run</span></p>
+<p><span style="font-size: 14pt">&nbsp;<img src="https://img2020.cnblogs.com/blog/1617215/202010/1617215-20201023010640570-999579.png" alt="" loading="lazy"></span></p>
+<table border="0" cellspacing="0">
+<tbody>
+<tr>
+<td valign="center" width="775">
+<p><span style="font-size: 14pt">[root@pluto /]# <strong>docker run -p 12345:3306 --name mysql -v /pluto/mysql/conf:/etc/mysql/conf.d -v /pluto/mysql/logs:/logs -v /pluto/mysql/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=123456 -d mysql:5.6</strong></span></p>
+<p><span style="font-size: 14pt">&nbsp;</span></p>
+<p><span style="font-size: 14pt">[root@pluto /]# <strong>docker ps</strong></span></p>
+<p><span style="font-size: 14pt">5e02078a1f9f &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mysql:5.6 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"docker-entrypoint.s &nbsp;&nbsp;7 seconds ago &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Up 4 seconds &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0.0.0:12345-&gt;3306/tcp &nbsp;&nbsp;mysql &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+<p><span style="font-size: 14pt">&nbsp;</span></p>
+<p><span style="font-size: 14pt">[root@pluto /]# docker exec -it mysql /bin/bash</span></p>
+<p><span style="font-size: 14pt">&nbsp;</span></p>
+<p><span style="font-size: 14pt">root@5e02078a1f9f:/# mysql -uroot -p123456</span></p>
+<p><span style="font-size: 14pt">&nbsp;</span></p>
+<p><span style="font-size: 14pt">mysql&gt; show databases;</span></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p><span style="font-size: 14pt">&nbsp;<img src="https://img2020.cnblogs.com/blog/1617215/202010/1617215-20201023010652463-367562089.png" alt="" loading="lazy"></span></p>
+<p><span style="font-size: 14pt">[3].Win10连接运行dokcer mysql服务</span></p>
+<p><span style="font-size: 14pt">&nbsp;<img src="https://img2020.cnblogs.com/blog/1617215/202010/1617215-20201023010701237-1913948454.png" alt="" loading="lazy"></span></p>
+<p><span style="font-size: 14pt">[4].数据备份</span></p>
+<p><span style="font-size: 14pt"><span style="font-family: &quot;Courier New&quot;">语法：</span>docker exec myql服务容器ID sh -c ' exec mysqldump --all-databases -uroot -p"123456" ' &gt; /zzyyuse/all-databases.sql</span></p>
+<table border="0" cellspacing="0">
+<tbody>
+<tr>
+<td valign="center" width="775">
+<p><span style="font-size: 14pt">[root@pluto /]# docker ps</span></p>
+<p><span style="font-size: 14pt">CONTAINER ID &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMAGE &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;COMMAND &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CREATED &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STATUS &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PORTS &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NAMES</span></p>
+<p><span style="font-size: 14pt">5e02078a1f9f &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mysql:5.6 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"docker-entrypoint.s &nbsp;&nbsp;5 minutes ago &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Up 5 minutes &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0.0.0:12345-&gt;3306/tcp &nbsp;&nbsp;mysql &nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+<p><span style="font-size: 14pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+<p><span style="font-size: 14pt">[root@pluto /]# docker exec mysql &nbsp;sh -c ' exec mysqldump --all-databases -uroot -p"123456" ' &gt; /pluto/all-databases.sql</span></p>
+<p><span style="font-size: 14pt">Warning: Using a password on the command line interface can be insecure.</span></p>
+<p><span style="font-size: 14pt">&nbsp;</span></p>
+<p><span style="font-size: 14pt">[root@pluto /]# cd /pluto/</span></p>
+<p><span style="font-size: 14pt">all-databases.sql &nbsp;mydockerfile/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mysql/ &nbsp;&nbsp;&nbsp;</span></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p><span style="font-size: 14pt">3.安装redis</span></p>
+<p><span style="font-size: 14pt">[1].pull</span></p>
+<table border="0" cellspacing="0">
+<tbody>
+<tr>
+<td valign="center" width="775">
+<p><span style="font-size: 14pt">[root@pluto ~]# <strong>docker pull redis:3.2</strong></span></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p><span style="font-size: 14pt">[2].run</span></p>
+<table border="0" cellspacing="0">
+<tbody>
+<tr>
+<td valign="center" width="775">
+<p><span style="font-size: 14pt">[root@pluto ~]# docker run -p 6379:6379 -v /pluto/myredis/data:/data -v /pluto/myredis/conf/redis.conf:/usr/local/etc/redis/redis.conf -d redis:3.2 redis-server /usr/local/etc/redis/redis.conf --appendonly yes</span></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p><span style="font-size: 14pt">[3].配置文件</span></p>
+<table border="0" cellspacing="0">
+<tbody>
+<tr>
+<td valign="center" width="775">
+<p>[root@pluto ~]# vim /pluto/myredis/conf/redis.conf/redis.conf</p>
+<p>&nbsp;</p>
+<p># Redis configuration file example.</p>
+<p>#</p>
+<p># Note that in order to read the configuration file, Redis must be</p>
+<p># started with the file path as first argument:</p>
+<p>#</p>
+<p># ./redis-server /path/to/redis.conf</p>
+<p>&nbsp;</p>
+<p># Note on units: when memory size is needed, it is possible to specify</p>
+<p># it in the usual form of 1k 5GB 4M and so forth:</p>
+<p>#</p>
+<p># 1k =&gt; 1000 bytes</p>
+<p># 1kb =&gt; 1024 bytes</p>
+<p># 1m =&gt; 1000000 bytes</p>
+<p># 1mb =&gt; 1024*1024 bytes</p>
+<p># 1g =&gt; 1000000000 bytes</p>
+<p># 1gb =&gt; 1024*1024*1024 bytes</p>
+<p>#</p>
+<p># units are case insensitive so 1GB 1Gb 1gB are all the same.</p>
+<p>################################## INCLUDES ###################################</p>
+<p>&nbsp;</p>
+<p># Include one or more other config files here. &nbsp;This is useful if you</p>
+<p># have a standard template that goes to all Redis servers but also need</p>
+<p># to customize a few per-server settings. &nbsp;Include files can include</p>
+<p># other files, so use this wisely.</p>
+<p>#</p>
+<p># Notice option "include" won't be rewritten by command "CONFIG REWRITE"</p>
+<p># from admin or Redis Sentinel. Since Redis always uses the last processed</p>
+<p># line as value of a configuration directive, you'd better put includes</p>
+<p># at the beginning of this file to avoid overwriting config change at runtime.</p>
+<p>#</p>
+<p># If instead you are interested in using includes to override configuration</p>
+<p># options, it is better to use include as the last line.</p>
+<p>#</p>
+<p># include /path/to/local.conf</p>
+<p># include /path/to/other.conf</p>
+<p>&nbsp;</p>
+<p>################################## NETWORK #####################################</p>
+<p>&nbsp;</p>
+<p># By default, if no "bind" configuration directive is specified, Redis listens</p>
+<p># for connections from all the network interfaces available on the server.</p>
+<p># It is possible to listen to just one or multiple selected interfaces using</p>
+<p># the "bind" configuration directive, followed by one or more IP addresses.</p>
+<p>#</p>
+<p># Examples:</p>
+<p>#</p>
+<p># bind 192.168.1.100 10.0.0.1</p>
+<p># bind 127.0.0.1 ::1</p>
+<p>#</p>
+<p># ~~~ WARNING ~~~ If the computer running Redis is directly exposed to the</p>
+<p># internet, binding to all the interfaces is dangerous and will expose the</p>
+<p># instance to everybody on the internet. So by default we uncomment the</p>
+<p># following bind directive, that will force Redis to listen only into</p>
+<p># the IPv4 lookback interface address (this means Redis will be able to</p>
+<p># accept connections only from clients running into the same computer it</p>
+<p># is running).</p>
+<p>#</p>
+<p># IF YOU ARE SURE YOU WANT YOUR INSTANCE TO LISTEN TO ALL THE INTERFACES</p>
+<p># JUST COMMENT THE FOLLOWING LINE.</p>
+<p># ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</p>
+<p>#bind 127.0.0.1</p>
+<p>&nbsp;</p>
+<p># Protected mode is a layer of security protection, in order to avoid that</p>
+<p># Redis instances left open on the internet are accessed and exploited.</p>
+<p>#</p>
+<p># When protected mode is on and if:</p>
+<p>#</p>
+<p># 1) The server is not binding explicitly to a set of addresses using the</p>
+<p># &nbsp;&nbsp;&nbsp;"bind" directive.</p>
+<p># 2) No password is configured.</p>
+<p>#</p>
+<p># The server only accepts connections from clients connecting from the</p>
+<p># IPv4 and IPv6 loopback addresses 127.0.0.1 and ::1, and from Unix domain</p>
+<p># sockets.</p>
+<p>#</p>
+<p># By default protected mode is enabled. You should disable it only if</p>
+<p># you are sure you want clients from other hosts to connect to Redis</p>
+<p># even if no authentication is configured, nor a specific set of interfaces</p>
+<p># are explicitly listed using the "bind" directive.</p>
+<p>protected-mode yes</p>
+<p>&nbsp;</p>
+<p># Accept connections on the specified port, default is 6379 (IANA #815344).</p>
+<p># If port 0 is specified Redis will not listen on a TCP socket.</p>
+<p>port 6379</p>
+<p>&nbsp;</p>
+<p># TCP listen() backlog.</p>
+<p>#</p>
+<p># In high requests-per-second environments you need an high backlog in order</p>
+<p># to avoid slow clients connections issues. Note that the Linux kernel</p>
+<p># will silently truncate it to the value of /proc/sys/net/core/somaxconn so</p>
+<p># make sure to raise both the value of somaxconn and tcp_max_syn_backlog</p>
+<p># in order to get the desired effect.</p>
+<p>tcp-backlog 511</p>
+<p>&nbsp;</p>
+<p># Unix socket.</p>
+<p>#</p>
+<p># Specify the path for the Unix socket that will be used to listen for</p>
+<p># incoming connections. There is no default, so Redis will not listen</p>
+<p># on a unix socket when not specified.</p>
+<p>#</p>
+<p># unixsocket /tmp/redis.sock</p>
+<p># unixsocketperm 700</p>
+<p>&nbsp;</p>
+<p># Close the connection after a client is idle for N seconds (0 to disable)</p>
+<p>timeout 0</p>
+<p>&nbsp;</p>
+<p># TCP keepalive.</p>
+<p>#</p>
+<p># If non-zero, use SO_KEEPALIVE to send TCP ACKs to clients in absence</p>
+<p># of communication. This is useful for two reasons:</p>
+<p>#</p>
+<p># 1) Detect dead peers.</p>
+<p># 2) Take the connection alive from the point of view of network</p>
+<p># &nbsp;&nbsp;&nbsp;equipment in the middle.</p>
+<p>#</p>
+<p># On Linux, the specified value (in seconds) is the period used to send ACKs.</p>
+<p># Note that to close the connection the double of the time is needed.</p>
+<p># On other kernels the period depends on the kernel configuration.</p>
+<p>#</p>
+<p># A reasonable value for this option is 300 seconds, which is the new</p>
+<p># Redis default starting with Redis 3.2.1.</p>
+<p>tcp-keepalive 300</p>
+<p>&nbsp;</p>
+<p>################################# GENERAL #####################################</p>
+<p>&nbsp;</p>
+<p># By default Redis does not run as a daemon. Use 'yes' if you need it.</p>
+<p># Note that Redis will write a pid file in /var/run/redis.pid when daemonized.</p>
+<p>#daemonize no</p>
+<p>&nbsp;</p>
+<p># If you run Redis from upstart or systemd, Redis can interact with your</p>
+<p># supervision tree. Options:</p>
+<p># &nbsp;&nbsp;supervised no &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- no supervision interaction</p>
+<p># &nbsp;&nbsp;supervised upstart - signal upstart by putting Redis into SIGSTOP mode</p>
+<p># &nbsp;&nbsp;supervised systemd - signal systemd by writing READY=1 to $NOTIFY_SOCKET</p>
+<p># &nbsp;&nbsp;supervised auto &nbsp;&nbsp;&nbsp;- detect upstart or systemd method based on</p>
+<p># &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;UPSTART_JOB or NOTIFY_SOCKET environment variables</p>
+<p># Note: these supervision methods only signal "process is ready."</p>
+<p># &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;They do not enable continuous liveness pings back to your supervisor.</p>
+<p>supervised no</p>
+<p>&nbsp;</p>
+<p># If a pid file is specified, Redis writes it where specified at startup</p>
+<p># and removes it at exit.</p>
+<p>#</p>
+<p># When the server runs non daemonized, no pid file is created if none is</p>
+<p># specified in the configuration. When the server is daemonized, the pid file</p>
+<p># is used even if not specified, defaulting to "/var/run/redis.pid".</p>
+<p>#</p>
+<p># Creating a pid file is best effort: if Redis is not able to create it</p>
+<p># nothing bad happens, the server will start and run normally.</p>
+<p>pidfile /var/run/redis_6379.pid</p>
+<p>&nbsp;</p>
+<p># Specify the server verbosity level.</p>
+<p># This can be one of:</p>
+<p># debug (a lot of information, useful for development/testing)</p>
+<p># verbose (many rarely useful info, but not a mess like the debug level)</p>
+<p># notice (moderately verbose, what you want in production probably)</p>
+<p># warning (only very important / critical messages are logged)</p>
+<p>loglevel notice</p>
+<p>&nbsp;</p>
+<p># Specify the log file name. Also the empty string can be used to force</p>
+<p># Redis to log on the standard output. Note that if you use standard</p>
+<p># output for logging but daemonize, logs will be sent to /dev/null</p>
+<p>logfile ""</p>
+<p>&nbsp;</p>
+<p># To enable logging to the system logger, just set 'syslog-enabled' to yes,</p>
+<p># and optionally update the other syslog parameters to suit your needs.</p>
+<p># syslog-enabled no</p>
+<p>&nbsp;</p>
+<p># Specify the syslog identity.</p>
+<p># syslog-ident redis</p>
+<p>&nbsp;</p>
+<p># Specify the syslog facility. Must be USER or between LOCAL0-LOCAL7.</p>
+<p># syslog-facility local0</p>
+<p>&nbsp;</p>
+<p># Set the number of databases. The default database is DB 0, you can select</p>
+<p># a different one on a per-connection basis using SELECT &lt;dbid&gt; where</p>
+<p># dbid is a number between 0 and 'databases'-1</p>
+<p>databases 16</p>
+<p>&nbsp;</p>
+<p>################################ SNAPSHOTTING &nbsp;################################</p>
+<p>#</p>
+<p># Save the DB on disk:</p>
+<p>#</p>
+<p># &nbsp;&nbsp;save &lt;seconds&gt; &lt;changes&gt;</p>
+<p>#</p>
+<p># &nbsp;&nbsp;Will save the DB if both the given number of seconds and the given</p>
+<p># &nbsp;&nbsp;number of write operations against the DB occurred.</p>
+<p>#</p>
+<p># &nbsp;&nbsp;In the example below the behaviour will be to save:</p>
+<p># &nbsp;&nbsp;after 900 sec (15 min) if at least 1 key changed</p>
+<p># &nbsp;&nbsp;after 300 sec (5 min) if at least 10 keys changed</p>
+<p># &nbsp;&nbsp;after 60 sec if at least 10000 keys changed</p>
+<p>#</p>
+<p># &nbsp;&nbsp;Note: you can disable saving completely by commenting out all "save" lines.</p>
+<p>#</p>
+<p># &nbsp;&nbsp;It is also possible to remove all the previously configured save</p>
+<p># &nbsp;&nbsp;points by adding a save directive with a single empty string argument</p>
+<p># &nbsp;&nbsp;like in the following example:</p>
+<p>#</p>
+<p># &nbsp;&nbsp;save ""</p>
+<p>&nbsp;</p>
+<p>save 120 1</p>
+<p>save 300 10</p>
+<p>save 60 10000</p>
+<p>&nbsp;</p>
+<p># By default Redis will stop accepting writes if RDB snapshots are enabled</p>
+<p># (at least one save point) and the latest background save failed.</p>
+<p># This will make the user aware (in a hard way) that data is not persisting</p>
+<p># on disk properly, otherwise chances are that no one will notice and some</p>
+<p># disaster will happen.</p>
+<p>#</p>
+<p># If the background saving process will start working again Redis will</p>
+<p># automatically allow writes again.</p>
+<p>#</p>
+<p># However if you have setup your proper monitoring of the Redis server</p>
+<p># and persistence, you may want to disable this feature so that Redis will</p>
+<p># continue to work as usual even if there are problems with disk,</p>
+<p># permissions, and so forth.</p>
+<p>stop-writes-on-bgsave-error yes</p>
+<p>&nbsp;</p>
+<p># Compress string objects using LZF when dump .rdb databases?</p>
+<p># For default that's set to 'yes' as it's almost always a win.</p>
+<p># If you want to save some CPU in the saving child set it to 'no' but</p>
+<p># the dataset will likely be bigger if you have compressible values or keys.</p>
+<p>rdbcompression yes</p>
+<p>&nbsp;</p>
+<p># Since version 5 of RDB a CRC64 checksum is placed at the end of the file.</p>
+<p># This makes the format more resistant to corruption but there is a performance</p>
+<p># hit to pay (around 10%) when saving and loading RDB files, so you can disable it</p>
+<p># for maximum performances.</p>
+<p>#</p>
+<p># RDB files created with checksum disabled have a checksum of zero that will</p>
+<p># tell the loading code to skip the check.</p>
+<p>rdbchecksum yes</p>
+<p>&nbsp;</p>
+<p># The filename where to dump the DB</p>
+<p>dbfilename dump.rdb</p>
+<p>&nbsp;</p>
+<p># The working directory.</p>
+<p>#</p>
+<p># The DB will be written inside this directory, with the filename specified</p>
+<p># above using the 'dbfilename' configuration directive.</p>
+<p>#</p>
+<p># The Append Only File will also be created inside this directory.</p>
+<p>#</p>
+<p># Note that you must specify a directory here, not a file name.</p>
+<p>dir ./</p>
+<p>&nbsp;</p>
+<p>################################# REPLICATION #################################</p>
+<p>&nbsp;</p>
+<p># Master-Slave replication. Use slaveof to make a Redis instance a copy of</p>
+<p># another Redis server. A few things to understand ASAP about Redis replication.</p>
+<p>#</p>
+<p># 1) Redis replication is asynchronous, but you can configure a master to</p>
+<p># &nbsp;&nbsp;&nbsp;stop accepting writes if it appears to be not connected with at least</p>
+<p># &nbsp;&nbsp;&nbsp;a given number of slaves.</p>
+<p># 2) Redis slaves are able to perform a partial resynchronization with the</p>
+<p># &nbsp;&nbsp;&nbsp;master if the replication link is lost for a relatively small amount of</p>
+<p># &nbsp;&nbsp;&nbsp;time. You may want to configure the replication backlog size (see the next</p>
+<p># &nbsp;&nbsp;&nbsp;sections of this file) with a sensible value depending on your needs.</p>
+<p># 3) Replication is automatic and does not need user intervention. After a</p>
+<p># &nbsp;&nbsp;&nbsp;network partition slaves automatically try to reconnect to masters</p>
+<p># &nbsp;&nbsp;&nbsp;and resynchronize with them.</p>
+<p>#</p>
+<p># slaveof &lt;masterip&gt; &lt;masterport&gt;</p>
+<p>&nbsp;</p>
+<p># If the master is password protected (using the "requirepass" configuration</p>
+<p># directive below) it is possible to tell the slave to authenticate before</p>
+<p># starting the replication synchronization process, otherwise the master will</p>
+<p># refuse the slave request.</p>
+<p>#</p>
+<p># masterauth &lt;master-password&gt;</p>
+<p>&nbsp;</p>
+<p># When a slave loses its connection with the master, or when the replication</p>
+<p># is still in progress, the slave can act in two different ways:</p>
+<p>#</p>
+<p># 1) if slave-serve-stale-data is set to 'yes' (the default) the slave will</p>
+<p># &nbsp;&nbsp;&nbsp;still reply to client requests, possibly with out of date data, or the</p>
+<p># &nbsp;&nbsp;&nbsp;data set may just be empty if this is the first synchronization.</p>
+<p>#</p>
+<p># 2) if slave-serve-stale-data is set to 'no' the slave will reply with</p>
+<p># &nbsp;&nbsp;&nbsp;an error "SYNC with master in progress" to all the kind of commands</p>
+<p># &nbsp;&nbsp;&nbsp;but to INFO and SLAVEOF.</p>
+<p>#</p>
+<p>slave-serve-stale-data yes</p>
+<p>&nbsp;</p>
+<p># You can configure a slave instance to accept writes or not. Writing against</p>
+<p># a slave instance may be useful to store some ephemeral data (because data</p>
+<p># written on a slave will be easily deleted after resync with the master) but</p>
+<p># may also cause problems if clients are writing to it because of a</p>
+<p># misconfiguration.</p>
+<p>#</p>
+<p># Since Redis 2.6 by default slaves are read-only.</p>
+<p>#</p>
+<p># Note: read only slaves are not designed to be exposed to untrusted clients</p>
+<p># on the internet. It's just a protection layer against misuse of the instance.</p>
+<p># Still a read only slave exports by default all the administrative commands</p>
+<p># such as CONFIG, DEBUG, and so forth. To a limited extent you can improve</p>
+<p># security of read only slaves using 'rename-command' to shadow all the</p>
+<p># administrative / dangerous commands.</p>
+<p>slave-read-only yes</p>
+<p>&nbsp;</p>
+<p># Replication SYNC strategy: disk or socket.</p>
+<p>#</p>
+<p># -------------------------------------------------------</p>
+<p># WARNING: DISKLESS REPLICATION IS EXPERIMENTAL CURRENTLY</p>
+<p># -------------------------------------------------------</p>
+<p>#</p>
+<p># New slaves and reconnecting slaves that are not able to continue the replication</p>
+<p># process just receiving differences, need to do what is called a "full</p>
+<p># synchronization". An RDB file is transmitted from the master to the slaves.</p>
+<p># The transmission can happen in two different ways:</p>
+<p>#</p>
+<p># 1) Disk-backed: The Redis master creates a new process that writes the RDB</p>
+<p># &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;file on disk. Later the file is transferred by the parent</p>
+<p># &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;process to the slaves incrementally.</p>
+<p># 2) Diskless: The Redis master creates a new process that directly writes the</p>
+<p># &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RDB file to slave sockets, without touching the disk at all.</p>
+<p>#</p>
+<p># With disk-backed replication, while the RDB file is generated, more slaves</p>
+<p># can be queued and served with the RDB file as soon as the current child producing</p>
+<p># the RDB file finishes its work. With diskless replication instead once</p>
+<p># the transfer starts, new slaves arriving will be queued and a new transfer</p>
+<p># will start when the current one terminates.</p>
+<p>#</p>
+<p># When diskless replication is used, the master waits a configurable amount of</p>
+<p># time (in seconds) before starting the transfer in the hope that multiple slaves</p>
+<p># will arrive and the transfer can be parallelized.</p>
+<p>#</p>
+<p># With slow disks and fast (large bandwidth) networks, diskless replication</p>
+<p># works better.</p>
+<p>repl-diskless-sync no</p>
+<p>&nbsp;</p>
+<p># When diskless replication is enabled, it is possible to configure the delay</p>
+<p># the server waits in order to spawn the child that transfers the RDB via socket</p>
+<p># to the slaves.</p>
+<p>#</p>
+<p># This is important since once the transfer starts, it is not possible to serve</p>
+<p># new slaves arriving, that will be queued for the next RDB transfer, so the server</p>
+<p># waits a delay in order to let more slaves arrive.</p>
+<p>#</p>
+<p># The delay is specified in seconds, and by default is 5 seconds. To disable</p>
+<p># it entirely just set it to 0 seconds and the transfer will start ASAP.</p>
+<p>repl-diskless-sync-delay 5</p>
+<p>&nbsp;</p>
+<p># Slaves send PINGs to server in a predefined interval. It's possible to change</p>
+<p># this interval with the repl_ping_slave_period option. The default value is 10</p>
+<p># seconds.</p>
+<p>#</p>
+<p># repl-ping-slave-period 10</p>
+<p>&nbsp;</p>
+<p># The following option sets the replication timeout for:</p>
+<p>#</p>
+<p># 1) Bulk transfer I/O during SYNC, from the point of view of slave.</p>
+<p># 2) Master timeout from the point of view of slaves (data, pings).</p>
+<p># 3) Slave timeout from the point of view of masters (REPLCONF ACK pings).</p>
+<p>#</p>
+<p># It is important to make sure that this value is greater than the value</p>
+<p># specified for repl-ping-slave-period otherwise a timeout will be detected</p>
+<p># every time there is low traffic between the master and the slave.</p>
+<p>#</p>
+<p># repl-timeout 60</p>
+<p>&nbsp;</p>
+<p># Disable TCP_NODELAY on the slave socket after SYNC?</p>
+<p>#</p>
+<p># If you select "yes" Redis will use a smaller number of TCP packets and</p>
+<p># less bandwidth to send data to slaves. But this can add a delay for</p>
+<p># the data to appear on the slave side, up to 40 milliseconds with</p>
+<p># Linux kernels using a default configuration.</p>
+<p>#</p>
+<p># If you select "no" the delay for data to appear on the slave side will</p>
+<p># be reduced but more bandwidth will be used for replication.</p>
+<p>#</p>
+<p># By default we optimize for low latency, but in very high traffic conditions</p>
+<p># or when the master and slaves are many hops away, turning this to "yes" may</p>
+<p># be a good idea.</p>
+<p>repl-disable-tcp-nodelay no</p>
+<p>&nbsp;</p>
+<p># Set the replication backlog size. The backlog is a buffer that accumulates</p>
+<p># slave data when slaves are disconnected for some time, so that when a slave</p>
+<p># wants to reconnect again, often a full resync is not needed, but a partial</p>
+<p># resync is enough, just passing the portion of data the slave missed while</p>
+<p># disconnected.</p>
+<p>#</p>
+<p># The bigger the replication backlog, the longer the time the slave can be</p>
+<p># disconnected and later be able to perform a partial resynchronization.</p>
+<p>#</p>
+<p># The backlog is only allocated once there is at least a slave connected.</p>
+<p>#</p>
+<p># repl-backlog-size 1mb</p>
+<p>&nbsp;</p>
+<p># After a master has no longer connected slaves for some time, the backlog</p>
+<p># will be freed. The following option configures the amount of seconds that</p>
+<p># need to elapse, starting from the time the last slave disconnected, for</p>
+<p># the backlog buffer to be freed.</p>
+<p>#</p>
+<p># A value of 0 means to never release the backlog.</p>
+<p>#</p>
+<p># repl-backlog-ttl 3600</p>
+<p>&nbsp;</p>
+<p># The slave priority is an integer number published by Redis in the INFO output.</p>
+<p># It is used by Redis Sentinel in order to select a slave to promote into a</p>
+<p># master if the master is no longer working correctly.</p>
+<p>#</p>
+<p># A slave with a low priority number is considered better for promotion, so</p>
+<p># for instance if there are three slaves with priority 10, 100, 25 Sentinel will</p>
+<p># pick the one with priority 10, that is the lowest.</p>
+<p>#</p>
+<p># However a special priority of 0 marks the slave as not able to perform the</p>
+<p># role of master, so a slave with priority of 0 will never be selected by</p>
+<p># Redis Sentinel for promotion.</p>
+<p>#</p>
+<p># By default the priority is 100.</p>
+<p>slave-priority 100</p>
+<p>&nbsp;</p>
+<p># It is possible for a master to stop accepting writes if there are less than</p>
+<p># N slaves connected, having a lag less or equal than M seconds.</p>
+<p>#</p>
+<p># The N slaves need to be in "online" state.</p>
+<p>#</p>
+<p># The lag in seconds, that must be &lt;= the specified value, is calculated from</p>
+<p># the last ping received from the slave, that is usually sent every second.</p>
+<p>#</p>
+<p># This option does not GUARANTEE that N replicas will accept the write, but</p>
+<p># will limit the window of exposure for lost writes in case not enough slaves</p>
+<p># are available, to the specified number of seconds.</p>
+<p>#</p>
+<p># For example to require at least 3 slaves with a lag &lt;= 10 seconds use:</p>
+<p>#</p>
+<p># min-slaves-to-write 3</p>
+<p># min-slaves-max-lag 10</p>
+<p>#</p>
+<p># Setting one or the other to 0 disables the feature.</p>
+<p>#</p>
+<p># By default min-slaves-to-write is set to 0 (feature disabled) and</p>
+<p># min-slaves-max-lag is set to 10.</p>
+<p>&nbsp;</p>
+<p># A Redis master is able to list the address and port of the attached</p>
+<p># slaves in different ways. For example the "INFO replication" section</p>
+<p># offers this information, which is used, among other tools, by</p>
+<p># Redis Sentinel in order to discover slave instances.</p>
+<p># Another place where this info is available is in the output of the</p>
+<p># "ROLE" command of a masteer.</p>
+<p>#</p>
+<p># The listed IP and address normally reported by a slave is obtained</p>
+<p># in the following way:</p>
+<p>#</p>
+<p># &nbsp;&nbsp;IP: The address is auto detected by checking the peer address</p>
+<p># &nbsp;&nbsp;of the socket used by the slave to connect with the master.</p>
+<p>#</p>
+<p># &nbsp;&nbsp;Port: The port is communicated by the slave during the replication</p>
+<p># &nbsp;&nbsp;handshake, and is normally the port that the slave is using to</p>
+<p># &nbsp;&nbsp;list for connections.</p>
+<p>#</p>
+<p># However when port forwarding or Network Address Translation (NAT) is</p>
+<p># used, the slave may be actually reachable via different IP and port</p>
+<p># pairs. The following two options can be used by a slave in order to</p>
+<p># report to its master a specific set of IP and port, so that both INFO</p>
+<p># and ROLE will report those values.</p>
+<p>#</p>
+<p># There is no need to use both the options if you need to override just</p>
+<p># the port or the IP address.</p>
+<p>#</p>
+<p># slave-announce-ip 5.5.5.5</p>
+<p># slave-announce-port 1234</p>
+<p>&nbsp;</p>
+<p>################################## SECURITY ###################################</p>
+<p>&nbsp;</p>
+<p># Require clients to issue AUTH &lt;PASSWORD&gt; before processing any other</p>
+<p># commands. &nbsp;This might be useful in environments in which you do not trust</p>
+<p># others with access to the host running redis-server.</p>
+<p>#</p>
+<p># This should stay commented out for backward compatibility and because most</p>
+<p># people do not need auth (e.g. they run their own servers).</p>
+<p>#</p>
+<p># Warning: since Redis is pretty fast an outside user can try up to</p>
+<p># 150k passwords per second against a good box. This means that you should</p>
+<p># use a very strong password otherwise it will be very easy to break.</p>
+<p>#</p>
+<p># requirepass foobared</p>
+<p>&nbsp;</p>
+<p># Command renaming.</p>
+<p>#</p>
+<p># It is possible to change the name of dangerous commands in a shared</p>
+<p># environment. For instance the CONFIG command may be renamed into something</p>
+<p># hard to guess so that it will still be available for internal-use tools</p>
+<p># but not available for general clients.</p>
+<p>#</p>
+<p># Example:</p>
+<p>#</p>
+<p># rename-command CONFIG b840fc02d524045429941cc15f59e41cb7be6c52</p>
+<p>#</p>
+<p># It is also possible to completely kill a command by renaming it into</p>
+<p># an empty string:</p>
+<p>#</p>
+<p># rename-command CONFIG ""</p>
+<p>#</p>
+<p># Please note that changing the name of commands that are logged into the</p>
+<p># AOF file or transmitted to slaves may cause problems.</p>
+<p>&nbsp;</p>
+<p>################################### LIMITS ####################################</p>
+<p>&nbsp;</p>
+<p># Set the max number of connected clients at the same time. By default</p>
+<p># this limit is set to 10000 clients, however if the Redis server is not</p>
+<p># able to configure the process file limit to allow for the specified limit</p>
+<p># the max number of allowed clients is set to the current file limit</p>
+<p># minus 32 (as Redis reserves a few file descriptors for internal uses).</p>
+<p>#</p>
+<p># Once the limit is reached Redis will close all the new connections sending</p>
+<p># an error 'max number of clients reached'.</p>
+<p>#</p>
+<p># maxclients 10000</p>
+<p>&nbsp;</p>
+<p># Don't use more memory than the specified amount of bytes.</p>
+<p># When the memory limit is reached Redis will try to remove keys</p>
+<p># according to the eviction policy selected (see maxmemory-policy).</p>
+<p>#</p>
+<p># If Redis can't remove keys according to the policy, or if the policy is</p>
+<p># set to 'noeviction', Redis will start to reply with errors to commands</p>
+<p># that would use more memory, like SET, LPUSH, and so on, and will continue</p>
+<p># to reply to read-only commands like GET.</p>
+<p>#</p>
+<p># This option is usually useful when using Redis as an LRU cache, or to set</p>
+<p># a hard memory limit for an instance (using the 'noeviction' policy).</p>
+<p>#</p>
+<p># WARNING: If you have slaves attached to an instance with maxmemory on,</p>
+<p># the size of the output buffers needed to feed the slaves are subtracted</p>
+<p># from the used memory count, so that network problems / resyncs will</p>
+<p># not trigger a loop where keys are evicted, and in turn the output</p>
+<p># buffer of slaves is full with DELs of keys evicted triggering the deletion</p>
+<p># of more keys, and so forth until the database is completely emptied.</p>
+<p>#</p>
+<p># In short... if you have slaves attached it is suggested that you set a lower</p>
+<p># limit for maxmemory so that there is some free RAM on the system for slave</p>
+<p># output buffers (but this is not needed if the policy is 'noeviction').</p>
+<p>#</p>
+<p># maxmemory &lt;bytes&gt;</p>
+<p>&nbsp;</p>
+<p># MAXMEMORY POLICY: how Redis will select what to remove when maxmemory</p>
+<p># is reached. You can select among five behaviors:</p>
+<p>#</p>
+<p># volatile-lru -&gt; remove the key with an expire set using an LRU algorithm</p>
+<p># allkeys-lru -&gt; remove any key according to the LRU algorithm</p>
+<p># volatile-random -&gt; remove a random key with an expire set</p>
+<p># allkeys-random -&gt; remove a random key, any key</p>
+<p># volatile-ttl -&gt; remove the key with the nearest expire time (minor TTL)</p>
+<p># noeviction -&gt; don't expire at all, just return an error on write operations</p>
+<p>#</p>
+<p># Note: with any of the above policies, Redis will return an error on write</p>
+<p># &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;operations, when there are no suitable keys for eviction.</p>
+<p>#</p>
+<p># &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;At the date of writing these commands are: set setnx setex append</p>
+<p># &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;incr decr rpush lpush rpushx lpushx linsert lset rpoplpush sadd</p>
+<p># &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sinter sinterstore sunion sunionstore sdiff sdiffstore zadd zincrby</p>
+<p># &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zunionstore zinterstore hset hsetnx hmset hincrby incrby decrby</p>
+<p># &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;getset mset msetnx exec sort</p>
+<p>#</p>
+<p># The default is:</p>
+<p>#</p>
+<p># maxmemory-policy noeviction</p>
+<p>&nbsp;</p>
+<p># LRU and minimal TTL algorithms are not precise algorithms but approximated</p>
+<p># algorithms (in order to save memory), so you can tune it for speed or</p>
+<p># accuracy. For default Redis will check five keys and pick the one that was</p>
+<p># used less recently, you can change the sample size using the following</p>
+<p># configuration directive.</p>
+<p>#</p>
+<p># The default of 5 produces good enough results. 10 Approximates very closely</p>
+<p># true LRU but costs a bit more CPU. 3 is very fast but not very accurate.</p>
+<p>#</p>
+<p># maxmemory-samples 5</p>
+<p>&nbsp;</p>
+<p>############################## APPEND ONLY MODE ###############################</p>
+<p>&nbsp;</p>
+<p># By default Redis asynchronously dumps the dataset on disk. This mode is</p>
+<p># good enough in many applications, but an issue with the Redis process or</p>
+<p># a power outage may result into a few minutes of writes lost (depending on</p>
+<p># the configured save points).</p>
+<p>#</p>
+<p># The Append Only File is an alternative persistence mode that provides</p>
+<p># much better durability. For instance using the default data fsync policy</p>
+<p># (see later in the config file) Redis can lose just one second of writes in a</p>
+<p># dramatic event like a server power outage, or a single write if something</p>
+<p># wrong with the Redis process itself happens, but the operating system is</p>
+<p># still running correctly.</p>
+<p>#</p>
+<p># AOF and RDB persistence can be enabled at the same time without problems.</p>
+<p># If the AOF is enabled on startup Redis will load the AOF, that is the file</p>
+<p># with the better durability guarantees.</p>
+<p>#</p>
+<p># Please check http://redis.io/topics/persistence for more information.</p>
+<p>&nbsp;</p>
+<p>appendonly no</p>
+<p>&nbsp;</p>
+<p># The name of the append only file (default: "appendonly.aof")</p>
+<p>&nbsp;</p>
+<p>appendfilename "appendonly.aof"</p>
+<p>&nbsp;</p>
+<p># The fsync() call tells the Operating System to actually write data on disk</p>
+<p># instead of waiting for more data in the output buffer. Some OS will really flush</p>
+<p># data on disk, some other OS will just try to do it ASAP.</p>
+<p>#</p>
+<p># Redis supports three different modes:</p>
+<p>#</p>
+<p># no: don't fsync, just let the OS flush the data when it wants. Faster.</p>
+<p># always: fsync after every write to the append only log. Slow, Safest.</p>
+<p># everysec: fsync only one time every second. Compromise.</p>
+<p>#</p>
+<p># The default is "everysec", as that's usually the right compromise between</p>
+<p># speed and data safety. It's up to you to understand if you can relax this to</p>
+<p># "no" that will let the operating system flush the output buffer when</p>
+<p># it wants, for better performances (but if you can live with the idea of</p>
+<p># some data loss consider the default persistence mode that's snapshotting),</p>
+<p># or on the contrary, use "always" that's very slow but a bit safer than</p>
+<p># everysec.</p>
+<p>#</p>
+<p># More details please check the following article:</p>
+<p># http://antirez.com/post/redis-persistence-demystified.html</p>
+<p>#</p>
+<p># If unsure, use "everysec".</p>
+<p>&nbsp;</p>
+<p># appendfsync always</p>
+<p>appendfsync everysec</p>
+<p># appendfsync no</p>
+<p>&nbsp;</p>
+<p># When the AOF fsync policy is set to always or everysec, and a background</p>
+<p># saving process (a background save or AOF log background rewriting) is</p>
+<p># performing a lot of I/O against the disk, in some Linux configurations</p>
+<p># Redis may block too long on the fsync() call. Note that there is no fix for</p>
+<p># this currently, as even performing fsync in a different thread will block</p>
+<p># our synchronous write(2) call.</p>
+<p>#</p>
+<p># In order to mitigate this problem it's possible to use the following option</p>
+<p># that will prevent fsync() from being called in the main process while a</p>
+<p># BGSAVE or BGREWRITEAOF is in progress.</p>
+<p>#</p>
+<p># This means that while another child is saving, the durability of Redis is</p>
+<p># the same as "appendfsync none". In practical terms, this means that it is</p>
+<p># possible to lose up to 30 seconds of log in the worst scenario (with the</p>
+<p># default Linux settings).</p>
+<p>#</p>
+<p># If you have latency problems turn this to "yes". Otherwise leave it as</p>
+<p># "no" that is the safest pick from the point of view of durability.</p>
+<p>&nbsp;</p>
+<p>no-appendfsync-on-rewrite no</p>
+<p>&nbsp;</p>
+<p># Automatic rewrite of the append only file.</p>
+<p># Redis is able to automatically rewrite the log file implicitly calling</p>
+<p># BGREWRITEAOF when the AOF log size grows by the specified percentage.</p>
+<p>#</p>
+<p># This is how it works: Redis remembers the size of the AOF file after the</p>
+<p># latest rewrite (if no rewrite has happened since the restart, the size of</p>
+<p># the AOF at startup is used).</p>
+<p>#</p>
+<p># This base size is compared to the current size. If the current size is</p>
+<p># bigger than the specified percentage, the rewrite is triggered. Also</p>
+<p># you need to specify a minimal size for the AOF file to be rewritten, this</p>
+<p># is useful to avoid rewriting the AOF file even if the percentage increase</p>
+<p># is reached but it is still pretty small.</p>
+<p>#</p>
+<p># Specify a percentage of zero in order to disable the automatic AOF</p>
+<p># rewrite feature.</p>
+<p>&nbsp;</p>
+<p>auto-aof-rewrite-percentage 100</p>
+<p>auto-aof-rewrite-min-size 64mb</p>
+<p>&nbsp;</p>
+<p># An AOF file may be found to be truncated at the end during the Redis</p>
+<p># startup process, when the AOF data gets loaded back into memory.</p>
+<p># This may happen when the system where Redis is running</p>
+<p># crashes, especially when an ext4 filesystem is mounted without the</p>
+<p># data=ordered option (however this can't happen when Redis itself</p>
+<p># crashes or aborts but the operating system still works correctly).</p>
+<p>#</p>
+<p># Redis can either exit with an error when this happens, or load as much</p>
+<p># data as possible (the default now) and start if the AOF file is found</p>
+<p># to be truncated at the end. The following option controls this behavior.</p>
+<p>#</p>
+<p># If aof-load-truncated is set to yes, a truncated AOF file is loaded and</p>
+<p># the Redis server starts emitting a log to inform the user of the event.</p>
+<p># Otherwise if the option is set to no, the server aborts with an error</p>
+<p># and refuses to start. When the option is set to no, the user requires</p>
+<p># to fix the AOF file using the "redis-check-aof" utility before to restart</p>
+<p># the server.</p>
+<p>#</p>
+<p># Note that if the AOF file will be found to be corrupted in the middle</p>
+<p># the server will still exit with an error. This option only applies when</p>
+<p># Redis will try to read more data from the AOF file but not enough bytes</p>
+<p># will be found.</p>
+<p>aof-load-truncated yes</p>
+<p>&nbsp;</p>
+<p>################################ LUA SCRIPTING &nbsp;###############################</p>
+<p>&nbsp;</p>
+<p># Max execution time of a Lua script in milliseconds.</p>
+<p>#</p>
+<p># If the maximum execution time is reached Redis will log that a script is</p>
+<p># still in execution after the maximum allowed time and will start to</p>
+<p># reply to queries with an error.</p>
+<p>#</p>
+<p># When a long running script exceeds the maximum execution time only the</p>
+<p># SCRIPT KILL and SHUTDOWN NOSAVE commands are available. The first can be</p>
+<p># used to stop a script that did not yet called write commands. The second</p>
+<p># is the only way to shut down the server in the case a write command was</p>
+<p># already issued by the script but the user doesn't want to wait for the natural</p>
+<p># termination of the script.</p>
+<p>#</p>
+<p># Set it to 0 or a negative value for unlimited execution without warnings.</p>
+<p>lua-time-limit 5000</p>
+<p>&nbsp;</p>
+<p>################################ REDIS CLUSTER &nbsp;###############################</p>
+<p>#</p>
+<p># ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++</p>
+<p># WARNING EXPERIMENTAL: Redis Cluster is considered to be stable code, however</p>
+<p># in order to mark it as "mature" we need to wait for a non trivial percentage</p>
+<p># of users to deploy it in production.</p>
+<p># ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++</p>
+<p>#</p>
+<p># Normal Redis instances can't be part of a Redis Cluster; only nodes that are</p>
+<p># started as cluster nodes can. In order to start a Redis instance as a</p>
+<p># cluster node enable the cluster support uncommenting the following:</p>
+<p>#</p>
+<p># cluster-enabled yes</p>
+<p>&nbsp;</p>
+<p># Every cluster node has a cluster configuration file. This file is not</p>
+<p># intended to be edited by hand. It is created and updated by Redis nodes.</p>
+<p># Every Redis Cluster node requires a different cluster configuration file.</p>
+<p># Make sure that instances running in the same system do not have</p>
+<p># overlapping cluster configuration file names.</p>
+<p>#</p>
+<p># cluster-config-file nodes-6379.conf</p>
+<p>&nbsp;</p>
+<p># Cluster node timeout is the amount of milliseconds a node must be unreachable</p>
+<p># for it to be considered in failure state.</p>
+<p># Most other internal time limits are multiple of the node timeout.</p>
+<p>#</p>
+<p># cluster-node-timeout 15000</p>
+<p>&nbsp;</p>
+<p># A slave of a failing master will avoid to start a failover if its data</p>
+<p># looks too old.</p>
+<p>#</p>
+<p># There is no simple way for a slave to actually have a exact measure of</p>
+<p># its "data age", so the following two checks are performed:</p>
+<p>#</p>
+<p># 1) If there are multiple slaves able to failover, they exchange messages</p>
+<p># &nbsp;&nbsp;&nbsp;in order to try to give an advantage to the slave with the best</p>
+<p># &nbsp;&nbsp;&nbsp;replication offset (more data from the master processed).</p>
+<p># &nbsp;&nbsp;&nbsp;Slaves will try to get their rank by offset, and apply to the start</p>
+<p># &nbsp;&nbsp;&nbsp;of the failover a delay proportional to their rank.</p>
+<p>#</p>
+<p># 2) Every single slave computes the time of the last interaction with</p>
+<p># &nbsp;&nbsp;&nbsp;its master. This can be the last ping or command received (if the master</p>
+<p># &nbsp;&nbsp;&nbsp;is still in the "connected" state), or the time that elapsed since the</p>
+<p># &nbsp;&nbsp;&nbsp;disconnection with the master (if the replication link is currently down).</p>
+<p># &nbsp;&nbsp;&nbsp;If the last interaction is too old, the slave will not try to failover</p>
+<p># &nbsp;&nbsp;&nbsp;at all.</p>
+<p>#</p>
+<p># The point "2" can be tuned by user. Specifically a slave will not perform</p>
+<p># the failover if, since the last interaction with the master, the time</p>
+<p># elapsed is greater than:</p>
+<p>#</p>
+<p># &nbsp;&nbsp;(node-timeout * slave-validity-factor) + repl-ping-slave-period</p>
+<p>#</p>
+<p># So for example if node-timeout is 30 seconds, and the slave-validity-factor</p>
+<p># is 10, and assuming a default repl-ping-slave-period of 10 seconds, the</p>
+<p># slave will not try to failover if it was not able to talk with the master</p>
+<p># for longer than 310 seconds.</p>
+<p>#</p>
+<p># A large slave-validity-factor may allow slaves with too old data to failover</p>
+<p># a master, while a too small value may prevent the cluster from being able to</p>
+<p># elect a slave at all.</p>
+<p>#</p>
+<p># For maximum availability, it is possible to set the slave-validity-factor</p>
+<p># to a value of 0, which means, that slaves will always try to failover the</p>
+<p># master regardless of the last time they interacted with the master.</p>
+<p># (However they'll always try to apply a delay proportional to their</p>
+<p># offset rank).</p>
+<p>#</p>
+<p># Zero is the only value able to guarantee that when all the partitions heal</p>
+<p># the cluster will always be able to continue.</p>
+<p>#</p>
+<p># cluster-slave-validity-factor 10</p>
+<p>&nbsp;</p>
+<p># Cluster slaves are able to migrate to orphaned masters, that are masters</p>
+<p># that are left without working slaves. This improves the cluster ability</p>
+<p># to resist to failures as otherwise an orphaned master can't be failed over</p>
+<p># in case of failure if it has no working slaves.</p>
+<p>#</p>
+<p># Slaves migrate to orphaned masters only if there are still at least a</p>
+<p># given number of other working slaves for their old master. This number</p>
+<p># is the "migration barrier". A migration barrier of 1 means that a slave</p>
+<p># will migrate only if there is at least 1 other working slave for its master</p>
+<p># and so forth. It usually reflects the number of slaves you want for every</p>
+<p># master in your cluster.</p>
+<p>#</p>
+<p># Default is 1 (slaves migrate only if their masters remain with at least</p>
+<p># one slave). To disable migration just set it to a very large value.</p>
+<p># A value of 0 can be set but is useful only for debugging and dangerous</p>
+<p># in production.</p>
+<p>#</p>
+<p># cluster-migration-barrier 1</p>
+<p>&nbsp;</p>
+<p># By default Redis Cluster nodes stop accepting queries if they detect there</p>
+<p># is at least an hash slot uncovered (no available node is serving it).</p>
+<p># This way if the cluster is partially down (for example a range of hash slots</p>
+<p># are no longer covered) all the cluster becomes, eventually, unavailable.</p>
+<p># It automatically returns available as soon as all the slots are covered again.</p>
+<p>#</p>
+<p># However sometimes you want the subset of the cluster which is working,</p>
+<p># to continue to accept queries for the part of the key space that is still</p>
+<p># covered. In order to do so, just set the cluster-require-full-coverage</p>
+<p># option to no.</p>
+<p>#</p>
+<p># cluster-require-full-coverage yes</p>
+<p>&nbsp;</p>
+<p># In order to setup your cluster make sure to read the documentation</p>
+<p># available at http://redis.io web site.</p>
+<p>&nbsp;</p>
+<p>################################## SLOW LOG ###################################</p>
+<p>&nbsp;</p>
+<p># The Redis Slow Log is a system to log queries that exceeded a specified</p>
+<p># execution time. The execution time does not include the I/O operations</p>
+<p># like talking with the client, sending the reply and so forth,</p>
+<p># but just the time needed to actually execute the command (this is the only</p>
+<p># stage of command execution where the thread is blocked and can not serve</p>
+<p># other requests in the meantime).</p>
+<p>#</p>
+<p># You can configure the slow log with two parameters: one tells Redis</p>
+<p># what is the execution time, in microseconds, to exceed in order for the</p>
+<p># command to get logged, and the other parameter is the length of the</p>
+<p># slow log. When a new command is logged the oldest one is removed from the</p>
+<p># queue of logged commands.</p>
+<p>&nbsp;</p>
+<p># The following time is expressed in microseconds, so 1000000 is equivalent</p>
+<p># to one second. Note that a negative number disables the slow log, while</p>
+<p># a value of zero forces the logging of every command.</p>
+<p>slowlog-log-slower-than 10000</p>
+<p>&nbsp;</p>
+<p># There is no limit to this length. Just be aware that it will consume memory.</p>
+<p># You can reclaim memory used by the slow log with SLOWLOG RESET.</p>
+<p>slowlog-max-len 128</p>
+<p>&nbsp;</p>
+<p>################################ LATENCY MONITOR ##############################</p>
+<p>&nbsp;</p>
+<p># The Redis latency monitoring subsystem samples different operations</p>
+<p># at runtime in order to collect data related to possible sources of</p>
+<p># latency of a Redis instance.</p>
+<p>#</p>
+<p># Via the LATENCY command this information is available to the user that can</p>
+<p># print graphs and obtain reports.</p>
+<p>#</p>
+<p># The system only logs operations that were performed in a time equal or</p>
+<p># greater than the amount of milliseconds specified via the</p>
+<p># latency-monitor-threshold configuration directive. When its value is set</p>
+<p># to zero, the latency monitor is turned off.</p>
+<p>#</p>
+<p># By default latency monitoring is disabled since it is mostly not needed</p>
+<p># if you don't have latency issues, and collecting data has a performance</p>
+<p># impact, that while very small, can be measured under big load. Latency</p>
+<p># monitoring can easily be enabled at runtime using the command</p>
+<p># "CONFIG SET latency-monitor-threshold &lt;milliseconds&gt;" if needed.</p>
+<p>latency-monitor-threshold 0</p>
+<p>&nbsp;</p>
+<p>############################# EVENT NOTIFICATION ##############################</p>
+<p>&nbsp;</p>
+<p># Redis can notify Pub/Sub clients about events happening in the key space.</p>
+<p># This feature is documented at http://redis.io/topics/notifications</p>
+<p>#</p>
+<p># For instance if keyspace events notification is enabled, and a client</p>
+<p># performs a DEL operation on key "foo" stored in the Database 0, two</p>
+<p># messages will be published via Pub/Sub:</p>
+<p>#</p>
+<p># PUBLISH __keyspace@0__:foo del</p>
+<p># PUBLISH __keyevent@0__:del foo</p>
+<p>#</p>
+<p># It is possible to select the events that Redis will notify among a set</p>
+<p># of classes. Every class is identified by a single character:</p>
+<p>#</p>
+<p># &nbsp;K &nbsp;&nbsp;&nbsp;&nbsp;Keyspace events, published with __keyspace@&lt;db&gt;__ prefix.</p>
+<p># &nbsp;E &nbsp;&nbsp;&nbsp;&nbsp;Keyevent events, published with __keyevent@&lt;db&gt;__ prefix.</p>
+<p># &nbsp;g &nbsp;&nbsp;&nbsp;&nbsp;Generic commands (non-type specific) like DEL, EXPIRE, RENAME, ...</p>
+<p># &nbsp;$ &nbsp;&nbsp;&nbsp;&nbsp;String commands</p>
+<p># &nbsp;l &nbsp;&nbsp;&nbsp;&nbsp;List commands</p>
+<p># &nbsp;s &nbsp;&nbsp;&nbsp;&nbsp;Set commands</p>
+<p># &nbsp;h &nbsp;&nbsp;&nbsp;&nbsp;Hash commands</p>
+<p># &nbsp;z &nbsp;&nbsp;&nbsp;&nbsp;Sorted set commands</p>
+<p># &nbsp;x &nbsp;&nbsp;&nbsp;&nbsp;Expired events (events generated every time a key expires)</p>
+<p># &nbsp;e &nbsp;&nbsp;&nbsp;&nbsp;Evicted events (events generated when a key is evicted for maxmemory)</p>
+<p># &nbsp;A &nbsp;&nbsp;&nbsp;&nbsp;Alias for g$lshzxe, so that the "AKE" string means all the events.</p>
+<p>#</p>
+<p># &nbsp;The "notify-keyspace-events" takes as argument a string that is composed</p>
+<p># &nbsp;of zero or multiple characters. The empty string means that notifications</p>
+<p># &nbsp;are disabled.</p>
+<p>#</p>
+<p># &nbsp;Example: to enable list and generic events, from the point of view of the</p>
+<p># &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;event name, use:</p>
+<p>#</p>
+<p># &nbsp;notify-keyspace-events Elg</p>
+<p>#</p>
+<p># &nbsp;Example 2: to get the stream of the expired keys subscribing to channel</p>
+<p># &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name __keyevent@0__:expired use:</p>
+<p>#</p>
+<p># &nbsp;notify-keyspace-events Ex</p>
+<p>#</p>
+<p># &nbsp;By default all notifications are disabled because most users don't need</p>
+<p># &nbsp;this feature and the feature has some overhead. Note that if you don't</p>
+<p># &nbsp;specify at least one of K or E, no events will be delivered.</p>
+<p>notify-keyspace-events ""</p>
+<p>&nbsp;</p>
+<p>############################### ADVANCED CONFIG ###############################</p>
+<p>&nbsp;</p>
+<p># Hashes are encoded using a memory efficient data structure when they have a</p>
+<p># small number of entries, and the biggest entry does not exceed a given</p>
+<p># threshold. These thresholds can be configured using the following directives.</p>
+<p>hash-max-ziplist-entries 512</p>
+<p>hash-max-ziplist-value 64</p>
+<p>&nbsp;</p>
+<p># Lists are also encoded in a special way to save a lot of space.</p>
+<p># The number of entries allowed per internal list node can be specified</p>
+<p># as a fixed maximum size or a maximum number of elements.</p>
+<p># For a fixed maximum size, use -5 through -1, meaning:</p>
+<p># -5: max size: 64 Kb &nbsp;&lt;-- not recommended for normal workloads</p>
+<p># -4: max size: 32 Kb &nbsp;&lt;-- not recommended</p>
+<p># -3: max size: 16 Kb &nbsp;&lt;-- probably not recommended</p>
+<p># -2: max size: 8 Kb &nbsp;&nbsp;&lt;-- good</p>
+<p># -1: max size: 4 Kb &nbsp;&nbsp;&lt;-- good</p>
+<p># Positive numbers mean store up to _exactly_ that number of elements</p>
+<p># per list node.</p>
+<p># The highest performing option is usually -2 (8 Kb size) or -1 (4 Kb size),</p>
+<p># but if your use case is unique, adjust the settings as necessary.</p>
+<p>list-max-ziplist-size -2</p>
+<p>&nbsp;</p>
+<p># Lists may also be compressed.</p>
+<p># Compress depth is the number of quicklist ziplist nodes from *each* side of</p>
+<p># the list to *exclude* from compression. &nbsp;The head and tail of the list</p>
+<p># are always uncompressed for fast push/pop operations. &nbsp;Settings are:</p>
+<p># 0: disable all list compression</p>
+<p># 1: depth 1 means "don't start compressing until after 1 node into the list,</p>
+<p># &nbsp;&nbsp;&nbsp;going from either the head or tail"</p>
+<p># &nbsp;&nbsp;&nbsp;So: [head]-&gt;node-&gt;node-&gt;...-&gt;node-&gt;[tail]</p>
+<p># &nbsp;&nbsp;&nbsp;[head], [tail] will always be uncompressed; inner nodes will compress.</p>
+<p># 2: [head]-&gt;[next]-&gt;node-&gt;node-&gt;...-&gt;node-&gt;[prev]-&gt;[tail]</p>
+<p># &nbsp;&nbsp;&nbsp;2 here means: don't compress head or head-&gt;next or tail-&gt;prev or tail,</p>
+<p># &nbsp;&nbsp;&nbsp;but compress all nodes between them.</p>
+<p># 3: [head]-&gt;[next]-&gt;[next]-&gt;node-&gt;node-&gt;...-&gt;node-&gt;[prev]-&gt;[prev]-&gt;[tail]</p>
+<p># etc.</p>
+<p>list-compress-depth 0</p>
+<p>&nbsp;</p>
+<p># Sets have a special encoding in just one case: when a set is composed</p>
+<p># of just strings that happen to be integers in radix 10 in the range</p>
+<p># of 64 bit signed integers.</p>
+<p># The following configuration setting sets the limit in the size of the</p>
+<p># set in order to use this special memory saving encoding.</p>
+<p>set-max-intset-entries 512</p>
+<p>&nbsp;</p>
+<p># Similarly to hashes and lists, sorted sets are also specially encoded in</p>
+<p># order to save a lot of space. This encoding is only used when the length and</p>
+<p># elements of a sorted set are below the following limits:</p>
+<p>zset-max-ziplist-entries 128</p>
+<p>zset-max-ziplist-value 64</p>
+<p>&nbsp;</p>
+<p># HyperLogLog sparse representation bytes limit. The limit includes the</p>
+<p># 16 bytes header. When an HyperLogLog using the sparse representation crosses</p>
+<p># this limit, it is converted into the dense representation.</p>
+<p>#</p>
+<p># A value greater than 16000 is totally useless, since at that point the</p>
+<p># dense representation is more memory efficient.</p>
+<p>#</p>
+<p># The suggested value is ~ 3000 in order to have the benefits of</p>
+<p># the space efficient encoding without slowing down too much PFADD,</p>
+<p># which is O(N) with the sparse encoding. The value can be raised to</p>
+<p># ~ 10000 when CPU is not a concern, but space is, and the data set is</p>
+<p># composed of many HyperLogLogs with cardinality in the 0 - 15000 range.</p>
+<p>hll-sparse-max-bytes 3000</p>
+<p>&nbsp;</p>
+<p># Active rehashing uses 1 millisecond every 100 milliseconds of CPU time in</p>
+<p># order to help rehashing the main Redis hash table (the one mapping top-level</p>
+<p># keys to values). The hash table implementation Redis uses (see dict.c)</p>
+<p># performs a lazy rehashing: the more operation you run into a hash table</p>
+<p># that is rehashing, the more rehashing "steps" are performed, so if the</p>
+<p># server is idle the rehashing is never complete and some more memory is used</p>
+<p># by the hash table.</p>
+<p>#</p>
+<p># The default is to use this millisecond 10 times every second in order to</p>
+<p># actively rehash the main dictionaries, freeing memory when possible.</p>
+<p>#</p>
+<p># If unsure:</p>
+<p># use "activerehashing no" if you have hard latency requirements and it is</p>
+<p># not a good thing in your environment that Redis can reply from time to time</p>
+<p># to queries with 2 milliseconds delay.</p>
+<p>#</p>
+<p># use "activerehashing yes" if you don't have such hard requirements but</p>
+<p># want to free memory asap when possible.</p>
+<p>activerehashing yes</p>
+<p>&nbsp;</p>
+<p># The client output buffer limits can be used to force disconnection of clients</p>
+<p># that are not reading data from the server fast enough for some reason (a</p>
+<p># common reason is that a Pub/Sub client can't consume messages as fast as the</p>
+<p># publisher can produce them).</p>
+<p>#</p>
+<p># The limit can be set differently for the three different classes of clients:</p>
+<p>#</p>
+<p># normal -&gt; normal clients including MONITOR clients</p>
+<p># slave &nbsp;-&gt; slave clients</p>
+<p># pubsub -&gt; clients subscribed to at least one pubsub channel or pattern</p>
+<p>#</p>
+<p># The syntax of every client-output-buffer-limit directive is the following:</p>
+<p>#</p>
+<p># client-output-buffer-limit &lt;class&gt; &lt;hard limit&gt; &lt;soft limit&gt; &lt;soft seconds&gt;</p>
+<p>#</p>
+<p># A client is immediately disconnected once the hard limit is reached, or if</p>
+<p># the soft limit is reached and remains reached for the specified number of</p>
+<p># seconds (continuously).</p>
+<p># So for instance if the hard limit is 32 megabytes and the soft limit is</p>
+<p># 16 megabytes / 10 seconds, the client will get disconnected immediately</p>
+<p># if the size of the output buffers reach 32 megabytes, but will also get</p>
+<p># disconnected if the client reaches 16 megabytes and continuously overcomes</p>
+<p># the limit for 10 seconds.</p>
+<p>#</p>
+<p># By default normal clients are not limited because they don't receive data</p>
+<p># without asking (in a push way), but just after a request, so only</p>
+<p># asynchronous clients may create a scenario where data is requested faster</p>
+<p># than it can read.</p>
+<p>#</p>
+<p># Instead there is a default limit for pubsub and slave clients, since</p>
+<p># subscribers and slaves receive data in a push fashion.</p>
+<p>#</p>
+<p># Both the hard or the soft limit can be disabled by setting them to zero.</p>
+<p>client-output-buffer-limit normal 0 0 0</p>
+<p>client-output-buffer-limit slave 256mb 64mb 60</p>
+<p>client-output-buffer-limit pubsub 32mb 8mb 60</p>
+<p>&nbsp;</p>
+<p># Redis calls an internal function to perform many background tasks, like</p>
+<p># closing connections of clients in timeout, purging expired keys that are</p>
+<p># never requested, and so forth.</p>
+<p>#</p>
+<p># Not all tasks are performed with the same frequency, but Redis checks for</p>
+<p># tasks to perform according to the specified "hz" value.</p>
+<p>#</p>
+<p># By default "hz" is set to 10. Raising the value will use more CPU when</p>
+<p># Redis is idle, but at the same time will make Redis more responsive when</p>
+<p># there are many keys expiring at the same time, and timeouts may be</p>
+<p># handled with more precision.</p>
+<p>#</p>
+<p># The range is between 1 and 500, however a value over 100 is usually not</p>
+<p># a good idea. Most users should use the default of 10 and raise this up to</p>
+<p># 100 only in environments where very low latency is required.</p>
+<p>hz 10</p>
+<p>&nbsp;</p>
+<p># When a child rewrites the AOF file, if the following option is enabled</p>
+<p># the file will be fsync-ed every 32 MB of data generated. This is useful</p>
+<p># in order to commit the file to the disk more incrementally and avoid</p>
+<p># big latency spikes.</p>
+<p>aof-rewrite-incremental-fsync yes</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p><span style="font-size: 14pt">[3].测试</span></p>
+<p><span style="font-size: 14pt"><span style="font-family: &quot;Courier New&quot;">语法：</span>docker exec -it 运行着Rediis服务的容器ID redis-cli</span></p>
+<table border="0" cellspacing="0">
+<tbody>
+<tr>
+<td valign="center" width="775">
+<p><span style="font-size: 14pt">[root@pluto redis.conf]# docker ps</span></p>
+<p><span style="font-size: 14pt">CONTAINER ID &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMAGE &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;COMMAND &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CREATED &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STATUS &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PORTS &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NAMES</span></p>
+<p><span style="font-size: 14pt">71154b6ff988 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;redis:3.2 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"docker-entrypoint.s &nbsp;&nbsp;3 minutes ago &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Up 3 minutes &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.0.0.0:6379-&gt;6379/tcp &nbsp;&nbsp;sleepy_jang &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+<p><span style="font-size: 14pt">&nbsp;</span></p>
+<p><span style="font-size: 14pt">[root@pluto redis.conf]# docker exec -it 71154b6ff988 redis-cli</span></p>
+<p><span style="font-size: 14pt">127.0.0.1:6379&gt; set k1 v1</span></p>
+<p><span style="font-size: 14pt">OK</span></p>
+<p><span style="font-size: 14pt">127.0.0.1:6379&gt; set k2 v2</span></p>
+<p><span style="font-size: 14pt">OK</span></p>
+<p><span style="font-size: 14pt">127.0.0.1:6379&gt; set k3 v3</span></p>
+<p><span style="font-size: 14pt">OK</span></p>
+<p><span style="font-size: 14pt">127.0.0.1:6379&gt; SHUTDOWN</span></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p><span style="font-size: 14pt">[4].持久化测试</span></p>
+<table border="0" cellspacing="0">
+<tbody>
+<tr>
+<td valign="center" width="775">
+<p><span style="font-size: 14pt">[root@pluto myredis]# pwd</span></p>
+<p><span style="font-size: 14pt">/pluto/myredis</span></p>
+<p><span style="font-size: 14pt">[root@pluto myredis]# ll</span></p>
+<p><span style="font-size: 14pt">总用量 <span style="font-family: Calibri">8</span></span></p>
+<p><span style="font-size: 14pt">drwxr-xr-x. 3 root root 4096 8<span style="font-family: 宋体">月 &nbsp;</span><span style="font-family: Calibri">19 22:53 conf</span></span></p>
+<p><span style="font-size: 14pt">drwxr-xr-x. 2 &nbsp;999 root 4096 8<span style="font-family: 宋体">月 &nbsp;</span><span style="font-family: Calibri">19 22:53 data</span></span></p>
+<p><span style="font-size: 14pt">[root@pluto myredis]# cd data/</span></p>
+<p><span style="font-size: 14pt">[root@pluto data]# ll</span></p>
+<p><span style="font-size: 14pt">总用量 <span style="font-family: Calibri">4</span></span></p>
+<p><span style="font-size: 14pt">-rw-r--r--. 1 999 999 110 8<span style="font-family: 宋体">月 &nbsp;</span><span style="font-family: Calibri">19 22:58 appendonly.aof</span></span></p>
+<p><span style="font-size: 14pt">[root@pluto data]# vim appendonly.aof</span></p>
+<p><span style="font-size: 14pt">[root@pluto data]# cat appendonly.aof</span></p>
+<p><span style="font-size: 14pt">*2</span></p>
+<p><span style="font-size: 14pt">$6</span></p>
+<p><span style="font-size: 14pt">SELECT</span></p>
+<p><span style="font-size: 14pt">$1</span></p>
+<p><span style="font-size: 14pt">0</span></p>
+<p><span style="font-size: 14pt">*3</span></p>
+<p><span style="font-size: 14pt">$3</span></p>
+<p><span style="font-size: 14pt">set</span></p>
+<p><span style="font-size: 14pt">$2</span></p>
+<p><span style="font-size: 14pt">k1</span></p>
+<p><span style="font-size: 14pt">$2</span></p>
+<p><span style="font-size: 14pt">v1</span></p>
+<p><span style="font-size: 14pt">*3</span></p>
+<p><span style="font-size: 14pt">$3</span></p>
+<p><span style="font-size: 14pt">set</span></p>
+<p><span style="font-size: 14pt">$2</span></p>
+<p><span style="font-size: 14pt">k2</span></p>
+<p><span style="font-size: 14pt">$2</span></p>
+<p><span style="font-size: 14pt">v2</span></p>
+<p><span style="font-size: 14pt">*3</span></p>
+<p><span style="font-size: 14pt">$3</span></p>
+<p><span style="font-size: 14pt">set</span></p>
+<p><span style="font-size: 14pt">$2</span></p>
+<p><span style="font-size: 14pt">k3</span></p>
+<p><span style="font-size: 14pt">$2</span></p>
+<p><span style="font-size: 14pt">v3</span></p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+    <div id="blog_post_info"></div>
+    <div class="clear"></div>
+    <div id="post_next_prev"></div>
+</div>
+            </div>
+            <div class="postDesc">posted @ 
+<span id="post-date">2020-10-25 23:51</span>&nbsp;
+<a href="https://www.cnblogs.com/CSAH/">Pluto_H</a>&nbsp;
+阅读(<span id="post_view_count">9</span>)&nbsp;
+评论(<span id="post_comment_count">0</span>)&nbsp;
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13861883" rel="nofollow">编辑</a>&nbsp;
+<a href="javascript:void(0)" onclick="AddToWz(13861883);return false;">收藏</a></div>
+        </div>
+	    
+	    
+    </div><!--end: topics 文章、评论容器-->
+</div>
+<script src="https://common.cnblogs.com/highlight/10.3.1/highlight.min.js"></script>
+<script>markdown_highlight();</script>
+<script>
+    var allowComments = true, cb_blogId = 496651, cb_blogApp = 'CSAH', cb_blogUserGuid = 'd461d84b-4f8c-463d-04c3-08d69e4ba08f';
+    var cb_entryId = 13861883, cb_entryCreatedDate = '2020-10-25 23:51', cb_postType = 1;
+    loadViewCount(cb_entryId);
+</script>
+<a name="!comments"></a>
+<div id="blog-comments-placeholder"></div>
+<div id="comment_form" class="commentform">
+    <a name="commentform"></a>
+    <div id="divCommentShow"></div>
+    <div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="#" onclick="return RefreshPage();">刷新页面</a><a href="#top">返回顶部</a></div>
+    <div id="comment_form_container"></div>
+    <div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+    <div id="ad_t2"></div>
+    <div id="opt_under_post"></div>
+    <div id="cnblogs_c1" class="c_ad_block">
+        <div id='div-gpt-ad-1592365906576-0' style='width: 300px; height: 250px;'></div>
+    </div>
+    <div id="under_post_news"></div>
+    <div id="cnblogs_c2" class="c_ad_block">
+        <div id='div-gpt-ad-1592366332455-0' style='width: 468px; height: 60px;'></div>
+    </div>
+    <div id="under_post_kb"></div>
+    <div id="HistoryToday" class="c_ad_block"></div>
+    <script type="text/javascript">
+       var commentManager = new blogCommentManager();
+       commentManager.renderComments(0);
+       fixPostBody();
+       deliverBigBanner();
+setTimeout(function() { incrementViewCount(cb_entryId); }, 50);       deliverT2();
+       deliverC1C2();
+       loadNewsAndKb();
+       loadBlogSignature();
+LoadPostCategoriesTags(cb_blogId, cb_entryId);       LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+       GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+       loadOptUnderPost();
+       GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);
+   </script>
+</div>
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+	<div id="sideBar">
+		<div id="sideBarMain">
+			<div id="sidebar_news" class="newsItem">
+            <script>loadBlogNews();</script>
+</div>
+<div id="sidebar_ad"></div>
+			<div id="blog-calendar" style="display:none"></div><script>loadBlogDefaultCalendar();</script>			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"></div>
+                    <script>loadBlogSideColumn();</script>
+			</div>			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		<!--done-->
+Copyright &copy; 2020 Pluto_H
+<br /><span id="poweredby">Powered by .NET 5.0.0-rc.2.20475.5 on Kubernetes</span>
+
+
+
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+    
+</body>
+</html>

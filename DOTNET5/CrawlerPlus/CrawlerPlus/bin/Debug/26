@@ -1,0 +1,475 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="origin" />
+    <meta name="description" content="动态规划（Dynamic Programming，DP）是指在给定的约束条件下求最优值的算法，在解决问题的过程，需要经历多个决策阶段，每个决策阶段都对应着一组状态。 适用于动态规划解决的问题包含三个特" />
+    <meta property="og:description" content="动态规划（Dynamic Programming，DP）是指在给定的约束条件下求最优值的算法，在解决问题的过程，需要经历多个决策阶段，每个决策阶段都对应着一组状态。 适用于动态规划解决的问题包含三个特" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>数据结构和算法躬行记（8）——动态规划 - 咖啡机（K.F.J） - 博客园</title>
+    <link id="favicon" rel="shortcut icon" href="//common.cnblogs.com/favicon.svg" type="image/svg+xml" />
+    
+    <link rel="stylesheet" href="/css/blog-common.min.css?v=caAedYKpnz341INFIWakIM6r1EP9FIuJg43i9i8zqDQ" />
+    <link id="MainCss" rel="stylesheet" href="/skins/gray/bundle-gray.min.css?v=0kzTEpk_hI7MaNe19aqYpko9NZ1XIIY9eVdg79uY1DI" />
+    <link type="text/css" rel="stylesheet" href="https://www.cnblogs.com/strick/custom.css?v=hAaqAadmOZ/KVxeSit6lUhhUt6E=" />
+    <link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="/skins/gray/bundle-gray-mobile.min.css?v=AsdEygll7v4wRvbB9kj69xfo73UMZoHAwQE9xuvThcw" />
+    
+    <link type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/strick/rss" />
+    <link type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/strick/rsd.xml" />
+    <link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/strick/wlwmanifest.xml" />
+    <script>
+        var currentBlogId = 153408;
+        var currentBlogApp = 'strick';
+        var cb_enable_mathjax = false;
+        var isLogined = false;
+        var isBlogOwner = false;
+        var skinName = 'gray';
+        var visitorUserId = '';
+    </script>
+        <script>
+            var currentPostDateAdded = '2020-10-26 07:25';
+        </script>
+    <script src="https://common.cnblogs.com/scripts/jquery-2.2.0.min.js"></script>
+    <script src="/js/blog-common.min.js?v=kKx3DBtpvO8r97BzPmHJseQ10fGHkI-ZwMh4FA0eEd0"></script>
+    
+    
+    
+</head>
+<body class="no-navbar">
+    <a name="top"></a> 
+    <div id="top_nav" class="navbar navbar-custom">
+        <nav id="nav_main" class="navbar-main">
+            <ul id="nav_left" class="navbar-list navbar-left">
+                <li class="navbar-branding">
+                    <a href="https://www.cnblogs.com/" title="开发者的网上家园"><img src="/images/logo.svg?v=R9M0WmLAIPVydmdzE2keuvnjl-bPR7_35oHqtiBzGsM" alt="博客园Logo" /></a>
+                </li>
+                <li><a href="/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-sitehome')">首页</a></li>
+                <li><a href="https://news.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-news')">新闻</a></li>
+                <li><a href="https://q.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-q')">博问</a></li>
+                <li><a id="nav_brandzone" href="https://brands.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-brands')">专区</a></li>
+                <li><a href="https://ing.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-ing')">闪存</a></li>
+                <li><a href="https://edu.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-edu')">班级</a></li>
+            </ul>
+            <ul id="nav_right" class="navbar-list navbar-right">
+                <li>
+                    <form id="zzk_search" class="navbar-search" action="https://zzk.cnblogs.com/s" method="get">
+                        <input name="w" id="zzk_search_input" placeholder="代码改变世界" type="text" tabindex="3" />
+                        <button type="submit" id="zzk_search_button">
+                            <img src="/images/aggsite/search.svg" alt="搜索" />
+                        </button>
+                    </form>
+                </li>
+                <li id="navbar_login_status" class="navbar-list">
+                    <a id="navblog-myblog-icon" class="navbar-user-info navbar-blog" href="https://passport.cnblogs.com/GetBlogApplyStatus.aspx" alt="我的博客" title="我的博客">
+                        <img id="myblog_icon" class="navbar-icon" src="/images/aggsite/myblog.svg" alt="我的博客" />
+                    </a>
+                    <a class="navbar-user-info navbar-message navbar-icon-wrapper" href="https://msg.cnblogs.com/" alt="短消息" title="短消息">
+                        <img id="msg_icon" class="navbar-icon" src="/images/aggsite/message.svg?v=oS4PkibyMjZ9rGD5XAcLt99uW_s76Javy2up4dbnZNY" alt="短消息" />
+                        <span id="msg_count" style="display: none"></span>
+                    </a>
+                    <div id="user_info" class="navbar-user-info dropdown">
+                        <a class="dropdown-button" href="https://home.cnblogs.com/">
+                            <img id="user_icon" class="navbar-avatar" src="/images/aggsite/avatar-default.svg" alt="用户头像" />
+                        </a>
+                        <div class="dropdown-menu">
+                            <a id="navblog-myblog-text" href="https://passport.cnblogs.com/GetBlogApplyStatus.aspx">我的博客</a>
+                            <a href="https://home.cnblogs.com/">我的园子</a>
+                            <a href="https://account.cnblogs.com/settings/account">账号设置</a>
+                            <a href="javascript:void(0)" onclick="logout();">退出登录</a>
+                        </div>
+                    </div>
+                    <a class="navbar-anonymous" href="https://account.cnblogs.com/signup/">注册</a>
+                    <a class="navbar-anonymous" href="https://account.cnblogs.com/signin/?returnUrl=https://www.cnblogs.com/">登录</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    
+    <!--done-->
+<div id="banner"><div id="bnr_pic">
+<!--done-->
+<div class="header">
+	<div class="headerText">
+		<a id="Header1_HeaderTitle" class="headermaintitle HeaderMainTitle" href="https://www.cnblogs.com/strick/">咖啡机(K.F.J)</a>
+<br>
+	</div>
+	<div class="headerDis">
+每天进步一点点 研磨生活的香甜
+</div>
+</div>
+
+</div></div>
+<div id="main">
+	<!-- left starts -->
+	<div id="left">
+	<div id="left_border">
+		<DIV id="mystats">
+			<br>
+				<!--done-->
+<div class="blogStats">
+随笔- 
+301&nbsp;
+文章- 
+81&nbsp;
+评论- 
+807&nbsp;
+</div>
+
+
+			
+		</DIV>
+		<div id="mylinks">
+
+<a id="blog_nav_sitehome" class="menu" href="https://www.cnblogs.com/">
+博客园</a>
+&nbsp;&nbsp;
+<a id="blog_nav_myhome" class="menu" href="https://www.cnblogs.com/strick/">
+首页</a>
+&nbsp;&nbsp;
+
+<a id="blog_nav_newpost" class="menu" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">
+新随笔</a>
+&nbsp;&nbsp;<a id="MyLinks1_NewArticleLink" class="menu" href="https://i.cnblogs.com/EditArticles.aspx?opt=1">新文章</a>
+&nbsp;&nbsp;
+<a id="blog_nav_contact" class="menu" href="https://msg.cnblogs.com/send/%E5%92%96%E5%95%A1%E6%9C%BA%EF%BC%88K.F.J%EF%BC%89">
+联系</a>&nbsp;&nbsp;
+<a id="blog_nav_admin" class="menu" href="https://i.cnblogs.com/">
+管理</a>
+&nbsp;&nbsp;
+<a id="blog_nav_rss" class="menu" href="javascript:void(0)" data-rss="https://www.cnblogs.com/strick/rss/">
+订阅</a>&nbsp;
+<a id="blog_nav_rss_image" href="https://www.cnblogs.com/strick/rss/">
+    <img src="/skins/gray/images/xml.gif" alt="订阅" />
+</a>
+
+</div>
+		<div id="topics">
+			<div id="post_detail">
+<!--done-->
+<div class="post">
+	<div class="postTitle">
+		
+<a id="cb_post_title_url" class="postTitle2 vertical-middle" href="https://www.cnblogs.com/strick/p/13403324.html">
+    <span>数据结构和算法躬行记（8）——动态规划</span>
+    
+
+
+</a>
+
+	</div>
+	
+<div id="cnblogs_post_body" class="blogpost-body">
+    <p>　　动态规划（Dynamic Programming，DP）是指在给定的约束条件下求最优值的算法，在解决问题的过程，需要经历多个决策阶段，每个决策阶段都对应着一组状态。</p>
+<p>　　适用于动态规划解决的问题包含三个特征：</p>
+<p>　　（1）最优子结构：通过子问题的最优解，可推导出问题的最优解，即后面阶段的状态可以通过前面阶段的状态推导出来。</p>
+<p>　　（2）无后效性：某阶段状态一旦确定，就不受之后阶段的决策影响。即子问题的解一旦确定，就不再改变。</p>
+<p>　　（3）子问题重叠：不同的决策序列，到达某个相同的阶段时，可能会产生重复的状态。即有些子问题会被重复计算多次。</p>
+<p>　　动态规划对每个子问题只计算一次，然后将其计算结果保存到一张表中记忆化存储，以便下次需要同一个子问题解时直接查表，从而获得较高的效率，降低了时间复杂度。</p>
+<h1>一、0-1背包</h1>
+<p>　　在之前《<span style="color: rgba(51, 102, 255, 1)"><a href="https://www.cnblogs.com/strick/p/13384038.html" target="_blank"><span style="color: rgba(51, 102, 255, 1)">回溯</span></a></span>》一文中也提到了0-1背包问题，而此处会在背包重量限制的前提下，计算装入物品的最大总价值。</p>
+<p>　　假设背包容量为4斤，吉他（1斤，价值1500）、音响（4斤，价值3000）和笔记本（3斤，价值2000），求背包的最大价值（题目来源于《图解算法 9.1节》）。</p>
+<p>　　先画状态转移表（如下所示），一般是二维的，在画之前需要回答三个问题：</p>
+<p>　　（1）单元格中的值是什么？当前背包中的最大总价值。</p>
+<p>　　（2）如何划分子问题？考虑容量为1、2、3和4的背包，并且将物品依次放入。</p>
+<p>　　（3）网格的坐标轴是什么？横坐标是背包重量，纵坐标是物品。</p>
+<p>　　接下来将计算每个单元格的值。</p>
+<p>　　（1）第一步是将吉他放入背包的四个重量中，而重量1、2和3其实就是在解决各个子问题。</p>
+<p>　　（2）第二步是依次处理音响，判断是否需要放入，经过比对发现只有最大容量才能放入，更新最大价值为3000。</p>
+<p>　　（3）第三步是依次处理笔记本，在背包容量为3斤时更新最大价值为2000，而在4斤时，可同时放入吉他和笔记本，更新最大价值为3500。</p>
+<p>　　<img src="https://img2020.cnblogs.com/blog/211606/202007/211606-20200730133614062-513234256.png" width="400" loading="lazy"></p>
+<p>　　根据状态表得出状态转移方程，先计算当前商品价值和剩余空间价值，得到的结果与上一个单元格比对，将较大值填充到当前单元格中。</p>
+<div class="cnblogs_code">
+<pre>dp[i][j] = max(goods[i].value + dp[i-<span style="color: rgba(128, 0, 128, 1)">1</span>][j-goods[i].weight], dp[i-<span style="color: rgba(128, 0, 128, 1)">1</span>][j])</pre>
+</div>
+<p>　　具体的代码实现<span style="color: rgba(51, 102, 255, 1)"><a href="https://codepen.io/strick/pen/bGEyJQq" target="_blank"><span style="color: rgba(51, 102, 255, 1)">如下所示</span></a></span>，本文的代码仅做参考，没有经过严格的测试用例论证。</p>
+<div class="cnblogs_code">
+<pre><span style="color: rgba(0, 0, 255, 1)">function</span><span style="color: rgba(0, 0, 0, 1)"> knapsack(goods, w) {
+  let max </span>=<span style="color: rgba(0, 0, 0, 1)"> Number.MIN_VALUE,
+    dp </span>= [<span style="color: rgba(0, 0, 255, 1)">new</span><span style="color: rgba(0, 0, 0, 1)"> Array(w)],
+    length </span>=<span style="color: rgba(0, 0, 0, 1)"> goods.length;
+  </span><span style="color: rgba(0, 0, 255, 1)">for</span> (let j = 1; j &lt;= w; j++<span style="color: rgba(0, 0, 0, 1)">) {
+    dp[</span>0][j] = goods[0<span style="color: rgba(0, 0, 0, 1)">].value;
+  }
+  </span><span style="color: rgba(0, 0, 255, 1)">for</span> (let i = 1; i &lt; length; i++<span style="color: rgba(0, 0, 0, 1)">) {
+    dp[i] </span>=<span style="color: rgba(0, 0, 0, 1)"> [];
+    </span><span style="color: rgba(0, 0, 255, 1)">for</span> (let j = 1; j &lt;= w; j++<span style="color: rgba(0, 0, 0, 1)">) {
+      let rest </span>= j - goods[i].weight;        <span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">计算减去当前商品重量后的背包容量</span>
+      <span style="color: rgba(0, 0, 255, 1)">if</span> (rest &gt; 0) {                        <span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">套用状态转移方程</span>
+        dp[i][j] = Math.max(goods[i].value + dp[i - 1][rest], dp[i - 1<span style="color: rgba(0, 0, 0, 1)">][j]);
+      } </span><span style="color: rgba(0, 0, 255, 1)">else</span><span style="color: rgba(0, 0, 0, 1)"> {
+        dp[i][j] </span>= dp[i - 1][j];             <span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">沿用上一个单元格的价值</span>
+<span style="color: rgba(0, 0, 0, 1)">      }
+      </span><span style="color: rgba(0, 0, 255, 1)">if</span> (max &lt; dp[i][j]) max = dp[i][j];    <span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">计算最大值</span>
+<span style="color: rgba(0, 0, 0, 1)">    }
+  }
+  </span><span style="color: rgba(0, 0, 255, 1)">return</span><span style="color: rgba(0, 0, 0, 1)"> max;
+}</span></pre>
+</div>
+<h1>二、子串和子序列</h1>
+<p><span style="font-size: 18px"><strong>1）最长公共子串</strong></span></p>
+<p>　　最长公共子串是指在不改变字符相对顺序的情况下提取两段字符串中共有的子串，例如fosh和fish，最长公共子串是sh，长度为2（题目来源于《图解算法 9.3节》）。例题：<span style="color: rgba(51, 102, 255, 1)"><a href="https://leetcode-cn.com/problems/longest-increasing-subsequence/" target="_blank"><span style="color: rgba(51, 102, 255, 1)">300. 最长上升子序列</span></a></span>。</p>
+<p>　　在画状态表之前先回答三个问题：</p>
+<p>　　（1）单元格中的值是什么？公共子串的长度。</p>
+<p>　　（2）如何划分子问题？将两段字符串分割成字符，从前往后依次比对。</p>
+<p>　　（3）网格的坐标轴是什么？横坐标是第一段字符串，纵坐标是第二段字符串。</p>
+<p>　　<img src="https://img2020.cnblogs.com/blog/211606/202007/211606-20200730134007048-763662458.png" width="400" loading="lazy"></p>
+<p>　　根据状态表得出状态转移方程，当两个字符相同时，左上角的单元格加一，否则单元格为0。</p>
+<div class="cnblogs_code">
+<pre>dp[i][j] = 0 | dp[i-1][j-1] + 1</pre>
+</div>
+<p>　　具体的代码实现<span style="color: rgba(51, 102, 255, 1)"><a href="https://codepen.io/strick/pen/jOWooxe" target="_blank"><span style="color: rgba(51, 102, 255, 1)">如下所示</span></a></span>。</p>
+<div class="cnblogs_code">
+<pre><span style="color: rgba(0, 0, 255, 1)">function</span><span style="color: rgba(0, 0, 0, 1)"> longestCommonSubstr(str1, str2) {
+  let len1 </span>=<span style="color: rgba(0, 0, 0, 1)"> str1.length,
+    len2 </span>=<span style="color: rgba(0, 0, 0, 1)"> str2.length,
+    max </span>=<span style="color: rgba(0, 0, 0, 1)"> Number.MIN_VALUE,
+    dp </span>=<span style="color: rgba(0, 0, 0, 1)"> [];
+  </span><span style="color: rgba(0, 0, 255, 1)">for</span> (let i = 0; i &lt; len1; i++<span style="color: rgba(0, 0, 0, 1)">) {
+    dp[i] </span>=<span style="color: rgba(0, 0, 0, 1)"> [];
+    </span><span style="color: rgba(0, 0, 255, 1)">for</span> (let j = 0; j &lt; len2; j++<span style="color: rgba(0, 0, 0, 1)">) {
+      </span><span style="color: rgba(0, 0, 255, 1)">if</span> (str1[i] != str2[j]) {            <span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">两个字符不同</span>
+        dp[i][j] = 0<span style="color: rgba(0, 0, 0, 1)">;
+        </span><span style="color: rgba(0, 0, 255, 1)">continue</span><span style="color: rgba(0, 0, 0, 1)">;
+      }
+      </span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">应对 i-1 或 j-1 小于0的情况</span>
+      dp[i][j] = i &lt; 1 || j &lt; 1 ? 1 : dp[i - 1][j - 1] + 1<span style="color: rgba(0, 0, 0, 1)">;
+      </span><span style="color: rgba(0, 0, 255, 1)">if</span> (max &lt;<span style="color: rgba(0, 0, 0, 1)"> dp[i][j]) {
+        max </span>=<span style="color: rgba(0, 0, 0, 1)"> dp[i][j];
+      }
+    }
+  }
+  </span><span style="color: rgba(0, 0, 255, 1)">return</span><span style="color: rgba(0, 0, 0, 1)"> max;
+}</span></pre>
+</div>
+<p><span style="font-size: 18px"><strong>2）最长公共子序列</strong></span></p>
+<p>　　还有一个类似的题目是求最长公共子序列，其实就是提取共有的子序列，例如fosh和fish，最长公共子序列是fsh，例题：<span style="color: rgba(51, 102, 255, 1)"><a href="https://leetcode-cn.com/problems/longest-common-subsequence/" target="_blank"><span style="color: rgba(51, 102, 255, 1)">1143. 最长公共子序列</span></a></span>。状态转移表如下所示。</p>
+<p>　　<img src="https://img2020.cnblogs.com/blog/211606/202007/211606-20200730134337451-1908868860.png" width="400" loading="lazy"></p>
+<p>　　根据状态表得出状态转移方程，当两个字符相同时，仍然是左上角的单元格加一，否则比较左和上两个单元格的值，取较大值。</p>
+<div class="cnblogs_code">
+<pre>dp[i][j] = (dp[i-1][j-1] + 1) | max(dp[i-1][j], dp[i][j-1])</pre>
+</div>
+<p>　　具体的代码实现<span style="color: rgba(51, 102, 255, 1)"><a href="https://codepen.io/strick/pen/yLeWdOB" target="_blank"><span style="color: rgba(51, 102, 255, 1)">如下所示</span></a></span>。</p>
+<div class="cnblogs_code">
+<pre><span style="color: rgba(0, 0, 255, 1)">function</span><span style="color: rgba(0, 0, 0, 1)"> longestCommonSubsequence(str1, str2) {
+  let len1 </span>=<span style="color: rgba(0, 0, 0, 1)"> str1.length,
+    len2 </span>=<span style="color: rgba(0, 0, 0, 1)"> str2.length,
+    max </span>=<span style="color: rgba(0, 0, 0, 1)"> Number.MIN_VALUE,
+    dp </span>=<span style="color: rgba(0, 0, 0, 1)"> [];
+  </span><span style="color: rgba(0, 0, 255, 1)">for</span> (let i = 0; i &lt; len1; i++<span style="color: rgba(0, 0, 0, 1)">) {
+    dp[i] </span>=<span style="color: rgba(0, 0, 0, 1)"> [];
+    </span><span style="color: rgba(0, 0, 255, 1)">for</span> (let j = 0; j &lt; len2; j++<span style="color: rgba(0, 0, 0, 1)">) {
+      </span><span style="color: rgba(0, 0, 255, 1)">if</span> (str1[i] !=<span style="color: rgba(0, 0, 0, 1)"> str2[j]) {
+        </span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">两个字符不同</span>
+        dp[i][j] =<span style="color: rgba(0, 0, 0, 1)"> Math.max(
+            i </span>&lt; 1 ? 0 : dp[i - 1<span style="color: rgba(0, 0, 0, 1)">][j], 
+            j </span>&lt; 1 ? 0 : dp[i][j - 1<span style="color: rgba(0, 0, 0, 1)">]
+        );
+        max </span>=<span style="color: rgba(0, 0, 0, 1)"> Math.max(max, dp[i][j]);
+        </span><span style="color: rgba(0, 0, 255, 1)">continue</span><span style="color: rgba(0, 0, 0, 1)">;
+      }
+      </span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">应对 i-1 或 j-1 小于0的情况</span>
+      dp[i][j] = i &lt; 1 || j &lt; 1 ? 1 : dp[i - 1][j - 1] + 1<span style="color: rgba(0, 0, 0, 1)">;
+      max </span>=<span style="color: rgba(0, 0, 0, 1)"> Math.max(max, dp[i][j]);
+    }
+  }
+  </span><span style="color: rgba(0, 0, 255, 1)">return</span><span style="color: rgba(0, 0, 0, 1)"> max;
+}</span></pre>
+</div>
+<p><span style="font-size: 18px"><strong>3）最长上升子序列</strong></span></p>
+<p>　　求出一个无序的整数数组中最长上升子序列的长度。例题：<span style="color: rgba(51, 102, 255, 1)"><a href="https://leetcode-cn.com/problems/longest-increasing-subsequence/" target="_blank"><span style="color: rgba(51, 102, 255, 1)">300. 最长上升子序列</span></a></span>。</p>
+<p>　　网上的解法都是用一维状态转移方程，此处仍然采用二维的解法（可观察各个步骤），其中dp[i][j]是指以第 i 个元素结尾的前 j 个元素中的最长上升子序列。</p>
+<p>　　状态表如下所示，每次只计算dp[i][i]的值，其余值沿用上一行的结果。</p>
+<p>　　<img src="https://img2020.cnblogs.com/blog/211606/202007/211606-20200730134541215-217561509.png" width="500" loading="lazy"></p>
+<p>　　根据状态表得出状态转移方程，当第 i 个元素比第 j 个元素大时，在该值的基础上加一，否则默认赋为一。</p>
+<div class="cnblogs_code">
+<pre>dp[i][i] = 1 | max(dp[i][j]) + 1</pre>
+</div>
+<p>　　具体的代码实现<span style="color: rgba(51, 102, 255, 1)"><a href="https://codepen.io/strick/pen/ExPBYRx" target="_blank"><span style="color: rgba(51, 102, 255, 1)">如下所示</span></a></span>。</p>
+<div class="cnblogs_code">
+<pre><span style="color: rgba(0, 0, 255, 1)">function</span><span style="color: rgba(0, 0, 0, 1)"> lengthOfLIS(nums) {
+  let len </span>=<span style="color: rgba(0, 0, 0, 1)"> nums.length,
+    max </span>= 1<span style="color: rgba(0, 0, 0, 1)">,
+    dp </span>=<span style="color: rgba(0, 0, 0, 1)"> [];
+  dp[</span>0] = [1];            <span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">初始化dp[0][0]的值</span>
+  <span style="color: rgba(0, 0, 255, 1)">for</span> (let i = 1; i &lt; len; i++<span style="color: rgba(0, 0, 0, 1)">) {
+    dp[i] </span>=<span style="color: rgba(0, 0, 0, 1)"> [];
+    dp[i][i] </span>= 1;        <span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">初始化dp[i][i]的值</span>
+    <span style="color: rgba(0, 0, 255, 1)">for</span> (let j = 0; j &lt; i; j++) {     <span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">让第i个元素与前j个元素逐一比较</span>
+      dp[i][j] = dp[i-1][j];          <span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">默认沿用上一行的值</span>
+      <span style="color: rgba(0, 0, 255, 1)">if</span> (nums[i] &gt; nums[j]) {        <span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">当第i个元素比第j个元素大时，取其中的较大值</span>
+        dp[i][i] = Math.max(dp[i][i], dp[i][j] + 1<span style="color: rgba(0, 0, 0, 1)">);
+      }
+    }
+    max </span>=<span style="color: rgba(0, 0, 0, 1)"> Math.max(max, dp[i][i]);
+  }
+  </span><span style="color: rgba(0, 0, 255, 1)">return</span><span style="color: rgba(0, 0, 0, 1)"> max;
+}</span></pre>
+</div>
+<h1>三、钱币找零</h1>
+<p>　　在《<span style="color: rgba(51, 102, 255, 1)"><a href="https://www.cnblogs.com/strick/p/13391105.html" target="_blank"><span style="color: rgba(51, 102, 255, 1)">贪心算法</span></a></span>》一节中曾提到过钱币找零的问题，此处会加大难度。</p>
+<p>　　假设有几种不同面值的纸币 v1，v2，……，vn（单位是元），如果要支付 w 元，那么最少需要多少张纸币，例如有 3 种不同的纸币，1元、2元、5元，要支付 9元，最少需要 3张纸币。例题：<span style="color: rgba(51, 102, 255, 1)"><a href="https://leetcode-cn.com/problems/coin-change/" target="_blank"><span style="color: rgba(51, 102, 255, 1)">322. 零钱兑换</span></a></span>。</p>
+<p>　　在画状态表之前先回答三个问题：</p>
+<p>　　（1）单元格中的值是什么？最少纸币数。</p>
+<p>　　（2）如何划分子问题？考虑要支付1、2...9等金额时，各自需要的最少纸币数。</p>
+<p>　　（3）网格的坐标轴是什么？横坐标是支付金额，纵坐标是可用的纸币。</p>
+<p>　　<img src="https://img2020.cnblogs.com/blog/211606/202007/211606-20200730134905327-715856750.png" width="800" loading="lazy"></p>
+<p>　　根据状态表得出状态转移方程，计算金额减去当前面值的剩余金额所用的最少纸币数，将其加一和上一行的最少纸币数做比较，取小值。</p>
+<div class="cnblogs_code">
+<pre>dp[i][j] = min(dp[i-1][j], dp[i][j - coins[i]] + 1)</pre>
+</div>
+<p>　　具体的代码实现<span style="color: rgba(51, 102, 255, 1)"><a href="https://codepen.io/strick/pen/NWxZgZW" target="_blank"><span style="color: rgba(51, 102, 255, 1)">如下所示</span></a></span>，虽然代码比较长，但好多都是在判断边界条件，以及做各类情况的处理，核心其实还是围绕着状态转移方程。</p>
+<div class="cnblogs_code">
+<pre><span style="color: rgba(0, 0, 255, 1)">function</span><span style="color: rgba(0, 0, 0, 1)"> coinChange(coins, amount) {
+  let len </span>=<span style="color: rgba(0, 0, 0, 1)"> coins.length,
+    min </span>=<span style="color: rgba(0, 0, 0, 1)"> Number.MAX_VALUE,
+    dp </span>= [<span style="color: rgba(0, 0, 255, 1)">new</span><span style="color: rgba(0, 0, 0, 1)"> Array(amount)];
+  </span><span style="color: rgba(0, 0, 255, 1)">for</span> (let j = 1; j &lt;= amount; j++) {    <span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">初始化第一行</span>
+    <span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">纸币面值比金额大，或金额无法整除纸币</span>
+    <span style="color: rgba(0, 0, 255, 1)">if</span>(coins[0] &gt; j || (j % coins[0]) &gt; 0<span style="color: rgba(0, 0, 0, 1)">) {
+      </span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">对于无法支付金额的情况，赋值为0</span>
+      dp[0][j] = 0<span style="color: rgba(0, 0, 0, 1)">;
+      </span><span style="color: rgba(0, 0, 255, 1)">continue</span><span style="color: rgba(0, 0, 0, 1)">;
+    }
+    dp[</span>0][j] = j / coins[0];            <span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">得到纸币数量</span>
+<span style="color: rgba(0, 0, 0, 1)">  }
+  </span><span style="color: rgba(0, 0, 255, 1)">for</span> (let i = 1; i &lt; len; i++<span style="color: rgba(0, 0, 0, 1)">) {
+    dp[i] </span>=<span style="color: rgba(0, 0, 0, 1)"> [];
+    </span><span style="color: rgba(0, 0, 255, 1)">for</span> (let j = 1; j &lt;= amount; j++<span style="color: rgba(0, 0, 0, 1)">) {
+      let rest </span>= j -<span style="color: rgba(0, 0, 0, 1)"> coins[i];
+      </span><span style="color: rgba(0, 0, 255, 1)">if</span>(rest == 0) {        <span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">可用当前纸币支付金额</span>
+        dp[i][j] = 1<span style="color: rgba(0, 0, 0, 1)">;
+        </span><span style="color: rgba(0, 0, 255, 1)">continue</span><span style="color: rgba(0, 0, 0, 1)">;
+      }
+      </span><span style="color: rgba(0, 0, 255, 1)">if</span>(rest &lt; 0) {        <span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">当前纸币比支付金额大</span>
+        dp[i][j] = dp[i-1<span style="color: rgba(0, 0, 0, 1)">][j];
+        </span><span style="color: rgba(0, 0, 255, 1)">continue</span><span style="color: rgba(0, 0, 0, 1)">;
+      }
+      </span><span style="color: rgba(0, 0, 255, 1)">if</span>(dp[i-1][j] &gt; 0 &amp;&amp; dp[i][rest] &gt; 0) {    <span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">都可以支付金额</span>
+        dp[i][j] = Math.min(dp[i-1][j], dp[i][rest] + 1<span style="color: rgba(0, 0, 0, 1)">);
+      }</span><span style="color: rgba(0, 0, 255, 1)">else</span> <span style="color: rgba(0, 0, 255, 1)">if</span>(dp[i-1][j] &gt; 0) {                 <span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">只有上一行可以支付金额</span>
+        dp[i][j] = dp[i-1<span style="color: rgba(0, 0, 0, 1)">][j];
+      }</span><span style="color: rgba(0, 0, 255, 1)">else</span> <span style="color: rgba(0, 0, 255, 1)">if</span>(dp[i][rest] &gt; 0) {                <span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">只能借助剩余金额的纸币数支付</span>
+        dp[i][j] = dp[i][rest] + 1<span style="color: rgba(0, 0, 0, 1)">;
+      }</span><span style="color: rgba(0, 0, 255, 1)">else</span> {                                    <span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">无法支付</span>
+        dp[i][j] = 0<span style="color: rgba(0, 0, 0, 1)">;
+      }
+    }
+  }
+  </span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">取金额的最小值</span>
+  <span style="color: rgba(0, 0, 255, 1)">for</span>(let i = 0; i &lt; len; i++<span style="color: rgba(0, 0, 0, 1)">) {
+    </span><span style="color: rgba(0, 0, 255, 1)">if</span>(dp[i][amount] == 0) {        <span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">过滤掉无法支付的数据</span>
+      <span style="color: rgba(0, 0, 255, 1)">continue</span><span style="color: rgba(0, 0, 0, 1)">;
+    }
+    </span><span style="color: rgba(0, 0, 255, 1)">if</span>(dp[i][amount] &gt; 0<span style="color: rgba(0, 0, 0, 1)">) {
+      min </span>=<span style="color: rgba(0, 0, 0, 1)"> Math.min(min, dp[i][amount]);
+    }
+  }
+  </span><span style="color: rgba(0, 0, 255, 1)">return</span> min == Number.MAX_VALUE ? -1<span style="color: rgba(0, 0, 0, 1)"> : min;
+}</span></pre>
+</div>
+<p>&nbsp;</p>
+</div>
+<div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+    <div id="blog_post_info"></div>
+    <div class="clear"></div>
+    <div id="post_next_prev"></div>
+</div>
+	<div class="postDesc"><img src="/skins/gray/images/speech.gif" align="absmiddle" />&nbsp;posted on 
+<span id="post-date">2020-10-26 07:25</span>&nbsp;
+<a href="https://www.cnblogs.com/strick/">咖啡机（K.F.J）</a>&nbsp;
+阅读(<span id="post_view_count">14</span>)&nbsp;
+评论(<span id="post_comment_count">0</span>)&nbsp;
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13403324" rel="nofollow">编辑</a>&nbsp;
+<a href="javascript:void(0)" onclick="AddToWz(13403324);return false;">收藏</a></div>
+</div>
+
+
+<script src="https://common.cnblogs.com/highlight/10.3.1/highlight.min.js"></script>
+<script>markdown_highlight();</script>
+<script>
+    var allowComments = true, cb_blogId = 153408, cb_blogApp = 'strick', cb_blogUserGuid = 'b6e5c5ec-78f7-df11-ac81-842b2b196315';
+    var cb_entryId = 13403324, cb_entryCreatedDate = '2020-10-26 07:25', cb_postType = 1;
+    loadViewCount(cb_entryId);
+</script>
+<a name="!comments"></a>
+<div id="blog-comments-placeholder"></div>
+<div id="comment_form" class="commentform">
+    <a name="commentform"></a>
+    <div id="divCommentShow"></div>
+    <div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="#" onclick="return RefreshPage();">刷新页面</a><a href="#top">返回顶部</a></div>
+    <div id="comment_form_container"></div>
+    <div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+    <div id="ad_t2"></div>
+    <div id="opt_under_post"></div>
+    <div id="cnblogs_c1" class="c_ad_block">
+        <div id='div-gpt-ad-1592365906576-0' style='width: 300px; height: 250px;'></div>
+    </div>
+    <div id="under_post_news"></div>
+    <div id="cnblogs_c2" class="c_ad_block">
+        <div id='div-gpt-ad-1592366332455-0' style='width: 468px; height: 60px;'></div>
+    </div>
+    <div id="under_post_kb"></div>
+    <div id="HistoryToday" class="c_ad_block"></div>
+    <script type="text/javascript">
+       var commentManager = new blogCommentManager();
+       commentManager.renderComments(0);
+       fixPostBody();
+       deliverBigBanner();
+setTimeout(function() { incrementViewCount(cb_entryId); }, 50);       deliverT2();
+       deliverC1C2();
+       loadNewsAndKb();
+       loadBlogSignature();
+LoadPostCategoriesTags(cb_blogId, cb_entryId);       LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+       GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+       loadOptUnderPost();
+       GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);
+   </script>
+</div>
+
+</div>
+
+
+		</div>
+	</div>
+	</div>
+	<!-- left ends -->
+	<!-- right starts -->
+	<div id="right">
+		<!-- 右侧工具部分 -->
+		<div id="right_content">
+	
+			<div id="sidebar_news" class="newsItem">
+            <script>loadBlogNews();</script>
+</div>
+<div id="sidebar_ad"></div>
+	
+			<div id="calendar"><div id="blog-calendar" style="display:none"></div><script>loadBlogDefaultCalendar();</script></div>
+			
+				<DIV id="leftcontentcontainer">
+					<div id="blog-sidecolumn"></div>
+                    <script>loadBlogSideColumn();</script>
+				</DIV>
+			
+		</div>
+		<!-- //右侧工具部分 -->
+	</div>
+	<!-- right ends -->
+	<div class="clear"></div>
+</div>
+<div id="footer"><!--done-->
+Copyright &copy; 2020 咖啡机（K.F.J）
+<br /><span id="poweredby">Powered by .NET 5.0.0-rc.2.20475.5 on Kubernetes</span>
+
+
+</div>
+
+
+    
+</body>
+</html>

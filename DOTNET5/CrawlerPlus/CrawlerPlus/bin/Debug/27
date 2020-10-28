@@ -1,0 +1,775 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="origin" />
+    
+    
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>咖啡机（K.F.J） - 博客园</title>
+    <link id="favicon" rel="shortcut icon" href="//common.cnblogs.com/favicon.svg" type="image/svg+xml" />
+    
+    <link rel="stylesheet" href="/css/blog-common.min.css?v=caAedYKpnz341INFIWakIM6r1EP9FIuJg43i9i8zqDQ" />
+    <link id="MainCss" rel="stylesheet" href="/skins/gray/bundle-gray.min.css?v=0kzTEpk_hI7MaNe19aqYpko9NZ1XIIY9eVdg79uY1DI" />
+    <link type="text/css" rel="stylesheet" href="https://www.cnblogs.com/strick/custom.css?v=hAaqAadmOZ/KVxeSit6lUhhUt6E=" />
+    <link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="/skins/gray/bundle-gray-mobile.min.css?v=AsdEygll7v4wRvbB9kj69xfo73UMZoHAwQE9xuvThcw" />
+    
+    <link type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/strick/rss" />
+    <link type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/strick/rsd.xml" />
+    <link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/strick/wlwmanifest.xml" />
+    <script>
+        var currentBlogId = 153408;
+        var currentBlogApp = 'strick';
+        var cb_enable_mathjax = false;
+        var isLogined = false;
+        var isBlogOwner = false;
+        var skinName = 'gray';
+        var visitorUserId = '';
+    </script>
+    <script src="https://common.cnblogs.com/scripts/jquery-2.2.0.min.js"></script>
+    <script src="/js/blog-common.min.js?v=kKx3DBtpvO8r97BzPmHJseQ10fGHkI-ZwMh4FA0eEd0"></script>
+    
+    
+    
+</head>
+<body class="no-navbar">
+    <a name="top"></a> 
+    <div id="top_nav" class="navbar navbar-custom">
+        <nav id="nav_main" class="navbar-main">
+            <ul id="nav_left" class="navbar-list navbar-left">
+                <li class="navbar-branding">
+                    <a href="https://www.cnblogs.com/" title="开发者的网上家园"><img src="/images/logo.svg?v=R9M0WmLAIPVydmdzE2keuvnjl-bPR7_35oHqtiBzGsM" alt="博客园Logo" /></a>
+                </li>
+                <li><a href="/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-sitehome')">首页</a></li>
+                <li><a href="https://news.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-news')">新闻</a></li>
+                <li><a href="https://q.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-q')">博问</a></li>
+                <li><a id="nav_brandzone" href="https://brands.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-brands')">专区</a></li>
+                <li><a href="https://ing.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-ing')">闪存</a></li>
+                <li><a href="https://edu.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-edu')">班级</a></li>
+            </ul>
+            <ul id="nav_right" class="navbar-list navbar-right">
+                <li>
+                    <form id="zzk_search" class="navbar-search" action="https://zzk.cnblogs.com/s" method="get">
+                        <input name="w" id="zzk_search_input" placeholder="代码改变世界" type="text" tabindex="3" />
+                        <button type="submit" id="zzk_search_button">
+                            <img src="/images/aggsite/search.svg" alt="搜索" />
+                        </button>
+                    </form>
+                </li>
+                <li id="navbar_login_status" class="navbar-list">
+                    <a id="navblog-myblog-icon" class="navbar-user-info navbar-blog" href="https://passport.cnblogs.com/GetBlogApplyStatus.aspx" alt="我的博客" title="我的博客">
+                        <img id="myblog_icon" class="navbar-icon" src="/images/aggsite/myblog.svg" alt="我的博客" />
+                    </a>
+                    <a class="navbar-user-info navbar-message navbar-icon-wrapper" href="https://msg.cnblogs.com/" alt="短消息" title="短消息">
+                        <img id="msg_icon" class="navbar-icon" src="/images/aggsite/message.svg?v=oS4PkibyMjZ9rGD5XAcLt99uW_s76Javy2up4dbnZNY" alt="短消息" />
+                        <span id="msg_count" style="display: none"></span>
+                    </a>
+                    <div id="user_info" class="navbar-user-info dropdown">
+                        <a class="dropdown-button" href="https://home.cnblogs.com/">
+                            <img id="user_icon" class="navbar-avatar" src="/images/aggsite/avatar-default.svg" alt="用户头像" />
+                        </a>
+                        <div class="dropdown-menu">
+                            <a id="navblog-myblog-text" href="https://passport.cnblogs.com/GetBlogApplyStatus.aspx">我的博客</a>
+                            <a href="https://home.cnblogs.com/">我的园子</a>
+                            <a href="https://account.cnblogs.com/settings/account">账号设置</a>
+                            <a href="javascript:void(0)" onclick="logout();">退出登录</a>
+                        </div>
+                    </div>
+                    <a class="navbar-anonymous" href="https://account.cnblogs.com/signup/">注册</a>
+                    <a class="navbar-anonymous" href="https://account.cnblogs.com/signin/?returnUrl=https://www.cnblogs.com/">登录</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    
+    <!--done-->
+<div id="banner"><div id="bnr_pic">
+<!--done-->
+<div class="header">
+	<div class="headerText">
+		<a id="Header1_HeaderTitle" class="headermaintitle HeaderMainTitle" href="https://www.cnblogs.com/strick/">咖啡机(K.F.J)</a>
+<br>
+	</div>
+	<div class="headerDis">
+每天进步一点点 研磨生活的香甜
+</div>
+</div>
+
+</div></div>
+<div id="main">
+	<!-- left starts -->
+	<div id="left">
+	<div id="left_border">
+		<DIV id="mystats">
+			<br>
+				<!--done-->
+<div class="blogStats">
+随笔- 
+301&nbsp;
+文章- 
+81&nbsp;
+评论- 
+807&nbsp;
+</div>
+
+
+			
+		</DIV>
+		<div id="mylinks">
+
+<a id="blog_nav_sitehome" class="menu" href="https://www.cnblogs.com/">
+博客园</a>
+&nbsp;&nbsp;
+<a id="blog_nav_myhome" class="menu" href="https://www.cnblogs.com/strick/">
+首页</a>
+&nbsp;&nbsp;
+
+<a id="blog_nav_newpost" class="menu" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">
+新随笔</a>
+&nbsp;&nbsp;<a id="MyLinks1_NewArticleLink" class="menu" href="https://i.cnblogs.com/EditArticles.aspx?opt=1">新文章</a>
+&nbsp;&nbsp;
+<a id="blog_nav_contact" class="menu" href="https://msg.cnblogs.com/send/%E5%92%96%E5%95%A1%E6%9C%BA%EF%BC%88K.F.J%EF%BC%89">
+联系</a>&nbsp;&nbsp;
+<a id="blog_nav_admin" class="menu" href="https://i.cnblogs.com/">
+管理</a>
+&nbsp;&nbsp;
+<a id="blog_nav_rss" class="menu" href="javascript:void(0)" data-rss="https://www.cnblogs.com/strick/rss/">
+订阅</a>&nbsp;
+<a id="blog_nav_rss_image" href="https://www.cnblogs.com/strick/rss/">
+    <img src="/skins/gray/images/xml.gif" alt="订阅" />
+</a>
+
+</div>
+		<div id="topics">
+			
+
+
+
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/strick/archive/2018/09/17.html"><img src="/skins/gray/images/post_title.jpg" border=0 align=absmiddle></a>
+        <font color="#555555">2018年9月17日</font>
+    </div>
+
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/strick/p/9591377.html">
+    <span>
+            <span>[置顶]</span>
+        面试的自信来源于扎实的基础
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+            
+
+    <div class="c_b_p_desc">
+摘要：一、前端四部分 跳槽是每个人都会经历的一件事，而进新公司的途径也是多样的。有的人依靠朋友推荐，直接加入，但更多的人是通过层层面试，最后符合该公司要求后才加入的。而面试的时候就会被提问，问到的问题可以说五花八门，令人不知所措，常说机会留给有准备的人，因此，不管怎样，都得在面试前好好准备准备。但前端这个        <a href="https://www.cnblogs.com/strick/p/9591377.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+
+        </div>
+        <div class="postDesc">
+            posted @ 2018-09-17 10:07
+咖啡机（K.F.J）
+<span class="post-view-count">阅读(1639)</span><text> </text>
+<span class="post-comment-count">评论(0)</span><text> </text>
+<span class="post-digg-count">推荐(11)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=9591377" rel="nofollow">
+    编辑
+</a>
+
+        </div>
+
+    <center><img src="/skins/gray/images/separator.gif" /></center>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/strick/archive/2018/07/23.html"><img src="/skins/gray/images/post_title.jpg" border=0 align=absmiddle></a>
+        <font color="#555555">2018年7月23日</font>
+    </div>
+
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/strick/p/6388058.html">
+    <span>
+            <span>[置顶]</span>
+        程序员也需要工匠精神
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+            
+
+    <div class="c_b_p_desc">
+摘要：目录 最近有点浮躁，也有点膨胀，工作也提不起劲，有点混混的节奏。 在此期间看到了本书《工匠精神》，读了几遍，矫正了一下自己。正像高达OO中的人物们一样，找到了一个战斗的理由。 一、大家对工作的常规理解 1. 好工作的定义：薪水多，轻松，社会地位高。 2. 工作就是为了赚钱，养家糊口，图生存，工作等于        <a href="https://www.cnblogs.com/strick/p/6388058.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+
+        </div>
+        <div class="postDesc">
+            posted @ 2018-07-23 10:28
+咖啡机（K.F.J）
+<span class="post-view-count">阅读(2355)</span><text> </text>
+<span class="post-comment-count">评论(8)</span><text> </text>
+<span class="post-digg-count">推荐(16)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=6388058" rel="nofollow">
+    编辑
+</a>
+
+        </div>
+
+    <center><img src="/skins/gray/images/separator.gif" /></center>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/strick/archive/2020/10/26.html"><img src="/skins/gray/images/post_title.jpg" border=0 align=absmiddle></a>
+        <font color="#555555">2020年10月26日</font>
+    </div>
+
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/strick/p/13403324.html">
+    <span>
+        数据结构和算法躬行记（8）——动态规划
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+            
+
+    <div class="cnblogs-post-body" id="postlist_postbody_13403324">
+        正文内容加载中...
+    </div>
+    <script type="text/javascript">getBlogPostBody(13403324);</script>
+
+        </div>
+        <div class="postDesc">
+            posted @ 2020-10-26 15:25
+咖啡机（K.F.J）
+<span class="post-view-count">阅读(14)</span><text> </text>
+<span class="post-comment-count">评论(0)</span><text> </text>
+<span class="post-digg-count">推荐(0)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13403324" rel="nofollow">
+    编辑
+</a>
+
+        </div>
+
+    <center><img src="/skins/gray/images/separator.gif" /></center>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/strick/archive/2020/10/12.html"><img src="/skins/gray/images/post_title.jpg" border=0 align=absmiddle></a>
+        <font color="#555555">2020年10月12日</font>
+    </div>
+
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/strick/p/13392504.html">
+    <span>
+        数据结构和算法躬行记（7）——分治算法
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+            
+
+    <div class="c_b_p_desc">
+摘要：分治算法（Divide-and-Conquer Algorithm），就是分而治之，把一个复杂问题分成两个或更多个相同或相似的子问题，直到最后子问题可以简单的直接求解，原问题的解即子问题的解的合并。 分治算法比较适合用递归来实现，而每一层递归都会涉及三个操作： （1）分解：将原问题分解为若干个规模较        <a href="https://www.cnblogs.com/strick/p/13392504.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+
+        </div>
+        <div class="postDesc">
+            posted @ 2020-10-12 13:58
+咖啡机（K.F.J）
+<span class="post-view-count">阅读(153)</span><text> </text>
+<span class="post-comment-count">评论(0)</span><text> </text>
+<span class="post-digg-count">推荐(1)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13392504" rel="nofollow">
+    编辑
+</a>
+
+        </div>
+
+    <center><img src="/skins/gray/images/separator.gif" /></center>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/strick/archive/2020/09/29.html"><img src="/skins/gray/images/post_title.jpg" border=0 align=absmiddle></a>
+        <font color="#555555">2020年9月29日</font>
+    </div>
+
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/strick/p/13391105.html">
+    <span>
+        数据结构和算法躬行记（6）——贪心算法
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+            
+
+    <div class="c_b_p_desc">
+摘要：贪心算法（Greedy Algorithm）会在每一步选择中都采取当前状态下最好或最优（即最有利）的选择，不能回退，从而希望结果是最好或最优的算法。它是动态规划的一种特例，需要满足更多的限制条件。 贪心算法在有最优子结构的问题中尤为有效（例如求图的最小生成树、哈夫曼编码等），最优子结构是指局部最优解        <a href="https://www.cnblogs.com/strick/p/13391105.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+
+        </div>
+        <div class="postDesc">
+            posted @ 2020-09-29 18:13
+咖啡机（K.F.J）
+<span class="post-view-count">阅读(353)</span><text> </text>
+<span class="post-comment-count">评论(1)</span><text> </text>
+<span class="post-digg-count">推荐(0)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13391105" rel="nofollow">
+    编辑
+</a>
+
+        </div>
+
+    <center><img src="/skins/gray/images/separator.gif" /></center>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/strick/archive/2020/09/22.html"><img src="/skins/gray/images/post_title.jpg" border=0 align=absmiddle></a>
+        <font color="#555555">2020年9月22日</font>
+    </div>
+
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/strick/p/13384038.html">
+    <span>
+        数据结构和算法躬行记（5）——回溯算法
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+            
+
+    <div class="c_b_p_desc">
+摘要：回溯算法（backtracking）是一个类似枚举的搜索尝试过程，在寻找问题解的过程中，当发现不满足求解条件时，就退回一步，尝试其它路径，该算法的时间复杂度都不会低于 O(N!)，复杂的例题包括正则表达式匹配、解数独等。 在《回溯算法详解》一文中提到，解决一个回溯问题，实际上就是一个决策树的遍历过程        <a href="https://www.cnblogs.com/strick/p/13384038.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+
+        </div>
+        <div class="postDesc">
+            posted @ 2020-09-22 16:33
+咖啡机（K.F.J）
+<span class="post-view-count">阅读(303)</span><text> </text>
+<span class="post-comment-count">评论(0)</span><text> </text>
+<span class="post-digg-count">推荐(2)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13384038" rel="nofollow">
+    编辑
+</a>
+
+        </div>
+
+    <center><img src="/skins/gray/images/separator.gif" /></center>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/strick/archive/2020/09/15.html"><img src="/skins/gray/images/post_title.jpg" border=0 align=absmiddle></a>
+        <font color="#555555">2020年9月15日</font>
+    </div>
+
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/strick/p/13362536.html">
+    <span>
+        数据结构和算法躬行记（4）——二分查找
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+            
+
+    <div class="c_b_p_desc">
+摘要：二分查找（Binary Search）是对一种针对有序数据集合的查找算法，依赖数组，适合静态数据。通过 n/2^k=1（k 是比较次数），可以求得 k=log2^n，因此时间复杂度为高效地 O(logn)。 其思路很简单，就是每次与区间的中间数据做比较，缩小查找范围，但是期间涉及到的细节很容易踩坑，        <a href="https://www.cnblogs.com/strick/p/13362536.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+
+        </div>
+        <div class="postDesc">
+            posted @ 2020-09-15 17:41
+咖啡机（K.F.J）
+<span class="post-view-count">阅读(190)</span><text> </text>
+<span class="post-comment-count">评论(0)</span><text> </text>
+<span class="post-digg-count">推荐(0)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13362536" rel="nofollow">
+    编辑
+</a>
+
+        </div>
+
+    <center><img src="/skins/gray/images/separator.gif" /></center>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/strick/archive/2020/09/07.html"><img src="/skins/gray/images/post_title.jpg" border=0 align=absmiddle></a>
+        <font color="#555555">2020年9月7日</font>
+    </div>
+
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/strick/p/13355897.html">
+    <span>
+        数据结构和算法躬行记（3）——二叉树
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+            
+
+    <div class="c_b_p_desc">
+摘要：树是一种非线性表数据结构，树的基本概念如下所列。 （1）结点高度：结点到叶子结点的最长路径（即边数）。例题：112. 路径总和。 （2）结点深度：根结点到这个结点所经历的边的个数。例题：104. 二叉树的最大深度。 （3）结点层数：结点深度加 1。 （4）树的高度：根结点的高度。例题：面试题 04.        <a href="https://www.cnblogs.com/strick/p/13355897.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+
+        </div>
+        <div class="postDesc">
+            posted @ 2020-09-07 15:05
+咖啡机（K.F.J）
+<span class="post-view-count">阅读(180)</span><text> </text>
+<span class="post-comment-count">评论(0)</span><text> </text>
+<span class="post-digg-count">推荐(0)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13355897" rel="nofollow">
+    编辑
+</a>
+
+        </div>
+
+    <center><img src="/skins/gray/images/separator.gif" /></center>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/strick/archive/2020/08/31.html"><img src="/skins/gray/images/post_title.jpg" border=0 align=absmiddle></a>
+        <font color="#555555">2020年8月31日</font>
+    </div>
+
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/strick/p/13353387.html">
+    <span>
+        数据结构和算法躬行记（2）——栈、队列、散列表和位运算
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+            
+
+    <div class="c_b_p_desc">
+摘要：一、栈 栈（stack）是一种操作受限的线性表数据结构，基于后进先出（LIFO）策略的集合类型，例如函数中的临时变量符合后进先出的特性，因此用栈保存最合适。 在入栈和出栈过程中所需的空间复杂度是 O(1)，时间复杂度也是 O(1)。空间复杂度是指运行算法还需要的额外存储空间。 注意，内存中的堆栈和数        <a href="https://www.cnblogs.com/strick/p/13353387.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+
+        </div>
+        <div class="postDesc">
+            posted @ 2020-08-31 17:25
+咖啡机（K.F.J）
+<span class="post-view-count">阅读(197)</span><text> </text>
+<span class="post-comment-count">评论(0)</span><text> </text>
+<span class="post-digg-count">推荐(2)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13353387" rel="nofollow">
+    编辑
+</a>
+
+        </div>
+
+    <center><img src="/skins/gray/images/separator.gif" /></center>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/strick/archive/2020/08/25.html"><img src="/skins/gray/images/post_title.jpg" border=0 align=absmiddle></a>
+        <font color="#555555">2020年8月25日</font>
+    </div>
+
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/strick/p/13344157.html">
+    <span>
+        数据结构和算法躬行记（1）——链表
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+            
+
+    <div class="c_b_p_desc">
+摘要：链表（Linked List）是不同于数组的另一种数据结构，它的存储单元（即结点或元素）除了包含任意类型的数据之外，还需要包含指向另一个结点的引用，后文会用术语链接表示对结点的引用。 下面会列出链表与数组的具体不同： （1）数组需要一块连续的内存空间来存储；而链表则恰恰相反，通过指针将零散的内存串联        <a href="https://www.cnblogs.com/strick/p/13344157.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+
+        </div>
+        <div class="postDesc">
+            posted @ 2020-08-25 14:45
+咖啡机（K.F.J）
+<span class="post-view-count">阅读(209)</span><text> </text>
+<span class="post-comment-count">评论(0)</span><text> </text>
+<span class="post-digg-count">推荐(1)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13344157" rel="nofollow">
+    编辑
+</a>
+
+        </div>
+
+    <center><img src="/skins/gray/images/separator.gif" /></center>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/strick/archive/2020/08/16.html"><img src="/skins/gray/images/post_title.jpg" border=0 align=absmiddle></a>
+        <font color="#555555">2020年8月16日</font>
+    </div>
+
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/strick/p/13496353.html">
+    <span>
+        浏览器工作原理和实践（三）——页面
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+            
+
+    <div class="c_b_p_desc">
+摘要：《浏览器工作原理与实践》是极客时间上的一个浏览器学习系列，在学习之后特在此做记录和总结。 一、事件循环 消息队列是一种数据结构，可以存放要执行的任务。它符合队列“先进先出”的特点，也就是说要添加任务的话，添加到队列的尾部；要取出任务的话，从队列头部去取。 从上图可以看出，改造可以分为下面三个步骤：         <a href="https://www.cnblogs.com/strick/p/13496353.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+
+        </div>
+        <div class="postDesc">
+            posted @ 2020-08-16 22:10
+咖啡机（K.F.J）
+<span class="post-view-count">阅读(81)</span><text> </text>
+<span class="post-comment-count">评论(0)</span><text> </text>
+<span class="post-digg-count">推荐(1)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13496353" rel="nofollow">
+    编辑
+</a>
+
+        </div>
+
+    <center><img src="/skins/gray/images/separator.gif" /></center>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/strick/archive/2020/08/15.html"><img src="/skins/gray/images/post_title.jpg" border=0 align=absmiddle></a>
+        <font color="#555555">2020年8月15日</font>
+    </div>
+
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/strick/p/13475724.html">
+    <span>
+        浏览器工作原理和实践（二）——JavaScript
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+            
+
+    <div class="c_b_p_desc">
+摘要：《浏览器工作原理与实践》是极客时间上的一个浏览器学习系列，在学习之后特在此做记录和总结。 一、执行流程 实际上变量和函数声明在代码里的位置是不会改变的，而且是在编译阶段被 JavaScript 引擎放入内存中。 一段 JavaScript 代码在执行之前需要被 JavaScript 引擎编译，编译完        <a href="https://www.cnblogs.com/strick/p/13475724.html" class="c_b_p_desc_readmore">阅读全文</a>
+    </div>
+
+        </div>
+        <div class="postDesc">
+            posted @ 2020-08-15 23:25
+咖啡机（K.F.J）
+<span class="post-view-count">阅读(71)</span><text> </text>
+<span class="post-comment-count">评论(0)</span><text> </text>
+<span class="post-digg-count">推荐(0)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13475724" rel="nofollow">
+    编辑
+</a>
+
+        </div>
+
+    <center><img src="/skins/gray/images/separator.gif" /></center>
+</div>
+
+
+
+<div class="topicListFooter">
+    <div id="nav_next_page">
+        
+    <a href="https://www.cnblogs.com/strick/default.html?page=2">
+        下一页
+    </a>
+
+    </div>    
+</div>
+
+
+
+
+
+
+
+		</div>
+	</div>
+	</div>
+	<!-- left ends -->
+	<!-- right starts -->
+	<div id="right">
+		<!-- 右侧工具部分 -->
+		<div id="right_content">
+	
+			<div id="sidebar_news" class="newsItem">
+            <script>loadBlogNews();</script>
+</div>
+<div id="sidebar_ad"></div>
+	
+			<div id="calendar"><div id="blog-calendar" style="display:none"></div><script>loadBlogDefaultCalendar();</script></div>
+			
+				<DIV id="leftcontentcontainer">
+					<div id="blog-sidecolumn"></div>
+                    <script>loadBlogSideColumn();</script>
+				</DIV>
+			
+		</div>
+		<!-- //右侧工具部分 -->
+	</div>
+	<!-- right ends -->
+	<div class="clear"></div>
+</div>
+<div id="footer"><!--done-->
+Copyright &copy; 2020 咖啡机（K.F.J）
+<br /><span id="poweredby">Powered by .NET 5.0.0-rc.2.20475.5 on Kubernetes</span>
+
+
+</div>
+
+
+    
+</body>
+</html>

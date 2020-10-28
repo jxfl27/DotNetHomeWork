@@ -1,0 +1,374 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="origin" />
+    <meta name="description" content="我相信如果你写过前后端分离的web应用程序，或者写过一些ajax请求调用，你可能会遇到过CORS错误。 CORS是什么？ 它与安全性有关吗？ 为什么要有CORS？它解决了什么目的？ CORS是怎样运行" />
+    <meta property="og:description" content="我相信如果你写过前后端分离的web应用程序，或者写过一些ajax请求调用，你可能会遇到过CORS错误。 CORS是什么？ 它与安全性有关吗？ 为什么要有CORS？它解决了什么目的？ CORS是怎样运行" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>跨站资源共享CORS原理深度解析 - 字母哥博客 - 博客园</title>
+    <link id="favicon" rel="shortcut icon" href="//common.cnblogs.com/favicon.svg" type="image/svg+xml" />
+    
+    <link rel="stylesheet" href="/css/blog-common.min.css?v=caAedYKpnz341INFIWakIM6r1EP9FIuJg43i9i8zqDQ" />
+    <link id="MainCss" rel="stylesheet" href="/skins/codinglife/bundle-codinglife.min.css?v=dij5UHLPkhCwoV5SpUeOW7BnKC0vZ5-8GYi-drRcxLA" />
+    
+    <link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="/skins/codinglife/bundle-codinglife-mobile.min.css?v=JtOonyglmq10yOLdtvmh-WsVtFwm8HRB8mR_g_TGArQ" />
+    
+    <link type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/zimug/rss" />
+    <link type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/zimug/rsd.xml" />
+    <link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/zimug/wlwmanifest.xml" />
+    <script>
+        var currentBlogId = 547155;
+        var currentBlogApp = 'zimug';
+        var cb_enable_mathjax = false;
+        var isLogined = false;
+        var isBlogOwner = false;
+        var skinName = 'CodingLife';
+        var visitorUserId = '';
+    </script>
+        <script>
+            var currentPostDateAdded = '2020-10-26 07:13';
+        </script>
+    <script src="https://common.cnblogs.com/scripts/jquery-2.2.0.min.js"></script>
+    <script src="/js/blog-common.min.js?v=kKx3DBtpvO8r97BzPmHJseQ10fGHkI-ZwMh4FA0eEd0"></script>
+    
+    
+    
+</head>
+<body class="has-navbar">
+    <a name="top"></a> 
+    <div id="top_nav" class="navbar">
+        <nav id="nav_main" class="navbar-main">
+            <ul id="nav_left" class="navbar-list navbar-left">
+                <li class="navbar-branding">
+                    <a href="https://www.cnblogs.com/" title="开发者的网上家园"><img src="/images/logo.svg?v=R9M0WmLAIPVydmdzE2keuvnjl-bPR7_35oHqtiBzGsM" alt="博客园Logo" /></a>
+                </li>
+                <li><a href="/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-sitehome')">首页</a></li>
+                <li><a href="https://news.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-news')">新闻</a></li>
+                <li><a href="https://q.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-q')">博问</a></li>
+                <li><a id="nav_brandzone" href="https://brands.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-brands')">专区</a></li>
+                <li><a href="https://ing.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-ing')">闪存</a></li>
+                <li><a href="https://edu.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-edu')">班级</a></li>
+            </ul>
+            <ul id="nav_right" class="navbar-list navbar-right">
+                <li>
+                    <form id="zzk_search" class="navbar-search" action="https://zzk.cnblogs.com/s" method="get">
+                        <input name="w" id="zzk_search_input" placeholder="代码改变世界" type="text" tabindex="3" />
+                        <button type="submit" id="zzk_search_button">
+                            <img src="/images/aggsite/search.svg" alt="搜索" />
+                        </button>
+                    </form>
+                </li>
+                <li id="navbar_login_status" class="navbar-list">
+                    <a id="navblog-myblog-icon" class="navbar-user-info navbar-blog" href="https://passport.cnblogs.com/GetBlogApplyStatus.aspx" alt="我的博客" title="我的博客">
+                        <img id="myblog_icon" class="navbar-icon" src="/images/aggsite/myblog.svg" alt="我的博客" />
+                    </a>
+                    <a class="navbar-user-info navbar-message navbar-icon-wrapper" href="https://msg.cnblogs.com/" alt="短消息" title="短消息">
+                        <img id="msg_icon" class="navbar-icon" src="/images/aggsite/message.svg?v=oS4PkibyMjZ9rGD5XAcLt99uW_s76Javy2up4dbnZNY" alt="短消息" />
+                        <span id="msg_count" style="display: none"></span>
+                    </a>
+                    <div id="user_info" class="navbar-user-info dropdown">
+                        <a class="dropdown-button" href="https://home.cnblogs.com/">
+                            <img id="user_icon" class="navbar-avatar" src="/images/aggsite/avatar-default.svg" alt="用户头像" />
+                        </a>
+                        <div class="dropdown-menu">
+                            <a id="navblog-myblog-text" href="https://passport.cnblogs.com/GetBlogApplyStatus.aspx">我的博客</a>
+                            <a href="https://home.cnblogs.com/">我的园子</a>
+                            <a href="https://account.cnblogs.com/settings/account">账号设置</a>
+                            <a href="javascript:void(0)" onclick="logout();">退出登录</a>
+                        </div>
+                    </div>
+                    <a class="navbar-anonymous" href="https://account.cnblogs.com/signup/">注册</a>
+                    <a class="navbar-anonymous" href="https://account.cnblogs.com/signin/?returnUrl=https://www.cnblogs.com/">登录</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    
+    <!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+        <a id="lnkBlogLogo" href="https://www.cnblogs.com/zimug/"><img id="blogLogo" src="/skins/custom/images/logo.gif" alt="返回主页" /></a>		
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle HeaderMainTitle" href="https://www.cnblogs.com/zimug/">字母哥博客</a>
+</h1>
+<h2>
+
+</h2>
+
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li><a id="blog_nav_sitehome" class="menu" href="https://www.cnblogs.com/">
+博客园</a>
+</li>
+<li>
+<a id="blog_nav_myhome" class="menu" href="https://www.cnblogs.com/zimug/">
+首页</a>
+</li>
+<li>
+
+<a id="blog_nav_newpost" class="menu" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">
+新随笔</a>
+</li>
+<li>
+<a id="blog_nav_contact" class="menu" href="https://msg.cnblogs.com/send/%E5%AD%97%E6%AF%8D%E5%93%A5%E5%8D%9A%E5%AE%A2">
+联系</a></li>
+<li>
+<a id="blog_nav_rss" class="menu" href="javascript:void(0)" data-rss="https://www.cnblogs.com/zimug/rss/">
+订阅</a>
+<!--<partial name="./Shared/_XmlLink.cshtml" model="Model" /></li>--></li>
+<li>
+<a id="blog_nav_admin" class="menu" href="https://i.cnblogs.com/">
+管理</a>
+</li>
+</ul>
+
+
+		<div class="blogStats">
+			<span id="stats_post_count">随笔 - 
+121&nbsp; </span>
+<span id="stats_article_count">文章 - 
+0&nbsp; </span>
+<span id="stats-comment_count">评论 - 
+40</span>
+
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		<div id="post_detail">
+    <!--done-->
+    <div id="topics">
+        <div class="post">
+            <h1 class = "postTitle">
+                
+<a id="cb_post_title_url" class="postTitle2 vertical-middle" href="https://www.cnblogs.com/zimug/p/13876509.html">
+    <span>跨站资源共享CORS原理深度解析</span>
+    
+
+
+</a>
+
+            </h1>
+            <div class="clear"></div>
+            <div class="postBody">
+                
+<div id="cnblogs_post_body" class="blogpost-body cnblogs-markdown">
+    <p><img src="https://img2020.cnblogs.com/other/1815316/202010/1815316-20201026071231557-1866414231.png" alt="" loading="lazy"></p>
+<p>我相信如果你写过前后端分离的web应用程序，或者写过一些ajax请求调用，你可能会遇到过CORS错误。</p>
+<ul>
+<li>CORS是什么？</li>
+<li>它与安全性有关吗？</li>
+<li>为什么要有CORS？它解决了什么目的？</li>
+<li>CORS是怎样运行的？</li>
+</ul>
+<p>如果您有这些问题，那么这篇文章非常适合您。</p>
+<h2 id="一、什么是cors？">一、什么是CORS？</h2>
+<p>要了解什么是CORS（Cross-Origin Resource Sharing：跨站资源共享），首先我们需要了解什么是同源策略<code>Same Origin Policy</code>（SOP）。SOP是所有的现代浏览器都具备的安全措施，它不允许从一个加载的js脚本和资源的Origin域与另一个Origin域进行交互。换句话说，如果您的网站是<code>www.example.com</code>，则您无法向<code>www.test.com</code>发出XHR请求。</p>
+<p><strong>那么SOP有什么用？如果没有同源策略的限制，你想想会发生什么？</strong> 比如：您已经登录到微博，并且不小心打开了一个恶意网站。该网站可以向微博发出请求，并从您微博登录的会话中提取个人信息。这显然是巨大的安全问题，为了防止这种情况，在浏览器中实施同源策略的限制。实际上，服务器并没有意识到在浏览器端发生的这一切，您仍然可以使用curl或postman发出相同的请求，并且一切响应正常，因为这些工具上没有SOP。</p>
+<p><strong>如果说SOP是限制跨源访问的一种方式，那么CORS是一种绕过SOP限制并允许您的前端向服务器提出合法请求的方法。</strong> 如果您的服务端的确是存在跨域的情况（实际上对于现代分布式应用，这很常见），由于SOP限制您的客户端将无法向多节点跨域服务器发出xhr请求。救星就出现了，CORS使我们能够以安全且可管理的方式做到跨域请求，突破同源策略的限制。</p>
+<h2 id="二、同源策略的源same-origin-policy的origin">二、同源策略的源(Same Origin Policy的Origin)</h2>
+<p>源由三部分组成：协议，hostip（域）和端口。例如</p>
+<ul>
+<li><code>http://example.com/xxx/index.html</code>和<code>http://example.com/yyy/index.html</code>是同源，</li>
+<li><code>http://example.com:80</code>和<code>http://example.com</code>（对于http默认端口为80）是同源。</li>
+<li>由于协议不同，<code>http://example.com/app1</code>和<code>https://example.com/app2</code>是不同的源。</li>
+<li><code>http://example.com</code>，<code>http://www.example.com</code>由于域名不同，也是不同的源</li>
+<li>非常要注意的是<code>http://localhost</code>  和<code>http://127.0.0.1</code>是不同的源</li>
+</ul>
+<p><strong>同源策略就是：不允许不同的ip、端口、协议的应用在浏览器内进行互相资源共享、请求调用。</strong></p>
+<h2 id="三、cors如何运作？">三、CORS如何运作？</h2>
+<p>CORS规范允许服务器向浏览器返回一些HTTP Headers，浏览器可以基于这些HTTP Headers来决定是否突破SOP的限制。最主要的一个HTTP Headers是Access-Control-Allow-Origin。</p>
+<pre><code>//目标服务允许所有的网站对其进行跨域访问
+Access-Control-Allow-Origin: * 
+//目标服务允许特定的网站对其进行跨域访问
+Access-Control-Allow-Origin: https://example.com
+</code></pre>
+<p>CORS有两种类型的请求：“simple”简单请求和“preflight”预检请求，根据请求方法的不同由浏览器确定使用哪种请求。</p>
+<h4 id="simple简单请求：">simple简单请求：</h4>
+<p>如果符合以下所有条件，则API请求被视为简单请求：</p>
+<ul>
+<li>API方法是以下方法之一：GET，POST或HEAD。</li>
+<li><code>Content-Type</code>请求头包含：<code>application/x-www-form-urlencoded</code>，<code>multipart/form-data</code>，<code>text/plain</code></li>
+</ul>
+<p>这两个条件将构成大多数简单请求的用例，但是可以在<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS#Simple_requests">此处</a>找到更详细的简单请求条件列表。</p>
+<p>如果您的API请求被视为<code>simple</code>简单请求，这个请求就可以直接被发送给服务器。服务器使用CORS HTTP Headers进行响应，浏览器将检查<code>Access-Control-Allow-Origin</code>后决定这个请求是否可以突破同源策略的限制，进行下一步的处理。</p>
+<h4 id="preflight预检请求：">preflight预检请求：</h4>
+<p>如果您的API请求不满足成为简单请求的标准（最常见不满足简单请求标准的<code>Content-Type</code>值为<code>application/json</code>），则浏览器将在发送实际请求之前发出预检请求。</p>
+<p>举一个例子，我们尝试使用<code>GET</code>请求<code>https://example.com/status</code>，<code>Content-Type</code>是<code>application/json</code>，所以浏览器认为它不符合一个简单请求的标准，因此浏览器会在发出实际请求之前发出预检请求，这个预检请求是使用HTTP的 OPTIONS方法发出的：</p>
+<pre><code>curl --location --request OPTIONS 'http://example.com/status' \
+--header 'Access-Control-Request-Method: GET' \
+--header 'Access-Control-Request-Headers: Content-Type, Accept' \
+--header 'Origin: http://test.com'
+</code></pre>
+<p>上面的curl就是模拟预检请求，实际作用是：浏览器希望告诉服务器，我的实际请求将使用HTTP <code>GET</code>method进行调用，<code>Content-Type</code>与<code>Accept</code>作为HTTP headers，这个请求是从<code>https://test.com</code>发起的。服务器响应此请求：</p>
+<pre><code>HTTP/1.1 204 No Content
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Methods: OPTIONS, GET, HEAD, POST
+Access-Control-Allow-Headers: Content-Type, Accept
+</code></pre>
+<ul>
+<li><code>Access-Control-Allow-Origin</code>：允许发出请求的源，或者<code>*</code>可以从任何来源发出请求。（即允许跨域的源）</li>
+<li><code>Access-Control-Allow-Methods</code>：允许的以逗号分隔的HTTP方法列表。（即允许跨域的HTTP方法）</li>
+<li><code>Access-Control-Allow-Headers</code>：允许发送的HTTP headers列表。</li>
+</ul>
+<p>浏览器收到服务端的预检请求响应之后，在我们的示例中服务器响应<code>*</code>可以从任何来源发出请求，因此现在浏览器将再次访问<code>https://example.com/status</code>，使用GET方法(不再是OPTIONS方法)，浏览器将不再限制该请求的发出与响应数据的接收。<br>
+如果预检请求响应的Origin是特定的<code>Access-Control-Allow-Origin: http://domain.com</code>，浏览器将出现<code>Cross-Origin Request Blocked</code>错误。因为服务器端预检结果只允许<code>http://domain.com</code>发出跨域请求，不允许其他应用向我发出跨域请求。</p>
+<h2 id="四、如何处理cors错误">四、如何处理CORS错误</h2>
+<p>我们现在知道什么是CORS及其工作原理，后面的事情其实就简单了。从上面的内容我们需要注意的是，对CORS的完全控制权在服务器，即服务器可以允许或禁止源的跨域访问。所以说跨域问题的处理一般都在服务端进行,不同的服务端的处理HTTP 请求头的代码是不一样的，当然也可以不用写代码，比如：nginx、haproxy设置。<strong>但是万变不离其宗：最终都是对HTTP Headers进行重写</strong>。</p>
+<p>我就简单的举几个例子：</p>
+<h4 id="比如servlet处理跨域">比如Servlet处理跨域</h4>
+<pre><code>public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain)
+			throws IOException, ServletException {
+		HttpServletResponse response = (HttpServletResponse) resp; 
+	    response.setHeader("Access-Control-Allow-Origin", "*"); //解决跨域访问报错   
+	    response.setHeader("Access-Control-Allow-Methods", "POST, PUT, GET, OPTIONS, DELETE");   
+	    chain.doFilter(req, resp); 
+}
+</code></pre>
+<h4 id="比如spring-mvc配置">比如Spring MVC配置</h4>
+<pre><code>@Configuration
+public class GlobalCorsConfig {
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/**")    //添加映射路径，“/**”表示对所有的路径实行全局跨域访问权限的设置
+                        .allowedOrigins("*")    //开放哪些ip、端口、域名的访问权限
+                        .allowCredentials(true)  //是否允许发送Cookie信息 
+                        .allowedMethods("GET","POST", "PUT", "DELETE")     //开放哪些Http方法，允许跨域访问
+                        .allowedHeaders("*")     //允许HTTP请求中的携带哪些Header信息
+                        .exposedHeaders("*");   //暴露哪些头部信息（因为跨域访问默认不能获取全部头部信息）
+            }
+        };
+    }
+}
+
+</code></pre>
+<h2 id="欢迎关注我的博客，里面有很多精品合集">欢迎关注我的博客，里面有很多精品合集</h2>
+<ul>
+<li>本文转载注明出处（必须带连接，不能只转文字）：<a href="http://www.zimug.com">字母哥博客</a>。</li>
+</ul>
+<p><strong>觉得对您有帮助的话，帮我点赞、分享！您的支持是我不竭的创作动力！</strong> 。另外，笔者最近一段时间输出了如下的精品内容，期待您的关注。</p>
+<ul>
+<li><a href="https://www.kancloud.cn/hanxt/springboot2/content">《手摸手教你学Spring Boot2.0》</a></li>
+<li><a href="https://www.kancloud.cn/hanxt/springsecurity/content">《Spring Security-JWT-OAuth2一本通》</a></li>
+<li><a href="https://www.kancloud.cn/hanxt/vue-spring/content">《实战前后端分离RBAC权限管理系统》</a></li>
+<li><a href="https://www.kancloud.cn/hanxt/springcloud/content">《实战SpringCloud微服务从青铜到王者》</a></li>
+<li><a href="https://www.kancloud.cn/hanxt/vuejs2/content">《VUE深入浅出系列》</a></li>
+</ul>
+
+</div>
+<div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+    <div id="blog_post_info"></div>
+    <div class="clear"></div>
+    <div id="post_next_prev"></div>
+</div>
+            </div>
+            <div class="postDesc">posted @ 
+<span id="post-date">2020-10-26 07:13</span>&nbsp;
+<a href="https://www.cnblogs.com/zimug/">字母哥博客</a>&nbsp;
+阅读(<span id="post_view_count">16</span>)&nbsp;
+评论(<span id="post_comment_count">0</span>)&nbsp;
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13876509" rel="nofollow">编辑</a>&nbsp;
+<a href="javascript:void(0)" onclick="AddToWz(13876509);return false;">收藏</a></div>
+        </div>
+	    
+	    
+    </div><!--end: topics 文章、评论容器-->
+</div>
+<script src="https://common.cnblogs.com/highlight/10.3.1/highlight.min.js"></script>
+<script>markdown_highlight();</script>
+<script>
+    var allowComments = true, cb_blogId = 547155, cb_blogApp = 'zimug', cb_blogUserGuid = '2a9b1778-d39a-4ab3-1e7d-08d738548dbb';
+    var cb_entryId = 13876509, cb_entryCreatedDate = '2020-10-26 07:13', cb_postType = 1;
+    loadViewCount(cb_entryId);
+</script>
+<a name="!comments"></a>
+<div id="blog-comments-placeholder"></div>
+<div id="comment_form" class="commentform">
+    <a name="commentform"></a>
+    <div id="divCommentShow"></div>
+    <div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="#" onclick="return RefreshPage();">刷新页面</a><a href="#top">返回顶部</a></div>
+    <div id="comment_form_container"></div>
+    <div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+    <div id="ad_t2"></div>
+    <div id="opt_under_post"></div>
+    <div id="cnblogs_c1" class="c_ad_block">
+        <div id='div-gpt-ad-1592365906576-0' style='width: 300px; height: 250px;'></div>
+    </div>
+    <div id="under_post_news"></div>
+    <div id="cnblogs_c2" class="c_ad_block">
+        <div id='div-gpt-ad-1592366332455-0' style='width: 468px; height: 60px;'></div>
+    </div>
+    <div id="under_post_kb"></div>
+    <div id="HistoryToday" class="c_ad_block"></div>
+    <script type="text/javascript">
+       var commentManager = new blogCommentManager();
+       commentManager.renderComments(0);
+       fixPostBody();
+       deliverBigBanner();
+setTimeout(function() { incrementViewCount(cb_entryId); }, 50);       deliverT2();
+       deliverC1C2();
+       loadNewsAndKb();
+       loadBlogSignature();
+LoadPostCategoriesTags(cb_blogId, cb_entryId);       LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+       GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+       loadOptUnderPost();
+       GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);
+   </script>
+</div>
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+	<div id="sideBar">
+		<div id="sideBarMain">
+			<div id="sidebar_news" class="newsItem">
+            <script>loadBlogNews();</script>
+</div>
+<div id="sidebar_ad"></div>
+			<div id="blog-calendar" style="display:none"></div><script>loadBlogDefaultCalendar();</script>			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"></div>
+                    <script>loadBlogSideColumn();</script>
+			</div>			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		<!--done-->
+Copyright &copy; 2020 字母哥博客
+<br /><span id="poweredby">Powered by .NET 5.0.0-rc.2.20475.5 on Kubernetes</span>
+
+
+
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+    <div id="page_end_html">
+        <a href="https://www.kancloud.cn/hanxt/springboot2/content">
+<img src="http://cdn.zimug.com/zimug-banner-ad.png" style="width: 100%"> 
+</a>
+    </div>
+</body>
+</html>

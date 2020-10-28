@@ -1,0 +1,583 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="never" />
+    <meta name="description" content="1024，撸起袖子继续干" />
+    <meta property="og:description" content="1024，撸起袖子继续干" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>5. Bean Validation声明式验证四大级别：字段、属性、容器元素、类 - YourBatman - 博客园</title>
+    <link id="favicon" rel="shortcut icon" href="//common.cnblogs.com/favicon.svg" type="image/svg+xml" />
+    
+    <link rel="stylesheet" href="/css/blog-common.min.css?v=caAedYKpnz341INFIWakIM6r1EP9FIuJg43i9i8zqDQ" />
+    
+    <link type="text/css" rel="stylesheet" href="https://www.cnblogs.com/yourbatman/custom.css?v=bzvvKWeAEsmlkrjvwubp76nH1Aw=" />
+    <link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="/skins/SimpleMemory/bundle-SimpleMemory-mobile.min.css" />
+    
+    <link type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/yourbatman/rss" />
+    <link type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/yourbatman/rsd.xml" />
+    <link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/yourbatman/wlwmanifest.xml" />
+    <script>
+        var currentBlogId = 360196;
+        var currentBlogApp = 'yourbatman';
+        var cb_enable_mathjax = false;
+        var isLogined = false;
+        var isBlogOwner = false;
+        var skinName = 'SimpleMemory';
+        var visitorUserId = '';
+    </script>
+        <script>
+            var currentPostDateAdded = '2020-10-26 06:29';
+        </script>
+    <script src="https://common.cnblogs.com/scripts/jquery-2.2.0.min.js"></script>
+    <script src="/js/blog-common.min.js?v=kKx3DBtpvO8r97BzPmHJseQ10fGHkI-ZwMh4FA0eEd0"></script>
+    
+    
+    
+</head>
+<body class="no-navbar">
+    <a name="top"></a> 
+    <div id="top_nav" class="navbar navbar-custom">
+        <nav id="nav_main" class="navbar-main">
+            <ul id="nav_left" class="navbar-list navbar-left">
+                <li class="navbar-branding">
+                    <a href="https://www.cnblogs.com/" title="开发者的网上家园"><img src="/images/logo.svg?v=R9M0WmLAIPVydmdzE2keuvnjl-bPR7_35oHqtiBzGsM" alt="博客园Logo" /></a>
+                </li>
+                <li><a href="/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-sitehome')">首页</a></li>
+                <li><a href="https://news.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-news')">新闻</a></li>
+                <li><a href="https://q.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-q')">博问</a></li>
+                <li><a id="nav_brandzone" href="https://brands.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-brands')">专区</a></li>
+                <li><a href="https://ing.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-ing')">闪存</a></li>
+                <li><a href="https://edu.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-edu')">班级</a></li>
+            </ul>
+            <ul id="nav_right" class="navbar-list navbar-right">
+                <li>
+                    <form id="zzk_search" class="navbar-search" action="https://zzk.cnblogs.com/s" method="get">
+                        <input name="w" id="zzk_search_input" placeholder="代码改变世界" type="text" tabindex="3" />
+                        <button type="submit" id="zzk_search_button">
+                            <img src="/images/aggsite/search.svg" alt="搜索" />
+                        </button>
+                    </form>
+                </li>
+                <li id="navbar_login_status" class="navbar-list">
+                    <a id="navblog-myblog-icon" class="navbar-user-info navbar-blog" href="https://passport.cnblogs.com/GetBlogApplyStatus.aspx" alt="我的博客" title="我的博客">
+                        <img id="myblog_icon" class="navbar-icon" src="/images/aggsite/myblog.svg" alt="我的博客" />
+                    </a>
+                    <a class="navbar-user-info navbar-message navbar-icon-wrapper" href="https://msg.cnblogs.com/" alt="短消息" title="短消息">
+                        <img id="msg_icon" class="navbar-icon" src="/images/aggsite/message.svg?v=oS4PkibyMjZ9rGD5XAcLt99uW_s76Javy2up4dbnZNY" alt="短消息" />
+                        <span id="msg_count" style="display: none"></span>
+                    </a>
+                    <div id="user_info" class="navbar-user-info dropdown">
+                        <a class="dropdown-button" href="https://home.cnblogs.com/">
+                            <img id="user_icon" class="navbar-avatar" src="/images/aggsite/avatar-default.svg" alt="用户头像" />
+                        </a>
+                        <div class="dropdown-menu">
+                            <a id="navblog-myblog-text" href="https://passport.cnblogs.com/GetBlogApplyStatus.aspx">我的博客</a>
+                            <a href="https://home.cnblogs.com/">我的园子</a>
+                            <a href="https://account.cnblogs.com/settings/account">账号设置</a>
+                            <a href="javascript:void(0)" onclick="logout();">退出登录</a>
+                        </div>
+                    </div>
+                    <a class="navbar-anonymous" href="https://account.cnblogs.com/signup/">注册</a>
+                    <a class="navbar-anonymous" href="https://account.cnblogs.com/signin/?returnUrl=https://www.cnblogs.com/">登录</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    
+    <!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+        <a id="lnkBlogLogo" href="https://www.cnblogs.com/yourbatman/"><img id="blogLogo" src="/skins/custom/images/logo.gif" alt="返回主页" /></a>		
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle HeaderMainTitle" href="https://www.cnblogs.com/yourbatman/">BAT的乌托邦</a>
+</h1>
+<h2>
+作者：A哥(YourBatman)。公众号：BAT的乌托邦。专注Java领域分享、成长，拒绝浅尝辄止。
+</h2>
+
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li><a id="blog_nav_sitehome" class="menu" href="https://www.cnblogs.com/">
+博客园</a>
+</li>
+<li>
+<a id="blog_nav_myhome" class="menu" href="https://www.cnblogs.com/yourbatman/">
+首页</a>
+</li>
+<li>
+
+<a id="blog_nav_newpost" class="menu" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">
+新随笔</a>
+</li>
+<li>
+<a id="blog_nav_contact" class="menu" href="https://msg.cnblogs.com/send/YourBatman">
+联系</a></li>
+<li>
+<a id="blog_nav_rss" class="menu" href="javascript:void(0)" data-rss="https://www.cnblogs.com/yourbatman/rss/">
+订阅</a>
+<!--<partial name="./Shared/_XmlLink.cshtml" model="Model" /></li>--></li>
+<li>
+<a id="blog_nav_admin" class="menu" href="https://i.cnblogs.com/">
+管理</a>
+</li>
+</ul>
+
+
+		<div class="blogStats">
+			<span id="stats_post_count">随笔 - 
+69&nbsp; </span>
+<span id="stats_article_count">文章 - 
+0&nbsp; </span>
+<span id="stats-comment_count">评论 - 
+120</span>
+
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		<div id="post_detail">
+    <!--done-->
+    <div id="topics">
+        <div class="post">
+            <h1 class = "postTitle">
+                
+<a id="cb_post_title_url" class="postTitle2 vertical-middle" href="https://www.cnblogs.com/yourbatman/p/13876469.html">
+    <span>5. Bean Validation声明式验证四大级别：字段、属性、容器元素、类</span>
+    
+
+
+</a>
+
+            </h1>
+            <div class="clear"></div>
+            <div class="postBody">
+                
+    <div id="cnblogs_post_description" style="display: none">
+        1024，撸起袖子继续干
+    </div>
+<div id="cnblogs_post_body" class="blogpost-body cnblogs-markdown">
+    <blockquote>
+<p>1024，代码改变世界。本文已被 <a href="https://www.yourbatman.cn"><strong>https://www.yourbatman.cn</strong></a> 收录，里面一并有Spring技术栈、MyBatis、JVM、中间件等小而美的<strong>专栏</strong>供以免费学习。关注公众号【<strong>BAT的乌托邦</strong>】逐个击破，深入掌握，拒绝浅尝辄止。</p>
+</blockquote>
+<p></p><div class="toc"><div class="toc-container-header">目录</div><ul><li><a href="#前言">✍前言</a><ul><li><a href="#版本约定">版本约定</a></li></ul></li><li><a href="#正文">✍正文</a><ul><li><a href="#1、字段级别约束（field）">1、字段级别约束（Field）</a><ul><li><a href="#使用细节">使用细节</a></li></ul></li><li><a href="#2、属性级别约束（property）">2、属性级别约束（Property）</a><ul><li><a href="#使用细节">使用细节</a></li></ul></li><li><a href="#3、容器元素级别约束（container-element）">3、容器元素级别约束（Container Element）</a><ul><li><a href="#使用细节">使用细节</a></li></ul></li><li><a href="#4、类级别约束（class）">4、类级别约束（Class）</a></li><li><a href="#字段约束和属性约束的区别">字段约束和属性约束的区别</a><ul><li><a href="#字段和属性的区别">字段和属性的区别</a></li></ul></li></ul></li><li><a href="#总结">✍总结</a><ul><li><a href="#推荐阅读：">✔推荐阅读：</a></li></ul></li></ul></div><p></p>
+<p><img src="https://img-blog.csdnimg.cn/20201023161125192.jpg" alt="" loading="lazy"></p>
+<h1 id="前言">✍前言</h1>
+<p>你好，我是YourBatman。又一年1024程序员节，你快乐吗？还是在加班上线呢？</p>
+<p><a href="https://mp.weixin.qq.com/s/jzOv67ZTSx2rByj0aeUTgw">上篇文章</a> 介绍了Validator校验器的五大核心组件，在结合前面几篇所讲，相信你对Bean Validation已有了一个整体认识了。</p>
+<p>本文将<strong>非常实用</strong>，因为将要讲述的是Bean Validation在4个层级上的验证方式，它将覆盖你使用过程中的方方面面，不信你看。</p>
+<h2 id="版本约定">版本约定</h2>
+<ul>
+<li>Bean Validation版本：<code>2.0.2</code></li>
+<li>Hibernate Validator版本：<code>6.1.5.Final</code></li>
+</ul>
+<h1 id="正文">✍正文</h1>
+<p>Jakarta Bean它的验证约束是通过声明式方式（注解）来表达的，我们知道Java注解几乎可以标注在任何地方（package上都可标注注解你敢信？），那么Jakarta Bean支持哪些呢？</p>
+<p><strong>Jakarta Bean</strong>共支持四个级别的约束：</p>
+<ol>
+<li>字段约束（Field）</li>
+<li>属性约束（Property）</li>
+<li>容器<strong>元素</strong>约束（Container Element）</li>
+<li>类约束（Class）</li>
+</ol>
+<p>值得注意的是，并不是所有的<strong>约束注解</strong>都能够标注在上面四种级别上。现实情况是：Bean Validation自带的22个标准约束全部支持1/2/3级别，且全部<strong>不支持</strong>第4级别（类级别）约束。当然喽，作为补充的<code>Hibernate-Validator</code>它提供了一些专门用于类级别的约束注解，如<code>org.hibernate.validator.constraints.@ScriptAssert</code>就是一常用案例。</p>
+<p>说明：为简化接下来示例代码，共用工具代码提前展示如下：</p>
+<pre><code class="language-java">public abstract class ValidatorUtil {
+
+    public static ValidatorFactory obtainValidatorFactory() {
+        return Validation.buildDefaultValidatorFactory();
+    }
+
+    public static Validator obtainValidator() {
+        return obtainValidatorFactory().getValidator();
+    }
+
+    public static ExecutableValidator obtainExecutableValidator() {
+        return obtainValidator().forExecutables();
+    }
+
+    public static &lt;T&gt; void printViolations(Set&lt;ConstraintViolation&lt;T&gt;&gt; violations) {
+        violations.stream().map(v -&gt; v.getPropertyPath()  + v.getMessage() + "，但你的值是： " + v.getInvalidValue()).forEach(System.out::println);
+    }
+
+}
+</code></pre>
+<h2 id="1、字段级别约束（field）">1、字段级别约束（Field）</h2>
+<p>这是我们<strong>最为常用</strong>的一种约束方式：</p>
+<pre><code class="language-java">public class Room {
+
+    @NotNull
+    public String name;
+    @AssertTrue
+    public boolean finished;
+
+}
+</code></pre>
+<p>书写测试用例：</p>
+<pre><code class="language-java">public static void main(String[] args) {
+    Room bean = new Room();
+    bean.finished = false;
+    ValidatorUtil.printViolations(ValidatorUtil.obtainValidator().validate(bean));
+}
+</code></pre>
+<p>运行程序，输出：</p>
+<pre><code class="language-java">finished只能为true，但你的值是： false
+name不能为null，但你的值是： null
+</code></pre>
+<p>当把约束标注在Field字段上时，Bean Validation将使用字段的访问策略来校验，<strong>不会调用任何方法</strong>，即使你提供了对应的get/set方法也不会触碰。</p>
+<blockquote>
+<p>话外音：使用<code>Field#get()</code>得到字段的值</p>
+</blockquote>
+<h3 id="使用细节">使用细节</h3>
+<ol>
+<li>字段约束可以应用于<strong>任何访问修饰符</strong>的字段</li>
+<li>不支持对静态字段的约束（static静态字段使用约束无效）</li>
+</ol>
+<p>若你的对象会被<strong>字节码增强</strong>，那么请不要使用Field约束，而是使用下面介绍的属性级别约束更为合适。</p>
+<blockquote>
+<p>原因：增强过的类并不一定能通过字段反射去获取到它的值</p>
+</blockquote>
+<p>绝大多数情况下，对Field字段做约束的话均是POJO，被增强的可能性极小，因此此种方式是<strong>被推荐的</strong>，看着清爽。</p>
+<h2 id="2、属性级别约束（property）">2、属性级别约束（Property）</h2>
+<p>若一个Bean遵循<strong>Java Bean规范</strong>，那么也可以使用属性约束来代替字段约束。比如上例可改写为如下：</p>
+<pre><code class="language-java">public class Room {
+
+    public String name;
+    public boolean finished;
+
+    @NotNull
+    public String getName() {
+        return name;
+    }
+
+    @AssertTrue
+    public boolean isFinished() {
+        return finished;
+    }
+}
+</code></pre>
+<p>执行上面相同的测试用例，输出：</p>
+<pre><code class="language-java">finished只能为true，但你的值是： false
+name不能为null，但你的值是： null
+</code></pre>
+<p>效果“完全”一样。</p>
+<p>当把约束标注在Property属性上时，将采用属性访问策略来获取要验证的值。说白了：会调用你的Method来获取待校验的值。</p>
+<h3 id="使用细节-2">使用细节</h3>
+<ol>
+<li>约束放在get方法上<strong>优于</strong>放在set方法上，这样只读属性（没有get方法）依然可以执行约束逻辑</li>
+<li>不要在<strong>属性和字段</strong>上都标注注解，否则会重复执行约束逻辑（有多少个注解就执行多少次）</li>
+<li>不要既在属性的get方法上又在set方法上标注约束注解</li>
+</ol>
+<h2 id="3、容器元素级别约束（container-element）">3、容器元素级别约束（Container Element）</h2>
+<p>还有一种非常非常常见的验证场景：验证容器内（每个）元素，也就验证参数化类型<code>parameterized type</code>。形如<code>List&lt;Room&gt;</code>希望里面装的每个Room都是合法的，传统的做法是在for循环里对每个room进行验证：</p>
+<pre><code class="language-java">List&lt;Room&gt; beans = new ArrayList&lt;&gt;();
+for (Room bean : beans) {
+    validate(bean);
+    ...
+}
+</code></pre>
+<p>很明显这么做至少存在下面两个不足：</p>
+<ol>
+<li>验证逻辑具有侵入性</li>
+<li>验证逻辑是黑匣子（不看内部源码无法知道你有哪些约束），非声明式</li>
+</ol>
+<p>在本专栏<a href="https://mp.weixin.qq.com/s/g04HMhrjbvbPn1Mb9JYa5g">第一篇</a>知道了从Bean Validation 2.0开始就支持容器元素校验了（本专栏使用版本为：<code>2.02</code>），下面我们来体验一把：</p>
+<pre><code class="language-java">public class Room {
+    @NotNull
+    public String name;
+    @AssertTrue
+    public boolean finished;
+}
+</code></pre>
+<p>书写测试用例：</p>
+<pre><code class="language-java">public static void main(String[] args) {
+    List&lt;@NotNull Room&gt; rooms = new ArrayList&lt;&gt;();
+    rooms.add(null);
+    rooms.add(new Room());
+
+    Room room = new Room();
+    room.name = "YourBatman";
+    rooms.add(room);
+
+    ValidatorUtil.printViolations(ValidatorUtil.obtainValidator().validate(rooms));
+}
+</code></pre>
+<p>运行程序，<strong>没有任何输出</strong>，也就是说并没有对rooms立面的元素进行验证。这里有一个误区：Bean Validator是基于<strong>Java Bean</strong>进行验证的，而此处你的<code>rooms</code>仅仅只是一个容器类型的变量而已，因此不会验证。</p>
+<blockquote>
+<p>其实它是把List当作一个Bean，去验证List里面的标注有约束注解的属性/方法。很显然，List里面不可能标注有约束注解嘛，所以什么都不输出喽</p>
+</blockquote>
+<p>为了让验证生效，我们只需这么做：</p>
+<pre><code class="language-java">@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class Rooms {
+    private List&lt;@Valid @NotNull Room&gt; rooms;
+}
+
+public static void main(String[] args) {
+    List&lt;@NotNull Room&gt; beans = new ArrayList&lt;&gt;();
+    beans.add(null);
+    beans.add(new Room());
+
+    Room room = new Room();
+    room.name = "YourBatman";
+    beans.add(room);
+
+    // 必须基于Java Bean，验证才会生效
+    Rooms rooms = new Rooms(beans);
+    ValidatorUtil.printViolations(ValidatorUtil.obtainValidator().validate(rooms));
+}
+</code></pre>
+<p>运行程序，输出：</p>
+<pre><code class="language-java">rooms[0].&lt;list element&gt;不能为null，但你的值是： null
+rooms[2].finished只能为true，但你的值是： false
+rooms[1].name不能为null，但你的值是： null
+rooms[1].finished只能为true，但你的值是： false
+rooms[1].finished只能为true，但你的值是： false
+</code></pre>
+<p>从日志中可以看出，元素的验证顺序是不保证的。</p>
+<blockquote>
+<p>小贴士：在HV 6.0 <strong>之前</strong>的版本中，验证容器元素时@Valid是必须，也就是必须写成这样：<code>List&lt;@Valid @NotNull Room&gt; rooms</code>才有效。在HV 6.0之后@Valid这个注解就不是必须的了</p>
+</blockquote>
+<h3 id="使用细节-3">使用细节</h3>
+<ol>
+<li>若约束注解想标注在容器元素上，那么注解定义的<code>@Target</code>里必须包含<code>TYPE_USE</code>（Java8新增）这个类型
+<ol>
+<li>BV和HV（除了Class级别）的<strong>所有注解</strong>均能标注在容器元素上</li>
+</ol>
+</li>
+<li>BV规定了可以验证容器内元素，HV提供实现。它默认支持如下容器类型：
+<ol>
+<li><code>java.util.Iterable</code>的实现（如List、Set）</li>
+<li><code>java.util.Map</code>的实现，支持key和value</li>
+<li><code>java.util.Optional/OptionalInt/OptionalDouble...</code></li>
+<li>JavaFX的<code>javafx.beans.observable.ObservableValue</code></li>
+<li>自定义容器类型（自定义很重要，详见下篇文章）</li>
+</ol>
+</li>
+</ol>
+<h2 id="4、类级别约束（class）">4、类级别约束（Class）</h2>
+<p>类级别的约束验证是很多同学不太熟悉的一块，但它却很是重要。</p>
+<p>其实Hibernate-Validator已内置提供了一部分能力，但可能还不够，很多场景需要自己动手优雅解决。为了体现此part的重要性，我决定专门撰文描述，当然还有<strong>自定义容器类型</strong>类型的校验喽，我们下文见。</p>
+<h2 id="字段约束和属性约束的区别">字段约束和属性约束的区别</h2>
+<p>字段（Field）   VS   属性（Property）本身就属于一对“近义词”，很多时候口头上我们并不做区分，是因为<strong>在POJO里</strong>他俩一般都同时存在，因此大多数情况下可以对等沟通。比如：</p>
+<pre><code class="language-java">@Data
+public class Room {
+    @NotNull
+    private String name;
+    @AssertTrue
+    private boolean finished;
+}
+</code></pre>
+<h3 id="字段和属性的区别">字段和属性的区别</h3>
+<ol>
+<li>字段具有存储功能：字段是类的一个成员，值在内存中真实存在；而属性它不具有存储功能，属于Java Bean规范抽象出来的一个叫法</li>
+<li>字段一般用于类<strong>内部</strong>（一般是private），而属性可供外部访问（get/set一般是public）
+<ol>
+<li>这指的是一般情况下的规律</li>
+</ol>
+</li>
+<li>字段的本质是Field，属性的本质是Method</li>
+<li>属性并<strong>不依赖于</strong>字段而存在，只是他们一般都成双成对出现
+<ol>
+<li>如<code>getClass()</code>你可认为它有名为class的属性，但是它并没有名为class的字段</li>
+</ol>
+</li>
+</ol>
+<p>知晓了字段和属性的区别，再去理解<strong>字段约束</strong>和<strong>属性约束</strong>的差异就简单了，它俩的差异仅仅体现在<strong>待验证值</strong>访问策略上的区别：</p>
+<ul>
+<li>字段约束：直接反射访问字段的值 -&gt; Field#get（不会执行get方法体）</li>
+<li>属性约束：调用属性get方法 -&gt; getXXX（会执行get方法体）</li>
+</ul>
+<blockquote>
+<p>小贴士：如果你希望执行了验证就输出一句日志，又或者你的POJO被字节码增强了，那么属性约束更适合你。否则，推荐使用字段约束</p>
+</blockquote>
+<h1 id="总结">✍总结</h1>
+<p>嗯，这篇文章还不错吧，总体浏览下来行文简单，但内容还是挺干的哈，毕竟1024节嘛，不来点的干的心里有愧。</p>
+<p>作为此part姊妹篇的<strong>上篇</strong>，它是每个同学都有必要掌握的使用方式。而<strong>下篇</strong>我觉得应该更为兴奋些，毕竟那里才能加分。1024，撸起袖子继续干。</p>
+<h5 id="推荐阅读：">✔推荐阅读：</h5>
+<ul>
+<li><a href="https://mp.weixin.qq.com/s/g04HMhrjbvbPn1Mb9JYa5g">1. 不吹不擂，第一篇就能提升你对Bean Validation数据校验的认知</a></li>
+<li><a href="https://mp.weixin.qq.com/s/-KeOCq2rsXCvrqD8HYHSpQ">2. Bean Validation声明式校验方法的参数、返回值</a></li>
+<li><a href="https://mp.weixin.qq.com/s/MQjXG0cg8domRtwf3ArvHw">3. 站在使用层面，Bean Validation这些标准接口你需要烂熟于胸</a></li>
+<li><a href="https://mp.weixin.qq.com/s/jzOv67ZTSx2rByj0aeUTgw">4. Validator校验器的五大核心组件，一个都不能少</a></li>
+</ul>
+
+</div>
+<div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+    <div id="blog_post_info"></div>
+    <div class="clear"></div>
+    <div id="post_next_prev"></div>
+</div>
+            </div>
+            <div class="postDesc">posted @ 
+<span id="post-date">2020-10-26 06:29</span>&nbsp;
+<a href="https://www.cnblogs.com/yourbatman/">YourBatman</a>&nbsp;
+阅读(<span id="post_view_count">11</span>)&nbsp;
+评论(<span id="post_comment_count">1</span>)&nbsp;
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13876469" rel="nofollow">编辑</a>&nbsp;
+<a href="javascript:void(0)" onclick="AddToWz(13876469);return false;">收藏</a></div>
+        </div>
+	    
+	    
+    </div><!--end: topics 文章、评论容器-->
+</div>
+<script src="https://common.cnblogs.com/highlight/10.3.1/highlight.min.js"></script>
+<script>markdown_highlight();</script>
+<script>
+    var allowComments = true, cb_blogId = 360196, cb_blogApp = 'yourbatman', cb_blogUserGuid = '68d42dff-e654-e411-b908-9dcfd8948a71';
+    var cb_entryId = 13876469, cb_entryCreatedDate = '2020-10-26 06:29', cb_postType = 1;
+    loadViewCount(cb_entryId);
+</script>
+<a name="!comments"></a>
+<div id="blog-comments-placeholder"></div>
+<div id="comment_form" class="commentform">
+    <a name="commentform"></a>
+    <div id="divCommentShow"></div>
+    <div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="#" onclick="return RefreshPage();">刷新页面</a><a href="#top">返回顶部</a></div>
+    <div id="comment_form_container"></div>
+    <div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+    <div id="ad_t2"></div>
+    <div id="opt_under_post"></div>
+    <div id="cnblogs_c1" class="c_ad_block">
+        <div id='div-gpt-ad-1592365906576-0' style='width: 300px; height: 250px;'></div>
+    </div>
+    <div id="under_post_news"></div>
+    <div id="cnblogs_c2" class="c_ad_block">
+        <div id='div-gpt-ad-1592366332455-0' style='width: 468px; height: 60px;'></div>
+    </div>
+    <div id="under_post_kb"></div>
+    <div id="HistoryToday" class="c_ad_block"></div>
+    <script type="text/javascript">
+       var commentManager = new blogCommentManager();
+       commentManager.renderComments(0);
+       fixPostBody();
+       deliverBigBanner();
+setTimeout(function() { incrementViewCount(cb_entryId); }, 50);       deliverT2();
+       deliverC1C2();
+       loadNewsAndKb();
+       loadBlogSignature();
+LoadPostCategoriesTags(cb_blogId, cb_entryId);       LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+       GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+       loadOptUnderPost();
+       GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);
+   </script>
+</div>
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+	<div id="sideBar">
+		<div id="sideBarMain">
+			<div id="sidebar_news" class="newsItem">
+            <script>loadBlogNews();</script>
+</div>
+<div id="sidebar_ad"></div>
+			<div id="blog-calendar" style="display:none"></div><script>loadBlogDefaultCalendar();</script>			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"></div>
+                    <script>loadBlogSideColumn();</script>
+			</div>			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		<!--done-->
+Copyright &copy; 2020 YourBatman
+<br /><span id="poweredby">Powered by .NET 5.0.0-rc.2.20475.5 on Kubernetes</span>
+
+
+
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+    <div id="page_end_html">
+        <!-- 图片点击放大-->
+<script type="text/javascript" src="https://blog-static.cnblogs.com/files/jajian/img.enlarge.js"></script>
+<div id="outerdiv" style="text-align: center;position: fixed;z-index: 1000;top: 0;left: 0;
+    width: 100%;height: 100%;background-color: rgba(255,255,255,.9);display: none;">
+    <img id="bigimg" style="height: auto;width: 65%;border: 5px solid #7e8c8d; 
+        margin: auto;position: absolute;top: 0;bottom: 0;left: 0;right: 0;" src="" />
+</div>
+
+<!-- 飘雪花 -->
+<script type="text/javascript">
+(function($){
+    $.fn.snow = function(options){
+    var $flake = $('<div id="snowbox" />').css({'position': 'absolute','z-index':'9999', 'top': '-50px'}).html('❄'),
+    documentHeight     = $(document).height(),
+    documentWidth    = $(document).width(),
+    defaults = {
+        minSize        : 5,
+        maxSize        : 25,
+        newOn        : 500,
+        flakeColor    : getRandomColor() /* 此处可以定义雪花颜色，若要白色可以改为#FFFFFF */
+    },
+    options    = $.extend({}, defaults, options);
+    var interval= setInterval( function(){
+    var startPositionLeft = Math.random() * documentWidth - 100,
+    startOpacity = 0.5 + Math.random(),
+    sizeFlake = options.minSize + Math.random() * options.maxSize,
+    endPositionTop = documentHeight - 200,
+    endPositionLeft = startPositionLeft - 500 + Math.random() * 500,
+    durationFall = documentHeight * 10 + Math.random() * 5000;
+    $flake.clone().appendTo('body').css({
+        left: startPositionLeft,
+        opacity: startOpacity,
+        'font-size': sizeFlake,
+        color: getRandomColor()
+    }).animate({
+        top: endPositionTop,
+        left: endPositionLeft,
+        opacity: 0.2
+    },durationFall,'linear',function(){
+        $(this).remove()
+    });
+    }, options.newOn);
+    };
+})(jQuery);
+$(function(){
+    $.fn.snow({ 
+        minSize: 3, /* 定义雪花最小尺寸 */
+        maxSize: 33,/* 定义雪花最大尺寸 */
+        newOn: 666  /* 定义密集程度，数字越小越密集 */
+    });
+
+    // 每张图片居中处理
+    // $("img[loading='lazy']").parent("p").css("text-align","center");
+    $("#topics p img").wrap("<div style='text-align:center;'></div>");
+});
+var getRandomColor = function(){
+  return '#'+Math.floor(Math.random()*16777215).toString(16); 
+}
+</script>
+
+<a id="back-to-top" href="#top">TOP</a>
+
+<!-- 代码块显示行号 -->
+<link href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/atelier-lakeside-dark.min.css" rel="stylesheet"/>
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script src="//cdn.bootcss.com/highlightjs-line-numbers.js/1.1.0/highlightjs-line-numbers.min.js"></script>
+<script>hljs.initLineNumbersOnLoad();</script>
+    </div>
+</body>
+</html>

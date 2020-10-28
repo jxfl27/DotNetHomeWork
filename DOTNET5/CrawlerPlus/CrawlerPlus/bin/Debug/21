@@ -1,0 +1,629 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="origin" />
+    
+    
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>程序员欣宸 - 博客园</title>
+    <link id="favicon" rel="shortcut icon" href="//common.cnblogs.com/favicon.svg" type="image/svg+xml" />
+    
+    <link rel="stylesheet" href="/css/blog-common.min.css?v=caAedYKpnz341INFIWakIM6r1EP9FIuJg43i9i8zqDQ" />
+    <link id="MainCss" rel="stylesheet" href="/skins/en_summergarden/bundle-en_summergarden.min.css?v=eJPbnlR84uox-N8Y1kMPtN4OnGKJuv0XEEgil80ofFA" />
+    
+    <link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="/skins/en_summergarden/bundle-en_summergarden-mobile.min.css?v=mYzM5jEqKntYY2mNfd3bMDmKByg95WSW2ILR6-fQOnc" />
+    
+    <link type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/bolingcavalry/rss" />
+    <link type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/bolingcavalry/rsd.xml" />
+    <link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/bolingcavalry/wlwmanifest.xml" />
+    <script>
+        var currentBlogId = 530190;
+        var currentBlogApp = 'bolingcavalry';
+        var cb_enable_mathjax = false;
+        var isLogined = false;
+        var isBlogOwner = false;
+        var skinName = 'En_summerGarden';
+        var visitorUserId = '';
+    </script>
+    <script src="https://common.cnblogs.com/scripts/jquery-2.2.0.min.js"></script>
+    <script src="/js/blog-common.min.js?v=kKx3DBtpvO8r97BzPmHJseQ10fGHkI-ZwMh4FA0eEd0"></script>
+    
+    
+    
+</head>
+<body class="no-navbar">
+    <a name="top"></a> 
+    <div id="top_nav" class="navbar navbar-custom">
+        <nav id="nav_main" class="navbar-main">
+            <ul id="nav_left" class="navbar-list navbar-left">
+                <li class="navbar-branding">
+                    <a href="https://www.cnblogs.com/" title="开发者的网上家园"><img src="/images/logo.svg?v=R9M0WmLAIPVydmdzE2keuvnjl-bPR7_35oHqtiBzGsM" alt="博客园Logo" /></a>
+                </li>
+                <li><a href="/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-sitehome')">首页</a></li>
+                <li><a href="https://news.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-news')">新闻</a></li>
+                <li><a href="https://q.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-q')">博问</a></li>
+                <li><a id="nav_brandzone" href="https://brands.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-brands')">专区</a></li>
+                <li><a href="https://ing.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-ing')">闪存</a></li>
+                <li><a href="https://edu.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-edu')">班级</a></li>
+            </ul>
+            <ul id="nav_right" class="navbar-list navbar-right">
+                <li>
+                    <form id="zzk_search" class="navbar-search" action="https://zzk.cnblogs.com/s" method="get">
+                        <input name="w" id="zzk_search_input" placeholder="代码改变世界" type="text" tabindex="3" />
+                        <button type="submit" id="zzk_search_button">
+                            <img src="/images/aggsite/search.svg" alt="搜索" />
+                        </button>
+                    </form>
+                </li>
+                <li id="navbar_login_status" class="navbar-list">
+                    <a id="navblog-myblog-icon" class="navbar-user-info navbar-blog" href="https://passport.cnblogs.com/GetBlogApplyStatus.aspx" alt="我的博客" title="我的博客">
+                        <img id="myblog_icon" class="navbar-icon" src="/images/aggsite/myblog.svg" alt="我的博客" />
+                    </a>
+                    <a class="navbar-user-info navbar-message navbar-icon-wrapper" href="https://msg.cnblogs.com/" alt="短消息" title="短消息">
+                        <img id="msg_icon" class="navbar-icon" src="/images/aggsite/message.svg?v=oS4PkibyMjZ9rGD5XAcLt99uW_s76Javy2up4dbnZNY" alt="短消息" />
+                        <span id="msg_count" style="display: none"></span>
+                    </a>
+                    <div id="user_info" class="navbar-user-info dropdown">
+                        <a class="dropdown-button" href="https://home.cnblogs.com/">
+                            <img id="user_icon" class="navbar-avatar" src="/images/aggsite/avatar-default.svg" alt="用户头像" />
+                        </a>
+                        <div class="dropdown-menu">
+                            <a id="navblog-myblog-text" href="https://passport.cnblogs.com/GetBlogApplyStatus.aspx">我的博客</a>
+                            <a href="https://home.cnblogs.com/">我的园子</a>
+                            <a href="https://account.cnblogs.com/settings/account">账号设置</a>
+                            <a href="javascript:void(0)" onclick="logout();">退出登录</a>
+                        </div>
+                    </div>
+                    <a class="navbar-anonymous" href="https://account.cnblogs.com/signup/">注册</a>
+                    <a class="navbar-anonymous" href="https://account.cnblogs.com/signin/?returnUrl=https://www.cnblogs.com/">登录</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    
+    
+<!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+	<a href="https://www.cnblogs.com/bolingcavalry/"><img id="blogLogo" src="/skins/custom/images/logo.gif" alt="Return Home" /></a>			
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle HeaderMainTitle" href="https://www.cnblogs.com/bolingcavalry/">zq2599</a>
+</h1>
+<h2>
+
+</h2>
+
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+
+<ul id="navList">
+	<li><a id="blog_nav_sitehome" class="menu" href="https://www.cnblogs.com/">
+CnBlogs</a>
+</li>
+	<li>
+<a id="blog_nav_myhome" class="menu" href="https://www.cnblogs.com/bolingcavalry/">
+Home</a>
+</li>
+	<li>
+
+<a id="blog_nav_newpost" class="menu" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">
+New Post</a>
+</li>
+	<li>
+<a id="blog_nav_contact" class="menu" href="https://msg.cnblogs.com/send/%E7%A8%8B%E5%BA%8F%E5%91%98%E6%AC%A3%E5%AE%B8">
+Contact</a></li>
+	<li>
+<a id="blog_nav_admin" class="menu" href="https://i.cnblogs.com/">
+Admin</a>
+</li>
+	<li>
+<a id="blog_nav_rss" class="menu" href="javascript:void(0)" data-rss="https://www.cnblogs.com/bolingcavalry/rss/">
+Subscription</a>
+	
+<a id="blog_nav_rss_image" href="https://www.cnblogs.com/bolingcavalry/rss/">
+    <img src="/skins/en_summergarden/images/xml.gif" alt="订阅" />
+</a></li>
+</ul>
+
+
+
+		<div class="blogStats">
+			
+			<!--done-->
+Posts - 
+89&nbsp;
+Articles - 
+0&nbsp;
+Comments - 
+16&nbsp;
+
+
+
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		
+
+
+
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/bolingcavalry/archive/2020/10/26.html">2020年10月26日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/bolingcavalry/p/13876565.html">
+    <span>
+        群晖DS218+做maven私服(nexus3)
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+欢迎访问我的GitHub https://github.com/zq2599/blog_demos 内容：所有原创文章分类汇总及配套源码，涉及Java、Docker、Kubernetes、DevOPS等； 背景 本人是个Java工程师，在家里撸代码时台式机、笔记本、虚拟机都可能用来编译构建maven        <a href="https://www.cnblogs.com/bolingcavalry/p/13876565.html" class="c_b_p_desc_readmore">Read More</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-10-26 07:59
+程序员欣宸
+<span class="post-view-count">Views(6)</span><text> </text>
+<span class="post-comment-count">Comments(0)</span><text> </text>
+<span class="post-digg-count">Diggs(0)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13876565" rel="nofollow">
+    Edit
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/bolingcavalry/archive/2020/10/24.html">2020年10月24日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/bolingcavalry/p/13869811.html">
+    <span>
+        CDH+Kylin三部曲之三：Kylin官方demo
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+欢迎访问我的GitHub https://github.com/zq2599/blog_demos 内容：所有原创文章分类汇总及配套源码，涉及Java、Docker、Kubernetes、DevOPS等； 本文是《CDH+Kylin三部曲》系列的终篇，先简单回顾前面的内容： 《CDH+Kylin三部        <a href="https://www.cnblogs.com/bolingcavalry/p/13869811.html" class="c_b_p_desc_readmore">Read More</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-10-24 16:06
+程序员欣宸
+<span class="post-view-count">Views(83)</span><text> </text>
+<span class="post-comment-count">Comments(0)</span><text> </text>
+<span class="post-digg-count">Diggs(0)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13869811" rel="nofollow">
+    Edit
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/bolingcavalry/archive/2020/10/23.html">2020年10月23日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/bolingcavalry/p/13862001.html">
+    <span>
+        CDH+Kylin三部曲之二：部署和设置
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+欢迎访问我的GitHub https://github.com/zq2599/blog_demos 内容：所有原创文章分类汇总及配套源码，涉及Java、Docker、Kubernetes、DevOPS等； 本篇概览 本文是《CDH+Kylin三部曲》系列的第二篇，上一篇《CDH+Kylin三部曲之一        <a href="https://www.cnblogs.com/bolingcavalry/p/13862001.html" class="c_b_p_desc_readmore">Read More</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-10-23 08:12
+程序员欣宸
+<span class="post-view-count">Views(89)</span><text> </text>
+<span class="post-comment-count">Comments(0)</span><text> </text>
+<span class="post-digg-count">Diggs(0)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13862001" rel="nofollow">
+    Edit
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/bolingcavalry/archive/2020/10/22.html">2020年10月22日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/bolingcavalry/p/13855839.html">
+    <span>
+        CDH+Kylin三部曲之一：准备工作
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+欢迎访问我的GitHub https://github.com/zq2599/blog_demos 内容：所有原创文章分类汇总及配套源码，涉及Java、Docker、Kubernetes、DevOPS等； 关于《CDH+Kylin三部曲》系列 本文是《CDH+Kylin三部曲》的第一篇，整个系列由以        <a href="https://www.cnblogs.com/bolingcavalry/p/13855839.html" class="c_b_p_desc_readmore">Read More</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-10-22 07:59
+程序员欣宸
+<span class="post-view-count">Views(91)</span><text> </text>
+<span class="post-comment-count">Comments(0)</span><text> </text>
+<span class="post-digg-count">Diggs(0)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13855839" rel="nofollow">
+    Edit
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/bolingcavalry/archive/2020/10/21.html">2020年10月21日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/bolingcavalry/p/13850139.html">
+    <span>
+        Flink on Yarn三部曲之三：提交Flink任务
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+欢迎访问我的GitHub https://github.com/zq2599/blog_demos 内容：所有原创文章分类汇总及配套源码，涉及Java、Docker、Kubernetes、DevOPS等； 本文是《Flink on Yarn三部曲》系列的终篇，先简单回顾前面的内容： 《Flink o        <a href="https://www.cnblogs.com/bolingcavalry/p/13850139.html" class="c_b_p_desc_readmore">Read More</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-10-21 07:45
+程序员欣宸
+<span class="post-view-count">Views(95)</span><text> </text>
+<span class="post-comment-count">Comments(0)</span><text> </text>
+<span class="post-digg-count">Diggs(0)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13850139" rel="nofollow">
+    Edit
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/bolingcavalry/archive/2020/10/20.html">2020年10月20日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/bolingcavalry/p/13844418.html">
+    <span>
+        Flink on Yarn三部曲之二：部署和设置
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+欢迎访问我的GitHub https://github.com/zq2599/blog_demos 内容：所有原创文章分类汇总及配套源码，涉及Java、Docker、Kubernetes、DevOPS等； 本文是《Flink on Yarn三部曲》系列的第二篇，上一篇《Flink on Yarn三部        <a href="https://www.cnblogs.com/bolingcavalry/p/13844418.html" class="c_b_p_desc_readmore">Read More</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-10-20 08:28
+程序员欣宸
+<span class="post-view-count">Views(94)</span><text> </text>
+<span class="post-comment-count">Comments(0)</span><text> </text>
+<span class="post-digg-count">Diggs(0)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13844418" rel="nofollow">
+    Edit
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/bolingcavalry/archive/2020/10/19.html">2020年10月19日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/bolingcavalry/p/13838153.html">
+    <span>
+        Flink on Yarn三部曲之一：准备工作
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+欢迎访问我的GitHub https://github.com/zq2599/blog_demos 内容：所有原创文章分类汇总及配套源码，涉及Java、Docker、Kubernetes、DevOPS等； 关于Flink on Yarn三部曲 本文是《Flink on Yarn三部曲》的第一篇，整个        <a href="https://www.cnblogs.com/bolingcavalry/p/13838153.html" class="c_b_p_desc_readmore">Read More</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-10-19 07:27
+程序员欣宸
+<span class="post-view-count">Views(99)</span><text> </text>
+<span class="post-comment-count">Comments(0)</span><text> </text>
+<span class="post-digg-count">Diggs(1)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13838153" rel="nofollow">
+    Edit
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/bolingcavalry/archive/2020/10/18.html">2020年10月18日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/bolingcavalry/p/13834177.html">
+    <span>
+        超简单的CDH6部署和体验(单机版)
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+欢迎访问我的GitHub https://github.com/zq2599/blog_demos 内容：所有原创文章分类汇总及配套源码，涉及Java、Docker、Kubernetes、DevOPS等； 为什么会超简单 借助ansible简化了CDH6部署工作的大部分内容，也降低了手工操作失误的概        <a href="https://www.cnblogs.com/bolingcavalry/p/13834177.html" class="c_b_p_desc_readmore">Read More</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-10-18 11:14
+程序员欣宸
+<span class="post-view-count">Views(44)</span><text> </text>
+<span class="post-comment-count">Comments(0)</span><text> </text>
+<span class="post-digg-count">Diggs(0)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13834177" rel="nofollow">
+    Edit
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/bolingcavalry/archive/2020/10/16.html">2020年10月16日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/bolingcavalry/p/13824192.html">
+    <span>
+        ansible2.4安装和体验
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+欢迎访问我的GitHub https://github.com/zq2599/blog_demos 内容：所有原创文章分类汇总及配套源码，涉及Java、Docker、Kubernetes、DevOPS等； 关于ansible ansible是常用的开源配置管理工具，简单易用，可以高效的帮助我们对服务        <a href="https://www.cnblogs.com/bolingcavalry/p/13824192.html" class="c_b_p_desc_readmore">Read More</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-10-16 07:50
+程序员欣宸
+<span class="post-view-count">Views(79)</span><text> </text>
+<span class="post-comment-count">Comments(0)</span><text> </text>
+<span class="post-digg-count">Diggs(0)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13824192" rel="nofollow">
+    Edit
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+		
+
+
+<div class="day">
+    <div class="dayTitle">
+        <a href="https://www.cnblogs.com/bolingcavalry/archive/2020/10/15.html">2020年10月15日</a>
+    </div>
+
+        <div class="postTitle">
+            
+
+<a class="postTitle2 vertical-middle" href="https://www.cnblogs.com/bolingcavalry/p/13818455.html">
+    <span>
+        CDH5部署三部曲之三：问题总结
+    </span>
+    
+
+
+</a>
+
+        </div>
+        <div class="postCon">
+
+    <div class="c_b_p_desc">
+欢迎访问我的GitHub https://github.com/zq2599/blog_demos 内容：所有原创文章分类汇总及配套源码，涉及Java、Docker、Kubernetes、DevOPS等； 系列文章链接 本文是《CDH5部署三部曲》的终篇，前面两章完成了CDH5集群的部署和启动，本章        <a href="https://www.cnblogs.com/bolingcavalry/p/13818455.html" class="c_b_p_desc_readmore">Read More</a>
+    </div>
+</div>
+        <div class="clear"></div>
+        <div class="postDesc">posted @ 2020-10-15 07:17
+程序员欣宸
+<span class="post-view-count">Views(82)</span><text> </text>
+<span class="post-comment-count">Comments(0)</span><text> </text>
+<span class="post-digg-count">Diggs(1)</span><text> </text>
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13818455" rel="nofollow">
+    Edit
+</a>
+</div>
+        <div class="clear"></div>
+</div>
+
+
+
+<div class="topicListFooter">
+    <div id="nav_next_page">
+        
+    <a href="https://www.cnblogs.com/bolingcavalry/default.html?page=2">
+        下一页
+    </a>
+
+    </div>    
+</div>
+
+
+
+
+
+
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			<div id="sidebar_news" class="newsItem">
+            <script>loadBlogNews();</script>
+</div>
+<div id="sidebar_ad"></div>
+			<div id="calendar"><div id="blog-calendar" style="display:none"></div><script>loadBlogDefaultCalendar();</script></div>
+			
+			<DIV id="leftcontentcontainer">
+				<div id="blog-sidecolumn"></div>
+                    <script>loadBlogSideColumn();</script>
+			</DIV>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		<!--done-->
+Copyright &copy; 2020 程序员欣宸
+<br /><span id="poweredby">Powered by .NET 5.0.0-rc.2.20475.5 on Kubernetes</span>
+
+
+
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+    
+</body>
+</html>

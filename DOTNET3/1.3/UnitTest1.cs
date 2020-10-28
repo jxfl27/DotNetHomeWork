@@ -86,7 +86,6 @@ namespace _1._2
             CollectionAssert.Equals(service.OrderList, correct);
         }
 
-        [TestMethod]
 
     }
 }

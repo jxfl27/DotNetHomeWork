@@ -1,0 +1,414 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="never" />
+    <meta name="description" content="一、创建多线程的两种方式 1.继承Thread类，重写run方法 2.实现Runnable接口，重写run方法 3.直接上代码 package com.ruigege.threadFoundation" />
+    <meta property="og:description" content="一、创建多线程的两种方式 1.继承Thread类，重写run方法 2.实现Runnable接口，重写run方法 3.直接上代码 package com.ruigege.threadFoundation" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Java高并发1-创建线程的三种方式、虚假唤醒、native关键字 - 心悦君兮君不知-睿 - 博客园</title>
+    <link id="favicon" rel="shortcut icon" href="//common.cnblogs.com/favicon.svg" type="image/svg+xml" />
+    
+    <link rel="stylesheet" href="/css/blog-common.min.css?v=caAedYKpnz341INFIWakIM6r1EP9FIuJg43i9i8zqDQ" />
+    <link id="MainCss" rel="stylesheet" href="/skins/chrismas/bundle-chrismas.min.css?v=4zpLNRjTjKakbppb63gY8Sb7GpBjppeaClSoKNwEwDU" />
+    
+    <link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="/skins/chrismas/bundle-chrismas-mobile.min.css?v=arJ4BmwdBcUZrSduKjIvQKPiliQ99OBUW7yasPqJtdY" />
+    
+    <link type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/ruigege0000/rss" />
+    <link type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/ruigege0000/rsd.xml" />
+    <link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/ruigege0000/wlwmanifest.xml" />
+    <script>
+        var currentBlogId = 519726;
+        var currentBlogApp = 'ruigege0000';
+        var cb_enable_mathjax = false;
+        var isLogined = false;
+        var isBlogOwner = false;
+        var skinName = 'Chrismas';
+        var visitorUserId = '';
+    </script>
+        <script>
+            var currentPostDateAdded = '2020-10-25 11:55';
+        </script>
+    <script src="https://common.cnblogs.com/scripts/jquery-2.2.0.min.js"></script>
+    <script src="/js/blog-common.min.js?v=kKx3DBtpvO8r97BzPmHJseQ10fGHkI-ZwMh4FA0eEd0"></script>
+    
+    
+    
+</head>
+<body class="no-navbar">
+    <a name="top"></a> 
+    <div id="top_nav" class="navbar navbar-custom">
+        <nav id="nav_main" class="navbar-main">
+            <ul id="nav_left" class="navbar-list navbar-left">
+                <li class="navbar-branding">
+                    <a href="https://www.cnblogs.com/" title="开发者的网上家园"><img src="/images/logo.svg?v=R9M0WmLAIPVydmdzE2keuvnjl-bPR7_35oHqtiBzGsM" alt="博客园Logo" /></a>
+                </li>
+                <li><a href="/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-sitehome')">首页</a></li>
+                <li><a href="https://news.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-news')">新闻</a></li>
+                <li><a href="https://q.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-q')">博问</a></li>
+                <li><a id="nav_brandzone" href="https://brands.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-brands')">专区</a></li>
+                <li><a href="https://ing.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-ing')">闪存</a></li>
+                <li><a href="https://edu.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-edu')">班级</a></li>
+            </ul>
+            <ul id="nav_right" class="navbar-list navbar-right">
+                <li>
+                    <form id="zzk_search" class="navbar-search" action="https://zzk.cnblogs.com/s" method="get">
+                        <input name="w" id="zzk_search_input" placeholder="代码改变世界" type="text" tabindex="3" />
+                        <button type="submit" id="zzk_search_button">
+                            <img src="/images/aggsite/search.svg" alt="搜索" />
+                        </button>
+                    </form>
+                </li>
+                <li id="navbar_login_status" class="navbar-list">
+                    <a id="navblog-myblog-icon" class="navbar-user-info navbar-blog" href="https://passport.cnblogs.com/GetBlogApplyStatus.aspx" alt="我的博客" title="我的博客">
+                        <img id="myblog_icon" class="navbar-icon" src="/images/aggsite/myblog.svg" alt="我的博客" />
+                    </a>
+                    <a class="navbar-user-info navbar-message navbar-icon-wrapper" href="https://msg.cnblogs.com/" alt="短消息" title="短消息">
+                        <img id="msg_icon" class="navbar-icon" src="/images/aggsite/message.svg?v=oS4PkibyMjZ9rGD5XAcLt99uW_s76Javy2up4dbnZNY" alt="短消息" />
+                        <span id="msg_count" style="display: none"></span>
+                    </a>
+                    <div id="user_info" class="navbar-user-info dropdown">
+                        <a class="dropdown-button" href="https://home.cnblogs.com/">
+                            <img id="user_icon" class="navbar-avatar" src="/images/aggsite/avatar-default.svg" alt="用户头像" />
+                        </a>
+                        <div class="dropdown-menu">
+                            <a id="navblog-myblog-text" href="https://passport.cnblogs.com/GetBlogApplyStatus.aspx">我的博客</a>
+                            <a href="https://home.cnblogs.com/">我的园子</a>
+                            <a href="https://account.cnblogs.com/settings/account">账号设置</a>
+                            <a href="javascript:void(0)" onclick="logout();">退出登录</a>
+                        </div>
+                    </div>
+                    <a class="navbar-anonymous" href="https://account.cnblogs.com/signup/">注册</a>
+                    <a class="navbar-anonymous" href="https://account.cnblogs.com/signin/?returnUrl=https://www.cnblogs.com/">登录</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    
+    <!--done-->
+<div id="wrap" align="center">
+<div id="banner" align="center">
+<!--done-->
+<div class="header">
+	<div class="headerText">
+		<a id="Header1_HeaderTitle" class="headermaintitle HeaderMainTitle" href="https://www.cnblogs.com/ruigege0000/">心悦君兮君不知-睿</a>
+<br>
+	</div>
+	<div class="headerDis">
+
+</div>
+</div>
+
+</div>
+<div id="main">
+	<!-- left starts -->
+	<div id="left">
+		<DIV id="mystats">
+			
+				<!--done-->
+<div class="blogStats">
+随笔- 
+417&nbsp;
+文章- 
+2&nbsp;
+评论- 
+16&nbsp;
+
+</div>
+
+
+			
+		</DIV>
+		<div id="mylinks">
+
+<a id="blog_nav_sitehome" class="menu" href="https://www.cnblogs.com/">
+博客园</a>
+&nbsp;&nbsp;
+<a id="blog_nav_myhome" class="menu" href="https://www.cnblogs.com/ruigege0000/">
+首页</a>
+&nbsp;&nbsp;
+
+<a id="blog_nav_newpost" class="menu" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">
+新随笔</a>
+&nbsp;&nbsp;<a id="MyLinks1_NewArticleLink" class="menu" href="https://i.cnblogs.com/EditArticles.aspx?opt=1">新文章</a>
+&nbsp;&nbsp;
+<a id="blog_nav_contact" class="menu" href="https://msg.cnblogs.com/send/%E5%BF%83%E6%82%A6%E5%90%9B%E5%85%AE%E5%90%9B%E4%B8%8D%E7%9F%A5-%E7%9D%BF">
+联系</a>&nbsp;&nbsp;
+<a id="blog_nav_admin" class="menu" href="https://i.cnblogs.com/">
+管理</a>
+&nbsp;&nbsp;
+<a id="blog_nav_rss" class="menu" href="javascript:void(0)" data-rss="https://www.cnblogs.com/ruigege0000/rss/">
+订阅</a>&nbsp;
+<a id="blog_nav_rss_image" href="https://www.cnblogs.com/ruigege0000/rss/">
+    <img src="/skins/chrismas/images/xml.gif" alt="订阅" />
+</a>
+
+</div>
+		<div id="topics">
+			<div id="post_detail">
+<!--done-->
+<div class="post">
+	<div class="postTitle">
+		
+<a id="cb_post_title_url" class="postTitle2 vertical-middle" href="https://www.cnblogs.com/ruigege0000/p/13876044.html">
+    <span>Java高并发1-创建线程的三种方式、虚假唤醒、native关键字</span>
+    
+
+
+</a>
+
+	</div>
+	
+<div id="cnblogs_post_body" class="blogpost-body cnblogs-markdown">
+    <h2 id="一、创建多线程的两种方式">一、创建多线程的两种方式</h2>
+<h3 id="1继承thread类，重写run方法">1.继承Thread类，重写run方法</h3>
+<h3 id="2实现runnable接口，重写run方法">2.实现Runnable接口，重写run方法</h3>
+<h3 id="3直接上代码">3.直接上代码</h3>
+<pre><code class="language-java">package com.ruigege.threadFoundation1;
+
+public class MyThreadExtendsType extends Thread {
+	
+	@Override
+	public void run() {
+		System.out.println("这是一个继承Thread类的多线程表示方法");
+	}
+
+}
+
+</code></pre>
+<pre><code class="language-java">package com.ruigege.threadFoundation1;
+
+public class MyThreadImplementsRunnable implements Runnable{
+	@Override
+	public void run() {
+		System.out.println("这是一个实现Runable接口的多线程");
+	}
+	
+}
+</code></pre>
+<pre><code class="language-java">package com.ruigege.threadFoundation1;
+
+
+public class MultiBuildThreadTest {
+	public static void main(String[] args) {
+		//使用继承Thread的类的方式来进行多线程创建
+		MyThreadExtendsType thread1 = new MyThreadExtendsType();
+		thread1.start();
+		//使用实现Runnable接口的方式进行多线程创建
+		Thread thread2 = new Thread(new MyThreadImplementsRunnable());
+		thread2.start();
+		
+		
+	}
+}
+
+</code></pre>
+<h3 id="4二者之间的差别">4.<strong>二者之间的差别</strong></h3>
+<ul>
+<li>（1）调用方式：继承的时候直接创建新的实例，然后调用run方法；实现接口的方式，要创建一个实例作为参数作为Thread的构造方法中，再进行调用</li>
+<li>（2）扩展性：继承只能单继承，耦合度高；实现的方式就不一样了，耦合度小</li>
+<li>（3）继承的好处，就是在实例中直接使用this关键字就可以使用该线程，而不需要调用Thread.currendThread()方法来获取实例。<strong>可以在子类中添加成员变量，如果使用了Runnable方式，那么只能使用主线程中被声明为final的变量</strong></li>
+<li>(4)两种方式都有一个弊端，就是没有返回值，下面再介绍一种</li>
+</ul>
+<h3 id="5第三中方式，使用funturetask">5.第三中方式，使用FuntureTask</h3>
+<pre><code class="language-java">package com.ruigege.threadFoundation1;
+
+import java.util.concurrent.Callable;
+
+public class MyThreadImplementsCallable implements Callable&lt;String&gt; {
+	@Override
+	public String call() throws Exception{
+		System.out.println("使用FutureTask的方式来行创建多线程");
+		return "创建好了";
+	}
+	
+
+}
+
+</code></pre>
+<pre><code class="language-java">package com.ruigege.threadFoundation1;
+
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.FutureTask;
+
+public class MultiBuildThreadTest {
+	public static void main(String[] args) throws InterruptedException, ExecutionException{
+		//使用Callable和FutureTask来创建多线程
+		FutureTask&lt;String&gt; futurnTask = new FutureTask&lt;&gt;(new MyThreadImplementsCallable());
+		Thread thread3 = new Thread(futurnTask);
+		
+		thread3.start();
+		System.out.println(futurnTask.get());	
+	}
+}
+
+</code></pre>
+<p><img src="https://img-blog.csdnimg.cn/20201025152855593.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDYzMDA1MA==,size_16,color_FFFFFF,t_70#pic_center" alt="1.1" loading="lazy"></p>
+<h3 id="6知识扫盲">6.知识扫盲</h3>
+<ul>
+<li>系统进行资源调度和内存分配的基本单位------进程</li>
+<li>线程就是进程的一个执行路径</li>
+<li>内部的机制：一个进程中有一个或者多个线程，进程中的堆和方法区线程内公用。线程中的栈和程序计数器，自己独有。<br>
+<img src="https://img-blog.csdnimg.cn/20201025145908977.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDYzMDA1MA==,size_16,color_FFFFFF,t_70#pic_center" alt="1.2" loading="lazy"></li>
+<li>程序计数器是用于记录线程当前要执行的地址（原理：CPU是分片加载执行的，一片执行完，要记住下一次从哪里执行）</li>
+</ul>
+<blockquote>
+<p>执行native方法，pc计数器是undefined地址；执行Java代码的时候才是原定义</p>
+</blockquote>
+<ul>
+<li>堆是什么时候分配的？进程创建的时候就会分配一块内存区域给堆。</li>
+<li>就绪状态：调用了start()方法之后，并没有马上执行线程，这个就绪状态就是获取了除了CPU以外的所有的资源的状态，一旦获取了CPU资源后，才会开始真正执行。</li>
+</ul>
+<h2 id="二、native关键字">二、native关键字</h2>
+<ul>
+<li>JNI(Java Native Inteface)</li>
+<li>作用：使用在方法名称的前面，意味着这个方法，并不是使用Java来编写，而是由其他语言来编写的，这个native就是声明这是个原生函数，具体是由C/C++来实现的并且会编译成dll文件，供Java来进行调用</li>
+<li>使用这种机制的原因：Java并非完美，在一些要求高性能的场景中，往往C/C++语言会更加快，于是native的出现能够很好的解决这个问题。</li>
+<li>实现的步骤：(1)首先使用native关键字来声明这个方法是原生方法；<br>
+(2)使用Javah生成一个类似于头文件的文件；(3)使用C/C++来编写这个函数，注意其中要引用第二步中产生的头文件（这个头文件又引用了jni.h这个头文件);(4)将这个写好的C码编译成一个动态链接库文件；<br>
+(5)在Java程序中使用System.loadLibrary()来加载这个动态链接库文件。<br>
+<img src="https://img-blog.csdnimg.cn/20201025233527725.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDYzMDA1MA==,size_16,color_FFFFFF,t_70#pic_center" alt="1.3" loading="lazy"></li>
+</ul>
+<h2 id="三、如果获取共享变量的监视器锁">三、如果获取共享变量的监视器锁</h2>
+<ul>
+<li>使用这个共享变量的时候，用synchronized关键字进行同步代码块</li>
+</ul>
+<pre><code class="language-java">synchronized(共享变量){
+
+}
+</code></pre>
+<ul>
+<li>该共享变量在方法中的参数的时候</li>
+</ul>
+<pre><code class="language-java"> synchronzied void add (int a,int b){
+	a + b;
+}
+</code></pre>
+<h2 id="四、虚假唤醒">四、虚假唤醒</h2>
+<ul>
+<li>一个线程的共享变量通过调用自身的wait()方法来进入阻塞状态，那如果想要从挂起状态恢复到运行状态，那么只有三种方式：（1）其他线程调用了该对象notify()或者notifyAll()方法的时候；（2）其他线程调用了该对象的interrupt()方法；</li>
+<li>如果没有以上两种情况，或者等待超时，仍然恢复运行状态就叫<strong>虚假唤醒</strong></li>
+<li>避免这种情况的方式</li>
+</ul>
+<pre><code class="language-java">synchronize(obj){
+	while(条件不满足){
+		obj.wait();
+	}
+}
+</code></pre>
+<ul>
+<li>退出循环的条件就是满足了唤醒该线程的条件。</li>
+</ul>
+<h2 id="五、源码：">五、源码：</h2>
+<ul>
+<li><code>https://github.com/ruigege66/ConcurrentJava</code></li>
+<li>CSDN：<a href="https://blog.csdn.net/weixin_44630050">https://blog.csdn.net/weixin_44630050</a></li>
+<li>博客园：<a href="https://www.cnblogs.com/ruigege0000/">https://www.cnblogs.com/ruigege0000/</a></li>
+<li>欢迎关注微信公众号：傅里叶变换，个人账号，仅用于技术交流<br>
+<img src="https://img-blog.csdnimg.cn/20200813232749723.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDYzMDA1MA==,size_16,color_FFFFFF,t_70#pic_center" alt="1000" loading="lazy"></li>
+</ul>
+
+</div>
+<div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+    <div id="blog_post_info"></div>
+    <div class="clear"></div>
+    <div id="post_next_prev"></div>
+</div>
+	<div class="postDesc">posted on 
+<span id="post-date">2020-10-25 23:55</span>&nbsp;
+<a href="https://www.cnblogs.com/ruigege0000/">心悦君兮君不知-睿</a>&nbsp;
+阅读(<span id="post_view_count">8</span>)&nbsp;
+评论(<span id="post_comment_count">0</span>)&nbsp;
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=13876044" rel="nofollow">编辑</a>&nbsp;
+<a href="javascript:void(0)" onclick="AddToWz(13876044);return false;">收藏</a></div>
+</div>
+
+
+<script src="https://common.cnblogs.com/highlight/10.3.1/highlight.min.js"></script>
+<script>markdown_highlight();</script>
+<script>
+    var allowComments = true, cb_blogId = 519726, cb_blogApp = 'ruigege0000', cb_blogUserGuid = 'cda04abf-0f1d-466f-9d36-08d6e658b145';
+    var cb_entryId = 13876044, cb_entryCreatedDate = '2020-10-25 23:55', cb_postType = 1;
+    loadViewCount(cb_entryId);
+</script>
+<a name="!comments"></a>
+<div id="blog-comments-placeholder"></div>
+<div id="comment_form" class="commentform">
+    <a name="commentform"></a>
+    <div id="divCommentShow"></div>
+    <div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="#" onclick="return RefreshPage();">刷新页面</a><a href="#top">返回顶部</a></div>
+    <div id="comment_form_container"></div>
+    <div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+    <div id="ad_t2"></div>
+    <div id="opt_under_post"></div>
+    <div id="cnblogs_c1" class="c_ad_block">
+        <div id='div-gpt-ad-1592365906576-0' style='width: 300px; height: 250px;'></div>
+    </div>
+    <div id="under_post_news"></div>
+    <div id="cnblogs_c2" class="c_ad_block">
+        <div id='div-gpt-ad-1592366332455-0' style='width: 468px; height: 60px;'></div>
+    </div>
+    <div id="under_post_kb"></div>
+    <div id="HistoryToday" class="c_ad_block"></div>
+    <script type="text/javascript">
+       var commentManager = new blogCommentManager();
+       commentManager.renderComments(0);
+       fixPostBody();
+       deliverBigBanner();
+setTimeout(function() { incrementViewCount(cb_entryId); }, 50);       deliverT2();
+       deliverC1C2();
+       loadNewsAndKb();
+       loadBlogSignature();
+LoadPostCategoriesTags(cb_blogId, cb_entryId);       LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+       GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+       loadOptUnderPost();
+       GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);
+   </script>
+</div>
+
+</div>
+
+
+		</div>
+		<br/><br/><br/>
+	</div>
+	<!-- left ends -->
+	<!-- right starts -->
+	<div id="right">
+		<!-- 右侧工具部分 -->
+		<div id="right_content">
+			<div id="sidebar_news" class="newsItem">
+            <script>loadBlogNews();</script>
+</div>
+<div id="sidebar_ad"></div>
+			<div id="calendar"><div id="blog-calendar" style="display:none"></div><script>loadBlogDefaultCalendar();</script></div>
+			
+				<DIV id="leftcontentcontainer">
+					<div id="blog-sidecolumn"></div>
+                    <script>loadBlogSideColumn();</script>
+				</DIV>
+			
+		</div>
+		<!-- //右侧工具部分 -->
+		<div id="footer">
+			Copyright &copy; 2020 心悦君兮君不知-睿
+<br /><span id="poweredby">Powered by .NET 5.0.0-rc.2.20475.5 on Kubernetes</span>
+
+
+
+		</div>
+	</div>
+	<!-- right ends -->	
+</div>
+</div>
+
+
+    
+</body>
+</html>
